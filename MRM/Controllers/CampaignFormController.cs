@@ -6,25 +6,25 @@ using System.Web.Mvc;
 
 namespace MRM.Controllers
 {
-    public class HomeController : Controller
+    public class CampaignFormController : Controller
     {
+        // GET: CampaignForm
         public ActionResult Index()
-        {        
-            return View();
-        }
-
-        public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
-
-        public ActionResult Contact()
+        public ActionResult MasterCampaign()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
+        public ActionResult ChildCampaign()
+        {
+            return View();
+        }
+        public ActionResult TacticCampaign()
+        {
+            return View();
+        }
+
     }
 }
