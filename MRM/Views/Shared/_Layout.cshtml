@@ -20,9 +20,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" style="display:@ViewBag.Menu">
-                    <li>@Html.ActionLink("Master", "MasterCampaign", "CampaignForm")</li>
-                    <li>@Html.ActionLink("Child", "ChildCampaign", "CampaignForm")</li>
-                    <li>@Html.ActionLink("Tactic", "TacticCampaign", "CampaignForm")</li>
+                    <li>@Html.ActionLink("Master", "MasterCampaign", "MasterCampaign")</li>
+                    <li>@Html.ActionLink("Child", "ChildCampaign", "ChildCampaign")</li>
+                    <li>@Html.ActionLink("Tactic", "TacticCampaign", "TacticCampaign")</li>
                     <li>@Html.ActionLink("Master Data", "MasterData", "MasterData")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

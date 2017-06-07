@@ -35,7 +35,7 @@ namespace MRM.Controllers
           
             if (!Request.IsAuthenticated) 
             {
-                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "/CampaignForm/Index" }, OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "/MasterCampaign/Index" }, OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
         }
         public void SignOut()

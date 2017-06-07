@@ -1,80 +1,36 @@
 ﻿
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "MasterCampaign";
+    ViewBag.Title = "ChildCampaign";
 }
-
-
-<style>
-    #mydiv {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1000;
-        background-color: grey;
-        opacity: .8;
-    }
-
-
-    .loader {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: -32px; /* -1 * image width / 2 */
-        margin-top: -32px; /* -1 * image height / 2 */
-        display: block;
-        border-radius: 50%;
-        animation: spin 2s linear infinite;
-        border: 16px solid #f3f3f3; /* Light grey */
-        border-top: 16px solid #3498db; /* Blue */
-        width: 120px;
-        height: 120px;
-    }
-
-    @@keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-</style>
-
 
 <div>
     <form id="myform">
-     
+
         @*<div id="mydiv" data-ng-show="loading">
-            <div class="loader"></div>
-        </div>*@
-        <section class="content-header">
-          
-        </section>
+                <div class="loader"></div>
+            </div>*@
+        <section class="content-header"></section>
 
         <section class="content">
             <!-- SELECT2 EXAMPLE -->
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Master Campaign</h3>
-                   
+                     <h3 class="box-title" style="padding:10px 7px 0px 0px">Child Campaign</h3>
+                    <hr />
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Business Group</label>
-                                 <select class="form-control">
+                                <label>Business Group*</label>
+                                <select class="form-control">
                                     <option value="1" selected="selected">--Select--</option>
                                 </select>
                             </div>
                             <!-- /.form-group -->
                             <div class="form-group">
-                                <label>Segment</label>
+                                <label>Segment*</label>
 
                                 <select class="form-control">
                                     <option value="1" selected="selected">--Select--</option>
@@ -86,7 +42,7 @@
                         <!-- /.col -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Business Line</label>
+                                <label>Business Line*</label>
 
                                 <select class="form-control">
                                     <option value="1" selected="selected">--Select--</option>
@@ -95,7 +51,7 @@
                             </div>
                             <!-- /.form-group -->
                             <div class="form-group">
-                                <label>Geography</label>
+                                <label>Geography*</label>
 
                                 <select class="form-control">
                                     <option value="1" selected="selected">--Select--</option>
@@ -103,10 +59,10 @@
                             </div>
                             <!-- /.form-group -->
                         </div>
-                     
+
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Industry</label>
+                                <label>Industry*</label>
 
                                 <select class="form-control">
                                     <option value="1" selected="selected">--Select--</option>
@@ -127,27 +83,55 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Master Campaing*</label>
+                                <label>Budget</label>
 
                                 <input type='text' class='form-control'>
 
                             </div>
                             <!-- /.form-group -->
                             <div class="form-group">
-                                <label>Master Campaing Naming*</label>
+                                <label>Spend*</label>
 
-                                <input type='text' class='form-control' readonly="readonly" value="ABCD">
+                                <input type='text' class='form-control'>
                             </div>
                             <!-- /.form-group -->
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Company Description</label>
+                                <label>Target New Pilpeline*</label>
 
                                 <input type='text' class='form-control'>
 
                             </div>
-                            
+                            <div class="form-group">
+                                <label>Target Touch Pilpeline*</label>
+
+                                <input type='text' class='form-control'>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Child Champaign Name*</label>
+
+                                <input type='text' class='form-control'>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Child Champaign Naming*</label>
+
+                                <input type='text' class='form-control' readonly="readonly" value="ABCD">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Child Champaign Description*</label>
+
+                                <input type='text' class='form-control'>
+
+                            </div>
+                         
                         </div>
                         <!-- /.col -->
                     </div>
@@ -157,8 +141,8 @@
             </div>
 
 
-          
-         
+
+
 
             <div class="row">
                 <div class="col-md-3">
@@ -167,15 +151,7 @@
                 <div class="col-md-5"></div>
                 <div class="col-md-4"></div>
             </div>
-</section>
+        </section>
     </form>
 </div>
-
-<script src="~/Scripts/angular.min.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/angular-route.min.js"></script>
-<script src="~/Content/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="~/App/Admin/Project/project.module.js"></script>
-<script src="~/App/Admin/Project/Services/project.service.js"></script>
-<script src="~/App/Admin/Project/Controllers/project.controller.js"></script>
 

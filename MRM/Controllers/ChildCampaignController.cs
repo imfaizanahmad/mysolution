@@ -6,14 +6,10 @@ using System.Web.Mvc;
 
 namespace MRM.Controllers
 {
-    public class CampaignFormController : Controller
+    public class ChildCampaignController : Controller
     {
-        // GET: CampaignForm
+        // GET: ChildCampaign
         public ActionResult Index()
-        {
-            return View();
-        }
-        public ActionResult MasterCampaign()
         {
             return View();
         }
@@ -21,10 +17,5 @@ namespace MRM.Controllers
         {
             return View();
         }
-        public ActionResult TacticCampaign()
-        {
-            return View();
-        }
-
     }
 }
