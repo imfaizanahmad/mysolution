@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "MasterData";
+}
+
+<div>
+    <form id="myform">
+
+        @*<div id="mydiv" data-ng-show="loading">
+                <div class="loader"></div>
+            </div>*@
+        <section class="content-header"></section>
+
+        <section class="content">
+            <!-- SELECT2 EXAMPLE -->
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Master Data</h3>
+
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Business Category</label>
+                                <select class="form-control">
+                                    <option value="1" selected="selected">--Select--</option>
+                                    <option value="2" selected="selected">Business Group</option>
+                                    <option value="3" selected="selected">Segment</option>
+                                    <option value="4" selected="selected">Business Line</option>
+                                    <option value="5" selected="selected">Geography</option>
+                                    <option value="6" selected="selected">Industry</option>
+                                    <option value="7" selected="selected">Theme</option>
+                                    <option value="8" selected="selected">Industry</option>
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        
+                        <div class="col-md-4">
+                            <div class="form-group"><label></label>
+                                <input type='text' class='form-control'>
+                            </div>
+                            </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label></label>
+                                <button class="btn btn-primary btn-lg">Submit</button>
+                            </div>
+
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+
+
+
+
+            <div class="row">
+                <div class="col-md-4">
+                   
+                </div>
+                <div class="col-md-4" id ="DivGrid">
+                    @*@{
+            var grid = new WebGrid(source: Model);
+            @grid.GetHtml(htmlAttributes: new { id = "DataTable" }, columns: grid.Columns(
+            grid.Column("ID"),
+            grid.Column("First"),
+            grid.Column("Last"),
+            grid.Column("Birthdate"),
+            grid.Column("", header: "ToEdit", format: @<text>@Html.ActionLink("Edit", "Edit", "Person", new { id = item.ID }, new { target = "_blank" })</text>)));
+        }*@
+
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </section>
+    </form>
+</div>
+
