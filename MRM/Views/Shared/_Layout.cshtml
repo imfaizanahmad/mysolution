@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - MRM Campaign</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -19,12 +19,12 @@
                 <h1 style="color:#fff">MRM</h1>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav" style="display:@ViewBag.Menu">
+                @*<ul class="nav navbar-nav" style="display:@ViewBag.Menu">
                     <li>@Html.ActionLink("Master", "MasterCampaign", "MasterCampaign")</li>
                     <li>@Html.ActionLink("Child", "ChildCampaign", "ChildCampaign")</li>
                     <li>@Html.ActionLink("Tactic", "TacticCampaign", "TacticCampaign")</li>
                     <li>@Html.ActionLink("Master Data", "MasterData", "MasterData")</li>
-                </ul>
+                </ul>*@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

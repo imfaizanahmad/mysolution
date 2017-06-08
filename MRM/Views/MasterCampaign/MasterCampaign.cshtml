@@ -1,4 +1,5 @@
-﻿
+﻿@model MRM.Database.Model.MasterCampaignVM
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "MasterCampaign";
@@ -67,59 +68,51 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                               
                                 <label>Business Group</label>
-                                 <select class="form-control">
+                                 @*<select class="form-control">
                                     <option value="1" selected="selected">--Select--</option>
-                                </select>
+                                </select>*@
+                                @Html.DropDownListFor(x => x.BusinessGroupsItems,new SelectList(Model.BusinessGroupsItems, "ID", "Name"), new { @class = "form-control" })
                             </div>
-                            <!-- /.form-group -->
+                     
                             <div class="form-group">
                                 <label>Segment</label>
 
-                                <select class="form-control">
-                                    <option value="1" selected="selected">--Select--</option>
-                                </select>
+                                @Html.DropDownListFor(m => m.SegmentItems, new SelectList(Model.SegmentItems, "ID", "Name"), new { @class = "form-control" })
                             </div>
 
-                            <!-- /.form-group -->
                         </div>
-                        <!-- /.col -->
+                     
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Business Line</label>
 
-                                <select class="form-control">
-                                    <option value="1" selected="selected">--Select--</option>
-                                </select>
+                                @Html.DropDownListFor(m => m.BusinessLineItems, new SelectList(Model.BusinessLineItems, "ID", "Name"), new { @class = "form-control" })
 
                             </div>
                             <!-- /.form-group -->
                             <div class="form-group">
                                 <label>Geography</label>
 
-                                <select class="form-control">
-                                    <option value="1" selected="selected">--Select--</option>
-                                </select>
+                                @Html.DropDownListFor(m => m.GeographyItems, new SelectList(Model.GeographyItems, "ID", "Name"), new { @class = "form-control" })
                             </div>
                             <!-- /.form-group -->
                         </div>
-                     
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Industry</label>
 
-                                <select class="form-control">
-                                    <option value="1" selected="selected">--Select--</option>
-                                </select>
+                                @Html.DropDownListFor(m => m.IndustryItems, new SelectList(Model.IndustryItems, "ID", "Name"), new { @class = "form-control" })
 
                             </div>
                             <!-- /.form-group -->
                             <div class="form-group">
                                 <label>Theme</label>
 
-                                <select class="form-control">
-                                    <option value="1" selected="selected">--Select--</option>
-                                </select>
+                                @Html.DropDownListFor(m => m.ThemeItems, new SelectList(Model.ThemeItems, "ID", "Name"), new { @class = "form-control" })
+
                             </div>
                             <!-- /.form-group -->
                         </div>
@@ -127,16 +120,15 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Master Campaing*</label>
-
-                                <input type='text' class='form-control'>
+                                <label>Master Campaign*</label>
+                                @Html.TextBoxFor(m => m.MasterCampaingNaming, new { @class = "form-control" })
 
                             </div>
                             <!-- /.form-group -->
                             <div class="form-group">
                                 <label>Master Campaing Naming*</label>
+                                @Html.TextBoxFor(m => m.MasterCampaingNaming, new { @class = "form-control" })
 
-                                <input type='text' class='form-control' readonly="readonly" value="ABCD">
                             </div>
                             <!-- /.form-group -->
                         </div>
@@ -144,27 +136,29 @@
                             <div class="form-group">
                                 <label>Company Description</label>
 
-                                <input type='text' class='form-control'>
+                                @Html.TextBoxFor(m => m.CompanyDescription, new { @class = "form-control" })
 
                             </div>
-                            
+
                         </div>
-                        <!-- /.col -->
+
+
+
+
+
+                       
+                        <!--Upper code /.col -->
                     </div>
                     <!-- /.row -->
                 </div>
                 <!-- /.box-body -->
             </div>
 
-
-          
-         
-
             <div class="row">
                 <div class="col-md-3">
                     <button class="btn btn-block btn-primary btn-lg">Submit</button>
-                </div>
-                <div class="col-md-5"></div>
+                </div> 
+                <div class="col-md-5">@Html.ActionLink("Back","Index", "MasterCampaign", new { @class = "btn btn-primary btn-lg" })</div>
                 <div class="col-md-4"></div>
             </div>
 </section>
