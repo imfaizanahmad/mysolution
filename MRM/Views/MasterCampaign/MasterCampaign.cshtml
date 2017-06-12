@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "MasterCampaign";
+    var val = Json.Encode(Model);
 }
 
 
@@ -172,7 +173,6 @@
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
-<script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Content/plugins/datepicker/bootstrap-datepicker.js"></script>
 
@@ -180,18 +180,24 @@
 <script>
 
 $(document).ready(function () {
-    $("#btnsubmit").click(function () {
+    $("#btnsubmit").click(function (e) {
+       
+       
+        var Model =
+       {
 
-        var Model = $('myform').serializeObject();
-debugger
+           "BusinessGroupsItems": $('#BusinessGroupsItems :selected').val(),
+           "BusinessLineItems": $('#BusinessLineItems :selected').val()
+       };
+
         $.ajax({
-        type: 'post',
+        type: 'get',
         dataType: 'json',
-        url: 'MasterCampaign\SaveMaster',
-        data: { s:"aa" },
+        url: 'http://localhost:53263/MasterCampaign/Save',
+        data: JSON.stringify(Model),
         success: function (json) {
         if (json) {
-            alert('ok');
+            alert('Saved!');
         } else {
             alert('failed');
         }

@@ -28,11 +28,10 @@ namespace MRM.Controllers
             return View(MC);
         }
 
-
-        [HttpPost]
-        public JsonResult SaveMaster(string s)
+        public JsonResult Save(MasterCampaignVM MC)
         {
-            return Json("chamara", JsonRequestBehavior.AllowGet);
+
+           return Json("saved!", JsonRequestBehavior.AllowGet);
         }
 
     }
