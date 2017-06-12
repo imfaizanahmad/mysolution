@@ -23,9 +23,9 @@ namespace MRM
             );
 
             //routes.MapRoute(
-            //    name: "Default",
+            //    name: "Back_MasterCampaign",
             //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //    defaults: new { controller = "MasterCampaign", action = "Index", id = UrlParameter.Optional }
             //);
             //routes.MapRoute(
             //    name: "Default",

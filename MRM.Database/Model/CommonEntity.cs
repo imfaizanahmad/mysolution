@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MRM.Database.Model
 {
     public class CommonEntity
@@ -14,4 +15,7 @@ namespace MRM.Database.Model
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
     }
+
+
+  
 }

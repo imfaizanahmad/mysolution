@@ -58,7 +58,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\CommonEntity.cs" />
-    <Compile Include="Model\MasterCampaign.cs" />
     <Compile Include="Model\MRMContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿
+﻿@model MRM.Model.TacticCampaignVM
 @{
     ViewBag.Title = "TacticCampaign";
 }
@@ -15,101 +15,98 @@
             <!-- SELECT2 EXAMPLE -->
             <div class="box box-default">
                 <div class="box-header with-border">
-                    
-                    <h3 class="box-title" style="padding:10px 7px 0px 0px">Tactic Campaign</h3>
-                    <hr />
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Business Group*</label>
-                               @Html.DropDownListFor(m => m.BusinessGroup, new SelectList(m.BusinessGroup, "Value", "Text"))
+                        <fieldset>
+                            <legend>Tactic Campaign</legend>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Business Group*</label>
+                                    @Html.DropDownListFor(m => m.BusinessGroupsItems, new SelectList(Model.BusinessGroupsItems, "ID", "Name"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Business Line*</label>
+
+                                    @Html.DropDownListFor(m => m.BusinessGroupsItems, new SelectList(Model.BusinessGroupsItems, "ID", "Name"), new { @class = "form-control" })
+
+                                </div>
+
+                                <!-- /.form-group -->
+                                <div class="form-group">
+                                    <label>Segment*</label>
+
+                                    @Html.DropDownListFor(m => m.SegmentItems, new SelectList(Model.SegmentItems, "ID", "Name"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Industry*</label>
+
+                                    @Html.DropDownListFor(m => m.IndustryItems, new SelectList(Model.IndustryItems, "ID", "Name"), new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Theme</label>
+
+                                    @Html.DropDownListFor(m => m.ThemeItems, new SelectList(Model.ThemeItems, "ID", "Name"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Geography*</label>
+
+                                    @Html.DropDownListFor(m => m.GeographyItems, new SelectList(Model.GeographyItems, "ID", "Name"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Child Champaign*</label>
+
+                                    @Html.DropDownListFor(m => m.ChildCamPaignItems, new SelectList(Model.ChildCamPaignItems, "ID", "Name"), new { @class = "form-control" })
+                                </div>
+                                <!-- /.form-group -->
                             </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Segment*</label>
+                            <!-- /.col -->
 
-                               @Html.DropDownListFor(m => m.Segment, new SelectList(m.Segment, "Value", "Text"))
-                            </div>
-
-                            <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Business Line*</label>
-
-                                @Html.DropDownListFor(m => m.BusinessLine, new SelectList(m.BusinessLine, "Value", "Text"))
-
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Geography*</label>
-
-                                @Html.DropDownListFor(m => m.Geography, new SelectList(m.Geography, "Value", "Text"))
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Industry*</label>
-
-                                @Html.DropDownListFor(m => m.Industry, new SelectList(m.Industry, "Value", "Text"))
-
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Theme</label>
-
-                                @Html.DropDownListFor(m => m.Theme, new SelectList(m.Theme, "Value", "Text"))
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Year*</label>
-                                @Html.TextBox(m => m.Year, new { @class = "form-control" })
+                            <div class="col-md-6">
                               
+                                <div class="form-group">
+                                    <label>Year*</label>
+                                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label>Tactic Name*</label>
+
+                                    @Html.TextBoxFor(m => m.TacticName, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label>Tactic Description*</label>
+
+                                    @Html.TextBoxFor(m => m.TacticDescription, new { @class = "form-control" })
+                                </div>
+                                <!-- /.form-group -->
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
+
+                                </div>
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    @Html.TextBoxFor(m => m.Status, new { @class = "form-control" })
+
+                                </div>
+
 
                             </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Market ID*</label>
-                                @Html.TextBox(m => m.MarketID, new { @class = "form-control" })
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Vendor Name*</label>
-                                                                
-                                @Html.TextBox(m => m.VendorName, new { @class = "form-control" })
-                            </div>
-                            <div class="form-group">
-                                <label>Tactic Name*</label>
-                                
-                                @Html.TextBox(m => m.TacticName, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Child Champaign Naming*</label>
-
-                                @Html.TextBox(m => m.ChildChampaignNaming, new { @class = "form-control" })
-                            </div>
-                            <div class="form-group">
-                                <label>Child Champaign Description*</label>
-                                                            
-                                @Html.TextBox(m => m.ChildChampaignDescription, new { @class = "form-control" })
-                            </div>
-                        </div>
-                       
-                        <!-- /.col -->
+                            <!-- /.col -->
+                        </fieldset>
                     </div>
                     <!-- /.row -->
                 </div>
@@ -119,15 +116,31 @@
 
 
 
-
             <div class="row">
-                <div class="col-md-3">
-                    <button class="btn btn-block btn-primary btn-lg">Submit</button>
+                <div class="col-md-6">
                 </div>
-                <div class="col-md-5"></div>
-                <div class="col-md-4"></div>
+                <div class="col-md-6">
+                    <div class="col-md-3">
+                        <input type="button" class="btn btn-block btn-primary btn-lg" value="Submit" onclick="location.href='@Url.Action("TacticCampaign", "TacticCampaign")'" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
+                    </div>
+                </div>
             </div>
         </section>
     </form>
 </div>
 
+<style>
+    fieldset {
+        border: 1px solid #DDD;
+        padding: 0 1.4em 1.4em 1.4em;
+        margin: 25px 0 1.5em 0;
+    }
+
+    legend {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+</style>

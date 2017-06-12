@@ -1,4 +1,4 @@
-﻿@model MRM.Database.Model.MasterCampaignVM
+﻿@model MRM.Model.MasterCampaignVM
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -60,116 +60,167 @@
             <!-- SELECT2 EXAMPLE -->
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title" style="padding:10px 7px 0px 0px">Master Campaign</h3>
-                   <hr />
+                   
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
+                    <fieldset>
+                        <legend>Master Campaign</legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                    <label>Business Group</label>
+                                    @*<select class="form-control">
+                            <option value="1" selected="selected">--Select--</option>
+                        </select>*@
+                                    @Html.DropDownListFor(x => x.BusinessGroupsItems,new SelectList(Model.BusinessGroupsItems, "ID", "Name"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Business Line</label>
+
+                                    @Html.DropDownListFor(m => m.BusinessLineItems, new SelectList(Model.BusinessLineItems, "ID", "Name"), new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Segment</label>
+
+                                    @Html.DropDownListFor(m => m.SegmentItems, new SelectList(Model.SegmentItems, "ID", "Name"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Industry</label>
+
+                                    @Html.DropDownListFor(m => m.IndustryItems, new SelectList(Model.IndustryItems, "ID", "Name"), new { @class = "form-control" })
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Theme</label>
+
+                                    @Html.DropDownListFor(m => m.ThemeItems, new SelectList(Model.ThemeItems, "ID", "Name"), new { @class = "form-control" })
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Geography</label>
+
+                                    @Html.DropDownListFor(m => m.GeographyItems, new SelectList(Model.GeographyItems, "ID", "Name"), new { @class = "form-control" })
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
+
+                                </div>
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    @Html.TextBoxFor(m => m.Status, new { @class = "form-control" })
+
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Master Campaign*</label>
+                                    @Html.TextBoxFor(m => m.MasterCampaingName, new { @class = "form-control" })
+
+                                </div>
                                
-                                <label>Business Group</label>
-                                 @*<select class="form-control">
-                                    <option value="1" selected="selected">--Select--</option>
-                                </select>*@
-                                @Html.DropDownListFor(x => x.BusinessGroupsItems,new SelectList(Model.BusinessGroupsItems, "ID", "Name"), new { @class = "form-control" })
-                            </div>
-                     
-                            <div class="form-group">
-                                <label>Segment</label>
+                                <!-- /.form-group -->
+                                <div class="form-group">
+                                    <label>Company Description</label>
+                                    @Html.TextBoxFor(m => m.CompanyDescription, new { @class = "form-control" })
+                                </div>
 
-                                @Html.DropDownListFor(m => m.SegmentItems, new SelectList(Model.SegmentItems, "ID", "Name"), new { @class = "form-control" })
                             </div>
 
+
+                            <!--Upper code /.col -->
                         </div>
-                     
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Business Line</label>
+                        <!-- /.row -->
 
-                                @Html.DropDownListFor(m => m.BusinessLineItems, new SelectList(Model.BusinessLineItems, "ID", "Name"), new { @class = "form-control" })
-
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Geography</label>
-
-                                @Html.DropDownListFor(m => m.GeographyItems, new SelectList(Model.GeographyItems, "ID", "Name"), new { @class = "form-control" })
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Industry</label>
-
-                                @Html.DropDownListFor(m => m.IndustryItems, new SelectList(Model.IndustryItems, "ID", "Name"), new { @class = "form-control" })
-
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Theme</label>
-
-                                @Html.DropDownListFor(m => m.ThemeItems, new SelectList(Model.ThemeItems, "ID", "Name"), new { @class = "form-control" })
-
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Master Campaign*</label>
-                                @Html.TextBoxFor(m => m.MasterCampaingNaming, new { @class = "form-control" })
-
-                            </div>
-                            <!-- /.form-group -->
-                            <div class="form-group">
-                                <label>Master Campaing Naming*</label>
-                                @Html.TextBoxFor(m => m.MasterCampaingNaming, new { @class = "form-control" })
-
-                            </div>
-                            <!-- /.form-group -->
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Company Description</label>
-
-                                @Html.TextBoxFor(m => m.CompanyDescription, new { @class = "form-control" })
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-                       
-                        <!--Upper code /.col -->
-                    </div>
-                    <!-- /.row -->
+                    </fieldset>
                 </div>
                 <!-- /.box-body -->
             </div>
 
             <div class="row">
-                <div class="col-md-3">
-                    <button class="btn btn-block btn-primary btn-lg">Submit</button>
-                </div> 
-                <div class="col-md-5">@Html.ActionLink("Back","Index", "MasterCampaign", new { @class = "btn btn-primary btn-lg" })</div>
-                <div class="col-md-4"></div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-3">
+                        <button id="btnsubmit" class="btn btn-block btn-primary btn-lg">Submit</button>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
+                    </div>
+                </div>
             </div>
 </section>
     </form>
 </div>
 
-<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/angular-route.min.js"></script>
 <script src="~/Content/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="~/App/Admin/Project/project.module.js"></script>
-<script src="~/App/Admin/Project/Services/project.service.js"></script>
-<script src="~/App/Admin/Project/Controllers/project.controller.js"></script>
 
+
+<script>
+
+$(document).ready(function () {
+    $("#btnsubmit").click(function () {
+
+        var Model = $('myform').serializeObject();
+debugger
+        $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: 'MasterCampaign\SaveMaster',
+        data: { s:"aa" },
+        success: function (json) {
+        if (json) {
+            alert('ok');
+        } else {
+            alert('failed');
+        }
+    },
+});
+    });
+});
+
+    @*@(Url.Action("SaveMaster", "MasterCampaign"))*@
+</script>
+
+
+
+
+
+
+
+
+
+<style>
+
+    fieldset {
+    border: 1px solid #DDD;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 25px 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+</style>
