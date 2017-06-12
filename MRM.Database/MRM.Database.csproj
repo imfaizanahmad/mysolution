@@ -57,8 +57,17 @@
       <DependentUpon>201705311147380_LocalFisrt_310517.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\BusinessGroup.cs" />
+    <Compile Include="Model\BusinessLine.cs" />
+    <Compile Include="Model\ChildCampaign.cs" />
     <Compile Include="Model\CommonEntity.cs" />
+    <Compile Include="Model\Geography.cs" />
+    <Compile Include="Model\Industry.cs" />
+    <Compile Include="Model\MasterCampaign.cs" />
     <Compile Include="Model\MRMContext.cs" />
+    <Compile Include="Model\Segment.cs" />
+    <Compile Include="Model\TacticCampaign.cs" />
+    <Compile Include="Model\Theme.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

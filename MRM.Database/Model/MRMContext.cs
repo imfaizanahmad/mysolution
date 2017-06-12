@@ -13,5 +13,15 @@ namespace MRM.Database.Model
         {
 
         }
+
+        public DbSet<MasterCampaign> MasterCampaigns { get; set; }
+        public DbSet<ChildCampaign> ChildCampaigns { get; set; }
+        public DbSet<TacticCampaign> TacticCampaigns { get; set; }
+        public DbSet<BusinessGroup> BusinessGroups { get; set; }
+        public DbSet<BusinessLine> BusinessLines { get; set; }
+        public DbSet<Segment> Segment { get; set; }
+        public DbSet<Industry> Industries { get; set; }
+        public DbSet<Geography> Geographys { get; set; }
+        public DbSet<Theme> Themes { get; set; }
     }
 }
