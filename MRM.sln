@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRM", "MRM\MRM.csproj", "{5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRM.Database", "MRM.Database\MRM.Database.csproj", "{54664C69-9343-4C44-85F6-DBC2A27D4C63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRM.Business", "MRM.Business\MRM.Business.csproj", "{98C8FA5A-5FBC-4C45-B274-70823A6A3404}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{54664C69-9343-4C44-85F6-DBC2A27D4C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54664C69-9343-4C44-85F6-DBC2A27D4C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54664C69-9343-4C44-85F6-DBC2A27D4C63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98C8FA5A-5FBC-4C45-B274-70823A6A3404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C8FA5A-5FBC-4C45-B274-70823A6A3404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98C8FA5A-5FBC-4C45-B274-70823A6A3404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98C8FA5A-5FBC-4C45-B274-70823A6A3404}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

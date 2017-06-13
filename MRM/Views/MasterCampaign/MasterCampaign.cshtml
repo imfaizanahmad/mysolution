@@ -1,4 +1,4 @@
-﻿@model MRM.Model.MasterCampaignVM
+﻿@model MRM.Model.MasterCampaignViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -68,12 +68,8 @@
                         <legend>Master Campaign</legend>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-
+                                @*<div class="form-group">
                                     <label>Business Group</label>
-                                    @*<select class="form-control">
-                            <option value="1" selected="selected">--Select--</option>
-                        </select>*@
                                     @Html.DropDownListFor(x => x.BusinessGroups, new SelectList(Model.BusinessGroups, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
@@ -88,15 +84,15 @@
                                     <label>Segment</label>
 
                                     @Html.DropDownListFor(m => m.Segments, new SelectList(Model.Segments, "Id", "Name"), new { @class = "form-control" })
-                                </div>
+                                </div>*@
 
                                 <div class="form-group">
                                     <label>Industry</label>
 
-                                    @Html.DropDownListFor(m => m.Industries, new SelectList(Model.Industries, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.IndustryViewModels, new SelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "form-control" })
 
                                 </div>
-                                <div class="form-group">
+                                @*<div class="form-group">
                                     <label>Theme</label>
 
                                     @Html.DropDownListFor(m => m.Themes, new SelectList(Model.Themes, "Id", "Name"), new { @class = "form-control" })
@@ -106,7 +102,7 @@
                                     <label>Geography</label>
 
                                     @Html.DropDownListFor(m => m.Geographys, new SelectList(Model.Geographys, "Id", "Name"), new { @class = "form-control" })
-                                </div>
+                                </div>*@
 
 
                             </div>

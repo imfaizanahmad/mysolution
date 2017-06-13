@@ -10,7 +10,6 @@ namespace MRM.Controllers
 {
     public class TacticCampaignController : Controller
     {
-        TacticCampaignVM TC = new TacticCampaignVM();
         // GET: TacticCampaign
         public ActionResult Index()
         {
@@ -18,28 +17,11 @@ namespace MRM.Controllers
         }
         public ActionResult TacticCampaign()
         {
-            TC.BusinessGroups = DropdownDummy.GetBusinessGroupsItems();
-            TC.BusinessLines = DropdownDummy.GetBusinessLine();
-            TC.Segments = DropdownDummy.GetSegmentItems();
-            TC.Themes = DropdownDummy.GetThemeItems();
-            TC.Geographys = DropdownDummy.GetGeographyItems();
-            TC.Industries = DropdownDummy.GetIndustryItems();
-            TC.ChildCamPaigns = DropdownDummy.GetChildCamPaignItems();
-            return View(TC);
+            return View();
         }
 
-        public JsonResult Save(TacticCampaignVM MC, FormCollection form)
+        public JsonResult Save()
         {
-            string BusinessGroups = form["BusinessGroups"].ToString();
-            string BusinessLines = form["BusinessLines"].ToString();
-            string Segments = form["Segments"].ToString();
-            string Industries = form["Industries"].ToString();
-            string Themes = form["Themes"].ToString();
-            string Geographys = form["Geographys"].ToString();
-            string ChildCamPaigns = form["ChildCamPaigns"].ToString();
-
-
-
             return Json("saved!", JsonRequestBehavior.AllowGet);
         }
     }
