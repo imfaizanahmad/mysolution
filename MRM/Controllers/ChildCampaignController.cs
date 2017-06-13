@@ -18,9 +18,9 @@ namespace MRM.Controllers
         private SegmentServices _segmentService = null;
         private GeographyServices _geographyService = null;
         private ThemeServices _themeService = null;
+        private ChildCampaignServices _childCampaignServices = null;
 
-
-        private IGenericRepository<ChildCampaignViewModel> _repo;
+        // private IGenericRepository<ChildCampaignViewModel> _repo;
 
         ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
 
@@ -33,6 +33,7 @@ namespace MRM.Controllers
             _segmentService = new SegmentServices();
             _geographyService = new GeographyServices();
             _themeService = new ThemeServices();
+            _childCampaignServices = new ChildCampaignServices();
         }
 
         // GET: ChildCampaign
@@ -54,9 +55,8 @@ namespace MRM.Controllers
 
         public JsonResult Save(ChildCampaignViewModel model,FormCollection form)
         {
-           // Childvm.BusinessGroupViewModels.
 
-            _repo.Insert(Childvm);
+           // _childCampaignServices.CreateChildCampaign(model);
             return Json("saved!", JsonRequestBehavior.AllowGet);
         }
     }
