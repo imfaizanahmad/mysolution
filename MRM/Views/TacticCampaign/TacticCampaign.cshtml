@@ -1,4 +1,4 @@
-﻿@model MRM.Model.TacticCampaignVM
+﻿@model MRM.Model.TacticCampaignViewModel
 @{
     ViewBag.Title = "TacticCampaign";
 }
@@ -25,13 +25,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Business Group*</label>
-                                    @Html.DropDownListFor(m => m.BusinessGroups, new SelectList(Model.BusinessGroups, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.BusinessGroupViewModels, new SelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Business Line*</label>
 
-                                    @Html.DropDownListFor(m => m.BusinessLines, new SelectList(Model.BusinessLines, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.BusinessLineViewModels, new SelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "form-control" })
 
                                 </div>
 
@@ -39,32 +39,32 @@
                                 <div class="form-group">
                                     <label>Segment*</label>
 
-                                    @Html.DropDownListFor(m => m.Segments, new SelectList(Model.Segments, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.SegmentViewModels, new SelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Industry*</label>
 
-                                    @Html.DropDownListFor(m => m.Industries, new SelectList(Model.Industries, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.IndustryViewModels, new SelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "form-control" })
 
                                 </div>
 
                                 <div class="form-group">
                                     <label>Theme</label>
 
-                                    @Html.DropDownListFor(m => m.Themes, new SelectList(Model.Themes, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.ThemeViewModels, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Geography*</label>
 
-                                    @Html.DropDownListFor(m => m.Geographys, new SelectList(Model.Geographys, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.GeographyViewModels, new SelectList(Model.GeographyViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Child Champaign*</label>
 
-                                    @Html.DropDownListFor(m => m.ChildCamPaigns, new SelectList(Model.ChildCamPaigns, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.ChildCampaignViewModels, new SelectList(Model.ChildCampaignViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
                                 <!-- /.form-group -->
                             </div>

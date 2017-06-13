@@ -6,16 +6,32 @@ using System.Web.Mvc;
 using MRM.Model;
 using MRM.Business.Services;
 using MRM.Database.Model;
+using MRM.Database.GenericRepository;
 
 namespace MRM.Controllers
 {
     public class MasterCampaignController : Controller
     {
         private IndustryServices _industryService = null;
+        private BusinessGroupServices _businessgroupService = null;
+        private BusinessLineServices _businesslineService = null;
+        private SegmentServices _segmentService = null;
+        private GeographyServices _geographyService = null;
+        private ThemeServices _themeService = null;
+
+
+        private IGenericRepository<MasterCampaignViewModel> _repo;
+
         MasterCampaignViewModel mcvm = new MasterCampaignViewModel();
         public MasterCampaignController()
         {
+            // _repo = repo;
             _industryService = new IndustryServices();
+            _businessgroupService = new BusinessGroupServices();
+            _businesslineService = new BusinessLineServices();
+            _segmentService = new SegmentServices();
+            _geographyService = new GeographyServices();
+            _themeService = new ThemeServices();
         }
         // GET: CampaignForm
         public ActionResult Index()
@@ -26,13 +42,20 @@ namespace MRM.Controllers
         public ActionResult MasterCampaign()
         {
             mcvm.IndustryViewModels = _industryService.GetIndustry();
-            return View();
+            mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+            mcvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
+            mcvm.SegmentViewModels = _segmentService.GetSegment();
+            mcvm.GeographyViewModels = _geographyService.GetGeography();
+            mcvm.ThemeViewModels = _themeService.GetTheme();
+            return View(mcvm);
         }
 
-        public JsonResult Save()
+        public JsonResult Save(MasterCampaignViewModel model, FormCollection form)
         {
+           
 
-           // _repo.Insert(MC);
+        // string a=  form["IndustryViewModels"].ToString();
+            _repo.Insert(model);
             return Json("saved!", JsonRequestBehavior.AllowGet);
         }
 
