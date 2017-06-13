@@ -4,30 +4,51 @@
 }
 
 <div class="jumbotron">
-    <h1>Welcome MRM</h1>
+    <h2>Welcome MRM Campaign</h2>
 
-
-
-    <div class="row">
-        <div class="col-md-4">
-            <input type="button" class="btn btn-block btn-primary btn-lg" value="Master Campaign" onclick="location.href='@Url.Action("MasterCampaign", "MasterCampaign")'" />
-           
+    <fieldset>
+        <span style="font-family:'Times New Roman', Times, serif;font-size:medium;">Secrevit fontes liquidum locoque pronaque?<br />
+                Illas semine campoque declivia oppida corpora nam inter fuit discordia tellus solidumque iunctarum erat: quae
+                terrenae ubi rerum recessit iudicis aestu fixo</span>
+        
+    </fieldset>
+    <fieldset>
+        <div class="row" style="padding-top:15px">
+            <div class="col-md-3"><label>Master Campaign</label></div>
+            <div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="Create" onclick="location.href='@Url.Action("MasterCampaign", "MasterCampaign")'" /></div>
+            <div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="Edit" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" /></div>
+            <div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="View All" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" /></div>
         </div>
-        <div class="col-md-4">
-            <input type="button" class="btn btn-block btn-primary btn-lg" value="Child Campaign" onclick="location.href='@Url.Action("ChildCampaign", "ChildCampaign")'" />
-          
+        <div class="row">
+            <div class="col-md-3"><label>Sub Campaign</label></div>
+            <div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="Create" onclick="location.href='@Url.Action("ChildCampaign", "ChildCampaign")'" /></div>
+            <div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="Edit" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" /></div>
+            <div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="View All" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" /></div>
         </div>
-        <div class="col-md-4">
-          
-            <input type="button" class="btn btn-block btn-primary btn-lg" value="Tactic Campaign" onclick="location.href='@Url.Action("TacticCampaign", "TacticCampaign")'" />
-              
-         </div>
-    </div>
-
-   
-    
+        <div class="row">
+            <div class="col-md-3"><label>Tactic</label></div>
+            <div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="Create" onclick="location.href='@Url.Action("TacticCampaign", "TacticCampaign")'" /></div>
+            <div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="Edit" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" /></div>
+            <div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="View All" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" /></div>
+        </div>
+    </fieldset>
 </div>
+<style>
+    fieldset {
+        border: 1px solid #DDD;
+        padding: 0 1.4em 1.4em 1.4em;
+        margin: 5px;
+    }
 
+    legend {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .btnpadding {
+    padding-top:10px;
+    }
+</style>
 
 
 

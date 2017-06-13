@@ -5,8 +5,6 @@
     ViewBag.Title = "MasterCampaign";
     var val = Json.Encode(Model);
 }
-
-
 <style>
     #mydiv {
         position: absolute;
@@ -46,9 +44,10 @@
     }
 </style>
 
-
 <div>
-    <form id="myform">
+@using (Html.BeginForm("MasterCampaign", "MasterCampaign", FormMethod.Post, new { id = "myform" }))
+{
+    <form>
      
         @*<div id="mydiv" data-ng-show="loading">
             <div class="loader"></div>
@@ -75,38 +74,38 @@
                                     @*<select class="form-control">
                             <option value="1" selected="selected">--Select--</option>
                         </select>*@
-                                    @Html.DropDownListFor(x => x.BusinessGroupsItems,new SelectList(Model.BusinessGroupsItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(x => x.BusinessGroups, new SelectList(Model.BusinessGroups, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Business Line</label>
 
-                                    @Html.DropDownListFor(m => m.BusinessLineItems, new SelectList(Model.BusinessLineItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.BusinessLines, new SelectList(Model.BusinessLines, "Id", "Name"), new { @class = "form-control" })
 
                                 </div>
 
                                 <div class="form-group">
                                     <label>Segment</label>
 
-                                    @Html.DropDownListFor(m => m.SegmentItems, new SelectList(Model.SegmentItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Segments, new SelectList(Model.Segments, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Industry</label>
 
-                                    @Html.DropDownListFor(m => m.IndustryItems, new SelectList(Model.IndustryItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Industries, new SelectList(Model.Industries, "Id", "Name"), new { @class = "form-control" })
 
                                 </div>
                                 <div class="form-group">
                                     <label>Theme</label>
 
-                                    @Html.DropDownListFor(m => m.ThemeItems, new SelectList(Model.ThemeItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Themes, new SelectList(Model.Themes, "Id", "Name"), new { @class = "form-control" })
 
                                 </div>
                                 <div class="form-group">
                                     <label>Geography</label>
 
-                                    @Html.DropDownListFor(m => m.GeographyItems, new SelectList(Model.GeographyItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Geographys, new SelectList(Model.Geographys, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
 
@@ -128,20 +127,19 @@
                                 <div class="form-group">
                                     <label>Status</label>
                                     @Html.TextBoxFor(m => m.Status, new { @class = "form-control" })
-
                                 </div>
 
 
                                 <div class="form-group">
                                     <label>Master Campaign*</label>
-                                    @Html.TextBoxFor(m => m.MasterCampaingName, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
 
                                 </div>
                                
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Company Description</label>
-                                    @Html.TextBoxFor(m => m.CompanyDescription, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.CampaignDescription, new { @class = "form-control" })
                                 </div>
 
                             </div>
@@ -152,61 +150,61 @@
                         <!-- /.row -->
 
                     </fieldset>
+                    <fieldset>
+                        <div class="row" style="padding-top:10px">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-3">
+                                    <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
+                                </div>
+                                <div class="col-md-3">
+                                    <button Id="btnsubmit" class="btn btn-block btn-primary btn-lg">Submit</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
                 <!-- /.box-body -->
             </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6">
-                    <div class="col-md-3">
-                        <button id="btnsubmit" class="btn btn-block btn-primary btn-lg">Submit</button>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
-                    </div>
-                </div>
-            </div>
+           
 </section>
     </form>
+}
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Content/plugins/datepicker/bootstrap-datepicker.js"></script>
+<link href="~/Content/datepicker3.css" rel="stylesheet" />
+<script src="~/Content/bootstrap-datepicker.js"></script>
 
 
 <script>
 
 $(document).ready(function () {
     $("#btnsubmit").click(function (e) {
-       
-       
-        var Model =
-       {
-
-           "BusinessGroupsItems": $('#BusinessGroupsItems :selected').val(),
-           "BusinessLineItems": $('#BusinessLineItems :selected').val()
-       };
-
         $.ajax({
-        type: 'get',
+        type: 'post',
         dataType: 'json',
         url: 'http://localhost:53263/MasterCampaign/Save',
-        data: JSON.stringify(Model),
-        success: function (json) {
-        if (json) {
-            alert('Saved!');
-        } else {
-            alert('failed');
-        }
+        data: $("#myform").serialize(),
+        success: function (data) {
+            {
+                alert(data);
+            } 
     },
 });
     });
 });
 
     @*@(Url.Action("SaveMaster", "MasterCampaign"))*@
+    $('#StartDate').datepicker({
+        autoclose: true
+    });
+    $('#EndDate').datepicker({
+        autoclose: true
+    });
 </script>
 
 

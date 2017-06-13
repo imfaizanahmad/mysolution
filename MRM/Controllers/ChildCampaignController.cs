@@ -18,14 +18,30 @@ namespace MRM.Controllers
         }
         public ActionResult ChildCampaign()
         {
-            CC.BusinessGroupsItems = DropdownDummy.GetBusinessGroupsItems();
-            CC.BusinessLineItems = DropdownDummy.GetBusinessLine();
-            CC.SegmentItems = DropdownDummy.GetSegmentItems();
-            CC.ThemeItems = DropdownDummy.GetThemeItems();
-            CC.GeographyItems = DropdownDummy.GetGeographyItems();
-            CC.IndustryItems = DropdownDummy.GetIndustryItems();
-            CC.MasterCamPaignItems = DropdownDummy.GetMasterCamPaignItems();
+            CC.BusinessGroups = DropdownDummy.GetBusinessGroupsItems();
+            CC.BusinessLines = DropdownDummy.GetBusinessLine();
+            CC.Segments = DropdownDummy.GetSegmentItems();
+            CC.Themes = DropdownDummy.GetThemeItems();
+            CC.Geographys = DropdownDummy.GetGeographyItems();
+            CC.Industries = DropdownDummy.GetIndustryItems();
+            CC.MasterCamPaigns = DropdownDummy.GetMasterCamPaignItems();
             return View(CC);
+        }
+
+
+        public JsonResult Save(ChildCampaignVM MC, FormCollection form)
+        {
+            string MasterCamPaigns = form["MasterCamPaigns"].ToString();
+            string BGLed = form["BGLed"].ToString();
+            string BusinessGroups = form["BusinessGroups"].ToString();
+            string BusinessLines = form["BusinessLines"].ToString();
+            string Segments = form["Segments"].ToString();
+            string Industries = form["Industries"].ToString();
+            string Themes = form["Themes"].ToString();
+            string Geographys = form["Geographys"].ToString();
+
+
+            return Json("saved!", JsonRequestBehavior.AllowGet);
         }
     }
 }

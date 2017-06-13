@@ -4,8 +4,9 @@
 }
 
 <div>
-    <form id="myform">
-
+@using (Html.BeginForm("TacticCampaign", "TacticCampaign", FormMethod.Post, new { id = "myform" }))
+{ 
+    <form>
         @*<div id="mydiv" data-ng-show="loading">
                 <div class="loader"></div>
             </div>*@
@@ -20,17 +21,17 @@
                 <div class="box-body">
                     <div class="row">
                         <fieldset>
-                            <legend>Tactic Campaign</legend>
+                            <legend>Tactic</legend>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Business Group*</label>
-                                    @Html.DropDownListFor(m => m.BusinessGroupsItems, new SelectList(Model.BusinessGroupsItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.BusinessGroups, new SelectList(Model.BusinessGroups, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Business Line*</label>
 
-                                    @Html.DropDownListFor(m => m.BusinessGroupsItems, new SelectList(Model.BusinessGroupsItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.BusinessLines, new SelectList(Model.BusinessLines, "Id", "Name"), new { @class = "form-control" })
 
                                 </div>
 
@@ -38,32 +39,32 @@
                                 <div class="form-group">
                                     <label>Segment*</label>
 
-                                    @Html.DropDownListFor(m => m.SegmentItems, new SelectList(Model.SegmentItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Segments, new SelectList(Model.Segments, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Industry*</label>
 
-                                    @Html.DropDownListFor(m => m.IndustryItems, new SelectList(Model.IndustryItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Industries, new SelectList(Model.Industries, "Id", "Name"), new { @class = "form-control" })
 
                                 </div>
 
                                 <div class="form-group">
                                     <label>Theme</label>
 
-                                    @Html.DropDownListFor(m => m.ThemeItems, new SelectList(Model.ThemeItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Themes, new SelectList(Model.Themes, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Geography*</label>
 
-                                    @Html.DropDownListFor(m => m.GeographyItems, new SelectList(Model.GeographyItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Geographys, new SelectList(Model.Geographys, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Child Champaign*</label>
 
-                                    @Html.DropDownListFor(m => m.ChildCamPaignItems, new SelectList(Model.ChildCamPaignItems, "ID", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.ChildCamPaigns, new SelectList(Model.ChildCamPaigns, "Id", "Name"), new { @class = "form-control" })
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -78,7 +79,7 @@
                                 <div class="form-group">
                                     <label>Tactic Name*</label>
 
-                                    @Html.TextBoxFor(m => m.TacticName, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Tactic Description*</label>
@@ -107,6 +108,21 @@
                             </div>
                             <!-- /.col -->
                         </fieldset>
+                        <fieldset>
+                            <div class="row" style="padding-top:10px">
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-3">
+                                        <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button Id="btnsubmit" class="btn btn-block btn-primary btn-lg">Submit</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
                     </div>
                     <!-- /.row -->
                 </div>
@@ -116,21 +132,45 @@
 
 
 
-            <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6">
-                    <div class="col-md-3">
-                        <input type="button" class="btn btn-block btn-primary btn-lg" value="Submit" onclick="location.href='@Url.Action("TacticCampaign", "TacticCampaign")'" />
-                    </div>
-                    <div class="col-md-3">
-                        <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
-                    </div>
-                </div>
-            </div>
         </section>
     </form>
+}
 </div>
+
+
+<script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/datepicker3.css" rel="stylesheet" />
+<script src="~/Content/bootstrap-datepicker.js"></script>
+
+<script>
+
+$(document).ready(function () {
+    $("#btnsubmit").click(function (e) {
+        $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: 'http://localhost:53263/TacticCampaign/Save',
+        data: $("#myform").serialize(),
+        success: function (data) {
+            {
+                alert(data);
+            }
+    },
+});
+    });
+});
+
+
+$('#StartDate').datepicker({
+    autoclose: true
+});
+$('#EndDate').datepicker({
+    autoclose: true
+});
+
+</script>
+
 
 <style>
     fieldset {
