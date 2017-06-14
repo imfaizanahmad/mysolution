@@ -14,7 +14,7 @@ namespace MRM.Database.Model
         public string Year { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
 
         public virtual BusinessGroup BusinessGroups { get; set; }
         public virtual BusinessLine BusinessLines { get; set; }

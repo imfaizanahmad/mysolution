@@ -11,7 +11,7 @@ namespace MRM.Database.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string CampaignDescription { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
 
