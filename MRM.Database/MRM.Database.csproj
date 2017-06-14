@@ -56,17 +56,9 @@
     <Compile Include="Migrations\201705311147380_LocalFisrt_310517.Designer.cs">
       <DependentUpon>201705311147380_LocalFisrt_310517.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706131157188_new13062017.cs" />
-    <Compile Include="Migrations\201706131157188_new13062017.Designer.cs">
-      <DependentUpon>201706131157188_new13062017.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706140753150_new14062017.cs" />
-    <Compile Include="Migrations\201706140753150_new14062017.Designer.cs">
-      <DependentUpon>201706140753150_new14062017.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706140809410_new114062017.cs" />
-    <Compile Include="Migrations\201706140809410_new114062017.Designer.cs">
-      <DependentUpon>201706140809410_new114062017.cs</DependentUpon>
+    <Compile Include="Migrations\201706141306356_local140617.cs" />
+    <Compile Include="Migrations\201706141306356_local140617.Designer.cs">
+      <DependentUpon>201706141306356_local140617.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
@@ -92,14 +84,8 @@
     <EmbeddedResource Include="Migrations\201705311147380_LocalFisrt_310517.resx">
       <DependentUpon>201705311147380_LocalFisrt_310517.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706131157188_new13062017.resx">
-      <DependentUpon>201706131157188_new13062017.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706140753150_new14062017.resx">
-      <DependentUpon>201706140753150_new14062017.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706140809410_new114062017.resx">
-      <DependentUpon>201706140809410_new114062017.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706141306356_local140617.resx">
+      <DependentUpon>201706141306356_local140617.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

@@ -9,6 +9,12 @@ namespace MRM.Database.Model
 {
     public class CommonEntity
     {
+        public CommonEntity()
+        {
+            UpdatedDate = DateTime.Now;
+            CreatedDate = DateTime.Now;
+            IsActive = true;
+        }
         public Boolean IsActive { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }

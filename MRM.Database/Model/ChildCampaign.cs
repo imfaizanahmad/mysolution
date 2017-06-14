@@ -17,9 +17,9 @@ namespace MRM.Database.Model
         public string MarketingGeneratedLeads { get; set; }
         public string MarketingInfluenceOpportunity { get; set; }
         public string MarketingGeneratedOpportunity { get; set; }
-        public int Status { get; set; }
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
+        public string Status { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public virtual BusinessGroup BusinessGroups { get; set; }
         public virtual BusinessLine BusinessLines { get; set; }

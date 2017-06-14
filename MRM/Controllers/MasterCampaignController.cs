@@ -56,19 +56,26 @@ namespace MRM.Controllers
         {
             // var temp = form["BusinessGroupViewModels"];
             MasterCampaign mst = new MasterCampaign();
-            mst.BusinessGroups.Id = model.BusinessGroups_Id;
-            mst.BusinessLines.Id = model.BusinessLines_Id;
-            mst.Segments.Id = model.Segments_Id;
-            mst.Themes.Id = model.Themes_Id;
-            mst.Geographys.Id = model.Geographys_Id;
+            mst.Name = model.Name;
+            mst.CampaignDescription = model.CampaignDescription;
+            mst.Industries = new Industry();
             mst.Industries.Id = model.Industries_Id;
+            mst.BusinessGroups = new BusinessGroup();
+            mst.BusinessGroups.Id = model.BusinessGroups_Id;
+
+            mst.BusinessLines = new BusinessLine();
+            mst.BusinessLines.Id = model.BusinessLines_Id;
+
+            mst.Segments = new Segment();
+            mst.Segments.Id = model.Segments_Id;
+
+            mst.Themes = new Theme();
+            mst.Themes.Id = model.Themes_Id;
+            mst.Geographys = new Geography();
+            mst.Geographys.Id = model.Geographys_Id;
             mst.StartDate = model.StartDate;
             mst.EndDate = model.EndDate;
             mst.Status = model.Status;
-            mst.Name = model.Name;
-            mst.CampaignDescription = model.CampaignDescription;
-            mst.IsActive = true;
-            mst.CreatedDate = DateTime.Now;
             _masterCampaignServices.CreateMasterCampaign(mst);
 
             return Json("saved!", JsonRequestBehavior.AllowGet);
