@@ -7,6 +7,7 @@ using MRM.Model;
 using MRM.Business.Services;
 using MRM.Database.Model;
 using MRM.Database.GenericRepository;
+using Newtonsoft.Json;
 
 namespace MRM.Controllers
 {
@@ -18,9 +19,9 @@ namespace MRM.Controllers
         private SegmentServices _segmentService = null;
         private GeographyServices _geographyService = null;
         private ThemeServices _themeService = null;
+        private MasterCampaignServices _masterCampaignServices = null;
 
-
-        private IGenericRepository<MasterCampaignViewModel> _repo;
+        //private IGenericRepository<MasterCampaignViewModel> _repo;
 
         MasterCampaignViewModel mcvm = new MasterCampaignViewModel();
         public MasterCampaignController()
@@ -32,6 +33,7 @@ namespace MRM.Controllers
             _segmentService = new SegmentServices();
             _geographyService = new GeographyServices();
             _themeService = new ThemeServices();
+            _masterCampaignServices = new MasterCampaignServices();
         }
         // GET: CampaignForm
         public ActionResult Index()
@@ -50,12 +52,12 @@ namespace MRM.Controllers
             return View(mcvm);
         }
 
-        public JsonResult Save(MasterCampaignViewModel model)
+        public JsonResult Save(MasterCampaignViewModel model, FormCollection form)
         {
            
 
         // string a=  form["IndustryViewModels"].ToString();
-          //  _repo.Insert(model);
+            _repo.Insert(model);
             return Json("saved!", JsonRequestBehavior.AllowGet);
         }
 

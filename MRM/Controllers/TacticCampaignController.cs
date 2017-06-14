@@ -18,7 +18,7 @@ namespace MRM.Controllers
         private SegmentServices _segmentService = null;
         private GeographyServices _geographyService = null;
         private ThemeServices _themeService = null;
-
+        private TacticCampaignServices _tacticCampaignServices = null;
 
         private IGenericRepository<TacticCampaignViewModel> _repo;
 
@@ -32,6 +32,7 @@ namespace MRM.Controllers
             _segmentService = new SegmentServices();
             _geographyService = new GeographyServices();
             _themeService = new ThemeServices();
+            _tacticCampaignServices = new TacticCampaignServices();
         }
         // GET: TacticCampaign
         public ActionResult Index()
@@ -52,7 +53,7 @@ namespace MRM.Controllers
 
         public JsonResult Save()
         {
-            _repo.Insert(Tacticvm);
+            //_tacticCampaignServices.CreateTacticCampaign(model);
             return Json("saved!", JsonRequestBehavior.AllowGet);
         }
     }
