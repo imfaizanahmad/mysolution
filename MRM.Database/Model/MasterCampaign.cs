@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,5 +23,10 @@ namespace MRM.Database.Model
         public virtual Theme Themes { get; set; }
         public virtual Geography Geographys { get; set; }
         public virtual ICollection<ChildCampaign> ChildCampaigns { get; set; }
+        public List<MasterCampaign> MasterCampaigns = new List<MasterCampaign>();
+        [NotMapped]
+        public int PageCount { get; set; }
+        [NotMapped]
+        public int CurrentPageIndex { get; set; }
     }
 }
