@@ -75,7 +75,7 @@
 
                                 <div class="form-group">
                                     <label>Business Line</label>
-                                    @Html.DropDownListFor(m => m.BusinessGroupViewModels, new SelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.BusinessLineViewModels, new SelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
@@ -175,20 +175,25 @@
 <script>
 
 $(document).ready(function () {
-    $("#btnsubmit").click(function (e) {
+    $('#myform').on("#btnsubmit").click(function (e) {
+        e.preventDefault();
+
+        var formData = $(this).serialize();
         $.ajax({
         type: 'post',
         dataType: 'json',
         url: 'http://localhost:53263/MasterCampaign/Save',
-        data: $("#myform").serialize(),
+            //data: $("#myform").serialize(),
+        data:formData,
         success: function (data) {
             {
                 alert(data);
             } 
     },
-});
     });
-});
+    });
+    });
+
 
     @*@(Url.Action("SaveMaster", "MasterCampaign"))*@
     $('#StartDate').datepicker({

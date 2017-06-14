@@ -50,12 +50,12 @@ namespace MRM.Controllers
             return View(mcvm);
         }
 
-        public JsonResult Save(MasterCampaignViewModel model, FormCollection form)
+        public JsonResult Save(MasterCampaignViewModel model)
         {
            
 
         // string a=  form["IndustryViewModels"].ToString();
-            _repo.Insert(model);
+          //  _repo.Insert(model);
             return Json("saved!", JsonRequestBehavior.AllowGet);
         }
 
