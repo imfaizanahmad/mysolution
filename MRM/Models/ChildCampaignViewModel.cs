@@ -31,5 +31,11 @@ namespace MRM.Model
         public IEnumerable<BusinessGroup> BusinessGroupViewModels { get; set; }
         public IEnumerable<BusinessLine> BusinessLineViewModels { get; set; }
         public IEnumerable<MasterCampaign> MasterViewModels { get; set; }
+        public int BusinessGroups_Id { get; set; }
+        public int BusinessLines_Id { get; set; }
+        public int Geographys_Id { get; set; }
+        public int Industries_Id { get; set; }
+        public int Segments_Id { get; set; }
+        public int Themes_Id { get; set; }
     }
 }

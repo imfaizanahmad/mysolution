@@ -4,15 +4,11 @@
 }
 
 <div>
-@using (Html.BeginForm("ChildCampaign", "ChildCampaign", FormMethod.Post, new { id = "myform" }))
+@*@using (Html.BeginForm("ChildCampaign", "ChildCampaign", FormMethod.Post, new { id = "myform" }))*@
+@using (Ajax.BeginForm("Save", "MasterCampaign", new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
 {
     <form>
-
-        @*<div id="mydiv" data-ng-show="loading">
-                <div class="loader"></div>
-            </div>*@
         <section class="content-header"></section>
-
         <section class="content">
             <!-- SELECT2 EXAMPLE -->
             <div class="box box-default">
@@ -40,13 +36,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Business Group*</label>
-                                    @Html.DropDownListFor(m => m.BusinessGroupViewModels, new SelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.BusinessGroups_Id, new SelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Business Line*</label>
-
-                                    @Html.DropDownListFor(m => m.BusinessLineViewModels, new SelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "form-control" })
-
+                                    @Html.DropDownListFor(m => m.BusinessLines_Id, new SelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
@@ -57,71 +51,52 @@
                                      }, new { @class = "form-control" })
 
                                 </div>
-
-
                                 <div class="form-group">
                                     <label>Sub Champaign*</label>
-
                                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Sub Champaign Description</label>
-
                                     @Html.TextBoxFor(m => m.CampaignDescription, new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Marketing Influence Leads</label>
-
                                     @Html.TextBoxFor(m => m.MarketingInfluenceLeads, new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Marketing Generated Leads</label>
-
                                     @Html.TextBoxFor(m => m.MarketingGeneratedLeads, new { @class = "form-control" })
                                 </div>
-
-
                                 <div class="form-group">
                                     <label>Budget</label>
-
                                     @Html.TextBoxFor(m => m.Budget, new { @class = "form-control" })
-
-                                </div>
-                              
+                                </div>                              
                             </div>
                             <!-- /.col -->
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Theme</label>
-                                    @Html.DropDownListFor(m => m.ThemeViewModels, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Themes_Id, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-
                                <div class="form-group">
                                    <div class="col-md-6 form-group" style="margin-left:-14px">
                                        <label>Segment*</label>
-
-                                       @Html.DropDownListFor(m => m.SegmentViewModels, new SelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "form-control" })
+                                       @Html.DropDownListFor(m => m.Segments_Id, new SelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "form-control" })
                                    </div>
                                    <div class="col-md-6 form-group">
                                        <label>Industry*</label>
-
-                                       @Html.DropDownListFor(m => m.IndustryViewModels, new SelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "form-control" })
+                                       @Html.DropDownListFor(m => m.Industries_Id, new SelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "form-control" })
                                    </div>
-                                    </div>
-                               
-
+                                    </div>                              
                                 <div class="form-group">
                                     <div class="col-md-6" style="margin-left:-14px"></div>
                                     <div class="col-md-6">
-                                        <label>Geography*</label>
-                                        @Html.DropDownListFor(m => m.GeographyViewModels, new SelectList(Model.GeographyViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    <label>Geography</label>
+                                    @Html.DropDownListFor(m => m.Geographys_Id, new SelectList(Model.GeographyViewModels, "Id", "Name"), new { @class = "form-control" })
                                     </div>
                                   
                                 </div>
-
                                 <div class="form-group">
                                     <div class="col-md-6 form-group" style="margin-left:-14px">
                                         <label>Start Date</label>
@@ -134,19 +109,15 @@
                                     </div>
                                 <div class="form-group">
                                     <label>Marketing Influence Opportunity</label>
-
                                     @Html.TextBoxFor(m => m.MarketingInfluenceOpportunity, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Marketing Generated Opportunity</label>
-
                                     @Html.TextBoxFor(m => m.MarketingGeneratedOpportunity, new { @class = "form-control" })
-                                </div>
-                              
+                                </div>                              
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Spend*</label>
-
                                     @Html.TextBoxFor(m => m.Spend, new { @class = "form-control" })
                                 </div>
                                 <!-- /.form-group -->
@@ -188,25 +159,23 @@
 <script src="~/Content/bootstrap-datepicker.js"></script>
 <script>
 
-    $(document).ready(function () {
-        var model={IndustryViewModels: $("#IndustryViewModels : selected").val()}
+//    $(document).ready(function () {
+//        var model={IndustryViewModels: $("#IndustryViewModels : selected").val()}
 
-    $("#btnsubmit").click(function (e) {
-        $.ajax({
-        type: 'post',
-        dataType: 'json',
-        url: 'http://localhost:53263/ChildCampaign/Save',
-        data: json.stringfy(model),
-        success: function (data) {
-            {
-                alert(data);
-            }
-    },
-});
-    });
-});
-
-
+//    $("#btnsubmit").click(function (e) {
+//        $.ajax({
+//        type: 'post',
+//        dataType: 'json',
+//        url: 'http://localhost:53263/ChildCampaign/Save',
+//        data: json.stringfy(model),
+//        success: function (data) {
+//            {
+//                alert(data);
+//            }
+//    },
+//});
+//    });
+//});
 
 $('#StartDate').datepicker({
     autoclose: true

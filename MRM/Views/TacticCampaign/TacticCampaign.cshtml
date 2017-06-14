@@ -25,60 +25,41 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Theme</label>
-
-                                    @Html.DropDownListFor(m => m.ThemeViewModels, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Themes_Id, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Business Group*</label>
-                                    @Html.DropDownListFor(m => m.BusinessGroupViewModels, new SelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.BusinessGroups_Id, new SelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Business Line*</label>
-
-                                    @Html.DropDownListFor(m => m.BusinessLineViewModels, new SelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "form-control" })
-
+                                    @Html.DropDownListFor(m => m.BusinessLines_Id, new SelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Segment*</label>
-
-                                    @Html.DropDownListFor(m => m.SegmentViewModels, new SelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Segments_Id, new SelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Industry*</label>
-
-                                    @Html.DropDownListFor(m => m.IndustryViewModels, new SelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "form-control" })
-
-                                </div>
-
-                               
-
+                                    @Html.DropDownListFor(m => m.Industries_Id, new SelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "form-control" })
+                                </div>                              
                                 <div class="form-group">
                                     <label>Geography*</label>
-
-                                    @Html.DropDownListFor(m => m.GeographyViewModels, new SelectList(Model.GeographyViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Geographys_Id, new SelectList(Model.GeographyViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Sub Champaign*</label>
-
                                     @Html.DropDownListFor(m => m.ChildCampaignViewModels, new SelectList(Model.ChildCampaignViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Year*</label>
                                     @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Tactic</label>
-
                                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Tactic Description</label>
                                     @Html.TextBoxFor(m => m.TacticDescription, new { @class = "form-control" })
@@ -87,14 +68,11 @@
                             </div>
                             <!-- /.col -->
 
-                            <div class="col-md-6">
-                              
-                             
+                            <div class="col-md-6">                                                
                                 <div class="form-group" style="visibility:hidden">
                                     <label>End Date</label>
                                     @Html.TextBox("d", new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <div class="col-md-6 form-group" style="margin-left:-14px">
                                         <label>Start Date</label>
@@ -105,7 +83,6 @@
                                         @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <div class="col-md-6 form-group" style="margin-left:-14px">
                                         <label>Status</label>
@@ -116,8 +93,6 @@
                                      }, new { @class = "form-control" })
                                     </div>
                                     </div>
-
-
                             </div>
                             <!-- /.col -->
                         </fieldset>
@@ -141,15 +116,10 @@
                 </div>
                 <!-- /.box-body -->
             </div>
-
-
-
-
         </section>
     </form>
 }
 </div>
-
 
 <script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -158,21 +128,21 @@
 
 <script>
 
-$(document).ready(function () {
-    $("#btnsubmit").click(function (e) {
-        $.ajax({
-        type: 'post',
-        dataType: 'json',
-        url: 'http://localhost:53263/TacticCampaign/Save',
-        data: $("#myform").serialize(),
-        success: function (data) {
-            {
-                alert(data);
-            }
-    },
-});
-    });
-});
+//$(document).ready(function () {
+//    $("#btnsubmit").click(function (e) {
+//        $.ajax({
+//        type: 'post',
+//        dataType: 'json',
+//        url: 'http://localhost:53263/TacticCampaign/Save',
+//        data: $("#myform").serialize(),
+//        success: function (data) {
+//            {
+//                alert(data);
+//            }
+//    },
+//});
+//    });
+//});
 
 
 $('#StartDate').datepicker({

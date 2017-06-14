@@ -19,6 +19,7 @@ namespace MRM.Model
         public DateTime CreatedDate { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
         public IEnumerable<Industry> IndustryViewModels { get; set; }
         public IEnumerable<Geography> GeographyViewModels { get; set; }
         public IEnumerable<Theme> ThemeViewModels { get; set; }

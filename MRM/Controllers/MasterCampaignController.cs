@@ -54,7 +54,6 @@ namespace MRM.Controllers
         [HttpPost]
         public JsonResult Save(MasterCampaignViewModel model)
         {
-            // var temp = form["BusinessGroupViewModels"];
             MasterCampaign mst = new MasterCampaign();
             mst.Name = model.Name;
             mst.CampaignDescription = model.CampaignDescription;
@@ -62,13 +61,10 @@ namespace MRM.Controllers
             mst.Industries.Id = model.Industries_Id;
             mst.BusinessGroups = new BusinessGroup();
             mst.BusinessGroups.Id = model.BusinessGroups_Id;
-
             mst.BusinessLines = new BusinessLine();
             mst.BusinessLines.Id = model.BusinessLines_Id;
-
             mst.Segments = new Segment();
             mst.Segments.Id = model.Segments_Id;
-
             mst.Themes = new Theme();
             mst.Themes.Id = model.Themes_Id;
             mst.Geographys = new Geography();

@@ -48,15 +48,9 @@
 @*@using (Html.BeginForm("MasterCampaign", "MasterCampaign", FormMethod.Post, new { id = "myform" }))*@
 @using (Ajax.BeginForm("Save", "MasterCampaign", new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
 {
-    <form>
-     
-        @*<div id="mydiv" data-ng-show="loading">
-            <div class="loader"></div>
-        </div>*@
-        <section class="content-header">
-          
+    <form>     
+        <section class="content-header">          
         </section>
-
         <section class="content">
             <!-- SELECT2 EXAMPLE -->
             <div class="box box-default">
@@ -70,59 +64,43 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Theme</label>
-                                    
-                                    @*@Html.ListBoxFor(m => m.ThemeViewModels, new MultiSelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })*@
-                                    @Html.DropDownListFor(m => m.ThemeViewModels, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
-
+                                    <label>Theme</label>                                                                       
+                                    @Html.DropDownListFor(m => m.Themes_Id, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Business Group</label>
                                     @Html.DropDownListFor(m => m.BusinessGroups_Id, new SelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Business Line</label>
                                     @Html.DropDownListFor(m => m.BusinessLines_Id, new SelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Segment</label>
-
                                     @Html.DropDownListFor(m => m.Segments_Id, new SelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-
                                 <div class="form-group">
                                     <label>Industry</label>
                                     @Html.DropDownListFor(m => m.Industries_Id, new SelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "form-control" })
-                                </div>
-                              
+                                </div>                              
                                 <div class="form-group">
                                     <label>Geography</label>
                                     @Html.DropDownListFor(m => m.Geographys_Id, new SelectList(Model.GeographyViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-
-
                             </div>
-
-
                             <div class="col-md-6">
-
                                 <div style="visibility:hidden">
                                         <label>End Date</label>
                                         @Html.TextBox("d", new { @class = "form-control" })
-                                    </div>
-                              
+                                </div>                             
                                 <div class="col-md-6 form-group" style="margin-left:-14px">
-
                                     <label>Start Date</label>
                                     @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
                                 </div>
                                     <div class="col-md-6 form-group" style="margin-left:-14px">
                                         <label>End Date</label>
                                         @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
-                                    </div>
-                               
+                                    </div>                               
                                 <div class="form-group">
                                     <label>Status</label>
                                     @Html.DropDownListFor(m => m.Status, new List<SelectListItem>
@@ -131,27 +109,19 @@
                                         new SelectListItem{ Text="Saved draft1", Value = "1" }
                                      }, new { @class = "form-control" })
                                 </div>
-
-
                                 <div class="form-group">
                                     <label>Master Campaign*</label>
                                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-
-                                </div>
-                               
+                                </div>                               
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Master Campaign Description</label>
                                     @Html.TextBoxFor(m => m.CampaignDescription, new { @class = "form-control" })
                                 </div>
-
                             </div>
-
-
                             <!--Upper code /.col -->
                         </div>
                         <!-- /.row -->
-
                     </fieldset>
                     <fieldset>
                         <div class="row" style="padding-top:10px">
@@ -163,7 +133,6 @@
                                 </div>
                                 <div class="col-md-3">
                                     <button Id="btnsubmit" class="btn btn-block btn-primary btn-lg">Submit</button>
-
                                 </div>
                             </div>
                         </div>

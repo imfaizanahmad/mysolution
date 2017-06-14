@@ -21,12 +21,9 @@ namespace MRM.Controllers
         private TacticCampaignServices _tacticCampaignServices = null;
         private ChildCampaignServices _childCampaignServices = null;
 
-        private IGenericRepository<TacticCampaignViewModel> _repo;
-
         TacticCampaignViewModel Tacticvm = new TacticCampaignViewModel();
         public TacticCampaignController()
         {
-            // _repo = repo;
             _industryService = new IndustryServices();
             _businessgroupService = new BusinessGroupServices();
             _businesslineService = new BusinessLineServices();
@@ -36,6 +33,7 @@ namespace MRM.Controllers
             _tacticCampaignServices = new TacticCampaignServices();
             _childCampaignServices = new ChildCampaignServices();
         }
+
         // GET: TacticCampaign
         public ActionResult Index()
         {
@@ -53,9 +51,28 @@ namespace MRM.Controllers
             return View(Tacticvm);
         }
 
-        public JsonResult Save()
+        public JsonResult Save(TacticCampaignViewModel model)
         {
-            //_tacticCampaignServices.CreateTacticCampaign(model);
+            TacticCampaign mst = new TacticCampaign();
+            mst.Name = model.Name;
+            mst.TacticDescription = model.TacticDescription;
+            mst.Industries = new Industry();
+            mst.Industries.Id = model.Industries_Id;
+            mst.BusinessGroups = new BusinessGroup();
+            mst.BusinessGroups.Id = model.BusinessGroups_Id;
+            mst.BusinessLines = new BusinessLine();
+            mst.BusinessLines.Id = model.BusinessLines_Id;
+            mst.Segments = new Segment();
+            mst.Segments.Id = model.Segments_Id;
+            mst.Themes = new Theme();
+            mst.Themes.Id = model.Themes_Id;
+            mst.Geographys = new Geography();
+            mst.Geographys.Id = model.Geographys_Id;
+            mst.StartDate = model.StartDate;
+            mst.EndDate = model.EndDate;
+            mst.Status = model.Status;
+            _tacticCampaignServices.CreateTacticCampaign(mst);
+
             return Json("saved!", JsonRequestBehavior.AllowGet);
         }
     }
