@@ -18,7 +18,7 @@ namespace MRM.Controllers
         private SegmentServices _segmentService = null;
         private GeographyServices _geographyService = null;
         private ThemeServices _themeService = null;
-        private ChildCampaignServices _childCampaignServices = null;
+        private MasterCampaignServices _masterCampaignServices = null;
 
         // private IGenericRepository<ChildCampaignViewModel> _repo;
 
@@ -33,7 +33,7 @@ namespace MRM.Controllers
             _segmentService = new SegmentServices();
             _geographyService = new GeographyServices();
             _themeService = new ThemeServices();
-            _childCampaignServices = new ChildCampaignServices();
+            _masterCampaignServices = new MasterCampaignServices();
         }
 
         // GET: ChildCampaign
@@ -49,6 +49,7 @@ namespace MRM.Controllers
             Childvm.SegmentViewModels = _segmentService.GetSegment();
             Childvm.GeographyViewModels = _geographyService.GetGeography();
             Childvm.ThemeViewModels = _themeService.GetTheme();
+            Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
             return View(Childvm);
         }
 

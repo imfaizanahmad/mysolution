@@ -69,35 +69,35 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label>Theme</label>
+                                    
+                                    @Html.ListBoxFor(m => m.ThemeViewModels, new MultiSelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
+
+                                </div>
+                                <div class="form-group">
                                     <label>Business Group</label>
-                                    @Html.DropDownListFor(x => x.BusinessGroupViewModels, new SelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.BusinessGroups_Id, new SelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Business Line</label>
-                                    @Html.DropDownListFor(m => m.BusinessLineViewModels, new SelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.BusinessLines_Id, new SelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Segment</label>
 
-                                    @Html.DropDownListFor(m => m.SegmentViewModels, new SelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Segments_Id, new SelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
                                     <label>Industry</label>
-                                    @Html.DropDownListFor(m => m.IndustryViewModels, new SelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Industries_Id, new SelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
-                                <div class="form-group">
-                                    <label>Theme</label>
-
-                                    @Html.DropDownListFor(m => m.ThemeViewModels, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
-
-                                </div>
+                              
                                 <div class="form-group">
                                     <label>Geography</label>
-
-                                    @Html.DropDownListFor(m => m.GeographyViewModels, new SelectList(Model.GeographyViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Geographys_Id, new SelectList(Model.GeographyViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
 
 
@@ -106,19 +106,28 @@
 
                             <div class="col-md-6">
 
-                                <div class="form-group">
+                                <div style="visibility:hidden">
+                                        <label>End Date</label>
+                                        @Html.TextBox("d", new { @class = "form-control" })
+                                    </div>
+                              
+                                <div class="col-md-6 form-group" style="margin-left:-14px">
+
                                     <label>Start Date</label>
                                     @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
-
                                 </div>
-                                <div class="form-group">
-                                    <label>End Date</label>
-                                    @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
-
-                                </div>
+                                    <div class="col-md-6 form-group" style="margin-left:-14px">
+                                        <label>End Date</label>
+                                        @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
+                                    </div>
+                               
                                 <div class="form-group">
                                     <label>Status</label>
-                                    @Html.TextBoxFor(m => m.Status, new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Status, new List<SelectListItem>
+                                     {
+                                        new SelectListItem{ Text="Saved draft", Value = "0" },
+                                        new SelectListItem{ Text="Saved draft1", Value = "1" }
+                                     }, new { @class = "form-control" })
                                 </div>
 
 
@@ -130,7 +139,7 @@
                                
                                 <!-- /.form-group -->
                                 <div class="form-group">
-                                    <label>Company Description</label>
+                                    <label>Master Campaign Description</label>
                                     @Html.TextBoxFor(m => m.CampaignDescription, new { @class = "form-control" })
                                 </div>
 
@@ -175,16 +184,18 @@
 <script>
 
 $(document).ready(function () {
-    $('#myform').on("#btnsubmit").click(function (e) {
-        e.preventDefault();
+    $("#btnsubmit").click(function (e) {
+    
+        //var formData = $(this).serialize();
+        //var model = { BusinessGroupViewModels: $("BusinessGroupViewModels : selected").val(), Name: $("Name").text() }
 
-        var formData = $(this).serialize();
+        var model = { BusinessGroupViewModels: "Shyju", Name: "Detroit" };
         $.ajax({
         type: 'post',
         dataType: 'json',
         url: 'http://localhost:53263/MasterCampaign/Save',
-            //data: $("#myform").serialize(),
-        data:formData,
+        data: $("#myform").serialize(),
+        
         success: function (data) {
             {
                 alert(data);

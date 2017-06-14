@@ -24,6 +24,12 @@
                             <legend>Tactic</legend>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label>Theme</label>
+
+                                    @Html.DropDownListFor(m => m.ThemeViewModels, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="form-group">
                                     <label>Business Group*</label>
                                     @Html.DropDownListFor(m => m.BusinessGroupViewModels, new SelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "form-control" })
                                 </div>
@@ -49,11 +55,7 @@
 
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Theme</label>
-
-                                    @Html.DropDownListFor(m => m.ThemeViewModels, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
-                                </div>
+                               
 
                                 <div class="form-group">
                                     <label>Geography*</label>
@@ -62,9 +64,24 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Child Champaign*</label>
+                                    <label>Sub Champaign*</label>
 
                                     @Html.DropDownListFor(m => m.ChildCampaignViewModels, new SelectList(Model.ChildCampaignViewModels, "Id", "Name"), new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label>Year*</label>
+                                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tactic</label>
+
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tactic Description</label>
+                                    @Html.TextBoxFor(m => m.TacticDescription, new { @class = "form-control" })
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -72,37 +89,33 @@
 
                             <div class="col-md-6">
                               
-                                <div class="form-group">
-                                    <label>Year*</label>
-                                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
-                                </div>
-                                <div class="form-group">
-                                    <label>Tactic Name*</label>
-
-                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                                </div>
-                                <div class="form-group">
-                                    <label>Tactic Description*</label>
-
-                                    @Html.TextBoxFor(m => m.TacticDescription, new { @class = "form-control" })
-                                </div>
-                                <!-- /.form-group -->
-                                <div class="form-group">
-                                    <label>Start Date</label>
-                                    @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
-
-                                </div>
-                                <div class="form-group">
+                             
+                                <div class="form-group" style="visibility:hidden">
                                     <label>End Date</label>
-                                    @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
-
+                                    @Html.TextBox("d", new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Status</label>
-                                    @Html.TextBoxFor(m => m.Status, new { @class = "form-control" })
-
+                                    <div class="col-md-6 form-group" style="margin-left:-14px">
+                                        <label>Start Date</label>
+                                        @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-6 form-group" style="margin-left:-14px">
+                                        <label>End Date</label>
+                                        @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
+                                    </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-6 form-group" style="margin-left:-14px">
+                                        <label>Status</label>
+                                        @Html.DropDownListFor(m => m.Status, new List<SelectListItem>
+                                     {
+                                        new SelectListItem{ Text="Saved draft", Value = "0" },
+                                        new SelectListItem{ Text="Saved draft1", Value = "1" }
+                                     }, new { @class = "form-control" })
+                                    </div>
+                                    </div>
 
 
                             </div>

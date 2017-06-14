@@ -19,6 +19,7 @@ namespace MRM.Controllers
         private GeographyServices _geographyService = null;
         private ThemeServices _themeService = null;
         private TacticCampaignServices _tacticCampaignServices = null;
+        private ChildCampaignServices _childCampaignServices = null;
 
         private IGenericRepository<TacticCampaignViewModel> _repo;
 
@@ -33,6 +34,7 @@ namespace MRM.Controllers
             _geographyService = new GeographyServices();
             _themeService = new ThemeServices();
             _tacticCampaignServices = new TacticCampaignServices();
+            _childCampaignServices = new ChildCampaignServices();
         }
         // GET: TacticCampaign
         public ActionResult Index()
@@ -47,7 +49,7 @@ namespace MRM.Controllers
             Tacticvm.SegmentViewModels = _segmentService.GetSegment();
             Tacticvm.GeographyViewModels = _geographyService.GetGeography();
             Tacticvm.ThemeViewModels = _themeService.GetTheme();
-
+            Tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign();
             return View(Tacticvm);
         }
 

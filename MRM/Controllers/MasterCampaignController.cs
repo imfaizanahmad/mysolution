@@ -21,7 +21,7 @@ namespace MRM.Controllers
         private ThemeServices _themeService = null;
         private MasterCampaignServices _masterCampaignServices = null;
 
-        //private IGenericRepository<MasterCampaignViewModel> _repo;
+        private IGenericRepository<MasterCampaignViewModel> _repo;
 
         MasterCampaignViewModel mcvm = new MasterCampaignViewModel();
         public MasterCampaignController()
@@ -52,11 +52,15 @@ namespace MRM.Controllers
             return View(mcvm);
         }
 
-        public JsonResult Save(MasterCampaignViewModel model, FormCollection form)
+        public JsonResult Save(MasterCampaignViewModel model)
         {
-           
+           // var temp = form["BusinessGroupViewModels"];
 
-        // string a=  form["IndustryViewModels"].ToString();
+            model.Status = 1;
+            model.IsActive = 1;
+            model.CreatedDate = DateTime.Now;
+            //model.BusinessGroupViewModels = 1;
+            
             _repo.Insert(model);
             return Json("saved!", JsonRequestBehavior.AllowGet);
         }

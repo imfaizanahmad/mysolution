@@ -17,7 +17,7 @@ namespace MRM.Model
         public string Year { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
 
         public IEnumerable<Industry> IndustryViewModels { get; set; }
         public IEnumerable<Geography> GeographyViewModels { get; set; }
