@@ -20,13 +20,10 @@ namespace MRM.Controllers
         private ThemeServices _themeService = null;
         private MasterCampaignServices _masterCampaignServices = null;
 
-        // private IGenericRepository<ChildCampaignViewModel> _repo;
-
         ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
 
         public ChildCampaignController()
         {
-            // _repo = repo;
             _industryService = new IndustryServices();
             _businessgroupService = new BusinessGroupServices();
             _businesslineService = new BusinessLineServices();
@@ -41,6 +38,7 @@ namespace MRM.Controllers
         {
             return View();
         }
+
         public ActionResult ChildCampaign()
         {
             Childvm.IndustryViewModels = _industryService.GetIndustry();
@@ -52,7 +50,6 @@ namespace MRM.Controllers
             Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
             return View(Childvm);
         }
-
 
         public JsonResult Save(ChildCampaignViewModel model,FormCollection form)
         {

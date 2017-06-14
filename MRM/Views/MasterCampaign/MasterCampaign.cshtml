@@ -45,7 +45,8 @@
 </style>
 
 <div>
-@using (Html.BeginForm("MasterCampaign", "MasterCampaign", FormMethod.Post, new { id = "myform" }))
+@*@using (Html.BeginForm("MasterCampaign", "MasterCampaign", FormMethod.Post, new { id = "myform" }))*@
+@using (Ajax.BeginForm("Save", "MasterCampaign", new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
 {
     <form>
      
@@ -183,27 +184,27 @@
 
 <script>
 
-$(document).ready(function () {
-    $("#btnsubmit").click(function (e) {
+//$(document).ready(function () {
+//    $("#btnsubmit").click(function (e) {
     
-        //var formData = $(this).serialize();
-        //var model = { BusinessGroupViewModels: $("BusinessGroupViewModels : selected").val(), Name: $("Name").text() }
+//        //var formData = $(this).serialize();
+//        //var model = { BusinessGroupViewModels: $("BusinessGroupViewModels : selected").val(), Name: $("Name").text() }
 
-        var model = { BusinessGroupViewModels: "Shyju", Name: "Detroit" };
-        $.ajax({
-        type: 'post',
-        dataType: 'json',
-        url: 'http://localhost:53263/MasterCampaign/Save',
-        data: $("#myform").serialize(),
+//        var model = { BusinessGroupViewModels: "Shyju", Name: "Detroit" };
+//        $.ajax({
+//        type: 'post',
+//        dataType: 'json',
+//        url: 'http://localhost:53263/MasterCampaign/Save',
+//        data: $("#myform").serialize(),
         
-        success: function (data) {
-            {
-                alert(data);
-            } 
-    },
-    });
-    });
-    });
+//        success: function (data) {
+//            {
+//                alert(data);
+//            } 
+//    },
+//    });
+//    });
+//    });
 
 
     @*@(Url.Action("SaveMaster", "MasterCampaign"))*@
