@@ -13,9 +13,11 @@ namespace MRM.Database.Model
         public string CampaignDescription { get; set; }
         public string Budget { get; set; }
         public string Spend { get; set; }
-        public string TargetNewPilpeline { get; set; }
-        public string TargetTouchPilpeline { get; set; }
-        public string Status { get; set; }
+        public string MarketingInfluenceLeads { get; set; }
+        public string MarketingGeneratedLeads { get; set; }
+        public string MarketingInfluenceOpportunity { get; set; }
+        public string MarketingGeneratedOpportunity { get; set; }
+        public int Status { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
 

@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "MasterCampaign";
-    var val = Json.Encode(Model);
+   // var val = Json.Encode(Model);
 }
 <style>
     #mydiv {
@@ -71,7 +71,8 @@
                                 <div class="form-group">
                                     <label>Theme</label>
                                     
-                                    @Html.ListBoxFor(m => m.ThemeViewModels, new MultiSelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
+                                    @*@Html.ListBoxFor(m => m.ThemeViewModels, new MultiSelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })*@
+                                    @Html.DropDownListFor(m => m.ThemeViewModels, new SelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "form-control" })
 
                                 </div>
                                 <div class="form-group">

@@ -60,6 +60,14 @@
     <Compile Include="Migrations\201706131157188_new13062017.Designer.cs">
       <DependentUpon>201706131157188_new13062017.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706140753150_new14062017.cs" />
+    <Compile Include="Migrations\201706140753150_new14062017.Designer.cs">
+      <DependentUpon>201706140753150_new14062017.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706140809410_new114062017.cs" />
+    <Compile Include="Migrations\201706140809410_new114062017.Designer.cs">
+      <DependentUpon>201706140809410_new114062017.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
     <Compile Include="Model\BusinessLine.cs" />
@@ -86,6 +94,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706131157188_new13062017.resx">
       <DependentUpon>201706131157188_new13062017.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706140753150_new14062017.resx">
+      <DependentUpon>201706140753150_new14062017.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706140809410_new114062017.resx">
+      <DependentUpon>201706140809410_new114062017.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

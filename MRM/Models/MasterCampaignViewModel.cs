@@ -11,6 +11,15 @@ namespace MRM.Model
 
     public class MasterCampaignViewModel
     {
+        public MasterCampaignViewModel()
+        {
+            IndustryViewModels = new List<Industry>();
+            GeographyViewModels = new List<Geography>();
+            ThemeViewModels = new List<Theme>();
+            SegmentViewModels = new List<Segment>();
+            BusinessGroupViewModels = new List<BusinessGroup>();
+            BusinessLineViewModels = new List<BusinessLine>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string CampaignDescription { get; set; }
