@@ -1,6 +1,7 @@
 ﻿@model MRM.Database.Model.ChildCampaign
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Child Campaining List";
 }
 
 <!DOCTYPE html>
@@ -8,53 +9,28 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Child Campaigning List</title>
-    <style type="text/css">
-        body {
-            font-family: Arial;
-            font-size: 10pt;
-        }
-
-        table {
-            border: 1px solid #ccc;
-            border-collapse: collapse;
-            background-color: #fff;
-        }
-
-            table th {
-                background-color: #B8DBFD;
-                color: #333;
-                font-weight: bold;
-            }
-
-            table th, table td {
-                padding: 5px;
-                border: 1px solid #ccc;
-            }
-
-            table, table table td {
-                border: 0px solid #ccc;
-            }
-    </style>
 </head>
 <body>
     <div>
         @using (Html.BeginForm("ChildList", "ChildList", FormMethod.Post))
         {
-            <h4>Master Campaigning Details</h4>
+            <h4>Child Campaigning Details</h4>
             <hr />
-            <table cellpadding="0" cellspacing="0">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Campaign Desc.</th>
-                    <th>Status</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
+            <table cellpadding="0" cellspacing="0" class="table table-bordered">
+                <thead class="header-background-color">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Campaign Desc.</th>
+                        <th>Status</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
 
-                </tr>
-                @foreach (var item in Model.ChildCampaigns)
-                {
+                    </tr>
+                    </thead>
+                    @foreach (var item in Model.ChildCampaigns)
+                    {
+                <tbody>
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Name</td>
@@ -63,14 +39,15 @@
                         <td>@item.StartDate</td>
                         <td>@item.EndDate</td>
                     </tr>
-                }
-            </table>
+                </tbody>
+                    }
+</table>
             <br />
             <table cellpadding="0" cellspacing="0">
                 <tr>
                     @for (int i = 1; i <= Model.PageCount; i++)
                     {
-                        <td>
+                        <td  class="td-padding">
                             @if (i != Model.CurrentPageIndex)
                             {
                                 <a href="javascript:PagerClick(@i);">@i</a>
