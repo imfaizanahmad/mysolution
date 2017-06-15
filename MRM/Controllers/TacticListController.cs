@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MRM.Database.Model;
+using MRM.Business.Services;
 
 namespace MRM.Controllers
 {
@@ -30,16 +31,16 @@ namespace MRM.Controllers
         private TacticCampaign GetTacticCampaignList(int currentPage)
         {
             int maxRows = 10;
-            int totalCount = dbobject.GenericRepository<TacticCampaign>().GetAll().ToList().Count();
+            TacticCampaignServices obj = new TacticCampaignServices();
+            int totalCount = obj.GetTacticCampaign().Count();
             TacticCampaign TactiCampaignObj = new TacticCampaign();
 
-            TactiCampaignObj.TacticCampaigns = (from Tacticcampaign in dbobject.GenericRepository<TacticCampaign>().GetAll().ToList()
-                                                          select Tacticcampaign)
+            TactiCampaignObj.TacticCampaigns = (from Tacticcampaign in obj.GetTacticCampaign()
+                                                select Tacticcampaign)
                             .OrderBy(Mastercampaign => Mastercampaign.Id)
                             .Skip((currentPage - 1) * maxRows)
                             .Take(maxRows).ToList();
-
-            double pageCount = totalCount / maxRows;
+            double pageCount = (double)((decimal)obj.GetTacticCampaign().Count() / Convert.ToDecimal(maxRows));
             TactiCampaignObj.PageCount = (int)Math.Ceiling(pageCount);
             TactiCampaignObj.CurrentPageIndex = currentPage;
             return TactiCampaignObj;

@@ -234,12 +234,12 @@
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\MasterCampaign\Index.cshtml" />
     <Content Include="Views\MasterData\MasterData.cshtml" />
+    <Content Include="Views\MasterList\MasterList.cshtml" />
+    <Content Include="Views\ChildList\ChildList.cshtml" />
+    <Content Include="Views\TacticList\TacticList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ChildList\" />
-    <Folder Include="Views\MasterList\" />
-    <Folder Include="Views\TacticList\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

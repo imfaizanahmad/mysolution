@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MRM.Database.Model;
+using MRM.Business.Services;
 
 namespace MRM.Controllers
 {
@@ -30,18 +31,15 @@ namespace MRM.Controllers
         private ChildCampaign GetChildCampaignList(int currentPage)
         {
             int maxRows = 10;
-            int totalCount = dbobject.GenericRepository<MasterCampaign>().GetAll().ToList().Count();
-            // MasterCampaignServices obj = new MasterCampaignServices();
+            ChildCampaignServices obj = new ChildCampaignServices();
+            int totalCount = obj.GetChildCampaign().Count();
             ChildCampaign ChildCampaignObj = new ChildCampaign();
-
-            ChildCampaignObj.ChildCampaigns = (from Childcampaign in dbobject.GenericRepository<ChildCampaign>().GetAll().ToList()
-                                                          select Childcampaign)
+            ChildCampaignObj.ChildCampaigns = (from Childcampaign in obj.GetChildCampaign()
+                                               select Childcampaign)
                             .OrderBy(Mastercampaign => Mastercampaign.Id)
                             .Skip((currentPage - 1) * maxRows)
                             .Take(maxRows).ToList();
-
-            double pageCount = totalCount / maxRows;
-            //(double)((decimal)MasterCampaignObj.MasterCampaignViewModels.Count() / Convert.ToDecimal(2));
+            double pageCount = (double)((decimal)obj.GetChildCampaign().Count() / Convert.ToDecimal(maxRows));
             ChildCampaignObj.PageCount = (int)Math.Ceiling(pageCount);
             ChildCampaignObj.CurrentPageIndex = currentPage;
             return ChildCampaignObj;
