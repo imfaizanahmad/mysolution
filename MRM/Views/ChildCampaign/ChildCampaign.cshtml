@@ -5,7 +5,7 @@
 
 <div>
 @*@using (Html.BeginForm("ChildCampaign", "ChildCampaign", FormMethod.Post, new { id = "myform" }))*@
-@using (Ajax.BeginForm("Save", "MasterCampaign", new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
+@using (Ajax.BeginForm("Save", "ChildCampaign", new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
 {
     <form>
         <section class="content-header"></section>
@@ -177,12 +177,8 @@
 //    });
 //});
 
-$('#StartDate').datepicker({
-    autoclose: true
-});
-$('#EndDate').datepicker({
-    autoclose: true
-});
+    $('#StartDate').datepicker();
+    $('#EndDate').datepicker();
 </script>
 
 

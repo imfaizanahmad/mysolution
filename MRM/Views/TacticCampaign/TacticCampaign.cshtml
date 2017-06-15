@@ -4,7 +4,7 @@
 }
 
 <div>
-@using (Html.BeginForm("TacticCampaign", "TacticCampaign", FormMethod.Post, new { id = "myform" }))
+@using (Ajax.BeginForm("Save", "TacticCampaign", new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
 { 
     <form>
         @*<div id="mydiv" data-ng-show="loading">
@@ -145,12 +145,8 @@
 //});
 
 
-$('#StartDate').datepicker({
-    autoclose: true
-});
-$('#EndDate').datepicker({
-    autoclose: true
-});
+    $('#StartDate').datepicker();
+    $('#EndDate').datepicker();
 
 </script>
 
