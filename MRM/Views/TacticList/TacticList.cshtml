@@ -9,65 +9,89 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <style>
+        fieldset {
+            border: 1px solid #DDD;
+            padding: 0 1.4em 1.4em 1.4em;
+            margin: 25px 0 1.5em 0;
+        }
+
+        legend {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <div>
         @using (Html.BeginForm("TacticList", "TacticList", FormMethod.Post))
         {
-            <h4>Tactic Campaigning Details</h4>
-            <hr />
-            <table cellpadding="0" cellspacing="0" class="table table-bordered">
-                <thead class="header-background-color">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Campaign Desc.</th>
-                        <th>Status</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
+            <fieldset>
+                <legend>Tactic Campaigning Details</legend>
+                <div class="table-responsive">
+                    <table cellpadding="0" cellspacing="0" class="table table-bordered">
+                        <thead class="header-background-color">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Campaign Desc.</th>
+                                <th>Status</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
 
-                    </tr>
-                </thead>
-                @foreach (var item in Model.TacticCampaigns)
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.TacticCampaigns)
                 {
-                    <tbody>
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.Name</td>
-                            <td>@item.TacticDescription</td>
-                            <td>@item.Status</td>
-                            <td>@item.StartDate</td>
-                            <td>@item.EndDate</td>
-                        </tr>
-                    </tbody>
-                }
-            </table>
-            <br />
-            <table cellpadding="0" cellspacing="0">
-                <tr>
-                    @for (int i = 1; i <= Model.PageCount; i++)
-                    {
-                        <td  class="td-padding">
-                            @if (i != Model.CurrentPageIndex)
-                            {
-                                <a href="javascript:PagerClick(@i);">@i</a>
-                            }
-                            else
-                            {
-                                <span>@i</span>
-                            }
-                        </td>
-                    }
-                </tr>
-            </table>
-            <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex" />
+                            <tbody>
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.TacticDescription</td>
+                                    <td>@item.Status</td>
+                                    <td>@item.StartDate</td>
+                                    <td>@item.EndDate</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+
+                <div class="row" style="padding-top:10px">
+                    <div class="col-md-11">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                @for (int i = 1; i <= Model.PageCount; i++)
+                                {
+                                    <td class="td-padding">
+                                        @if (i != Model.CurrentPageIndex)
+                                        {
+                                            <a href="javascript:PagerClick(@i);">@i</a>
+                                        }
+                                        else
+                                        {
+                                            <span>@i</span>
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                        </table>
+                        <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex" />
+                    </div>
+                    <div class="col-md-1">
+                        <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" style="width: 180%;height: 40px;margin-left: -85%;" />
+
+                    </div>
+                </div>
+            </fieldset>
         }
-        <script type="text/javascript">
-            function PagerClick(index) {
-                document.getElementById("hfCurrentPageIndex").value = index;
-                document.forms[0].submit();
-            }
-        </script>
-    </div>
+          
+                <script type="text/javascript">
+                    function PagerClick(index) {
+                        document.getElementById("hfCurrentPageIndex").value = index;
+                        document.forms[0].submit();
+                    }
+                </script>
+            </div>
 </body>
 </html>

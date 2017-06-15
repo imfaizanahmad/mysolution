@@ -18,6 +18,13 @@ namespace MRM.Controllers
 
         }
 
+        public ActionResult TacticListById(int Id)
+        {
+
+            return RedirectToAction("TacticList", "TacticList");
+
+        }
+
 
         [HttpPost]
         public ActionResult TacticList(int currentPageIndex)

@@ -26,7 +26,8 @@ textarea {
 
 /* Set table header color wide by default light gray */
 .header-background-color {
-   background-color:#DCDCDC;
+   background-color:#428bca;
+   color:#FFF;
 }
 
 .td-padding {

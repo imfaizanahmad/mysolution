@@ -18,6 +18,13 @@ namespace MRM.Controllers
 
         }
 
+        public ActionResult ChildListById(int Id)
+        {
+            
+            return RedirectToAction("ChildList", "ChildList");
+
+        }
+
 
         [HttpPost]
         public ActionResult ChildList(int currentPageIndex)
