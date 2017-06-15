@@ -53,9 +53,16 @@ namespace MRM.Controllers
             return View(Childvm);
         }
 
-        public JsonResult Save(ChildCampaignViewModel model)
+        public ActionResult Save(ChildCampaignViewModel model)
         {
             ChildCampaign mst = new ChildCampaign();
+            mst.Industries = new Industry();
+            mst.BusinessGroups = new BusinessGroup();
+            mst.BusinessLines = new BusinessLine();
+            mst.Segments = new Segment();
+            mst.Themes = new Theme();
+            mst.Geographys = new Geography();
+
             mst.Name = model.Name;
             mst.CampaignDescription = model.CampaignDescription;
             mst.Budget = model.Budget;
@@ -64,24 +71,28 @@ namespace MRM.Controllers
             mst.MarketingGeneratedLeads = model.MarketingGeneratedLeads;
             mst.MarketingInfluenceOpportunity = model.MarketingInfluenceOpportunity;
             mst.MarketingGeneratedOpportunity = model.MarketingGeneratedOpportunity;
-            mst.Industries = new Industry();
             mst.Industries.Id = model.Industries_Id;
-            mst.BusinessGroups = new BusinessGroup();
             mst.BusinessGroups.Id = model.BusinessGroups_Id;
-            mst.BusinessLines = new BusinessLine();
             mst.BusinessLines.Id = model.BusinessLines_Id;
-            mst.Segments = new Segment();
             mst.Segments.Id = model.Segments_Id;
-            mst.Themes = new Theme();
             mst.Themes.Id = model.Themes_Id;
-            mst.Geographys = new Geography();
             mst.Geographys.Id = model.Geographys_Id;
-            mst.StartDate = model.StartDate;
-            mst.EndDate = model.EndDate;
+            mst.StartDate = Convert.ToDateTime(model.StartDate);
+            mst.EndDate = Convert.ToDateTime(model.EndDate);
             mst.Status = model.Status;
-            _childCampaignServices.CreateChildCampaign(mst);
+            mst.CreatedBy = "user";
 
-            return Json("saved!", JsonRequestBehavior.AllowGet);
+            bool result;
+            result=  _childCampaignServices.CreateChildCampaign(mst);
+            if (result == true)
+            {
+                return RedirectToAction("Index", "MasterCampaign");
+            }
+            else
+            {
+                return RedirectToAction("ChildCampaign", "ChildCampaign");
+            }
+            // return Json("saved!", JsonRequestBehavior.AllowGet);
         }
     }
 }

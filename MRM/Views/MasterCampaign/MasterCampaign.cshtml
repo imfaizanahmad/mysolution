@@ -95,7 +95,7 @@
                                 </div>                             
                                 <div class="col-md-6 form-group" style="margin-left:-14px">
                                     <label>Start Date</label>
-                                    @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control", @onchange= "esd()" })
                                 </div>
                                     <div class="col-md-6 form-group" style="margin-left:-14px">
                                         <label>End Date</label>
@@ -178,12 +178,20 @@
 
 
     @*@(Url.Action("SaveMaster", "MasterCampaign"))*@
-    $('#StartDate').datepicker({
-        autoclose: true
-    });
-    $('#EndDate').datepicker({
-        autoclose: true
-    });
+    //var element = $('#myform');
+
+    //function esd() {
+    //   element.scope().form.ExpectedStartDate = $("#StartDate").val();
+    //}
+
+    $('#StartDate').datepicker();
+    $('#EndDate').datepicker();
+    //$('#StartDate').datepicker({
+    //    autoclose: true
+    //});
+    //$('#EndDate').datepicker({
+    //    autoclose: true
+    //});
 </script>
 
 

@@ -35,12 +35,13 @@ namespace MRM.Controllers
           
             if (!Request.IsAuthenticated) 
             {
+                Session["UserInfo"] = "Yes";
                 HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "/MasterCampaign/Index" }, OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
         }
         public void SignOut()
         {
-            
+            Session["UserInfo"] = null;
             // Send an OpenID Connect sign-out request.
             HttpContext.GetOwinContext().Authentication.SignOut(
                 OpenIdConnectAuthenticationDefaults.AuthenticationType, CookieAuthenticationDefaults.AuthenticationType);
