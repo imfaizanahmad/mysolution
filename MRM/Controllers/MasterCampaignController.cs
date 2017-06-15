@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace MRM.Controllers
 {
+
     public class MasterCampaignController : Controller
     {
         private IndustryServices _industryService = null;

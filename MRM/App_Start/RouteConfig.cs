@@ -16,22 +16,32 @@ namespace MRM
 
             routes.MapMvcAttributeRoutes();
 
+
+            //routes.MapRoute(
+            //        name: "MasterCampaign",
+            //        url: "MasterCampaign",
+            //        defaults: new { controller = "MasterCampaign", action = "MasterCampaign" }
+            //);
+
+            //routes.MapRoute(
+            //        name: "SubCampaign",
+            //        url: "ChildCampaign",
+            //        defaults: new { controller = "ChildCampaign", action = "ChildCampaign" }
+            //);
+
+            //routes.MapRoute(
+            //        name: "Tactic",
+            //        url: "TacticCampaign",
+            //        defaults: new { controller = "TacticCampaign", action = "TacticCampaign" }
+            //);
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            //routes.MapRoute(
-            //    name: "Back_MasterCampaign",
-            //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "MasterCampaign", action = "Index", id = UrlParameter.Optional }
-            //);
-            //routes.MapRoute(
-            //    name: "Default",
-            //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            //);
+           
 
         }
     }
