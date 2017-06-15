@@ -40,7 +40,6 @@ namespace MRM.Controllers
             return View();
         }
 
-        [SessionAttribute]
         public ActionResult MasterCampaign()
         {
             mcvm.IndustryViewModels = _industryService.GetIndustry();
