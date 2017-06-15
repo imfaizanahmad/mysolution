@@ -20,7 +20,8 @@ namespace MRM.Business.Services
 
         public IEnumerable<Theme> GetTheme()
         {
-            IEnumerable<Theme> thmval = guow.GenericRepository<Theme>().GetAll().ToList();
+            IEnumerable<Theme> thmval = guow.GenericRepository<Theme>().GetAll().Where(t=>!string.IsNullOrEmpty(t.Name)) .ToList();
+            
             return thmval;
         }
     }

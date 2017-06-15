@@ -46,8 +46,8 @@
                                     <label>Status</label>
                                     @Html.DropDownListFor(m => m.Status, new List<SelectListItem>
                                      {
-                                        new SelectListItem{ Text="Saved draft", Value = "0" },
-                                        new SelectListItem{ Text="Saved draft1", Value = "1" }
+                                        new SelectListItem{ Text="Partial", Value = "0" },
+                                        new SelectListItem{ Text="Complete", Value = "1" }
                                      }, new { @class = "form-control" })
 
                                 </div>
@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Sub Champaign Description</label>
-                                    @Html.TextBoxFor(m => m.CampaignDescription, new { @class = "form-control" })
+                                    @Html.TextAreaFor(m => m.CampaignDescription, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Marketing Influence Leads</label>
@@ -98,27 +98,41 @@
                                   
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-6 form-group" style="margin-left:-14px">
-                                        <label>Start Date</label>
-                                        @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
+                                    <div class='col-sm-6' style="margin-left:-14px">
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <div class='input-group date' id='StartDate'>
+                                                @Html.TextBoxFor(m => m.StartDate, new { @maxlength = "10", @class = "form-control" })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>End Date</label>
-                                        @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
+                                    <div class='col-sm-6' style="margin-left:2px">
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <div class='input-group date' id='EndDate'>
+                                                @Html.TextBoxFor(m => m.EndDate, new { @maxlength = "10", @class = "form-control" })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                     </div>
                                 <div class="form-group">
                                     <label>Marketing Influence Opportunity</label>
-                                    @Html.TextBoxFor(m => m.MarketingInfluenceOpportunity, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.MarketingInfluenceOpportunity, new { @maxlength = "25", @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Marketing Generated Opportunity</label>
-                                    @Html.TextBoxFor(m => m.MarketingGeneratedOpportunity, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.MarketingGeneratedOpportunity, new { @maxlength = "25",@class = "form-control" })
                                 </div>                              
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Spend*</label>
-                                    @Html.TextBoxFor(m => m.Spend, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Spend, new { @maxlength = "10", @class = "form-control" })
                                 </div>
                                 <!-- /.form-group -->
 
@@ -130,13 +144,13 @@
                     </fieldset>
                     <fieldset>
                         <div class="row" style="padding-top:10px">
-                            <div class="col-md-6">
+                            <div class="col-md-9">
                             </div>
-                            <div class="col-md-6">
-                                <div class="col-md-3">
+                            <div class="col-md-3">
+                                <div class="col-md-6">
                                     <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <button Id="btnsubmit" class="btn btn-block btn-primary btn-lg">Submit</button>
 
                                 </div>

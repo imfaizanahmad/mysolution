@@ -43,7 +43,7 @@ namespace MRM.Controllers
             ChildCampaign ChildCampaignObj = new ChildCampaign();
             ChildCampaignObj.ChildCampaigns = (from Childcampaign in obj.GetChildCampaign()
                                                select Childcampaign)
-                            .OrderBy(Mastercampaign => Mastercampaign.Id)
+                            .OrderByDescending(Mastercampaign => Mastercampaign.CreatedDate)
                             .Skip((currentPage - 1) * maxRows)
                             .Take(maxRows).ToList();
             double pageCount = (double)((decimal)obj.GetChildCampaign().Count() / Convert.ToDecimal(maxRows));

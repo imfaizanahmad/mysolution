@@ -20,7 +20,7 @@ namespace MRM.Business.Services
 
         public IEnumerable<BusinessLine> GetBusinessLine()
         {
-            IEnumerable<BusinessLine> bl = guow.GenericRepository<BusinessLine>().GetAll().ToList();
+            IEnumerable<BusinessLine> bl = guow.GenericRepository<BusinessLine>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return bl;
         }
     }

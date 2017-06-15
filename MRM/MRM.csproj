@@ -176,7 +176,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\TacticCampaignViewModel.cs" />
-    <Compile Include="Models\IndustryViewModel.cs" />
     <Compile Include="Models\ChildCampaignViewModel.cs" />
     <Compile Include="Models\MasterCampaignViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

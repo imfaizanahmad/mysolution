@@ -20,7 +20,7 @@ namespace MRM.Business.Services
 
         public IEnumerable<Segment> GetSegment()
         {
-            IEnumerable<Segment> seg = guow.GenericRepository<Segment>().GetAll().ToList();
+            IEnumerable<Segment> seg = guow.GenericRepository<Segment>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return seg;
         }
     }

@@ -41,7 +41,7 @@ namespace MRM.Controllers
         }
         public void SignOut()
         {
-            Session["UserInfo"] = null;
+            Session.RemoveAll();
             // Send an OpenID Connect sign-out request.
             HttpContext.GetOwinContext().Authentication.SignOut(
                 OpenIdConnectAuthenticationDefaults.AuthenticationType, CookieAuthenticationDefaults.AuthenticationType);

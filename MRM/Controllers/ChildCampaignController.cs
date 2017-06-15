@@ -43,6 +43,8 @@ namespace MRM.Controllers
 
         public ActionResult ChildCampaign()
         {
+            if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
+            
             Childvm.IndustryViewModels = _industryService.GetIndustry();
             Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
             Childvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
@@ -50,11 +52,13 @@ namespace MRM.Controllers
             Childvm.GeographyViewModels = _geographyService.GetGeography();
             Childvm.ThemeViewModels = _themeService.GetTheme();
             Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
+            
             return View(Childvm);
         }
 
         public ActionResult Save(ChildCampaignViewModel model)
         {
+            if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             ChildCampaign mst = new ChildCampaign();
             mst.Industries = new Industry();
             mst.BusinessGroups = new BusinessGroup();
@@ -86,7 +90,7 @@ namespace MRM.Controllers
             result=  _childCampaignServices.CreateChildCampaign(mst);
             if (result == true)
             {
-                return RedirectToAction("Index", "MasterCampaign");
+                return RedirectToAction("ChildList", "ChildList");
             }
             else
             {

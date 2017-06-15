@@ -37,11 +37,21 @@ namespace MRM.Controllers
         // GET: CampaignForm
         public ActionResult Index()
         {
+            if (Session["UserInfo"] == null) {return RedirectToAction("Index", "Home");}
+            TempData["mastercount"] = "";
+            var mastercount = _masterCampaignServices.GetMasterCampaign().Count();
+            if (mastercount <= 0)
+            {
+                TempData["mastercount"] = "There is no master campaign available,Create master campaign first!";
+                return RedirectToAction("Index", "MasterCampaign");
+            }
+           
             return View();
         }
 
         public ActionResult MasterCampaign()
         {
+            if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             mcvm.IndustryViewModels = _industryService.GetIndustry();
             mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
             mcvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
@@ -54,6 +64,7 @@ namespace MRM.Controllers
         [HttpPost]
         public ActionResult Save(MasterCampaignViewModel model)
         {
+            if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             MasterCampaign mst = new MasterCampaign();
             mst.Industries = new Industry();
             mst.BusinessGroups = new BusinessGroup();
@@ -82,7 +93,7 @@ namespace MRM.Controllers
             if (result == true)
             {
                 
-                return RedirectToAction("Index", "MasterCampaign");
+                return RedirectToAction("MasterList", "MasterList");
             }
             else
             {
@@ -90,6 +101,6 @@ namespace MRM.Controllers
             }
 
         }
-
+        
     }
 }

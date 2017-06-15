@@ -39,8 +39,11 @@ namespace MRM.Controllers
         {
             return View();
         }
+
+       
         public ActionResult TacticCampaign()
         {
+            if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             Tacticvm.IndustryViewModels = _industryService.GetIndustry();
             Tacticvm.BusinessGroupViewModels = _businessgroupService.GetBG();
             Tacticvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
@@ -53,6 +56,7 @@ namespace MRM.Controllers
 
         public ActionResult Save(TacticCampaignViewModel model)
         {
+            if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             TacticCampaign mst = new TacticCampaign();
             mst.Industries = new Industry();
             mst.BusinessGroups = new BusinessGroup();
@@ -79,7 +83,7 @@ namespace MRM.Controllers
             result=  _tacticCampaignServices.CreateTacticCampaign(mst);
             if (result == true)
             {
-                return RedirectToAction("Index", "MasterCampaign");
+                return RedirectToAction("TacticList", "TacticList");
             }
             else
             {

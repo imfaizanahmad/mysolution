@@ -20,7 +20,7 @@ namespace MRM.Business.Services
 
         public IEnumerable<Industry> GetIndustry()
         {
-            IEnumerable<Industry> industry = guow.GenericRepository<Industry>().GetAll().ToList();
+            IEnumerable<Industry> industry = guow.GenericRepository<Industry>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return industry;
         }
     }

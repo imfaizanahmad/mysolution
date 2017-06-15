@@ -44,7 +44,7 @@ namespace MRM.Controllers
 
             TactiCampaignObj.TacticCampaigns = (from Tacticcampaign in obj.GetTacticCampaign()
                                                 select Tacticcampaign)
-                            .OrderBy(Mastercampaign => Mastercampaign.Id)
+                            .OrderByDescending(Mastercampaign => Mastercampaign.CreatedDate)
                             .Skip((currentPage - 1) * maxRows)
                             .Take(maxRows).ToList();
             double pageCount = (double)((decimal)obj.GetTacticCampaign().Count() / Convert.ToDecimal(maxRows));

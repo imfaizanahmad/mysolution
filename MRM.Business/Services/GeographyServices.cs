@@ -20,7 +20,7 @@ namespace MRM.Business.Services
 
         public IEnumerable<Geography> GetGeography()
         {
-            IEnumerable<Geography> grphy = guow.GenericRepository<Geography>().GetAll().ToList();
+            IEnumerable<Geography> grphy = guow.GenericRepository<Geography>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return grphy;
         }
     }

@@ -41,7 +41,7 @@ namespace MRM.Controllers
 
 
                                                  select Mastercampaign)
-                            .OrderBy(Mastercampaign => Mastercampaign.Id)
+                            .OrderByDescending(Mastercampaign => Mastercampaign.CreatedDate)
                             .Skip((currentPage - 1) * maxRows)
                             .Take(maxRows).ToList();
             double pageCount = (double)((decimal)obj.GetMasterCampaign().Count() / Convert.ToDecimal(maxRows));

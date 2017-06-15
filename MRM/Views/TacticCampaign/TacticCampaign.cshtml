@@ -54,15 +54,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Year*</label>
-                                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Year, new { @maxlength = "4", @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Tactic</label>
-                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Name, new { @maxlength = "25", @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Tactic Description</label>
-                                    @Html.TextBoxFor(m => m.TacticDescription, new { @class = "form-control" })
+                                    @Html.TextAreaFor(m => m.TacticDescription, new { @class = "form-control" })
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -71,16 +71,30 @@
                             <div class="col-md-6">                                                
                                 <div class="form-group" style="visibility:hidden">
                                     <label>End Date</label>
-                                    @Html.TextBox("d", new { @class = "form-control" })
+                                    @Html.TextBox("d", new { @maxlength = "10", @class = "form-control" })
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-6 form-group" style="margin-left:-14px">
-                                        <label>Start Date</label>
-                                        @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
+                                    <div class='col-sm-6' style="margin-left:-14px">
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <div class='input-group date' id='StartDate'>
+                                                @Html.TextBoxFor(m => m.StartDate, new { @maxlength = "10", @class = "form-control" })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 form-group" style="margin-left:-14px">
-                                        <label>End Date</label>
-                                        @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
+                                    <div class='col-sm-6' style="margin-left:2px">
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <div class='input-group date' id='EndDate'>
+                                                @Html.TextBoxFor(m => m.EndDate, new { @maxlength = "10", @class = "form-control" })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -88,8 +102,8 @@
                                         <label>Status</label>
                                         @Html.DropDownListFor(m => m.Status, new List<SelectListItem>
                                      {
-                                        new SelectListItem{ Text="Saved draft", Value = "0" },
-                                        new SelectListItem{ Text="Saved draft1", Value = "1" }
+                                       new SelectListItem{ Text="Partial", Value = "0" },
+                                        new SelectListItem{ Text="Complete", Value = "1" }
                                      }, new { @class = "form-control" })
                                     </div>
                                     </div>
@@ -98,13 +112,13 @@
                         </fieldset>
                         <fieldset>
                             <div class="row" style="padding-top:10px">
-                                <div class="col-md-6">
+                                <div class="col-md-9">
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-3">
+                                <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <button Id="btnsubmit" class="btn btn-block btn-primary btn-lg">Submit</button>
 
                                     </div>

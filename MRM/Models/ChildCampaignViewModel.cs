@@ -1,5 +1,5 @@
 ﻿using MRM.Database.Model;
-using MRM.Models;
+using MRM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
