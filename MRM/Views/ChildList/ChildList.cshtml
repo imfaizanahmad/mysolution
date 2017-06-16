@@ -48,7 +48,7 @@
                                     <td>@item.Id</td>
                                     <td>@Html.ActionLink((item.Name), "TacticListById", "TacticList", new { Id = item.Id }, null)</td>
                                     <td>@item.CampaignDescription</td>
-                                    <td>@(item.Status == "0" ? "Partial" : "Complete")</td>
+                                    <td>@item.Status</td>
                                     <td>@item.StartDate</td>
                                     <td>@item.EndDate</td>
                                 </tr>
