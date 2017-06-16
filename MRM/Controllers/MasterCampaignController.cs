@@ -44,7 +44,7 @@ namespace MRM.Controllers
             if (mastercount <= 0)
             {
                 TempData["mastercount"] = "There is no master campaign available,Create master campaign first!";
-                return RedirectToAction("Index", "MasterCampaign");
+              //  return RedirectToAction("Index", "MasterCampaign");
             }
            
             return View();
