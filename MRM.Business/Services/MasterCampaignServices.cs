@@ -24,8 +24,6 @@ namespace MRM.Business.Services
             return masterCampaign;
         }
 
-
-
         public bool CreateMasterCampaign(MasterCampaign campaign)
         {
            guow.GenericRepository<MasterCampaign>().Insert(campaign);

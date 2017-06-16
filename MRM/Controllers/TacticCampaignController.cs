@@ -58,29 +58,29 @@ namespace MRM.Controllers
         {
             if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             TacticCampaign mst = new TacticCampaign();
-            mst.Industries = new Industry();
-            mst.BusinessGroups = new BusinessGroup();
-            mst.BusinessLines = new BusinessLine();
-            mst.Segments = new Segment();
-            mst.Themes = new Theme();
-            mst.Geographys = new Geography();
+            //mst.Industries = new Industry();
+            //mst.BusinessGroups = new BusinessGroup();
+            //mst.BusinessLines = new BusinessLine();
+            //mst.Segments = new Segment();
+            //mst.Themes = new Theme();
+            //mst.Geographys = new Geography();
 
-            mst.Name = model.Name;
-            mst.TacticDescription = model.TacticDescription;
-            mst.Industries.Id = model.Industries_Id;
-            mst.BusinessGroups.Id = model.BusinessGroups_Id;
-            mst.BusinessLines.Id = model.BusinessLines_Id;
-            mst.Segments.Id = model.Segments_Id;
-            mst.Themes.Id = model.Themes_Id;
-            mst.Geographys.Id = model.Geographys_Id;
-            mst.StartDate = Convert.ToDateTime(model.StartDate);
-            mst.EndDate = Convert.ToDateTime(model.EndDate);
-            mst.Status = model.Status;
-            mst.Year = model.Year;
-            mst.CreatedBy = "user";
+            //mst.Name = model.Name;
+            //mst.TacticDescription = model.TacticDescription;
+            //mst.Industries.Id = model.Industries_Id;
+            //mst.BusinessGroups.Id = model.BusinessGroups_Id;
+            //mst.BusinessLines.Id = model.BusinessLines_Id;
+            //mst.Segments.Id = model.Segments_Id;
+            //mst.Themes.Id = model.Themes_Id;
+            //mst.Geographys.Id = model.Geographys_Id;
+            //mst.StartDate = Convert.ToDateTime(model.StartDate);
+            //mst.EndDate = Convert.ToDateTime(model.EndDate);
+            //mst.Status = model.Status;
+            //mst.Year = model.Year;
+            //mst.CreatedBy = "user";
             bool result;
 
-            result=  _tacticCampaignServices.CreateTacticCampaign(mst);
+            result = _tacticCampaignServices.CreateTacticCampaign(mst);
             if (result == true)
             {
                 return RedirectToAction("TacticList", "TacticList");
@@ -89,7 +89,7 @@ namespace MRM.Controllers
             {
                 return RedirectToAction("TacticCampaign", "TacticCampaign");
             }
-            //  return Json("saved!", JsonRequestBehavior.AllowGet);
+            return Json("saved!", JsonRequestBehavior.AllowGet);
         }
     }
 }

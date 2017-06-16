@@ -67,26 +67,19 @@ namespace MRM.Controllers
         {
             if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             MasterCampaign mst = new MasterCampaign();
-            mst.Industries = new Industry();
-            mst.BusinessGroups = new BusinessGroup();
-            mst.BusinessLines = new BusinessLine();
-            mst.Segments = new Segment();
-            mst.Themes = new Theme();
-            mst.Geographys = new Geography();
 
-
-            mst.Name = model.Name;
-            mst.CampaignDescription = model.CampaignDescription;
-            mst.Industries.Id = model.Industries_Id;
-            mst.BusinessGroups.Id = model.BusinessGroups_Id;
-            mst.BusinessLines.Id = model.BusinessLines_Id;
-            mst.Segments.Id = model.Segments_Id;
-            mst.Themes.Id = model.Themes_Id;
-            mst.Geographys.Id = model.Geographys_Id;
-            mst.StartDate = Convert.ToDateTime(model.StartDate);
-            mst.EndDate = Convert.ToDateTime(model.EndDate);
-            mst.Status = model.Status;
-            mst.CreatedBy = "user";
+            //mst.Name = model.Name;
+            //mst.CampaignDescription = model.CampaignDescription;
+            //mst.Industries.Id = model.Industries_Id;
+            //mst.BusinessGroups.Id = model.BusinessGroups_Id;
+            //mst.BusinessLines.Id = model.BusinessLines_Id;
+            //mst.Segments.Id = model.Segments_Id;
+            //mst.Themes.Id = model.Themes_Id;
+            //mst.Geographys.Id = model.Geographys_Id;
+            //mst.StartDate = Convert.ToDateTime(model.StartDate);
+            //mst.EndDate = Convert.ToDateTime(model.EndDate);
+            //mst.Status = model.Status;
+            //mst.CreatedBy = "user";
 
             bool result;
             result=  _masterCampaignServices.CreateMasterCampaign(mst);

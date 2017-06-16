@@ -16,13 +16,15 @@ namespace MRM.Database.Model
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public virtual BusinessGroup BusinessGroups { get; set; }
-        public virtual BusinessLine BusinessLines { get; set; }
-        public virtual Segment Segments { get; set; }
-        public virtual Industry Industries { get; set; }
-        public virtual Theme Themes { get; set; }
-        public virtual Geography Geographys { get; set; }
+        public virtual ICollection<BusinessGroup> BusinessGroups { get; set; }
+        public virtual ICollection<BusinessLine> BusinessLines { get; set; }
+        public virtual ICollection<Segment> Segments { get; set; }
+        public virtual ICollection<Industry> Industries { get; set; }
+        public virtual ICollection<Theme> Themes { get; set; }
+        public virtual ICollection<Geography> Geographys { get; set; }
         public virtual ICollection<ChildCampaign> ChildCampaigns { get; set; }
+
+        [NotMapped]
         public List<MasterCampaign> MasterCampaigns = new List<MasterCampaign>();
         [NotMapped]
         public int PageCount { get; set; }
