@@ -32,5 +32,6 @@ namespace MRM.Model
         public int Industries_Id { get; set; }
         public int Segments_Id { get; set; }
         public int Themes_Id { get; set; }
+        public int[] SelectedThemes_Id {get; set;}
     }
 }
