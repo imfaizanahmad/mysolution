@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MRM.Model;
 using MRM.Business.Services;
 using MRM.Database.Model;
 using MRM.Database.GenericRepository;
-
+using MRM.ViewModel;
 namespace MRM.Controllers
 {
     public class ChildCampaignController : Controller
@@ -21,7 +20,7 @@ namespace MRM.Controllers
         private MasterCampaignServices _masterCampaignServices = null;
         private ChildCampaignServices _childCampaignServices = null;
 
-        ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
+        
 
         public ChildCampaignController()
         {
@@ -41,53 +40,28 @@ namespace MRM.Controllers
             return View();
         }
 
-        public ActionResult ChildCampaign()
-        {
-            if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
-            
-            Childvm.IndustryViewModels = _industryService.GetIndustry();
-            Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-            Childvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
-            Childvm.SegmentViewModels = _segmentService.GetSegment();
-            Childvm.GeographyViewModels = _geographyService.GetGeography();
-            Childvm.ThemeViewModels = _themeService.GetTheme();
-            Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
-            
-            return View(Childvm);
-        }
+        //public ActionResult ChildCampaign()
+        //{
+        //    ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
+        //    Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
 
+        //    Childvm.BusinessGroupViewModels = (new BusinessGroup[] { new BusinessGroup() });
+        //    Childvm.SegmentViewModels = (new Segment[] { new Segment() });
+        //    Childvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+        //    Childvm.ThemeViewModels = (new Theme[] { new Theme() });
+        //    Childvm.GeographyViewModels = (new Geography[] { new Geography() });
+        //    Childvm.IndustryViewModels = (new Industry[] { new Industry() });
+
+        //    return View(Childvm);
+        //}
+
+        [HttpPost]
         public ActionResult Save(ChildCampaignViewModel model)
         {
-            if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
-            ChildCampaign mst = new ChildCampaign();
-            //mst.Industries = new Industry();
-            //mst.BusinessGroups = new BusinessGroup();
-            //mst.BusinessLines = new BusinessLine();
-            //mst.Segments = new Segment();
-            //mst.Themes = new Theme();
-            //mst.Geographys = new Geography();
-
-            //mst.Name = model.Name;
-            //mst.CampaignDescription = model.CampaignDescription;
-            //mst.Budget = model.Budget;
-            //mst.Spend = model.Spend;
-            //mst.MarketingInfluenceLeads = model.MarketingInfluenceLeads;
-            //mst.MarketingGeneratedLeads = model.MarketingGeneratedLeads;
-            //mst.MarketingInfluenceOpportunity = model.MarketingInfluenceOpportunity;
-            //mst.MarketingGeneratedOpportunity = model.MarketingGeneratedOpportunity;
-            //mst.Industries.Id = model.Industries_Id;
-            //mst.BusinessGroups.Id = model.BusinessGroups_Id;
-            //mst.BusinessLines.Id = model.BusinessLines_Id;
-            //mst.Segments.Id = model.Segments_Id;
-            //mst.Themes.Id = model.Themes_Id;
-            //mst.Geographys.Id = model.Geographys_Id;
-            //mst.StartDate = Convert.ToDateTime(model.StartDate);
-            //mst.EndDate = Convert.ToDateTime(model.EndDate);
-            //mst.Status = model.Status;
-            //mst.CreatedBy = "user";
-
+          //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
+           
             bool result;
-            result=  _childCampaignServices.CreateChildCampaign(mst);
+            result=  _childCampaignServices.CreateChildCampaign(model);
             if (result == true)
             {
                 return RedirectToAction("ChildList", "ChildList");
@@ -97,6 +71,39 @@ namespace MRM.Controllers
                 return RedirectToAction("ChildCampaign", "ChildCampaign");
             }
             // return Json("saved!", JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult ChildCampaign(int id=0)
+        {
+            ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
+
+            if (id == 0)
+            {
+                Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
+
+                Childvm.BusinessGroupViewModels = (new BusinessGroup[] { new BusinessGroup() });
+                Childvm.SegmentViewModels = (new Segment[] { new Segment() });
+                Childvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                Childvm.ThemeViewModels = (new Theme[] { new Theme() });
+                Childvm.GeographyViewModels = (new Geography[] { new Geography() });
+                Childvm.IndustryViewModels = (new Industry[] { new Industry() });
+
+                return View(Childvm);
+            }
+            
+            Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
+            List<MasterCampaign> lst = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = id });            
+            foreach (var item in lst)
+            {
+                Childvm.IndustryViewModels = item.Industries;
+                Childvm.BusinessGroupViewModels = item.BusinessGroups;
+                Childvm.BusinessLineViewModels = item.BusinessLines;
+                Childvm.SegmentViewModels = item.Segments;
+                Childvm.ThemeViewModels = item.Themes;
+                Childvm.GeographyViewModels = item.Geographys;
+            }
+            return View(Childvm);
         }
     }
 }

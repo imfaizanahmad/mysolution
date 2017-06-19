@@ -23,5 +23,14 @@ namespace MRM.Business.Services
             IEnumerable<BusinessLine> bl = guow.GenericRepository<BusinessLine>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return bl;
         }
+
+        public bool CreateMCBusinessLine(MasterCampaign MC)
+        {
+            guow.GenericRepository<MasterCampaign>().Insert(MC);
+            if (MC.Id != 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

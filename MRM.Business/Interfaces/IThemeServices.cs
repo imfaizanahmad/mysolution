@@ -11,5 +11,6 @@ namespace MRM.Business.Interfaces
     {
 
         IEnumerable<Theme> GetTheme();
+       //bool CreateMCTheme(ThemeMasterCampaign MC);
     }
 }

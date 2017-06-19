@@ -1,12 +1,11 @@
-﻿using MRM.Database.Model;
-using MRM.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MRM.Database.Model;
 
-namespace MRM.Model
+namespace MRM.ViewModel
 {
 
     public class TacticCampaignViewModel
@@ -26,11 +25,11 @@ namespace MRM.Model
         public IEnumerable<BusinessGroup> BusinessGroupViewModels { get; set; }
         public IEnumerable<BusinessLine> BusinessLineViewModels { get; set; }
         public IEnumerable<ChildCampaign> ChildCampaignViewModels { get; set; }
-        public int BusinessGroups_Id { get; set; }
-        public int BusinessLines_Id { get; set; }
-        public int Geographys_Id { get; set; }
-        public int Industries_Id { get; set; }
-        public int Segments_Id { get; set; }
-        public int Themes_Id { get; set; }
+        public int[] BusinessGroups_Id { get; set; }
+        public int[] BusinessLines_Id { get; set; }
+        public int[] Geographys_Id { get; set; }
+        public int[] Industries_Id { get; set; }
+        public int[] Segments_Id { get; set; }
+        public int[] Themes_Id { get; set; }
     }
 }

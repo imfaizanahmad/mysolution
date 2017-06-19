@@ -30,5 +30,6 @@ namespace MRM.Database.Model
         public int PageCount { get; set; }
         [NotMapped]
         public int CurrentPageIndex { get; set; }
+
     }
 }

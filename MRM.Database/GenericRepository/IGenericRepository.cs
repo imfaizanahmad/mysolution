@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 using MRM.Database.Model;
+using System.Linq.Expressions;
 
 namespace MRM.Database.GenericRepository
 {
@@ -24,6 +25,9 @@ namespace MRM.Database.GenericRepository
         bool Exists(object primaryKey);
         TEntity GetSingle(Func<TEntity, bool> predicate);
         TEntity GetFirst(Func<TEntity, bool> predicate);
+
+        IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties);
+        
 
     }
 }

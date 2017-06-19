@@ -23,5 +23,15 @@ namespace MRM.Business.Services
             IEnumerable<BusinessGroup> bg = guow.GenericRepository<BusinessGroup>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return bg;
         }
+
+
+        public bool CreateMCBusinessGroup(BusinessGroup BG)
+        {
+            guow.GenericRepository<BusinessGroup>().Insert(BG);
+            if (BG.Id != 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

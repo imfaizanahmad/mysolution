@@ -11,5 +11,6 @@ namespace MRM.Business.Interfaces
     {
 
         IEnumerable<Segment> GetSegment();
+        bool CreateMCSegment(MasterCampaign MC);
     }
 }

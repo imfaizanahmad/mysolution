@@ -23,5 +23,14 @@ namespace MRM.Business.Services
             IEnumerable<Industry> industry = guow.GenericRepository<Industry>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return industry;
         }
+       
+        public bool CreateMCIndustry(MasterCampaign MC)
+        {
+            guow.GenericRepository<MasterCampaign>().Insert(MC);
+            if (MC.Id != 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace MRM.Business.Interfaces
    public interface IBusinessLineServices
     {
         IEnumerable<BusinessLine> GetBusinessLine();
+        bool CreateMCBusinessLine(MasterCampaign MC);
     }
 }

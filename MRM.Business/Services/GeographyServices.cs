@@ -23,5 +23,14 @@ namespace MRM.Business.Services
             IEnumerable<Geography> grphy = guow.GenericRepository<Geography>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return grphy;
         }
+
+        public bool CreateMCGeography(MasterCampaign MC)
+        {
+            guow.GenericRepository<MasterCampaign>().Insert(MC);
+            if (MC.Id != 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

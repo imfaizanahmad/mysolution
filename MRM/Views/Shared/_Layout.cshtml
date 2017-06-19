@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div id="maindiv" class="container body-content">
         @RenderBody()
         <hr />
         <footer>
@@ -40,5 +40,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+
+    <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js"></script>
 </body>
 </html>

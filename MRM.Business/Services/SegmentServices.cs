@@ -23,5 +23,14 @@ namespace MRM.Business.Services
             IEnumerable<Segment> seg = guow.GenericRepository<Segment>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return seg;
         }
+
+        public bool CreateMCSegment(MasterCampaign MC)
+        {
+            guow.GenericRepository<MasterCampaign>().Insert(MC);
+            if (MC.Id != 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

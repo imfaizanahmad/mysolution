@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 using MRM.Database.Model;
+using System.Linq.Expressions;
 
 namespace MRM.Database.GenericRepository
 {
@@ -11,6 +12,17 @@ namespace MRM.Database.GenericRepository
     {
         internal MRMContext Context;
         internal DbSet<TEntity> DbSet;
+
+        public IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> queryable = DbSet;
+            foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
+            {
+                queryable = queryable.Include<TEntity, object>(includeProperty);
+            }
+
+            return queryable;
+        }
 
         public GenericRepository(MRMContext context)
         {

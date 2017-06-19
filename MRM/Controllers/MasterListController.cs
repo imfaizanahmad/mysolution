@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MRM.Model;
 using MRM.Database.GenericUnitOfWork;
 using MRM.Business.Services;
 using MRM.Database.Model;

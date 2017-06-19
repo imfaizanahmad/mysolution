@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MRM.Model;
 using MRM.Business.Services;
 using MRM.Database.Model;
 using MRM.Database.GenericRepository;
 using Newtonsoft.Json;
+using MRM.ViewModel;
 
 namespace MRM.Controllers
 {
@@ -38,7 +38,7 @@ namespace MRM.Controllers
         // GET: CampaignForm
         public ActionResult Index()
         {
-            if (Session["UserInfo"] == null) {return RedirectToAction("Index", "Home");}
+          //  if (Session["UserInfo"] == null) {return RedirectToAction("Index", "Home");}
             TempData["mastercount"] = "";
             var mastercount = _masterCampaignServices.GetMasterCampaign().Count();
             if (mastercount <= 0)
@@ -52,7 +52,7 @@ namespace MRM.Controllers
 
         public ActionResult MasterCampaign()
         {
-            if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
+         //   if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             mcvm.IndustryViewModels = _industryService.GetIndustry();
             mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
             mcvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
@@ -65,28 +65,12 @@ namespace MRM.Controllers
         [HttpPost]
         public ActionResult Save(MasterCampaignViewModel model)
         {
-            if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
-            MasterCampaign mst = new MasterCampaign();
-
-            //mst.Name = model.Name;
-            //mst.CampaignDescription = model.CampaignDescription;
-            //mst.Industries.Id = model.Industries_Id;
-            //mst.BusinessGroups.Id = model.BusinessGroups_Id;
-            //mst.BusinessLines.Id = model.BusinessLines_Id;
-            //mst.Segments.Id = model.Segments_Id;
-            //mst.Themes.Id = model.Themes_Id;
-            //mst.Geographys.Id = model.Geographys_Id;
-            //mst.StartDate = Convert.ToDateTime(model.StartDate);
-            //mst.EndDate = Convert.ToDateTime(model.EndDate);
-            //mst.Status = model.Status;
-            //mst.CreatedBy = "user";
+           // if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
 
             bool result;
-            result=  _masterCampaignServices.CreateMasterCampaign(mst);
-            // return Json("saved!", JsonRequestBehavior.AllowGet);
+            result =  _masterCampaignServices.CreateMasterCampaign(model);
             if (result == true)
             {
-                
                 return RedirectToAction("MasterList", "MasterList");
             }
             else

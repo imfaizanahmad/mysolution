@@ -11,5 +11,6 @@ namespace MRM.Business.Interfaces
     {
 
         IEnumerable<Geography> GetGeography();
+        bool CreateMCGeography(MasterCampaign MC);
     }
 }

@@ -24,5 +24,13 @@ namespace MRM.Business.Services
             
             return thmval;
         }
+        //public bool CreateMCTheme(ThemeMasterCampaign tmc)
+        //{
+        //    guow.GenericRepository<ThemeMasterCampaign>().Insert(tmc);
+        //    if (tmc.Theme_Id != 0)
+        //        return true;
+        //    else
+        //        return false;
+        //}
     }
 }
