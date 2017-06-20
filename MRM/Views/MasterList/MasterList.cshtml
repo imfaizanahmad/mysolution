@@ -33,7 +33,7 @@
                     <table cellpadding="0" cellspacing="0" class="table table-bordered">
                         <thead class="header-background-color">
                             <tr>
-                                <th>ID</th>
+                                <th>Master Campaign ID</th>
                                 <th>Name</th>
                                 <th>Campaign Desc.</th>
                                 <th>Status</th>
@@ -46,7 +46,7 @@
                 {
                             <tbody>
                                 <tr>
-                                    <td>@item.Id</td>
+                                    <td>mas-cam-@item.Id</td>
                                     <td>@Html.ActionLink((item.Name), "ChildListById", "ChildList", new { Id = item.Id }, null)</td>
                                     <td>@item.CampaignDescription</td>
                                     <td>@item.Status</td>

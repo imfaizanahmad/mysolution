@@ -75,7 +75,7 @@ namespace MRM.Business.Services
             }
 
             List<Industry> lstindustry = new List<Industry>();
-            foreach (var item in model.Themes_Id)
+            foreach (var item in model.Industries_Id)
             {
                 var industry = guow.GenericRepository<Industry>().GetByID(item);
                 lstindustry.Add(industry);

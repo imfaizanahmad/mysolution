@@ -9,6 +9,7 @@ using MRM.Business.Services;
 
 namespace MRM.Controllers
 {
+    [AllowAnonymous]
     public class TacticListController : Controller
     {
         GenericUnitOfWork dbobject = new GenericUnitOfWork();

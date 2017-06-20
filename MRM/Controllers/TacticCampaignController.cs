@@ -10,6 +10,7 @@ using MRM.Database.GenericRepository;
 
 namespace MRM.Controllers
 {
+    [AllowAnonymous]
     public class TacticCampaignController : Controller
     {
         private IndustryServices _industryService = null;
@@ -40,28 +41,60 @@ namespace MRM.Controllers
             return View();
         }
 
-       
-        public ActionResult TacticCampaign()
+
+        //public ActionResult TacticCampaign()
+        //{
+        //  //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
+        //    Tacticvm.IndustryViewModels = _industryService.GetIndustry();
+        //    Tacticvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+        //    Tacticvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
+        //    Tacticvm.SegmentViewModels = _segmentService.GetSegment();
+        //    Tacticvm.GeographyViewModels = _geographyService.GetGeography();
+        //    Tacticvm.ThemeViewModels = _themeService.GetTheme();
+        //    Tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign();
+        //    return View(Tacticvm);
+        //}
+
+
+        public ActionResult TacticCampaign(int id = 0)
         {
-          //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
-            Tacticvm.IndustryViewModels = _industryService.GetIndustry();
-            Tacticvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-            Tacticvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
-            Tacticvm.SegmentViewModels = _segmentService.GetSegment();
-            Tacticvm.GeographyViewModels = _geographyService.GetGeography();
-            Tacticvm.ThemeViewModels = _themeService.GetTheme();
-            Tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign();
-            return View(Tacticvm);
+            TacticCampaignViewModel tacticvm = new TacticCampaignViewModel();
+
+            if (id == 0)
+            {
+                tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign();
+
+                tacticvm.BusinessGroupViewModels = (new BusinessGroup[] { new BusinessGroup() });
+                tacticvm.SegmentViewModels = (new Segment[] { new Segment() });
+                tacticvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                tacticvm.ThemeViewModels = (new Theme[] { new Theme() });
+                tacticvm.GeographyViewModels = (new Geography[] { new Geography() });
+                tacticvm.IndustryViewModels = (new Industry[] { new Industry() });
+
+                return View(tacticvm);
+            }
+
+            tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign();
+            List<ChildCampaign> lst = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = id });
+            foreach (var item in lst)
+            {
+                tacticvm.IndustryViewModels = item.Industries;
+                tacticvm.BusinessGroupViewModels = item.BusinessGroups;
+                tacticvm.BusinessLineViewModels = item.BusinessLines;
+                tacticvm.SegmentViewModels = item.Segments;
+                tacticvm.ThemeViewModels = item.Themes;
+                tacticvm.GeographyViewModels = item.Geographys;
+            }
+            return View(tacticvm);
         }
 
         public ActionResult Save(TacticCampaignViewModel model)
         {
-          //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
-            TacticCampaign mst = new TacticCampaign();
+          //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home");
            
             bool result;
 
-            result = _tacticCampaignServices.CreateTacticCampaign(mst);
+            result = _tacticCampaignServices.CreateTacticCampaign(model);
             if (result == true)
             {
                 return RedirectToAction("TacticList", "TacticList");

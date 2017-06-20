@@ -11,7 +11,7 @@ using MRM.ViewModel;
 
 namespace MRM.Controllers
 {
-
+    [AllowAnonymous]
     public class MasterCampaignController : Controller
     {
         private IndustryServices _industryService = null;
@@ -38,14 +38,14 @@ namespace MRM.Controllers
         // GET: CampaignForm
         public ActionResult Index()
         {
-          //  if (Session["UserInfo"] == null) {return RedirectToAction("Index", "Home");}
+            if (Session["UserInfo"] == null) {return RedirectToAction("Index", "Home");}
             TempData["mastercount"] = "";
             var mastercount = _masterCampaignServices.GetMasterCampaign().Count();
-            if (mastercount <= 0)
-            {
-                TempData["mastercount"] = "There is no master campaign available,Create master campaign first!";
-                return RedirectToAction("Index", "MasterCampaign");
-            }
+            //if (mastercount <= 0)
+            //{
+            //    TempData["mastercount"] = "There is no master campaign available,Create master campaign first!";
+            //    return RedirectToAction("Index", "MasterCampaign");
+            //}
            
             return View();
         }

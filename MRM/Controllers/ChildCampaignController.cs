@@ -9,6 +9,7 @@ using MRM.Database.GenericRepository;
 using MRM.ViewModel;
 namespace MRM.Controllers
 {
+    [AllowAnonymous]
     public class ChildCampaignController : Controller
     {
         private IndustryServices _industryService = null;

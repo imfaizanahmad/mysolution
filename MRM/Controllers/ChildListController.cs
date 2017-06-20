@@ -9,6 +9,7 @@ using MRM.Business.Services;
 
 namespace MRM.Controllers
 {
+    [AllowAnonymous]
     public class ChildListController : Controller
     {
         GenericUnitOfWork dbobject = new GenericUnitOfWork();
@@ -18,7 +19,7 @@ namespace MRM.Controllers
 
         }
 
-        public ActionResult ChildListById(int Id)
+        public ActionResult ChildListById(int Id=0)
         {
             
             return RedirectToAction("ChildList", "ChildList");

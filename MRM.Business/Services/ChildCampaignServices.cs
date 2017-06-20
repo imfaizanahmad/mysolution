@@ -75,7 +75,7 @@ namespace MRM.Business.Services
             }
 
             List<Industry> lstindustry = new List<Industry>();
-            foreach (var item in model.Themes_Id)
+            foreach (var item in model.Industries_Id)
             {
                 var industry = guow.GenericRepository<Industry>().GetByID(item);
                 lstindustry.Add(industry);
@@ -94,6 +94,12 @@ namespace MRM.Business.Services
                 return true;
             else
                 return false;
+        }
+
+        public List<ChildCampaign> GetChildCampaignById(ChildCampaignViewModel model)
+        {
+            List<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.Id == model.Id).ToList();
+            return childCampaign;
         }
     }
 }

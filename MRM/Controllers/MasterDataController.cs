@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MRM.Controllers
 {
+    [AllowAnonymous]
     public class MasterDataController : Controller
     {
         // GET: MasterData

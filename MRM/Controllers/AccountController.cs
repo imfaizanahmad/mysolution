@@ -27,13 +27,14 @@ using Microsoft.Owin.Security;
 
 namespace MRM.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         public void SignIn()
         {
             // Send an OpenID Connect sign-in request.
              HttpContext.Response.Redirect("/MasterCampaign/Index");
-
+            Session["UserInfo"] = "Yes";
             //if (!Request.IsAuthenticated)
             //{
             //    Session["UserInfo"] = "Yes";

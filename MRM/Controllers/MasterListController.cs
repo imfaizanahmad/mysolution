@@ -9,6 +9,7 @@ using MRM.Database.Model;
 
 namespace MRM.Controllers
 {
+    [AllowAnonymous]
     public class MasterListController : Controller
     {
 

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MRM.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public ActionResult Index()

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MRM.Database.Model;
+using MRM.ViewModel;
 
 namespace MRM.Business.Interfaces
 {
@@ -11,5 +12,6 @@ namespace MRM.Business.Interfaces
     {
         IEnumerable<TacticCampaign> GetTacticCampaign();
         bool CreateTacticCampaign(TacticCampaign campaign);
+       
     }
 }
