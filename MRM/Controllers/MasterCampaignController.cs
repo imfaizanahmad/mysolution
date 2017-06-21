@@ -87,10 +87,10 @@ namespace MRM.Controllers
 
         }
 
-        public ActionResult BusinessLine(string id)
+        public ActionResult BusinessLine(string [] id)
         {
 
-            if (id == null)
+            if (id.Length < 0)
             {
                 mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
                 mcvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
@@ -106,9 +106,9 @@ namespace MRM.Controllers
             return View(mcvm);
         }
 
-        public ActionResult Industry(string id = null)
+        public ActionResult Industry(string [] id)
         {
-            if (id == null)
+            if (id.Length < 0 )
             {
                 mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
                 mcvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });

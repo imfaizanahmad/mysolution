@@ -254,30 +254,6 @@
 
         if ($('#Industries_Id').val() == null) {
 
-    $(document).ready(function () {
-        $(document).on("change", "#BusinessGroups_Id", function (e) {
-            var businessGroupId = $(this).find(":selected").val();
-            alert('hello');
-            if (businessGroupId != 0) {
-                alert('in');
-                window.location.href = '/MasterCampaign/BusinessLine?id=' + businessGroupId + '&_=' + (new Date()).getTime();
-            }
-
-            
-        });
-
-        $(document).on("change", "#Segments_Id", function (e) {
-            var segmenId = $(this).find(":selected").val();
-
-            if (masterId != 0) {
-                window.location.href = '/MasterCampaign/Industry?id=' + segmenId + '&_=' + (new Date()).getTime();
-            }
-
-            
-        });
-        
-    });
-
             $('.validmsgbusinesGeography').text("Please select geography from drop-down").css("color", "#b94a48");
             $('.validmsgbusinesGeography').show();
             flag = false;
@@ -287,7 +263,6 @@
         {
             $('.validmsgbusinesGeography').hide();
         }
-
 
        
         if ($("#StartDate").find("input").val() == "") {
@@ -347,6 +322,31 @@
         }
 
     }
+
+    $(document).ready(function () {
+        $(document).on("change", "#BusinessGroups_Id", function (e) {
+            var businessGroupId = $(this).find(":selected").val();
+
+            if (businessGroupId != 0) {
+                window.location.href = '/MasterCampaign/BusinessLine?id=' + businessGroupId + '&_=' + (new Date()).getTime();
+            }
+
+            
+        });
+
+        $(document).on("change", "#Segments_Id", function (e) {
+            var segmenId = $(this).find(":selected").val();
+
+            if (segmenId != 0) {
+                if(segmenId == "undefined")
+                    segmenId = 0;
+                window.location.href = '/MasterCampaign/Industry?id=' + segmenId + '&_=' + (new Date()).getTime();
+            }
+
+            
+        });
+        
+    });
 
 
 </script>

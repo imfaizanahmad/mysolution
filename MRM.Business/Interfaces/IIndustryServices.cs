@@ -11,7 +11,7 @@ namespace MRM.Business.Interfaces
     {
 
         IEnumerable<Industry> GetIndustry();
-        List<Industry> GetIndustryBySegmentId(string SegmentId);
+        List<Industry> GetIndustryBySegmentId(string [] SegmentId);
         bool CreateMCIndustry(MasterCampaign MC);
     }
 }
