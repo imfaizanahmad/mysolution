@@ -78,10 +78,6 @@
     <Compile Include="Migrations\201706161141114_RelationShichanges.Designer.cs">
       <DependentUpon>201706161141114_RelationShichanges.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706200808140_20062017.cs" />
-    <Compile Include="Migrations\201706200808140_20062017.Designer.cs">
-      <DependentUpon>201706200808140_20062017.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
     <Compile Include="Model\BusinessLine.cs" />
@@ -108,9 +104,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706161141114_RelationShichanges.resx">
       <DependentUpon>201706161141114_RelationShichanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200808140_20062017.resx">
-      <DependentUpon>201706200808140_20062017.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

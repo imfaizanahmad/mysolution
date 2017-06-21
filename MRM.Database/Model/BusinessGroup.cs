@@ -4,13 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace MRM.Database.Model
 {
    public class BusinessGroup : CommonEntity
     {
-        [Required]
         public int Id { get; set; }
         public string Name { get; set; }
 
