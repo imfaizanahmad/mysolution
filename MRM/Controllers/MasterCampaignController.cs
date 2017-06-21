@@ -38,25 +38,19 @@ namespace MRM.Controllers
         // GET: CampaignForm
         public ActionResult Index()
         {
-            if (Session["UserInfo"] == null) {return RedirectToAction("Index", "Home");}
+            //if (Session["UserInfo"] == null) {return RedirectToAction("Index", "Home");}
             TempData["mastercount"] = "";
-            var mastercount = _masterCampaignServices.GetMasterCampaign().Count();
-            //if (mastercount <= 0)
-            //{
-            //    TempData["mastercount"] = "There is no master campaign available,Create master campaign first!";
-            //    return RedirectToAction("Index", "MasterCampaign");
-            //}
-           
+            var mastercount = _masterCampaignServices.GetMasterCampaign().Count();           
             return View();
         }
 
         public ActionResult MasterCampaign()
         {
-         //   if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
-            mcvm.IndustryViewModels = _industryService.GetIndustry();
+            //   if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-            mcvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
+            mcvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
             mcvm.SegmentViewModels = _segmentService.GetSegment();
+            mcvm.IndustryViewModels = (new Industry[] { new Industry() });
             mcvm.GeographyViewModels = _geographyService.GetGeography();
             mcvm.ThemeViewModels = _themeService.GetTheme();
             return View(mcvm);
@@ -92,6 +86,43 @@ namespace MRM.Controllers
             }
 
         }
-        
+
+        public ActionResult BusinessLine(string [] id)
+        {
+
+            if (id.Length < 0)
+            {
+                mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                mcvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                mcvm.SegmentViewModels = _segmentService.GetSegment();
+                mcvm.IndustryViewModels = (new Industry[] { new Industry() });
+                mcvm.GeographyViewModels = _geographyService.GetGeography();
+                mcvm.ThemeViewModels = _themeService.GetTheme();
+                return View(mcvm);
+            }
+
+            List<BusinessLine> lst = _businesslineService.GetBusinessLineByBGId(id);
+            mcvm.BusinessLineViewModels = lst;
+            return View(mcvm);
+        }
+
+        public ActionResult Industry(string [] id)
+        {
+            if (id.Length < 0 )
+            {
+                mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                mcvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                mcvm.SegmentViewModels = _segmentService.GetSegment();
+                mcvm.IndustryViewModels = (new Industry[] { new Industry() });
+                mcvm.GeographyViewModels = _geographyService.GetGeography();
+                mcvm.ThemeViewModels = _themeService.GetTheme();
+                return View(mcvm);
+            }
+
+            List<Industry> lst = _industryService.GetIndustryBySegmentId(id);
+            mcvm.IndustryViewModels = lst;
+            return View(mcvm);
+        }
+
     }
 }

@@ -12,13 +12,14 @@ namespace MRM.Database.Model
     {
        
         public int Id { get; set; }
+        public int BusinessGroupId { get; set; }
         public string Name { get; set; }
+        public string ShortName { get; set; }
 
-       
+
         public virtual ICollection<MasterCampaign> MasterCampaigns { get; set; }
         public virtual ICollection<ChildCampaign> ChildCampaigns { get; set; }
         public virtual ICollection<TacticCampaign> TacticCampaigns { get; set; }
-
         public virtual ICollection<BusinessLine> BusinessLines { get; set; }
     }
 }

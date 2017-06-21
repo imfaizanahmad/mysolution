@@ -283,7 +283,7 @@
 
         if ($('#Industries_Id').val() == null) {
 
-            $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");
+            $('.validmsgbusinesIndustry').text("Please select industry from drop-down").css("color", "#b94a48");
             $('.validmsgbusinesIndustry').show();
             flag = false;
 
@@ -295,7 +295,7 @@
 
         if ($('#Geographys_Id').val() == null) {
 
-            $('.validmsgbusinesGeography').text("Please select Geography").css("color", "#b94a48");
+            $('.validmsgbusinesGeography').text("Please select geography from drop-down").css("color", "#b94a48");
             $('.validmsgbusinesGeography').show();
             flag = false;
 
@@ -304,7 +304,6 @@
         {
             $('.validmsgbusinesGeography').hide();
         }
-
 
        
         if ($("#StartDate").find("input").val() == "") {
@@ -376,6 +375,31 @@
         }
 
     }
+
+    $(document).ready(function () {
+        $(document).on("change", "#BusinessGroups_Id", function (e) {
+            var businessGroupId = $(this).find(":selected").val();
+
+            if (businessGroupId != 0) {
+                window.location.href = '/MasterCampaign/BusinessLine?id=' + businessGroupId + '&_=' + (new Date()).getTime();
+            }
+
+            
+        });
+
+        $(document).on("change", "#Segments_Id", function (e) {
+            var segmenId = $(this).find(":selected").val();
+
+            if (segmenId != 0) {
+                if(segmenId == "undefined")
+                    segmenId = 0;
+                window.location.href = '/MasterCampaign/Industry?id=' + segmenId + '&_=' + (new Date()).getTime();
+            }
+
+            
+        });
+        
+    });
 
 
 </script>

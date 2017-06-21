@@ -10,10 +10,13 @@ namespace MRM.Database.Model
    public class Industry : CommonEntity
     {
         public int Id { get; set; }
+        public int IndustryId { get; set; }
         public string Name { get; set; }
-     
+        public string ShortName { get; set; }
+
         public virtual ICollection<MasterCampaign> MasterCampaigns { get; set; }
         public virtual ICollection<ChildCampaign> ChildCampaigns { get; set; }
         public virtual ICollection<TacticCampaign> TacticCampaigns { get; set; }
+        public virtual Segment Segments { get; set; }
     }
 }
