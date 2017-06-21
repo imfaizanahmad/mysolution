@@ -18,5 +18,7 @@ namespace MRM.Database.Model
         public virtual ICollection<MasterCampaign> MasterCampaigns { get; set; }
         public virtual ICollection<ChildCampaign> ChildCampaigns { get; set; }
         public virtual ICollection<TacticCampaign> TacticCampaigns { get; set; }
+
+        public virtual ICollection<BusinessLine> BusinessLines { get; set; }
     }
 }
