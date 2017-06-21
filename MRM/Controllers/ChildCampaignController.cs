@@ -57,10 +57,22 @@ namespace MRM.Controllers
         //}
 
         [HttpPost]
-        public ActionResult Save(ChildCampaignViewModel model)
+        public ActionResult Save(ChildCampaignViewModel model, string button)
         {
-          //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
-           
+            //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
+
+            if (button == "Submit")
+            {
+
+            }
+            else if (button == "Delete")
+            { }
+            else
+            {
+
+            }
+
+
             bool result;
             result=  _childCampaignServices.CreateChildCampaign(model);
             if (result == true)
@@ -94,6 +106,14 @@ namespace MRM.Controllers
             }
             
             Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
+            //foreach (var a in Childvm.MasterViewModels)
+            //{
+
+            //    a.First(x => x.Id == id).Selected = true;
+
+            //}
+            
+
             List<MasterCampaign> lst = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = id });            
             foreach (var item in lst)
             {
@@ -104,6 +124,8 @@ namespace MRM.Controllers
                 Childvm.ThemeViewModels = item.Themes;
                 Childvm.GeographyViewModels = item.Geographys;
             }
+
+           
             return View(Childvm);
         }
     }

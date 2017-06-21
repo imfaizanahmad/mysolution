@@ -88,10 +88,22 @@ namespace MRM.Controllers
             return View(tacticvm);
         }
 
-        public ActionResult Save(TacticCampaignViewModel model)
+        public ActionResult Save(TacticCampaignViewModel model, string button)
         {
-          //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home");
-           
+            //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home");
+
+            if (button == "Submit")
+            {
+
+            }
+            else if (button == "Delete")
+            { }
+            else
+            {
+
+            }
+
+
             bool result;
 
             result = _tacticCampaignServices.CreateTacticCampaign(model);

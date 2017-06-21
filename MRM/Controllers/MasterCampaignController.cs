@@ -63,9 +63,22 @@ namespace MRM.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(MasterCampaignViewModel model)
+        public ActionResult Save(MasterCampaignViewModel model,string button)
         {
-           // if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
+            // if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
+
+
+            if (button == "Submit")
+            {
+
+            }
+            else if (button == "Delete")
+            { }
+            else 
+            {
+ 
+            }
+
 
             bool result;
             result =  _masterCampaignServices.CreateMasterCampaign(model);

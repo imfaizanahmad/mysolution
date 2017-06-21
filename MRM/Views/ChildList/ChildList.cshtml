@@ -34,23 +34,26 @@
                             <tr>
                                 <th>Sub Campaign ID</th>
                                 <th>Name</th>
-                                <th>Campaign Desc.</th>
+                                <th style="width:400px">Sub Campaign Description</th>
                                 <th>Status</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
-
+                                <th>Action</th>
                             </tr>
                         </thead>
                         @foreach (var item in Model.ChildCampaigns)
                         {
                             <tbody>
                                 <tr>
-                                    <td>sub-camp-@item.Id</td>
+                                    <td>C-@item.Id</td>
                                     <td>@Html.ActionLink((item.Name), "TacticListById", "TacticList", new { Id = item.Id }, null)</td>
                                     <td>@item.CampaignDescription</td>
                                     <td>@item.Status</td>
                                     <td>@item.StartDate</td>
                                     <td>@item.EndDate</td>
+                                    <td>
+                                        <input type="button" class="btn btn-block btn-danger btn-sm" value="Delete" onclick="location.href='@Url.Action( "MasterCampaign", "MasterCampaign")'" />
+                                    </td>
                                 </tr>
                             </tbody>
                         }
@@ -78,7 +81,7 @@
                         <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex" />
                     </div>
                     <div class="col-md-1">
-                        <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" style="width: 180%;height: 40px;margin-left: -85%;" />
+                        <input type="button" class="btn btn-block btn-primary btn-sm" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" style="width: 180%;height: 40px;margin-left: -85%;" />
 
                     </div>
                 </div>

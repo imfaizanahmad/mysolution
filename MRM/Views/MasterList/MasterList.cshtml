@@ -29,32 +29,36 @@
         {
             <fieldset>
                 <legend>Master Campaign Details</legend>
-                <div class="table-responsive">
-                    <table cellpadding="0" cellspacing="0" class="table table-bordered">
+                <div>
+                    <table class="table table-bordered" data-resizable-columns-id="demo-table">
                         <thead class="header-background-color">
                             <tr>
                                 <th>Master Campaign ID</th>
                                 <th>Name</th>
-                                <th>Campaign Desc.</th>
+                                <th style="width:350px">Master Campaign Description</th>
                                 <th>Status</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
-
+                                <th>Action</th>
                             </tr>
                         </thead>
-                        @foreach (var item in Model.MasterCampaigns)
-                {
-                            <tbody>
-                                <tr>
-                                    <td>mas-cam-@item.Id</td>
-                                    <td>@Html.ActionLink((item.Name), "ChildListById", "ChildList", new { Id = item.Id }, null)</td>
-                                    <td>@item.CampaignDescription</td>
-                                    <td>@item.Status</td>
-                                    <td>@item.StartDate</td>
-                                    <td>@item.EndDate</td>
-                                </tr>
-                            </tbody>
-                        }
+                        <tbody>
+                                @foreach (var item in Model.MasterCampaigns)
+                                {
+                                    <tr>
+                                        <td>M-@item.Id</td>
+                                        <td>@Html.ActionLink((item.Name), "ChildListById", "ChildList", new { Id = item.Id }, null)</td>
+                                        <td>@item.CampaignDescription</td>
+                                        <td>@item.Status</td>
+                                        <td>@item.StartDate</td>
+                                        <td>@item.EndDate</td>
+                                        <td>
+                                        <input type="button" class="btn btn-block btn-danger btn-sm" value="Delete" onclick="location.href='@Url.Action( "MasterCampaign", "MasterCampaign")'" />
+                                        </td>
+                                    </tr>
+
+                                }
+                        </tbody>
                     </table>
                 </div>
                
@@ -80,22 +84,23 @@
                         <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex" />
                     </div>
                     <div class="col-md-1">
-                        <input type="button" class="btn btn-block btn-primary btn-lg" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" style="width: 180%;height: 40px;margin-left: -85%;" />
+                        <input type="button" class="btn btn-block btn-primary btn-sm" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" style="width: 180%;height: 40px;margin-left: -85%;" />
 
                     </div>
                 </div>
             </fieldset>
         }
 
-                <script type="text/javascript">
-                    function PagerClick(index)
-                    {
-                        document.getElementById("hfCurrentPageIndex").value = index;
-                        document.forms[0].submit();
-                    }
-
-                </script>
+              
             </div>
 </body>
 </html>
 
+<script type="text/javascript">
+    function PagerClick(index)
+    {
+        document.getElementById("hfCurrentPageIndex").value = index;
+        document.forms[0].submit();
+    }
+
+</script>
