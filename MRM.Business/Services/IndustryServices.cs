@@ -32,5 +32,17 @@ namespace MRM.Business.Services
             else
                 return false;
         }
+
+        public List<Industry> GetIndustryBySegmentId(string SegmentId)
+        {
+
+            List<Industry> lstIndustry = new List<Industry>();
+            foreach (var item in SegmentId)
+            {
+                var industry = guow.GenericRepository<Industry>().GetByID(item);
+                lstIndustry.Add(industry);
+            }
+            return lstIndustry;
+        }
     }
 }

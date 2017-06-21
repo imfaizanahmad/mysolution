@@ -178,27 +178,29 @@
 
 <script>
 
-//$(document).ready(function () {
-//    $("#btnsubmit").click(function (e) {
-    
-//        //var formData = $(this).serialize();
-//        //var model = { BusinessGroupViewModels: $("BusinessGroupViewModels : selected").val(), Name: $("Name").text() }
+    $(document).ready(function () {
+        $(document).on("change", "#BusinessGroups_Id", function (e) {
+            var businessGroupId = $(this).find(":selected").val();
+            alert('hello');
+            if (businessGroupId != 0) {
+                alert('in');
+                window.location.href = '/MasterCampaign/BusinessLine?id=' + businessGroupId + '&_=' + (new Date()).getTime();
+            }
 
-//        var model = { BusinessGroupViewModels: "Shyju", Name: "Detroit" };
-//        $.ajax({
-//        type: 'post',
-//        dataType: 'json',
-//        url: 'http://localhost:53263/MasterCampaign/Save',
-//        data: $("#myform").serialize(),
+            
+        });
+
+        $(document).on("change", "#Segments_Id", function (e) {
+            var segmenId = $(this).find(":selected").val();
+
+            if (masterId != 0) {
+                window.location.href = '/MasterCampaign/Industry?id=' + segmenId + '&_=' + (new Date()).getTime();
+            }
+
+            
+        });
         
-//        success: function (data) {
-//            {
-//                alert(data);
-//            } 
-//    },
-//    });
-//    });
-//    });
+    });
 
 
  
@@ -210,7 +212,8 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $('.mr-mulsl').multiselect({
-            buttonWidth: '52%'
+            buttonWidth: '52%',
+            includeSelectAllOption: true
         });
       
        
