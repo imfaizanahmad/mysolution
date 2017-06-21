@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MRM.Database.Model
 {
    public class BusinessGroup : CommonEntity
     {
+       
         public int Id { get; set; }
         public int BusinessGroupId { get; set; }
         public string Name { get; set; }
