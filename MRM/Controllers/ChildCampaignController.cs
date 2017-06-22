@@ -86,7 +86,7 @@ namespace MRM.Controllers
             // return Json("saved!", JsonRequestBehavior.AllowGet);
         }
 
-
+     
         public ActionResult ChildCampaign(int id=0)
         {
             ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
@@ -106,24 +106,91 @@ namespace MRM.Controllers
             }
             
             Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
-            //foreach (var a in Childvm.MasterViewModels)
-            //{
-
-            //    a.First(x => x.Id == id).Selected = true;
-
-            //}
-            
-
-            List<MasterCampaign> lst = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = id });            
-            foreach (var item in lst)
+           
+            //Created By suraj
+            if (id != default(int))
             {
-                Childvm.IndustryViewModels = item.Industries;
-                Childvm.BusinessGroupViewModels = item.BusinessGroups;
-                Childvm.BusinessLineViewModels = item.BusinessLines;
-                Childvm.SegmentViewModels = item.Segments;
-                Childvm.ThemeViewModels = item.Themes;
-                Childvm.GeographyViewModels = item.Geographys;
+                //Default Drop-down bind
+                Childvm.IndustryViewModels = _industryService.GetIndustry();
+                Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                Childvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
+                Childvm.SegmentViewModels = _segmentService.GetSegment();
+                Childvm.ThemeViewModels = _themeService.GetTheme();
+                Childvm.GeographyViewModels = _geographyService.GetGeography();
+               
+                List<ChildCampaign> childobjlist = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = id });
+                foreach (var item in childobjlist)
+                {
+                   //Selected Value bind in drop-down
+                    //For Theme
+                    int[] SelectedThemes = new int[item.Themes.Count];
+                    for (int i = 0; i < item.Themes.Count; i++)
+                    {
+                        SelectedThemes[i] = item.Themes.ElementAt(i).Id;
+                    }
+                    Childvm.Themes_Id = SelectedThemes;
+
+                    //For BusinessGroups
+
+                    int[] SelectedBusinessGroup = new int[item.BusinessGroups.Count];
+                    for (int i = 0; i < item.BusinessGroups.Count; i++)
+                    {
+                        SelectedBusinessGroup[i] = item.BusinessGroups.ElementAt(i).Id;
+                    }
+                    Childvm.BusinessGroups_Id = SelectedBusinessGroup;
+
+                    //For BusinessLines
+                    int[] SelectedBusinessLine = new int[item.BusinessLines.Count];
+                    for (int i = 0; i < item.BusinessLines.Count; i++)
+                    {
+                        SelectedBusinessLine[i] = item.BusinessLines.ElementAt(i).Id;
+                    }
+                    Childvm.BusinessLines_Id = SelectedBusinessLine;
+                    //For Segment
+                    int[] SelectedSegment = new int[item.Segments.Count];
+                    for (int i = 0; i < item.Segments.Count; i++)
+                    {
+                        SelectedSegment[i] = item.Segments.ElementAt(i).Id;
+                    }
+                    Childvm.Segments_Id = SelectedSegment;
+
+                    //For Geography
+                    int[] SelectedGeography = new int[item.Geographys.Count];
+                    for (int i = 0; i < item.Geographys.Count; i++)
+                    {
+                        SelectedGeography[i] = item.Geographys.ElementAt(i).Id;
+                    }
+                    Childvm.Geographys_Id = SelectedGeography;
+                    //For Industry
+                    int[] SelectedIndustry = new int[item.Industries.Count];
+                    for (int i = 0; i < item.Industries.Count; i++)
+                    {
+                        SelectedIndustry[i] = item.Industries.ElementAt(i).Id;
+                    }
+                    Childvm.Industries_Id = SelectedIndustry;
+
+
+                    Childvm.Name = item.Name;
+                    Childvm.CampaignDescription = item.CampaignDescription;
+                    Childvm.MarketingInfluenceLeads = item.MarketingInfluenceLeads;
+                    Childvm.MarketingGeneratedLeads = item.MarketingGeneratedLeads;
+                    Childvm.Budget = item.Budget;
+                    Childvm.StartDate = Convert.ToString(item.StartDate);
+                    Childvm.EndDate = Convert.ToString(item.EndDate);
+                    Childvm.MarketingInfluenceOpportunity = item.MarketingInfluenceOpportunity;
+                    Childvm.MarketingGeneratedOpportunity = item.MarketingGeneratedOpportunity;
+                    Childvm.Spend = item.Spend;
+                    Childvm.Id = item.Id;
+                    Childvm.Status = item.Status;
+
+
+                }
+                
+               
             }
+
+
+
 
            
             return View(Childvm);

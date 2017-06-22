@@ -87,13 +87,25 @@ namespace MRM.Business.Services
             masterCampaignEntity.Segments = lstsegment;
             masterCampaignEntity.Industries = lstindustry;
             masterCampaignEntity.Geographys = lstgeography;
-            guow.GenericRepository<MasterCampaign>().Insert(masterCampaignEntity);
+            if (model.Id == default(int))
+            {
+                guow.GenericRepository<MasterCampaign>().Insert(masterCampaignEntity);
+            }
+            else
+            {
+                guow.GenericRepository<MasterCampaign>().Update(masterCampaignEntity);
+            }
 
             if (masterCampaignEntity.Id != 0)
                 return true;
             else
                 return false;
         }
-
+        public bool DeleteMasterCampaign(int Id)
+        {
+            guow.GenericRepository<MasterCampaign>().Delete(Id);
+                return true;
+           
+        }
     }
 }

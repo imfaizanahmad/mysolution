@@ -3,9 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "MasterCampaign";
-
 }
-
 <script src="~/Scripts/jquery-2.1.3.min.js"></script>
 
 <style>
@@ -51,7 +49,8 @@
 
 @using (Ajax.BeginForm("Save", "MasterCampaign", new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
 {
-    <form>     
+    <form> 
+       @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
         <section class="content-header">          
         </section>
         <section class="content">
@@ -91,6 +90,8 @@
                                 <div class="form-group">
                                     <label>Business Group<span class="text-danger">*</span></label><br />
                                     @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), new { @class = "chosen-select form-control" })
+                                   
+
                                     <div class="validmsgbusinesGp"></div>
                                 </div>
                             </div>
@@ -192,6 +193,9 @@
                                     </div>
                                     <div class="col-md-4">
                                         <button Id="btnsubmit" name="button" value="Delete" class="btn btn-block btn-danger btn-sm">Delete</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button Id="btnsubmit" name="button" value="Update" class="btn btn-block btn-danger btn-sm">Update</button>
                                     </div>
                                 </div>
 

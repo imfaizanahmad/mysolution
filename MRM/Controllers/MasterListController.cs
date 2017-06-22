@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MRM.Database.GenericUnitOfWork;
 using MRM.Business.Services;
 using MRM.Database.Model;
+using MRM.ViewModel;
 
 namespace MRM.Controllers
 {
@@ -14,8 +15,26 @@ namespace MRM.Controllers
     {
 
         GenericUnitOfWork dbobject = new GenericUnitOfWork();
-        public ActionResult MasterList()
+        MasterCampaignServices _masterCampaignServices = new MasterCampaignServices();
+        ChildCampaignServices _childCampaignServices = new ChildCampaignServices();
+        MasterCampaign MasterCampaignObj = new MasterCampaign();
+        ChildCampaign childCampaignObj = new ChildCampaign();
+        public ActionResult MasterList(string Type, int id = 0)
         {
+            bool result = false;
+            ChildCampaignViewModel ccvm = new ChildCampaignViewModel();
+            ccvm.MasterCampaigns_Id = id;
+
+            if (Type == "View")
+            {
+                childCampaignObj.ChildCampaigns= _childCampaignServices.GetChildCampaignMasterId(ccvm);
+                RedirectToAction("ChildList", "ChildList");
+            }
+           else if (Type == "Delete")
+            {
+                result = _masterCampaignServices.DeleteMasterCampaign(id);
+                
+            }
             return View(this.GetMasterCampaignList(1));
            
         }
@@ -35,7 +54,7 @@ namespace MRM.Controllers
             MasterCampaignServices obj = new MasterCampaignServices();
             int maxRows = 10;
             int totalCount = obj.GetMasterCampaign().Count();
-            MasterCampaign MasterCampaignObj = new MasterCampaign();
+            //MasterCampaign MasterCampaignObj = new MasterCampaign();
             MasterCampaignObj.MasterCampaigns = (from Mastercampaign in obj.GetMasterCampaign().ToList()
                                                  //join fnekfw in obj.GetMasterCampaign() where (Mastercampaign.Id == fnekfw.Geographys) 
 

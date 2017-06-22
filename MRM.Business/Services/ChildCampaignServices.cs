@@ -101,5 +101,12 @@ namespace MRM.Business.Services
             List<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.Id == model.Id).ToList();
             return childCampaign;
         }
+
+        public List<ChildCampaign> GetChildCampaignMasterId(ChildCampaignViewModel model)
+        {
+            List<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.MasterCampaigns_Id == model.MasterCampaigns_Id).ToList();
+            return childCampaign;
+        }
+
     }
 }

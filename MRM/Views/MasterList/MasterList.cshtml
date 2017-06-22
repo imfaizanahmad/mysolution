@@ -53,7 +53,9 @@
                                         <td>@item.StartDate</td>
                                         <td>@item.EndDate</td>
                                         <td>
-                                        <input type="button" class="btn btn-block btn-danger btn-sm" value="Delete" onclick="location.href='@Url.Action( "MasterCampaign", "MasterCampaign")'" />
+                                        <input type="button"  class="btn btn-block btn-danger btn-sm" value="Edit" onclick="location.href='@Url.Action( "MasterCampaign", "MasterCampaign", new { Id = item.Id})'" />
+                                        <input type="button" class="btn btn-block btn-danger btn-sm" value="View" onclick="location.href='@Url.Action( "MasterList", "MasterList", new { @Id = item.Id, @Type="View" })'" />
+                                        <input type="button"  class="btn btn-block btn-danger btn-sm" value="Delete" onclick="location.href='@Url.Action( "MasterList", "MasterList", new {Id = item.Id, @Type = "Delete"})'" />
                                         </td>
                                     </tr>
 

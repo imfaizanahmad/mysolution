@@ -55,7 +55,7 @@ namespace MRM.Controllers
         //    return View(Tacticvm);
         //}
 
-
+      
         public ActionResult TacticCampaign(int id = 0)
         {
             TacticCampaignViewModel tacticvm = new TacticCampaignViewModel();
@@ -74,17 +74,81 @@ namespace MRM.Controllers
                 return View(tacticvm);
             }
 
-            tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign();
-            List<ChildCampaign> lst = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = id });
-            foreach (var item in lst)
+            //created by Suraj
+            if (id != default(int))
             {
-                tacticvm.IndustryViewModels = item.Industries;
-                tacticvm.BusinessGroupViewModels = item.BusinessGroups;
-                tacticvm.BusinessLineViewModels = item.BusinessLines;
-                tacticvm.SegmentViewModels = item.Segments;
-                tacticvm.ThemeViewModels = item.Themes;
-                tacticvm.GeographyViewModels = item.Geographys;
+
+                //Default Drop-down bind
+                tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign();
+                tacticvm.IndustryViewModels = _industryService.GetIndustry();
+                tacticvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                tacticvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
+                tacticvm.SegmentViewModels = _segmentService.GetSegment();
+                tacticvm.ThemeViewModels = _themeService.GetTheme();
+                tacticvm.GeographyViewModels = _geographyService.GetGeography();
+                List<TacticCampaign> tacticobjlist = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = id });
+                foreach (var item in tacticobjlist)
+                {
+                    //Selected Value bind in drop-down
+                    //For Theme
+                    int[] SelectedThemes = new int[item.Themes.Count];
+                    for (int i = 0; i < item.Themes.Count; i++)
+                    {
+                        SelectedThemes[i] = item.Themes.ElementAt(i).Id;
+                    }
+                    tacticvm.Themes_Id = SelectedThemes;
+
+                    //For BusinessGroups
+
+                    int[] SelectedBusinessGroup = new int[item.BusinessGroups.Count];
+                    for (int i = 0; i < item.BusinessGroups.Count; i++)
+                    {
+                        SelectedBusinessGroup[i] = item.BusinessGroups.ElementAt(i).Id;
+                    }
+                    tacticvm.BusinessGroups_Id = SelectedBusinessGroup;
+
+                    //For BusinessLines
+                    int[] SelectedBusinessLine = new int[item.BusinessLines.Count];
+                    for (int i = 0; i < item.BusinessLines.Count; i++)
+                    {
+                        SelectedBusinessLine[i] = item.BusinessLines.ElementAt(i).Id;
+                    }
+                    tacticvm.BusinessLines_Id = SelectedBusinessLine;
+                    //For Segment
+                    int[] SelectedSegment = new int[item.Segments.Count];
+                    for (int i = 0; i < item.Segments.Count; i++)
+                    {
+                        SelectedSegment[i] = item.Segments.ElementAt(i).Id;
+                    }
+                    tacticvm.Segments_Id = SelectedSegment;
+
+                    //For Geography
+                    int[] SelectedGeography = new int[item.Geographys.Count];
+                    for (int i = 0; i < item.Geographys.Count; i++)
+                    {
+                        SelectedGeography[i] = item.Geographys.ElementAt(i).Id;
+                    }
+                    tacticvm.Geographys_Id = SelectedGeography;
+                    //For Industry
+                    int[] SelectedIndustry = new int[item.Industries.Count];
+                    for (int i = 0; i < item.Industries.Count; i++)
+                    {
+                        SelectedIndustry[i] = item.Industries.ElementAt(i).Id;
+                    }
+                    tacticvm.Industries_Id = SelectedIndustry;
+
+                    tacticvm.Name = item.Name;
+                    tacticvm.TacticDescription = item.TacticDescription;
+                    tacticvm.StartDate = Convert.ToString(item.StartDate);
+                    tacticvm.EndDate = Convert.ToString(item.EndDate);
+                    tacticvm.Year = item.Year;
+                    tacticvm.Status = item.Status;
+
+
+                }
+
             }
+
             return View(tacticvm);
         }
 

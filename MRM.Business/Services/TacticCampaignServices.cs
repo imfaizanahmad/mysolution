@@ -91,7 +91,11 @@ namespace MRM.Business.Services
             else
                 return false;
         }
-     
 
+        public List<TacticCampaign> GetTacticCampaignById(TacticCampaignViewModel model)
+        {
+            List<TacticCampaign> tacticCampaign = guow.GenericRepository<TacticCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.Id == model.Id).ToList();
+            return tacticCampaign;
+        }
     }
 }
