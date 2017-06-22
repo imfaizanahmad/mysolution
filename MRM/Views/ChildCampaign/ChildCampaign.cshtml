@@ -25,7 +25,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Master Campaign</label><span class="text-danger">*</span><br />
-                                    @Html.DropDownListFor(m => m.MasterCampaignId, new SelectList(Model.MasterViewModels, "Id", "Name",Model.MasterCampaignId), "Select Option", new { @class = "chosen-single form-control" })
+                                    @Html.DropDownListFor(m => m.MasterCampaignId, new SelectList(Model.MasterViewModels, "Id", "Name",Model.MasterCampaignId), "Select Option", new { @class = "chosen-single form-control",onchange="this.form.submit(this.val)" })
                                     <div class="validmsgMastercampaign"></div>
                                 </div>
                             </div>
@@ -95,11 +95,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Campaign Type<span class="text-danger">*</span></label><br />
-                                    @Html.DropDownList("subcampaigntype", new List<SelectListItem>
-                                     {
-                                        new SelectListItem{ Text="BG Led", Value = "0" },
-                                        new SelectListItem{ Text="GEPS", Value = "1" }
-                                     }, "Select Option", new { @class = "chosen-single form-control" })
+                                    @Html.DropDownListFor(m => m.CampaignType, new SelectList(Model.campaignTypeViewModels, "Id", "Name", Model.CampaignType),
+                                     "Select Option", new { @class = "chosen-single form-control" ,onchange="this.form.submit(this.val)"})
                                     <div class="validmsgsubcampaigntype"></div>
                                 </div>
                             </div>
@@ -111,23 +108,18 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Business Group</label><span class="text-danger">*</span><br />
-                                            @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), new { @class = "chosen-select form-control" })
+                                            @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), new { @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" })
                                             <div class="validmsgbusinesGp"></div>
+                                            <div class="validmsgSingleBGselect"></div>
                                         </div>
-
-                                        @*<div class="form-group" id="SingleBusiness">
-                                            <label>Business Group</label><span class="text-danger">*</span><br />
-                                            @Html.DropDownListFor(m => m.BusinessGroups_Id, new SelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), new { @class = "chosen-single form-control" })
-                                            <div class="validmsgbusinesGp"></div>
-                                        </div>*@
-
 
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Segment</label><span class="text-danger">*</span><br />
-                                            @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), new { @class = "chosen-select form-control" })
+                                            @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), new { @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" })
                                             <div class="validmsgbusinesSegment"></div>
+                                            <div class="validmsgSingleSegment"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -315,39 +307,30 @@
 <link href="~/Content/datepicker3.css" rel="stylesheet" />
 <script src="~/Content/bootstrap-datepicker.js"></script>
 <script>
-
+    var CampaignTypeval;
     $(document).ready(function () {
         $('.chosen-single').chosen();
-        $(document).on("change", "#MasterCampaignId", function (e) {
-            var masterId = $(this).find(":selected").val();
 
-            if (masterId != 0) {
-                window.location.href = '/ChildCampaign/ChildCampaign?id=' + masterId + '&_=' + (new Date()).getTime();
-                //$.ajax({
-                //    type: 'post',
-                //    dataType: 'json',
-                //    url: '/ChildCampaign/ChildCampaign?id=' + masterId + '&_=' + (new Date()).getTime(),
-                //    success: function (data) {
-                //        {
-                //            debugger
-                //            alert(data);
-                //            //$('#maindiv').html(data);
-                //        }
-                //    },
-                //});
-            }
+        //$(document).on("change", "#MasterCampaignId", function (e) {
+        //    var masterId = $(this).find(":selected").val();
 
-        });
-            $(document).on("change","#BusinessGroups_Id",function(){
-                DdlBind();
-            });
+        //    if (masterId != 0) {
+        //        window.location.href = '/ChildCampaign/ChildCampaign?id=' + masterId + '&_=' + (new Date()).getTime();
+        //    }
+        //});
 
-            $(document).on("change","#Segments_Id",function(){
-                DdlBind();
-            });
+
+            //$(document).on("change","#BusinessGroups_Id",function(){
+            //    DdlBind();
+            //});
+
+            //$(document).on("change","#Segments_Id",function(){
+            //    DdlBind();
+            //});
             function DdlBind()
             {
-        
+                
+             CampaignTypeval=  $("#CampaignType option:selected").val();
                 var MId = $("#MasterCampaignId option:selected").val();
                 var BusinessGroups_Id_ARR=[];
                 $('#BusinessGroups_Id :selected').each(function(i, selected){ 
@@ -370,18 +353,18 @@
             
                 if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length<=0) {
                     BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
-                    window.location.href = '/ChildCampaign/ChildCampaign?' + bgroup_params + Segment_params +'id='+MId+ '&_=' + (new Date()).getTime();
+                    window.location.href = '/ChildCampaign/ChildCampaign?' + bgroup_params + Segment_params +'id='+MId+'&CTVal='+CampaignTypeval+ '&_=' + (new Date()).getTime();
                 }
                 else if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length>0) {
                     BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
                     Segments_Id_ARR.forEach(function(e){Segment_params = Segment_params+"Segments_Id="+e+"&";});
-                    window.location.href = '/ChildCampaign/ChildCampaign?' + bgroup_params + Segment_params +'id='+MId+ '&_=' + (new Date()).getTime();
+                    window.location.href = '/ChildCampaign/ChildCampaign?' + bgroup_params + Segment_params + 'id=' + MId + '&CTVal=' + CampaignTypeval + '&_=' + (new Date()).getTime();
                 }
                 else 
                 {
                     bgroup_params='';
                     Segment_params='';
-                    window.location.href = '/ChildCampaign/ChildCampaign?' + bgroup_params + Segment_params + '&_=' + (new Date()).getTime();
+                    window.location.href = '/ChildCampaign/ChildCampaign?' + bgroup_params + Segment_params + 'id=' + MId + '&CTVal=' + CampaignTypeval + '&_=' + (new Date()).getTime();
                     //handle for no selection
                 }
         
@@ -415,10 +398,10 @@
     });
 
     ///Multiple and single select conditions for campaign type
-        //window.onload=function(){
-        //    document.getElementById("MultipleBusiness").style.display='none';
-        //}
-   
+    $(window).on('load', function () {
+        // alert(CampaignTypeval);
+       // $("#CampaignType option:selected").val(CampaignTypeval)
+    });
     
     $('#StartDate').datepicker();
     $('#EndDate').datepicker();
@@ -473,7 +456,7 @@
             $('.validmsgbusinesSegment').hide();
         }
 
-        if ($('#subcampaigntype').val() == "")
+        if ($('#CampaignType').val() == "")
         {
 
             $('.validmsgsubcampaigntype').text("Please select Campaign Type").css("color", "#b94a48");
@@ -486,7 +469,7 @@
         }
      
 
-        if ($('#subcampaigntype').val() == "1") {
+        if ($('#CampaignType').val() == "1") {
             if ($('#Industries_Id').val() == null) {
 
                 $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");
@@ -499,6 +482,41 @@
             }
         }
 
+        if ($('#CampaignType').val() == 0) {
+
+            CampaignTypeval = "0";//$("#CampaignType option:selected").val();
+          
+            var BGArr = [];
+            $('#BusinessGroups_Id :selected').each(function (i, selected) {
+                BGArr.push($(selected).val());
+            });
+
+            if (BGArr.length != 1) {
+                $('.validmsgSingleBGselect').text("You can not select multiple Business Group").css("color", "#b94a48");
+                $('.validmsgSingleBGselect').show();
+                flag = false;
+            }
+            else { $('.validmsgSingleBGselect').hide(); }
+        }
+        else
+        {
+            CampaignTypeval = $("#CampaignType option:selected").val();
+
+            var SegArr = [];
+            $('#Segments_Id :selected').each(function (i, selected) {
+                SegArr.push($(selected).val());
+            });
+
+            if (SegArr.length != 1) {
+                $('.validmsgSingleSegment').text("You can not select multiple Segment").css("color", "#b94a48");
+                $('.validmsgSingleSegment').show();
+                flag = false;
+            }
+            else { $('.validmsgSingleSegment').hide(); }
+
+        }
+
+        
 
         if ($("#StartDate").find("input").val() == "") {
             $('.validmsgSdate').text("Please select start date").css("color", "#b94a48");

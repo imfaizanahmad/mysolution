@@ -22,6 +22,21 @@ namespace MRM.Database.Model
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
+        //public string MILGoal { get; set; }
+        //public string MILLow { get; set; }
+        //public string MILHigh { get; set; }
+        //public string MGLGoal { get; set; }
+        //public string MGLLow { get; set; }
+        //public string MGLHigh { get; set; }
+        //public string MIOGoal { get; set; }
+        //public string MIOLow { get; set; }
+        //public string MIOHigh { get; set; }
+        //public string MGOGoal { get; set; }
+        //public string MGOLow { get; set; }
+        //public string MGOHigh { get; set; }
+
+
+
         public virtual ICollection<BusinessGroup> BusinessGroups { get; set; }
         public virtual ICollection<BusinessLine> BusinessLines { get; set; }
         public virtual ICollection<Segment> Segments { get; set; }

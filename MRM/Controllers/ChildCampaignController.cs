@@ -7,6 +7,8 @@ using MRM.Business.Services;
 using MRM.Database.Model;
 using MRM.Database.GenericRepository;
 using MRM.ViewModel;
+using System.Collections;
+
 namespace MRM.Controllers
 {
     [AllowAnonymous]
@@ -61,114 +63,163 @@ namespace MRM.Controllers
         {
             //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
 
-            if (button == "Submit")
+            //Bind Campaign Type List
+            var CampaignTypelst = new List<CampaignTypes> { new CampaignTypes() { Id = 0, Name = "BG Led" },
+                new CampaignTypes() { Id = 1, Name = "GEPS" } };
+            model.campaignTypeViewModels = CampaignTypelst;
+            //
+            foreach(var i in CampaignTypelst)
             {
-
+                if (i.Id == model.CampaignType)
+                {
+                    model.CampaignType = i.Id;
+                }
             }
-            else if (button == "Delete")
-            { }
-            else
+           
+
+            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
+
+          
+            //Load DDl values//////////////////////
+            List<MasterCampaign> lst = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = model.MasterCampaignId });
+            foreach (var item in lst)
             {
-
+                model.IndustryViewModels = item.Industries;
+                model.BusinessGroupViewModels = item.BusinessGroups;
+                model.BusinessLineViewModels = item.BusinessLines;
+                model.SegmentViewModels = item.Segments;
+                model.ThemeViewModels = item.Themes;
+                model.GeographyViewModels = item.Geographys;
             }
 
+            if (model.BusinessGroups_Id == null)
+            {
+                model.BusinessGroupViewModels = _businessgroupService.GetBG();
+                model.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                model.SegmentViewModels = _segmentService.GetSegment();
+                model.IndustryViewModels = (new Industry[] { new Industry() });
+                model.GeographyViewModels = _geographyService.GetGeography();
+                model.ThemeViewModels = _themeService.GetTheme();
+                return View("ChildCampaign",model);
+            }
+
+            if (model.BusinessGroups_Id != null)
+            {
+                List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
+                model.BusinessGroupViewModels = _businessgroupService.GetBG();
+                model.BusinessLineViewModels = businesslist;
+                model.SegmentViewModels = _segmentService.GetSegment();
+                if (model.Segments_Id == null)
+                    model.IndustryViewModels = (new Industry[] { new Industry() });
+                else
+                {
+                    List<Industry> Industrylst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
+                    model.IndustryViewModels = Industrylst;
+                }
+                model.GeographyViewModels = _geographyService.GetGeography();
+                model.ThemeViewModels = _themeService.GetTheme();
+                return View("ChildCampaign", model);
+            }
+            else if (model.Segments_Id != null)
+            {
+                model.BusinessGroupViewModels = _businessgroupService.GetBG();
+                if (model.BusinessGroups_Id == null)
+                    model.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                else
+                {
+                    List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
+                    model.BusinessLineViewModels = businesslist;
+                }
+                model.SegmentViewModels = _segmentService.GetSegment();
+                model.Segments_Id = model.Segments_Id;
+                List<Industry> Industrylst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
+                model.IndustryViewModels = Industrylst;
+                model.GeographyViewModels = _geographyService.GetGeography();
+                model.ThemeViewModels = _themeService.GetTheme();
+                return View("ChildCampaign",model);
+            }
+
+            ////////////////////////////
+            
 
             bool result;
-            result=  _childCampaignServices.CreateChildCampaign(model);
-            if (result == true)
+            if (isValid(model))
             {
-                return RedirectToAction("ChildList", "ChildList");
+                result = _childCampaignServices.CreateChildCampaign(model);
+                if (result == true)
+                {
+                    return RedirectToAction("ChildList", "ChildList");
+                }
+                else
+                {
+                    return RedirectToAction("ChildCampaign", "ChildCampaign");
+                }
             }
-            else
-            {
-                return RedirectToAction("ChildCampaign", "ChildCampaign");
-            }
+           
+            return View("ChildCampaign",model);
             // return Json("saved!", JsonRequestBehavior.AllowGet);
         }
 
+        private bool isValid(ChildCampaignViewModel model)
+        {
+            int errorCounter = 0;
+            int campaignTypeBGLed = 0;
+            if (model.MasterCampaignId == 0) errorCounter++;
+            if (model.BusinessGroups_Id == null) errorCounter++;
+            if (model.BusinessLines_Id == null) errorCounter++;
+            if (model.Segments_Id == null) errorCounter++;
+            if (model.CampaignType!=0 || model.CampaignType !=1) errorCounter++;
+            if (Convert.ToInt32(model.CampaignType) == 1 && model.Industries_Id == null) errorCounter++;
+            if (model.StartDate == "") errorCounter++;
+            if (model.EndDate == "") errorCounter++;
+            if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
+            if (model.Name == "") errorCounter++;
+            if (model.CampaignDescription == "") errorCounter++;
+            if (model.Budget == "") errorCounter++;
+            //if (model.Status == "") errorCounter++;
+            if (model.CampaignType == campaignTypeBGLed) 
+            {
+                var bgArr = model.BusinessGroups_Id;
+                if (bgArr != null && bgArr.Length != 1) errorCounter++;
+            }
+            else
+            {
+                var segArr = model.Segments_Id;
+                if (segArr != null && segArr.Length != 1) errorCounter++;
+            }
 
-        public ActionResult ChildCampaign(int[] BusinessGroups_Id, int[] Segments_Id, int id = 0)
+            return errorCounter == 0;
+        }
+
+        public ActionResult ChildCampaign(int[] BusinessGroups_Id, int[] Segments_Id, string CTVal, int id = 0)
         {
             ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
+            //Bind Campaign Type List
+            var CampaignTypelst = new List<CampaignTypes> { new CampaignTypes() { Id = 0, Name = "BG Led" },
+                new CampaignTypes() { Id = 1, Name = "GEPS" } };
+            Childvm.campaignTypeViewModels = CampaignTypelst;
+            //
+
 
             if (id == 0)
             {
                 Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
-
                 Childvm.BusinessGroupViewModels = (new BusinessGroup[] { new BusinessGroup() });
-                Childvm.SegmentViewModels = (new Segment[] { new Segment() });
-                Childvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
-                Childvm.ThemeViewModels = (new Theme[] { new Theme() });
-                Childvm.GeographyViewModels = (new Geography[] { new Geography() });
-                Childvm.IndustryViewModels = (new Industry[] { new Industry() });
+                //Childvm.SegmentViewModels = (new Segment[] { new Segment() });
+                //Childvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                //Childvm.ThemeViewModels = (new Theme[] { new Theme() });
+                //Childvm.GeographyViewModels = (new Geography[] { new Geography() });
+                //Childvm.IndustryViewModels = (new Industry[] { new Industry() });
 
                 return View(Childvm);
             }
             Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
-             
 
-            List<MasterCampaign> lst = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = id });            
-            foreach (var item in lst)
-            {
-                Childvm.IndustryViewModels = item.Industries;
-                Childvm.BusinessGroupViewModels = item.BusinessGroups;
-                Childvm.BusinessLineViewModels = item.BusinessLines;
-                Childvm.SegmentViewModels = item.Segments;
-                Childvm.ThemeViewModels = item.Themes;
-                Childvm.GeographyViewModels = item.Geographys;
-                Childvm.MasterCampaignId = id;
-            }
-
-
-            if (BusinessGroups_Id == null)
-            {
-                Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-                Childvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
-                Childvm.SegmentViewModels = _segmentService.GetSegment();
-                Childvm.IndustryViewModels = (new Industry[] { new Industry() });
-                Childvm.GeographyViewModels = _geographyService.GetGeography();
-                Childvm.ThemeViewModels = _themeService.GetTheme();
-                return View(Childvm);
-            }
-
-            if (BusinessGroups_Id != null)
-            {
-                List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(BusinessGroups_Id);
-                Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-                Childvm.BusinessGroups_Id = BusinessGroups_Id;
-                Childvm.BusinessLineViewModels = businesslist;
-                Childvm.SegmentViewModels = _segmentService.GetSegment();
-                if (Segments_Id == null)
-                    Childvm.IndustryViewModels = (new Industry[] { new Industry() });
-                else
-                {
-                    List<Industry> Industrylst = _industryService.GetIndustryBySegmentId(Segments_Id);
-                    Childvm.IndustryViewModels = Industrylst;
-                }
-                Childvm.GeographyViewModels = _geographyService.GetGeography();
-                Childvm.ThemeViewModels = _themeService.GetTheme();
-                return View(Childvm);
-            }
-            else if (Segments_Id != null)
-            {
-                Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-                if (BusinessGroups_Id == null)
-                    Childvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
-                else
-                {
-                    List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(BusinessGroups_Id);
-                    Childvm.BusinessLineViewModels = businesslist;
-                }
-                Childvm.SegmentViewModels = _segmentService.GetSegment();
-                Childvm.Segments_Id = Segments_Id;
-                List<Industry> Industrylst = _industryService.GetIndustryBySegmentId(Segments_Id);
-                Childvm.IndustryViewModels = Industrylst;
-                Childvm.GeographyViewModels = _geographyService.GetGeography();
-                Childvm.ThemeViewModels = _themeService.GetTheme();
-                return View(Childvm);
-            }
-
+            // List<CampaignTypes> cmpgntype = new List<CampaignTypes> { new cmpgntype { name = "hg", id = 0 }, new CampaignTypes { name = "hg", id = 0 } };
+            
             return View(Childvm);
         }
+
+        
     }
 }

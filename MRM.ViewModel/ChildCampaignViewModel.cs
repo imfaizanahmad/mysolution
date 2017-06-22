@@ -10,6 +10,15 @@ namespace MRM.ViewModel
 
     public class ChildCampaignViewModel
     {
+        public ChildCampaignViewModel()
+        {
+            BusinessGroupViewModels = new [] { new BusinessGroup() };
+            SegmentViewModels = (new [] { new Segment() });
+            BusinessLineViewModels = (new [] { new BusinessLine() });
+            ThemeViewModels = (new [] { new Theme() });
+            GeographyViewModels = (new [] { new Geography() });
+            IndustryViewModels = (new [] { new Industry() });
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string CampaignDescription { get; set; }
@@ -38,6 +47,9 @@ namespace MRM.ViewModel
 
         public int MasterCampaignId { get; set; }
 
+        public int CampaignType { get; set; }
+
+
         public IEnumerable<Industry> IndustryViewModels { get; set; }
         public IEnumerable<Geography> GeographyViewModels { get; set; }
         public IEnumerable<Theme> ThemeViewModels { get; set; }
@@ -51,5 +63,13 @@ namespace MRM.ViewModel
         public int[] Industries_Id { get; set; }
         public int[] Segments_Id { get; set; }
         public int[] Themes_Id { get; set; }
+
+        public IEnumerable<CampaignTypes> campaignTypeViewModels { get; set; }
+    }
+
+    public class CampaignTypes
+    {
+       public int Id { get; set; }
+       public string Name { get; set; }
     }
 }

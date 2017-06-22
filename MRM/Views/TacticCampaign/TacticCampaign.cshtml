@@ -35,7 +35,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Sub Campaign</label><span class="text-danger">*</span><br />
-                                        @Html.DropDownListFor(m => m.ChildCampaign_Id, new SelectList(Model.ChildCampaignViewModels, "Id", "Name",Model.ch), "Select Option", new { @class = "chosen-single form-control" })
+                                        @Html.DropDownListFor(m => m.ChildCampaign_Id, new SelectList(Model.ChildCampaignViewModels, "Id", "Name",Model.ChildCampaign_Id), "Select Option", new { @class = "chosen-single form-control" })
                                         <div class="validmsgSubcampaign"></div>
                                     </div>
                                 </div>
