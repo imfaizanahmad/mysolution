@@ -28,6 +28,7 @@ namespace MRM.Business.Services
         public bool CreateChildCampaign(ChildCampaignViewModel model)
         {
             ChildCampaign childCampaignEntity = new ChildCampaign();
+            childCampaignEntity.MasterCampaigns = guow.GenericRepository<MasterCampaign>().GetByID(model.MasterCampaignId);
             childCampaignEntity.Name = model.Name;
             childCampaignEntity.CampaignDescription = model.CampaignDescription;
             childCampaignEntity.StartDate = Convert.ToDateTime(model.StartDate);

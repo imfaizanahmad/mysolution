@@ -69,97 +69,6 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Theme</label>  <br />
-                                    @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name", Model.Themes_Id), new { @class = "chosen-select form-control" })
-                                </div>
-                            </div>
-                            <div class="col-md-6"><label>Start Date<span class="text-danger">*</span></label>
-                                <div class="form-group">
-                                    <div class="col-md-6 date datealign">
-                                        <div class="input-group input-append date" id="StartDate">
-                                            @Html.TextBoxFor(m => m.StartDate, new { @maxlength = "10", @class = "form-control" })
-                                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                                        </div>
-                                    </div>
-                                    <div class="validmsgSdate"></div>
-                            </div>
-                        </div>
-                            </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Business Group<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), new { @class = "chosen-select form-control" })
-                                   
-
-                                    <div class="validmsgbusinesGp"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label>End Date<span class="text-danger">*</span></label>
-                                <div class="form-group">
-                                    <div class="col-md-6 form-group date datealign">
-                                        <div class="input-group input-append date" id="EndDate">
-                                            @Html.TextBoxFor(m => m.EndDate, new { @maxlength = "10", @class = "form-control" })
-                                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="validmsgEdate"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Business Line<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id), new { @class = "chosen-select form-control" })
-                                    <div class="validmsgbusinesLine"></div>
-                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                             
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Segment<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), new { @class = "chosen-select form-control" })
-                                    <div class="validmsgbusinesSegment"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                              
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Industry<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), new { @class = "chosen-select form-control" })
-                                    <div class="validmsgbusinesIndustry"></div>
-                                  </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Geography</label><span class="text-danger">*</span><br />
-                                    @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), new { @class = "chosen-select form-control" })
-                                    <div class="validmsgbusinesGeography"></div>
-                                </div>
-                            </div>
-                           
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
                                     <label>Master Campaign Name<span class="text-danger">*</span></label>
                                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                                     <div class="validmsgMaster"></div>
@@ -174,6 +83,108 @@
 
                             </div>
                         </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Theme</label>  <br />
+                                    @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name", Model.Themes_Id), new { @class = "chosen-select form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Geography</label><span class="text-danger">*</span><br />
+                                    @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), new { @class = "chosen-select form-control" })
+                                    <div class="validmsgbusinesGeography"></div>
+                                </div>
+                            </div>
+
+
+
+                            </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Business Group<span class="text-danger">*</span></label><br />
+                                    @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), new { @class = "chosen-select form-control" })
+                                   
+
+                                    <div class="validmsgbusinesGp"></div>
+                                </div>
+                            </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Segment<span class="text-danger">*</span></label><br />
+                                        @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), new { @class = "chosen-select form-control" })
+                                        <div class="validmsgbusinesSegment"></div>
+                                    </div>
+                                </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Business Line<span class="text-danger">*</span></label><br />
+                                    @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id), new { @class = "chosen-select form-control" })
+                                    <div class="validmsgbusinesLine"></div>
+                                 </div>
+                            </div>
+                            <div class="col-md-6">
+
+
+                                <div class="form-group">
+                                    <label>Industry<span class="text-danger">*</span></label><br />
+                                    @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), new { @class = "chosen-select form-control" })
+                                    <div class="validmsgbusinesIndustry"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label>Start Date<span class="text-danger">*</span></label>
+                                <div class="form-group">
+                                    <div class="col-md-6 date datealign">
+                                        <div class="input-group input-append date" id="StartDate">
+                                            @Html.TextBoxFor(m => m.StartDate, new { @maxlength = "10", @class = "form-control" })
+                                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                    <div class="validmsgSdate"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>End Date<span class="text-danger">*</span></label>
+                                <div class="form-group">
+                                    <div class="col-md-6 form-group date datealign">
+                                        <div class="input-group input-append date" id="EndDate">
+                                            @Html.TextBoxFor(m => m.EndDate, new { @maxlength = "10", @class = "form-control" })
+                                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                            </div>
+                           
+                        </div>
+                       
                         <!-- /.row -->
                     </fieldset>
                                 </div>
@@ -192,7 +203,7 @@
                                         <button Id="btnsubmit" name="button" value="Save Draft" class="btn btn-block btn-primary btn-sm">Save Draft</button>
                                     </div>
                                     <div class="col-md-4">
-                                        <button Id="btnsubmit" name="button" value="Delete" class="btn btn-block btn-danger btn-sm">Delete</button>
+                                        <button Id="btnsubmit" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm">Delete</button>
                                     </div>
                                     <div class="col-md-4">
                                         <button Id="btnsubmit" name="button" value="Update" class="btn btn-block btn-danger btn-sm">Update</button>
@@ -219,12 +230,65 @@
     $('#StartDate').datepicker();
     $('#EndDate').datepicker();
 
+    $(document).ready(function () {
 
+
+        $(document).on("change","#BusinessGroups_Id",function(){
+            DdlBind();
+        });
+
+        $(document).on("change","#Segments_Id",function(){
+            DdlBind();
+        });
+
+        function DdlBind()
+        {
+        
+            var BusinessGroups_Id_ARR=[];
+            $('#BusinessGroups_Id :selected').each(function(i, selected){ 
+                BusinessGroups_Id_ARR.push($(selected).val());
+            });
+
+
+            var Segments_Id_ARR=[];
+            if($("#Segments_Id option:selected").val()=="")
+                Segments_Id= $("#Segments_Id option:selected").val();
+            else
+            {
+                $('#Segments_Id :selected').each(function(i, selected){ 
+                    Segments_Id_ARR.push($(selected).val());
+                });
+            }
+
+            var bgroup_params= '';
+            var Segment_params='';
+            
+            if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length<=0) {
+                BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
+                window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+Segment_params + '&_=' + (new Date()).getTime();
+            }
+            else if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length>0) {
+                BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
+                Segments_Id_ARR.forEach(function(e){Segment_params = Segment_params+"Segments_Id="+e+"&";});
+                window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+Segment_params + '&_=' + (new Date()).getTime();
+            }
+            else 
+            {
+                bgroup_params='';
+                Segment_params='';
+                window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+ Segment_params + '&_=' + (new Date()).getTime();
+                //handle for no selection
+            }
+        
+        }
+        $('.chosen-single').chosen();
+
+    });
     function ValidateForm() {
         var flag = true;
         if ($('#BusinessGroups_Id').val() == null) {
 
-            $('.validmsgbusinesGp').text("Please select business group from drop-down").css("color", "#b94a48");
+            $('.validmsgbusinesGp').text("Please select Business Group").css("color", "#b94a48");
             $('.validmsgbusinesGp').show();
             flag = false;
 
@@ -235,7 +299,7 @@
 
         if ($('#BusinessLines_Id').val() == null) {
 
-            $('.validmsgbusinesLine').text("Please select business line from drop-down").css("color", "#b94a48");
+            $('.validmsgbusinesLine').text("Please select Business Line").css("color", "#b94a48");
             $('.validmsgbusinesLine').show();
             flag = false;
 
@@ -247,7 +311,7 @@
         
         if ($('#Segments_Id').val() == null) {
 
-            $('.validmsgbusinesSegment').text("Please select segment from drop-down").css("color", "#b94a48");
+            $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
             $('.validmsgbusinesSegment').show();
             flag = false;
 
@@ -280,10 +344,9 @@
             $('.validmsgbusinesGeography').hide();
         }
 
-
        
         if ($("#StartDate").find("input").val() == "") {
-            $('.validmsgSdate').text("Please select start date").css("color", "#b94a48");
+            $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
             $('.validmsgSdate').show();
             flag = false;
 
@@ -294,7 +357,7 @@
         }
         
         if ($("#EndDate").find("input").val() == "") {
-            $('.validmsgEdate').text("Please select end date").css("color", "#b94a48");
+            $('.validmsgEdate').text("Please select End Date").css("color", "#b94a48");
             $('.validmsgEdate').show();
             flag = false;
         }
@@ -304,13 +367,16 @@
         var startdate = new Date($("#StartDate").find("input").val());
         var enddate = new Date($("#EndDate").find("input").val());
         if (startdate > enddate) {
-            $('.validmsgEdate').text("End date can not less than start date").css("color", "#b94a48");
-            $('.validmsgEdate').show();
+            $('.validmsgDatecompare').text("End Date can not less than Start Date").css("color", "#b94a48");
+            $('.validmsgDatecompare').show();
             flag = false;
+        }
+        else {
+            $('.validmsgDatecompare').hide();
         }
 
         if ($('#Name').val() == "") {
-            $('.validmsgMaster').text("Please enter master campaign name").css("color", "#b94a48");
+            $('.validmsgMaster').text("Please enter Master Campaign Name").css("color", "#b94a48");
             $('.validmsgMaster').show();
             flag = false;
         }
@@ -319,7 +385,7 @@
         }
 
         if ($('#CampaignDescription').val() == "") {
-            $('.validmsgMasterDesc').text("Please enter master campaign description name").css("color", "#b94a48");
+            $('.validmsgMasterDesc').text("Please enter Master Campaign Description").css("color", "#b94a48");
             $('.validmsgMasterDesc').show();
             flag = false;
         }
@@ -327,7 +393,16 @@
         {
             $('.validmsgMasterDesc').hide();
         }
+        if ($('#Status').val() == "") {
+            $('.validmsgstatus').text("Please select Status").css("color", "#b94a48");
+            $('.validmsgstatus').show();
+            flag = false;
 
+        }
+        else {
+
+            $('.validmsgstatus').hide();
+        }
         if (flag == false)
         {
             return false;;

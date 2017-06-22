@@ -9,7 +9,7 @@ using MRM.Database.GenericUnitOfWork;
 
 namespace MRM.Business.Services
 {
-   public class BusinessLineServices : IBusinessLineServices
+    public class BusinessLineServices : IBusinessLineServices
     {
         private GenericUnitOfWork guow = null;
 
@@ -31,6 +31,19 @@ namespace MRM.Business.Services
                 return true;
             else
                 return false;
+        }
+
+        public List<BusinessLine> GetBusinessLineByBGId(int[] BGId)
+        {
+            List<BusinessLine> lstBline = new List<BusinessLine>();
+            foreach (var item in BGId)
+            {
+                BusinessGroup bg = guow.GenericRepository<BusinessGroup>().GetByID(item);
+                lstBline.AddRange(bg.BusinessLines);
+                //var Bline = guow.GenericRepository<BusinessLine>().Get( x => x.BusinessGroups.BusinessGroupId == item);
+                //lstBline.Add(Bline);
+            }
+            return lstBline;
         }
     }
 }

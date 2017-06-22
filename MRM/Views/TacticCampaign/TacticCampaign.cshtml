@@ -23,26 +23,77 @@
                     <div class="row">
                         <fieldset>
                             <legend>Tactic<span class="text-danger" style="float:right;font-size:x-small">Note: Mandatory fields is marked with red aestric (*)</span></legend>
-                          
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Sub Campaign</label><span class="text-danger">*</span><br />
-                                        @Html.DropDownListFor(m => m.ChildCampaignViewModels, new SelectList(Model.ChildCampaignViewModels, "Id", "Name"), "Select Option", new { @class = "form-control" })
+                                        <label>Master Campaign</label><span class="text-danger">*</span><br />
+                                        @*@Html.DropDownListFor(m => m.MasterViewModels, new SelectList(Model.MasterViewModels, "Id", "Name"), "Select Option", new { @class = "chosen-single form-control" })*@
+                                        <div class="validmsgMastercampaign"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                  
+                                    <div class="form-group">
+                                        <label>Sub Campaign</label><span class="text-danger">*</span><br />
+                                        @Html.DropDownListFor(m => m.ChildCampaign_Id, new SelectList(Model.ChildCampaignViewModels, "Id", "Name",Model.ch), "Select Option", new { @class = "chosen-single form-control" })
+                                        <div class="validmsgSubcampaign"></div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Theme</label><br />
-                                        @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
+                                        <label>Tactic Type<span class="text-danger">*</span></label><br />
+                                        @Html.DropDownList("Tactictype", new List<SelectListItem>
+                                     {
+                                        new SelectListItem{ Text="BG Led", Value = "0" },
+                                        new SelectListItem{ Text="GEPS", Value = "1" }
+                                     }, "Select Option", new { @class = "chosen-single form-control" })
+                                        <div class="validmsgTactictype"></div>
                                     </div>
+                                    </div>
+                                <div class="col-md-6">
                                 </div>
+                           </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Tactic Name</label><span class="text-danger">*</span>
+                                                @Html.TextBoxFor(m => m.Name, new { @maxlength = "25", @class = "form-control" })
+                                                <div class="validmsgtacticname"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Tactic Description<span class="text-danger">*</span></label>
+                                                @Html.TextAreaFor(m => m.TacticDescription, new { @class = "form-control" })
+                                                <div class="validmsgtacticdesc"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Theme</label><br />
+                                                @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Geography</label><span class="text-danger">*</span><br />
+                                                @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            <div class="row">
                                 <div class="col-md-6">
                                     <label>Start Date</label><span class="text-danger">*</span>
                                     <div class="form-group">
@@ -52,15 +103,7 @@
                                                 <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                             </div>
                                         </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Business Group</label><span class="text-danger">*</span><br />
-                                        @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
+                                        <div class="validmsgSdate"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -72,90 +115,154 @@
                                                 <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                             </div>
                                         </div>
+                                        <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Business Line</label><span class="text-danger">*</span><br />
-                                        @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="col-md-6 form-group" style="margin-left:-14px">
-                                            <label>Status</label>
-                                            @Html.DropDownListFor(m => m.Status, new List<SelectListItem>
-                                     {
-                                       new SelectListItem{ Text="Save Draft"},
-                                        new SelectListItem{ Text="Complete"}
-                                     }, new { @class = "form-control" })
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Business Group</label><span class="text-danger">*</span><br />
+                                                @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
+                                                <div class="validmsgbusinesGp"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Segment</label><span class="text-danger">*</span><br />
+                                                @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
+                                                <div class="validmsgbusinesSegment"></div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Business Line</label><span class="text-danger">*</span><br />
+                                                @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
+                                                <div class="validmsgbusinesLine"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Industry</label><span class="text-danger">*</span><br />
+                                                @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
+                                                <div class="validmsgbusinesIndustry"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                   
+                                   
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Vendor</label><span class="text-danger">*</span>
+                                               @*@Html.ListBoxFor(m => m.Vendor_Id, new MultiSelectList(Model.VendorViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })*@
+                                                <div class="validmsgvendor"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        </div>
+                                    </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Benchmark</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Segment</label><span class="text-danger">*</span><br />
-                                        @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-
-                                </div>
+                                <div class="col-md-3"><label>Performance Metric</label></div>
+                                <div class="col-md-3"><label>Goal</label></div>
+                                <div class="col-md-3"><label>Low</label></div>
+                                <div class="col-md-3"><label>High</label></div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Industry</label><span class="text-danger">*</span><br />
-                                        @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
-                                    </div>   
-                                </div>
-                                <div class="col-md-6">
-
-                                </div>
+                                <div class="col-md-2"><label>Reach</label></div>
+                                <div class="col-md-1"><label>R1</label></div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1Goal, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1Low, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1High, new { @maxlength = "10", @class = "form-control" })</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Geography</label><span class="text-danger">*</span><br />
-                                        @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-
-                                </div>
+                                <div class="col-md-2"><label></label></div>
+                                <div class="col-md-1"><label>R1</label></div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR11Goal, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR12Low, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR13High, new { @maxlength = "10", @class = "form-control" })</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Year</label><span class="text-danger">*</span>
-                                        @Html.TextBoxFor(m => m.Year, new { @maxlength = "4", @class = "form-control" })
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-
-                                </div>
+                                <div class="col-md-2"><label>Response</label></div>
+                                <div class="col-md-1"><label>R2</label></div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR1Goal, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR1Low, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR1High, new { @maxlength = "10", @class = "form-control" })</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Tactic Name</label>
-                                        @Html.TextBoxFor(m => m.Name, new { @maxlength = "25", @class = "form-control" })
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Tactic Description</label>
-                                        @Html.TextAreaFor(m => m.TacticDescription, new { @class = "form-control" })
-                                    </div>
-                                </div>
+                                <div class="col-md-2"><label></label></div>
+                                <div class="col-md-1"><label>R2</label></div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR21Goal, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR22Low, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR23High, new { @maxlength = "10", @class = "form-control" })</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label>Efficiency</label></div>
+                                <div class="col-md-1"><label>E1</label></div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE1Goal, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE1Low, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE1High, new { @maxlength = "10", @class = "form-control" })</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label></label></div>
+                                <div class="col-md-1"><label>E1</label></div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE11Goal, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE12Low, new { @maxlength = "10", @class = "form-control" })</div>
+                                <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE13High, new { @maxlength = "10", @class = "form-control" })</div>
                             </div>
 
+                            @*<div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Marketing Influence Leads</label>
+                    @Html.TextBoxFor(m => m.MarketingInfluenceLeads, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Marketing Influence Opportunity</label>
+                    @Html.TextBoxFor(m => m.MarketingInfluenceOpportunity, new { @maxlength = "25", @class = "form-control" })
+                </div>
+            </div>
+        </div>
 
-                            <!-- /.col -->
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Marketing Generated Leads</label>
+                    @Html.TextBoxFor(m => m.MarketingGeneratedLeads, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Marketing Generated Opportunity</label>
+                    @Html.TextBoxFor(m => m.MarketingGeneratedOpportunity, new { @maxlength = "25", @class = "form-control" })
+                </div>
+            </div>
+        </div>*@
+
+
+
+
+
+
+                                    <!-- /.col -->
                         </fieldset>
                         <fieldset>
                             <div class="row" style="padding-top:10px">
@@ -165,13 +272,13 @@
                                 <div class="col-md-6"></div>
                                 <div class="col-md-4">
                                     <div class="col-md-4">
-                                        <button Id="btnsubmit" name="button" value="Submit" class="btn btn-block btn-primary btn-sm">Submit</button>
+                                        <button Id="btnsubmit" name="button" value="Submit" class="btn btn-block btn-primary btn-sm" onclick="return  ValidateForm()">Submit</button>
                                     </div>
                                     <div class="col-md-4">
                                         <button Id="btnsubmit" name="button" value="Save Draft" class="btn btn-block btn-primary btn-sm">Save Draft</button>
                                     </div>
                                     <div class="col-md-4">
-                                        <button Id="btnsubmit" name="button" value="Delete" class="btn btn-block btn-danger btn-sm">Delete</button>
+                                        <button Id="btnsubmit" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm">Delete</button>
                                     </div>
                                 </div>
 
@@ -193,6 +300,9 @@
 
 <script>
     $(document).ready(function () {
+
+            $('.chosen-single').chosen();
+
         $(document).on("change", "#ChildCampaignViewModels", function (e) {
             var childId = $(this).find(":selected").val();
 
@@ -200,14 +310,262 @@
                 window.location.href = '/TacticCampaign/TacticCampaign?id=' + childId + '&_=' + (new Date()).getTime();
             }
 
-
         });
+
+        $(document).on("change","#BusinessGroups_Id",function(){
+            DdlBind();
+        });
+
+
+        $(document).on("change","#Segments_Id",function(){
+            DdlBind();
+        });
+
+        function DdlBind()
+        {
+        
+            var BusinessGroups_Id_ARR=[];
+            $('#BusinessGroups_Id :selected').each(function(i, selected){ 
+                BusinessGroups_Id_ARR.push($(selected).val());
+            });
+
+
+            var Segments_Id_ARR=[];
+            if($("#Segments_Id option:selected").val()=="")
+                Segments_Id= $("#Segments_Id option:selected").val();
+            else
+            {
+                $('#Segments_Id :selected').each(function(i, selected){ 
+                    Segments_Id_ARR.push($(selected).val());
+                });
+            }
+
+            var bgroup_params= '';
+            var Segment_params='';
+            
+            if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length<=0) {
+                BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
+                window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+Segment_params + '&_=' + (new Date()).getTime();
+            }
+            else if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length>0) {
+                BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
+                Segments_Id_ARR.forEach(function(e){Segment_params = Segment_params+"Segments_Id="+e+"&";});
+                window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+Segment_params + '&_=' + (new Date()).getTime();
+            }
+            else 
+            {
+                bgroup_params='';
+                Segment_params='';
+                window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+ Segment_params + '&_=' + (new Date()).getTime();
+                //handle for no selection
+            }
+        
+        }
+
+       
+
 
     });
 
 
     $('#StartDate').datepicker();
     $('#EndDate').datepicker();
+
+
+
+    function ValidateForm() {
+        var flag = true;
+        
+        if ($('#MasterViewModels').val() == "") {
+
+            $('.validmsgMastercampaign').text("Please select Master Campaign").css("color", "#b94a48");
+            $('.validmsgMastercampaign').show();
+            flag = false;
+
+        }
+        else {
+            $('.validmsgMastercampaign').hide();
+        }
+        if ($('#Tactictype').val() == "") {
+
+            $('.validmsgTactictype').text("Please select Tactic Type").css("color", "#b94a48");
+            $('.validmsgTactictype').show();
+            flag = false;
+
+        }
+        else {
+            $('.validmsgTactictype').hide();
+        }
+        
+        
+
+        if ($('#VendorViewModels').val() == "") {
+
+            $('.validmsgVendor').text("Please select Vendor").css("color", "#b94a48");
+            $('.validmsgVendor').show();
+            flag = false;
+
+        }
+        else {
+            $('.validmsgVendor').hide();
+        }
+
+
+
+        if ($('#ChildCampaignViewModels').val() == "") {
+
+            $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
+            $('.validmsgSubcampaign').show();
+            flag = false;
+
+        }
+        else {
+            $('.validmsgSubcampaign').hide();
+        }
+
+        if ($('#BusinessGroups_Id').val() == null) {
+
+            $('.validmsgbusinesGp').text("Please select Business Group").css("color", "#b94a48");
+            $('.validmsgbusinesGp').show();
+            flag = false;
+
+        }
+        else {
+            $('.validmsgbusinesGp').hide();
+        }
+
+        if ($('#BusinessLines_Id').val() == null) {
+
+            $('.validmsgbusinesLine').text("Please select business line from drop-down").css("color", "#b94a48");
+            $('.validmsgbusinesLine').show();
+            flag = false;
+
+        }
+        else {
+            $('.validmsgbusinesLine').hide();
+        }
+
+        if ($('#Segments_Id').val() == null) {
+
+            $('.validmsgbusinesSegment').text("Please select segment from drop-down").css("color", "#b94a48");
+            $('.validmsgbusinesSegment').show();
+            flag = false;
+
+        }
+        else {
+            $('.validmsgbusinesSegment').hide();
+        }
+
+        if ($('#subcampaigntype').val() == "") {
+
+            $('.validmsgsubcampaigntype').text("Please select Type (Sub Campaign)").css("color", "#b94a48");
+            $('.validmsgsubcampaigntype').show();
+            flag = false;
+
+        }
+        else {
+            $('.validmsgsubcampaigntype').hide();
+        }
+
+
+        if ($('#subcampaigntype').val() == "1") {
+            if ($('#Industries_Id').val() == null) {
+
+                $('.validmsgbusinesIndustry').text("Please select industry from drop-down").css("color", "#b94a48");
+                $('.validmsgbusinesIndustry').show();
+                flag = false;
+
+            }
+            else {
+                $('.validmsgbusinesIndustry').hide();
+            }
+        }
+
+
+        if ($("#StartDate").find("input").val() == "") {
+            $('.validmsgSdate').text("Please select start date").css("color", "#b94a48");
+            $('.validmsgSdate').show();
+            flag = false;
+
+        }
+        else {
+            $('.validmsgSdate').hide();
+        }
+
+        if ($("#EndDate").find("input").val() == "") {
+            $('.validmsgEdate').text("Please select end date").css("color", "#b94a48");
+            $('.validmsgEdate').show();
+            flag = false;
+        }
+        else {
+            $('.validmsgEdate').hide();
+        }
+        var startdate = new Date($("#StartDate").find("input").val());
+        var enddate = new Date($("#EndDate").find("input").val());
+        if (startdate > enddate) {
+            $('.validmsgDatecompare').text("End date can not less than start date").css("color", "#b94a48");
+            $('.validmsgDatecompare').show();
+            flag = false;
+        }
+        else {
+            $('.validmsgDatecompare').hide();
+        }
+
+        if ($('#Name').val() == "") {
+            $('.validmsgtacticname').text("Please enter sub campaign name").css("color", "#b94a48");
+            $('.validmsgtacticname').show();
+            flag = false;
+
+        }
+        else {
+
+            $('.validmsgtacticname').hide();
+        }
+
+
+        if ($('#Status').val() == "") {
+            $('.validmsgstatus').text("Please select Status").css("color", "#b94a48");
+            $('.validmsgstatus').show();
+            flag = false;
+
+        }
+        else {
+
+            $('.validmsgstatus').hide();
+        }
+
+        if ($('#TacticDescription').val() == "") {
+            $('.validmsgtacticdesc').text("Please enter sub campaign description name").css("color", "#b94a48");
+            $('.validmsgtacticdesc').show();
+            flag = false;
+        }
+        else {
+
+            $('.validmsgSubCampDesc').hide();
+        }
+
+
+              
+        if ($('#Year').val() == "") {
+            $('.validmsgyear').text("Please enter Year").css("color", "#b94a48");
+            $('.validmsgyear').show();
+            flag = false;
+        }
+        else {
+
+            $('.validmsgyear').hide();
+        }
+        
+
+        if (flag == false) {
+            return false;;
+        }
+        else {
+
+            true;
+        }
+
+    }
 
 </script>
 
