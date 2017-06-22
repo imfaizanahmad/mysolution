@@ -46,7 +46,7 @@ namespace MRM.Controllers
 
         public ActionResult MasterCampaign(int[] BusinessGroups_Id, int [] Segments_Id)
         {
-            //   if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
+            //    if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             MasterCampaignViewModel mcvm = new MasterCampaignViewModel();
             if (BusinessGroups_Id ==null)
             {
