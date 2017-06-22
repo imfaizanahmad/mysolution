@@ -44,15 +44,57 @@ namespace MRM.Controllers
             return View();
         }
 
-        public ActionResult MasterCampaign()
+        public ActionResult MasterCampaign(int[] BusinessGroups_Id, int [] Segments_Id)
         {
             //   if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
-            mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-            mcvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
-            mcvm.SegmentViewModels = _segmentService.GetSegment();
-            mcvm.IndustryViewModels = (new Industry[] { new Industry() });
-            mcvm.GeographyViewModels = _geographyService.GetGeography();
-            mcvm.ThemeViewModels = _themeService.GetTheme();
+            MasterCampaignViewModel mcvm = new MasterCampaignViewModel();
+            if (BusinessGroups_Id ==null)
+            {
+                mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                mcvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                mcvm.SegmentViewModels = _segmentService.GetSegment();
+                mcvm.IndustryViewModels = (new Industry[] { new Industry() });
+                mcvm.GeographyViewModels = _geographyService.GetGeography();
+                mcvm.ThemeViewModels = _themeService.GetTheme();
+                return View(mcvm);
+            }
+
+            if (BusinessGroups_Id != null)
+            {
+                List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(BusinessGroups_Id);
+                mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                mcvm.BusinessGroups_Id = BusinessGroups_Id;
+                mcvm.BusinessLineViewModels = businesslist;
+                mcvm.SegmentViewModels = _segmentService.GetSegment();
+                if(Segments_Id == null )
+                mcvm.IndustryViewModels = (new Industry[] { new Industry() });
+                else
+                {
+                    List<Industry> lst = _industryService.GetIndustryBySegmentId(Segments_Id);
+                    mcvm.IndustryViewModels = lst;
+                }
+                mcvm.GeographyViewModels = _geographyService.GetGeography();
+                mcvm.ThemeViewModels = _themeService.GetTheme();
+                return View(mcvm);
+            }
+            else if (Segments_Id != null)
+            {                
+                mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                if(BusinessGroups_Id == null)
+                    mcvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                else
+                {
+                    List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(BusinessGroups_Id);
+                    mcvm.BusinessLineViewModels = businesslist;
+                }
+                mcvm.SegmentViewModels = _segmentService.GetSegment();
+                mcvm.Segments_Id = Segments_Id;
+                List<Industry> lst = _industryService.GetIndustryBySegmentId(Segments_Id);
+                mcvm.IndustryViewModels = lst;
+                mcvm.GeographyViewModels = _geographyService.GetGeography();
+                mcvm.ThemeViewModels = _themeService.GetTheme();
+                return View(mcvm);
+            }            
             return View(mcvm);
         }
 
@@ -64,7 +106,7 @@ namespace MRM.Controllers
 
             if (button == "Submit")
             {
-
+                
             }
             else if (button == "Delete")
             { }
@@ -87,7 +129,7 @@ namespace MRM.Controllers
 
         }
 
-        public ActionResult BusinessLine(string [] id)
+        public ActionResult BusinessLine(int [] id)
         {
 
             if (id.Length < 0)
@@ -106,7 +148,7 @@ namespace MRM.Controllers
             return View(mcvm);
         }
 
-        public ActionResult Industry(string [] id)
+        public ActionResult Industry(int [] id)
         {
             if (id.Length < 0 )
             {

@@ -87,7 +87,7 @@ namespace MRM.Controllers
         }
 
 
-        public ActionResult ChildCampaign(int id=0)
+        public ActionResult ChildCampaign(int[] BusinessGroups_Id, int[] Segments_Id, int id = 0)
         {
             ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
 
@@ -104,15 +104,8 @@ namespace MRM.Controllers
 
                 return View(Childvm);
             }
-            
             Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
-            //foreach (var a in Childvm.MasterViewModels)
-            //{
-
-            //    a.First(x => x.Id == id).Selected = true;
-
-            //}
-            
+             
 
             List<MasterCampaign> lst = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = id });            
             foreach (var item in lst)
@@ -123,9 +116,58 @@ namespace MRM.Controllers
                 Childvm.SegmentViewModels = item.Segments;
                 Childvm.ThemeViewModels = item.Themes;
                 Childvm.GeographyViewModels = item.Geographys;
+                Childvm.MasterCampaignId = id;
             }
 
-           
+
+            if (BusinessGroups_Id == null)
+            {
+                Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                Childvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                Childvm.SegmentViewModels = _segmentService.GetSegment();
+                Childvm.IndustryViewModels = (new Industry[] { new Industry() });
+                Childvm.GeographyViewModels = _geographyService.GetGeography();
+                Childvm.ThemeViewModels = _themeService.GetTheme();
+                return View(Childvm);
+            }
+
+            if (BusinessGroups_Id != null)
+            {
+                List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(BusinessGroups_Id);
+                Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                Childvm.BusinessGroups_Id = BusinessGroups_Id;
+                Childvm.BusinessLineViewModels = businesslist;
+                Childvm.SegmentViewModels = _segmentService.GetSegment();
+                if (Segments_Id == null)
+                    Childvm.IndustryViewModels = (new Industry[] { new Industry() });
+                else
+                {
+                    List<Industry> Industrylst = _industryService.GetIndustryBySegmentId(Segments_Id);
+                    Childvm.IndustryViewModels = Industrylst;
+                }
+                Childvm.GeographyViewModels = _geographyService.GetGeography();
+                Childvm.ThemeViewModels = _themeService.GetTheme();
+                return View(Childvm);
+            }
+            else if (Segments_Id != null)
+            {
+                Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                if (BusinessGroups_Id == null)
+                    Childvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                else
+                {
+                    List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(BusinessGroups_Id);
+                    Childvm.BusinessLineViewModels = businesslist;
+                }
+                Childvm.SegmentViewModels = _segmentService.GetSegment();
+                Childvm.Segments_Id = Segments_Id;
+                List<Industry> Industrylst = _industryService.GetIndustryBySegmentId(Segments_Id);
+                Childvm.IndustryViewModels = Industrylst;
+                Childvm.GeographyViewModels = _geographyService.GetGeography();
+                Childvm.ThemeViewModels = _themeService.GetTheme();
+                return View(Childvm);
+            }
+
             return View(Childvm);
         }
     }

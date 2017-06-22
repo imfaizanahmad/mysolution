@@ -28,6 +28,9 @@ namespace MRM.Business.Services
         public bool CreateTacticCampaign(TacticCampaignViewModel model)
         {
             TacticCampaign tacticCampaignEntity = new TacticCampaign();
+
+            tacticCampaignEntity.ChildCampaigns = guow.GenericRepository<ChildCampaign>().GetByID(model.ChildCampaign_Id);
+
             tacticCampaignEntity.Name = model.Name;
             tacticCampaignEntity.TacticDescription = model.TacticDescription;
             tacticCampaignEntity.StartDate = Convert.ToDateTime(model.StartDate);

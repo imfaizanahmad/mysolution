@@ -33,7 +33,7 @@ namespace MRM.Business.Services
                 return false;
         }
 
-        public List<Industry> GetIndustryBySegmentId(string [] SegmentId)
+        public List<Industry> GetIndustryBySegmentId(int [] SegmentId)
         {
 
             List<Industry> lstIndustry = new List<Industry>();

@@ -222,26 +222,61 @@
 
 <script>
 
-    $(document).ready(function () {
-        $('.chosen-single').chosen();
-     
-        
-        $(document).on("change", "#BusinessGroups_Id", function (e) {
-            var BusinessGroups_Id = $(this).find(":selected").val();
-
-            if (BusinessGroups_Id != 0) {
-                window.location.href = '/ChildCampaign/ChildCampaign?id=' + BusinessGroups_Id + '&_=' + (new Date()).getTime();
-            }
-        });
-   
-    });
-
-
  
     $('#StartDate').datepicker();
     $('#EndDate').datepicker();
 
     $(document).ready(function () {
+
+
+        $(document).on("change","#BusinessGroups_Id",function(){
+            DdlBind();
+        });
+
+        $(document).on("change","#Segments_Id",function(){
+            DdlBind();
+        });
+
+        function DdlBind()
+        {
+        
+            var BusinessGroups_Id_ARR=[];
+            $('#BusinessGroups_Id :selected').each(function(i, selected){ 
+                BusinessGroups_Id_ARR.push($(selected).val());
+            });
+
+
+            var Segments_Id_ARR=[];
+            if($("#Segments_Id option:selected").val()=="")
+                Segments_Id= $("#Segments_Id option:selected").val();
+            else
+            {
+                $('#Segments_Id :selected').each(function(i, selected){ 
+                    Segments_Id_ARR.push($(selected).val());
+                });
+            }
+
+            var bgroup_params= '';
+            var Segment_params='';
+            
+            if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length<=0) {
+                BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
+                window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+Segment_params + '&_=' + (new Date()).getTime();
+            }
+            else if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length>0) {
+                BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
+                Segments_Id_ARR.forEach(function(e){Segment_params = Segment_params+"Segments_Id="+e+"&";});
+                window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+Segment_params + '&_=' + (new Date()).getTime();
+            }
+            else 
+            {
+                bgroup_params='';
+                Segment_params='';
+                window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+ Segment_params + '&_=' + (new Date()).getTime();
+                //handle for no selection
+            }
+        
+        }
         $('.chosen-single').chosen();
 
     });
@@ -375,31 +410,6 @@
         }
 
     }
-
-    $(document).ready(function () {
-        $(document).on("change", "#BusinessGroups_Id", function (e) {
-            var businessGroupId = $(this).find(":selected").val();
-
-            if (businessGroupId != 0) {
-                window.location.href = '/MasterCampaign/BusinessLine?id=' + businessGroupId + '&_=' + (new Date()).getTime();
-            }
-
-            
-        });
-
-        $(document).on("change", "#Segments_Id", function (e) {
-            var segmenId = $(this).find(":selected").val();
-
-            if (segmenId != 0) {
-                if(segmenId == "undefined")
-                    segmenId = 0;
-                window.location.href = '/MasterCampaign/Industry?id=' + segmenId + '&_=' + (new Date()).getTime();
-            }
-
-            
-        });
-        
-    });
 
 
 </script>

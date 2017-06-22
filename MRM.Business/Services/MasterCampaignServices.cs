@@ -41,6 +41,8 @@ namespace MRM.Business.Services
             masterCampaignEntity.Status = model.Status;
             masterCampaignEntity.CreatedBy = "user";
 
+     
+
             List<BusinessGroup> lstBGroup = new List<BusinessGroup>();
             foreach (var item in model.BusinessGroups_Id)
             {

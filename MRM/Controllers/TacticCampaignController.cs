@@ -56,7 +56,7 @@ namespace MRM.Controllers
         //}
 
 
-        public ActionResult TacticCampaign(int id = 0)
+        public ActionResult TacticCampaign(int[] BusinessGroups_Id, int[] Segments_Id,int id = 0)
         {
             TacticCampaignViewModel tacticvm = new TacticCampaignViewModel();
 
@@ -85,6 +85,55 @@ namespace MRM.Controllers
                 tacticvm.ThemeViewModels = item.Themes;
                 tacticvm.GeographyViewModels = item.Geographys;
             }
+
+            if (BusinessGroups_Id == null)
+            {
+                tacticvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                tacticvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                tacticvm.SegmentViewModels = _segmentService.GetSegment();
+                tacticvm.IndustryViewModels = (new Industry[] { new Industry() });
+                tacticvm.GeographyViewModels = _geographyService.GetGeography();
+                tacticvm.ThemeViewModels = _themeService.GetTheme();
+                return View(tacticvm);
+            }
+
+            if (BusinessGroups_Id != null)
+            {
+                List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(BusinessGroups_Id);
+                tacticvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                tacticvm.BusinessGroups_Id = BusinessGroups_Id;
+                tacticvm.BusinessLineViewModels = businesslist;
+                tacticvm.SegmentViewModels = _segmentService.GetSegment();
+                if (Segments_Id == null)
+                    tacticvm.IndustryViewModels = (new Industry[] { new Industry() });
+                else
+                {
+                    List<Industry> Industrylst = _industryService.GetIndustryBySegmentId(Segments_Id);
+                    tacticvm.IndustryViewModels = Industrylst;
+                }
+                tacticvm.GeographyViewModels = _geographyService.GetGeography();
+                tacticvm.ThemeViewModels = _themeService.GetTheme();
+                return View(tacticvm);
+            }
+            else if (Segments_Id != null)
+            {
+                tacticvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                if (BusinessGroups_Id == null)
+                    tacticvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                else
+                {
+                    List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(BusinessGroups_Id);
+                    tacticvm.BusinessLineViewModels = businesslist;
+                }
+                tacticvm.SegmentViewModels = _segmentService.GetSegment();
+                tacticvm.Segments_Id = Segments_Id;
+                List<Industry> Industrylst = _industryService.GetIndustryBySegmentId(Segments_Id);
+                tacticvm.IndustryViewModels = Industrylst;
+                tacticvm.GeographyViewModels = _geographyService.GetGeography();
+                tacticvm.ThemeViewModels = _themeService.GetTheme();
+                return View(tacticvm);
+            }
+            
             return View(tacticvm);
         }
 

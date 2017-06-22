@@ -3,7 +3,7 @@
     ViewBag.Title = "ChildCampaign";
 }
 
-
+<script src="~/Scripts/jquery-2.1.3.min.js"></script>
 <div>
 @*@using (Html.BeginForm("ChildCampaign", "ChildCampaign", FormMethod.Post, new { id = "myform" }))*@
 @using (Ajax.BeginForm("Save", "ChildCampaign", new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
@@ -25,7 +25,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Master Campaign</label><span class="text-danger">*</span><br />
-                                    @Html.DropDownListFor(m => m.MasterViewModels, new SelectList(Model.MasterViewModels, "Id", "Name"), "Select Option", new { @class = "chosen-single form-control" })
+                                    @Html.DropDownListFor(m => m.MasterCampaignId, new SelectList(Model.MasterViewModels, "Id", "Name",Model.MasterCampaignId), "Select Option", new { @class = "chosen-single form-control" })
                                     <div class="validmsgMastercampaign"></div>
                                 </div>
                             </div>
@@ -114,6 +114,14 @@
                                             @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), new { @class = "chosen-select form-control" })
                                             <div class="validmsgbusinesGp"></div>
                                         </div>
+
+                                        @*<div class="form-group" id="SingleBusiness">
+                                            <label>Business Group</label><span class="text-danger">*</span><br />
+                                            @Html.DropDownListFor(m => m.BusinessGroups_Id, new SelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), new { @class = "chosen-single form-control" })
+                                            <div class="validmsgbusinesGp"></div>
+                                        </div>*@
+
+
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -164,13 +172,53 @@
                                      <label>Benchmark</label>  
                                     </div>
                                 </div>
-                            <div class="row">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <td><label>Pipeline Metric</label></td>
+                                            <td><label>Goal</label></td>
+                                            <td><label>Low</label></td>
+                                            <td><label>High</label></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><label>MIL</label></td>
+                                            <td>@Html.TextBoxFor(m => m.MILGoal, new { @maxlength = "10", @class = "form-control" })</td>
+                                            <td>@Html.TextBoxFor(m => m.MILLow, new { @maxlength = "10", @class = "form-control" })</td>
+                                            <td>@Html.TextBoxFor(m => m.MILHigh, new { @maxlength = "10", @class = "form-control" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>MGL</label></td>
+                                            <td>@Html.TextBoxFor(m => m.MGLGoal, new { @maxlength = "10", @class = "form-control" })</td>
+                                            <td>@Html.TextBoxFor(m => m.MGLLow, new { @maxlength = "10", @class = "form-control" }) </td>
+                                            <td>@Html.TextBoxFor(m => m.MGLHigh, new { @maxlength = "10", @class = "form-control" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>MIO</label></td>
+                                            <td>@Html.TextBoxFor(m => m.MIOGoal, new { @maxlength = "10", @class = "form-control" })</td>
+                                            <td>@Html.TextBoxFor(m => m.MIOLow, new { @maxlength = "10", @class = "form-control" }) </td>
+                                            <td>@Html.TextBoxFor(m => m.MIOHigh, new { @maxlength = "10", @class = "form-control" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>MGO</label></td>
+                                            <td>@Html.TextBoxFor(m => m.MGOGoal, new { @maxlength = "10", @class = "form-control" })</td>
+                                            <td>@Html.TextBoxFor(m => m.MGOLow, new { @maxlength = "10", @class = "form-control" }) </td>
+                                            <td>@Html.TextBoxFor(m => m.MGOHigh, new { @maxlength = "10", @class = "form-control" })</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        @*<div class="row">
                             <div class="col-md-3"><label>Pipeline Metric</label></div>
                             <div class="col-md-3"><label>Goal</label></div>
                             <div class="col-md-3"><label>Low</label></div>
                             <div class="col-md-3"><label>High</label></div>
-                            </div>
-                        @*<div class="row">
+                        </div>
+                        <div class="row">
                             <div class="col-md-3"><label>MIL</label></div>
                             <div class="col-md-3">@Html.TextBoxFor(m => m.MILGoal, new { @maxlength = "10", @class = "form-control" })</div>
                             <div class="col-md-3">@Html.TextBoxFor(m => m.MILLow, new { @maxlength = "10", @class = "form-control" })</div>
@@ -178,21 +226,21 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3"><label>MGL</label></div>
-                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGLGoal, new { @maxlength = "10", @class = "form-control" })</div>
-                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGLLow, new { @maxlength = "10", @class = "form-control" })</div>
-                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGLHigh, new { @maxlength = "10", @class = "form-control" })</div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGLGoal, new { @maxlength = "10", @class = "form-control" })  </div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGLLow, new { @maxlength = "10", @class = "form-control" })   </div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGLHigh, new { @maxlength = "10", @class = "form-control" })  </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3"><label>MIO</label></div>
-                            <div class="col-md-3">@Html.TextBoxFor(m => m.MIOGoal, new { @maxlength = "10", @class = "form-control" })</div>
-                            <div class="col-md-3">@Html.TextBoxFor(m => m.MIOLow, new { @maxlength = "10", @class = "form-control" })</div>
-                            <div class="col-md-3">@Html.TextBoxFor(m => m.MIOHigh, new { @maxlength = "10", @class = "form-control" })</div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.MIOGoal, new { @maxlength = "10", @class = "form-control" })  </div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.MIOLow, new { @maxlength = "10", @class = "form-control" })   </div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.MIOHigh, new { @maxlength = "10", @class = "form-control" })  </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3"><label>MGO</label></div>
-                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGOGoal, new { @maxlength = "10", @class = "form-control" })</div>
-                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGOLow, new { @maxlength = "10", @class = "form-control" })</div>
-                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGOHigh, new { @maxlength = "10", @class = "form-control" })</div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGOGoal, new { @maxlength = "10", @class = "form-control" })  </div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGOLow, new { @maxlength = "10", @class = "form-control" })   </div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.MGOHigh, new { @maxlength = "10", @class = "form-control" })  </div>
                         </div>*@
 
                                 @*<div class="row">
@@ -270,7 +318,7 @@
 
     $(document).ready(function () {
         $('.chosen-single').chosen();
-        $(document).on("change", "#MasterViewModels", function (e) {
+        $(document).on("change", "#MasterCampaignId", function (e) {
             var masterId = $(this).find(":selected").val();
 
             if (masterId != 0) {
@@ -289,17 +337,89 @@
                 //});
             }
 
-            
         });
-        $(document).on("change", "#BusinessGroups_Id", function (e) {
-            var BusinessGroups_Id = $(this).find(":selected").val();
+            $(document).on("change","#BusinessGroups_Id",function(){
+                DdlBind();
+            });
 
-            if (BusinessGroups_Id != 0) {
-                window.location.href = '/ChildCampaign/ChildCampaign?id=' + BusinessGroups_Id + '&_=' + (new Date()).getTime();
+            $(document).on("change","#Segments_Id",function(){
+                DdlBind();
+            });
+            function DdlBind()
+            {
+        
+                var MId = $("#MasterCampaignId option:selected").val();
+                var BusinessGroups_Id_ARR=[];
+                $('#BusinessGroups_Id :selected').each(function(i, selected){ 
+                    BusinessGroups_Id_ARR.push($(selected).val());
+                });
+
+
+                var Segments_Id_ARR=[];
+                if($("#Segments_Id option:selected").val()=="")
+                    Segments_Id= $("#Segments_Id option:selected").val();
+                else
+                {
+                    $('#Segments_Id :selected').each(function(i, selected){ 
+                        Segments_Id_ARR.push($(selected).val());
+                    });
+                }
+
+                var bgroup_params= '';
+                var Segment_params='';
+            
+                if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length<=0) {
+                    BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
+                    window.location.href = '/ChildCampaign/ChildCampaign?' + bgroup_params + Segment_params +'id='+MId+ '&_=' + (new Date()).getTime();
+                }
+                else if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length>0) {
+                    BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
+                    Segments_Id_ARR.forEach(function(e){Segment_params = Segment_params+"Segments_Id="+e+"&";});
+                    window.location.href = '/ChildCampaign/ChildCampaign?' + bgroup_params + Segment_params +'id='+MId+ '&_=' + (new Date()).getTime();
+                }
+                else 
+                {
+                    bgroup_params='';
+                    Segment_params='';
+                    window.location.href = '/ChildCampaign/ChildCampaign?' + bgroup_params + Segment_params + '&_=' + (new Date()).getTime();
+                    //handle for no selection
+                }
+        
             }
-        });
+            
+        
+
+
+
+        //$(document).on("change", "#subcampaigntype", function (e) {
+        //    var subcampaigntype = $(this).find(":selected").val();
+
+        //    if (subcampaigntype == "0") {
+           
+        //        $("#MultipleBusiness").hide();
+        //        $("#SingleBusiness").show();
+        //    }
+        //    else
+        //    {
+        //        $("#MultipleBusiness").show();
+        //        $("#SingleBusiness").hide();
+        //    }
+
+        //    if (subcampaigntype == "1") {
+        //        $("#SingleBusiness").hide();
+            
+        //    }
+        //});
+
+
     });
 
+    ///Multiple and single select conditions for campaign type
+        //window.onload=function(){
+        //    document.getElementById("MultipleBusiness").style.display='none';
+        //}
+   
+    
     $('#StartDate').datepicker();
     $('#EndDate').datepicker();
 
@@ -483,7 +603,9 @@
         font-size: 1.2em;
         font-weight: bold;
     }
-
+    .table tr .form-control {
+        height:24px;
+    }
     .datealign {
     padding-left:0px!important;
     }
