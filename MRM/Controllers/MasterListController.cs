@@ -23,18 +23,18 @@ namespace MRM.Controllers
         {
             bool result = false;
             ChildCampaignViewModel ccvm = new ChildCampaignViewModel();
-            ccvm.MasterCampaigns_Id = id;
+           // ccvm.MasterCampaigns_Id = id;
 
-            if (Type == "View")
-            {
-                childCampaignObj.ChildCampaigns= _childCampaignServices.GetChildCampaignMasterId(ccvm);
-                RedirectToAction("ChildList", "ChildList");
-            }
-           else if (Type == "Delete")
-            {
-                result = _masterCampaignServices.DeleteMasterCampaign(id);
+           // if (Type == "View")
+           // {
+           //     childCampaignObj.ChildCampaigns= _childCampaignServices.GetChildCampaignMasterId(ccvm);
+           //     RedirectToAction("ChildList", "ChildList");
+           // }
+           //else if (Type == "Delete")
+           // {
+           //     result = _masterCampaignServices.DeleteMasterCampaign(id);
                 
-            }
+           // }
             return View(this.GetMasterCampaignList(1));
            
         }

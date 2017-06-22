@@ -53,7 +53,7 @@ namespace MRM.Controllers
 
 
         //updated by suraj
-        public ActionResult MasterCampaign(int id = 0)
+        public ActionResult MasterCampaign(int[] BusinessGroups_Id, int[] Segments_Id, int id = 0)
         {
             if (id == 0)
             {
@@ -144,7 +144,55 @@ namespace MRM.Controllers
                 }
 
             }
-            
+
+            if (BusinessGroups_Id == null)
+            {
+                mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                mcvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                mcvm.SegmentViewModels = _segmentService.GetSegment();
+                mcvm.IndustryViewModels = (new Industry[] { new Industry() });
+                mcvm.GeographyViewModels = _geographyService.GetGeography();
+                mcvm.ThemeViewModels = _themeService.GetTheme();
+                return View(mcvm);
+            }
+
+            if (BusinessGroups_Id != null)
+            {
+                List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(BusinessGroups_Id);
+                mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                mcvm.BusinessGroups_Id = BusinessGroups_Id;
+                mcvm.BusinessLineViewModels = businesslist;
+                mcvm.SegmentViewModels = _segmentService.GetSegment();
+                if (Segments_Id == null)
+                    mcvm.IndustryViewModels = (new Industry[] { new Industry() });
+                else
+                {
+                    List<Industry> lst = _industryService.GetIndustryBySegmentId(Segments_Id);
+                    mcvm.IndustryViewModels = lst;
+                }
+                mcvm.GeographyViewModels = _geographyService.GetGeography();
+                mcvm.ThemeViewModels = _themeService.GetTheme();
+                return View(mcvm);
+            }
+            else if (Segments_Id != null)
+            {
+                mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                if (BusinessGroups_Id == null)
+                    mcvm.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                else
+                {
+                    List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(BusinessGroups_Id);
+                    mcvm.BusinessLineViewModels = businesslist;
+                }
+                mcvm.SegmentViewModels = _segmentService.GetSegment();
+                mcvm.Segments_Id = Segments_Id;
+                List<Industry> lst = _industryService.GetIndustryBySegmentId(Segments_Id);
+                mcvm.IndustryViewModels = lst;
+                mcvm.GeographyViewModels = _geographyService.GetGeography();
+                mcvm.ThemeViewModels = _themeService.GetTheme();
+                return View(mcvm);
+            }
+
             return View(mcvm);
         }
 
