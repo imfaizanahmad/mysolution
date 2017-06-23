@@ -86,6 +86,7 @@
     <Compile Include="Model\Segment.cs" />
     <Compile Include="Model\TacticCampaign.cs" />
     <Compile Include="Model\Theme.cs" />
+    <Compile Include="Model\Vendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

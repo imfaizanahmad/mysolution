@@ -51,7 +51,8 @@
 
 @using (Ajax.BeginForm("Save", "MasterCampaign", new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
 {
-    <form>     
+    <form> 
+        @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })    
         <section class="content-header">          
         </section>
         <section class="content">
@@ -71,7 +72,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Master Campaign Name<span class="text-danger">*</span></label>
-                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Name, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control" } :
+                                            (object)new { @class = "form-control" })
                                     <div class="validmsgMaster"></div>
                                 </div>
                             </div>
@@ -90,13 +93,19 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Theme</label>  <br />
-                                    @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name", Model.Themes_Id), new { @class = "chosen-select form-control" })
+                                    @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name", Model.Themes_Id), (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
+                                            (object)new { @class = "chosen-single form-control" }
+)
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Geography</label><span class="text-danger">*</span><br />
-                                    @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), new { @class = "chosen-select form-control" })
+                                    @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
+                                            (object)new { @class = "chosen-select form-control" }
+)
                                     <div class="validmsgbusinesGeography"></div>
                                 </div>
                             </div>
@@ -108,14 +117,20 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Business Group<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), new { @class = "chosen-select form-control" })
+                                    @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id),
+(Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" } :
+                                            (object)new { @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" })
                                     <div class="validmsgbusinesGp"></div>
                                 </div>
                             </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Segment<span class="text-danger">*</span></label><br />
-                                        @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), new { @class = "chosen-select form-control" })
+                                        @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id),
+(Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" } :
+                                            (object)new { @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" })
                                         <div class="validmsgbusinesSegment"></div>
                                     </div>
                                 </div>
@@ -127,7 +142,10 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Business Line<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id), new { @class = "chosen-select form-control" })
+                                    @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id),
+(Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "chosen-select form-control"} :
+                                            (object)new { @class = "chosen-select form-control" })
                                     <div class="validmsgbusinesLine"></div>
                                  </div>
                             </div>
@@ -136,7 +154,9 @@
 
                                 <div class="form-group">
                                     <label>Industry<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), new { @class = "chosen-select form-control" })
+                                    @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
+                                            (object)new { @class = "chosen-select form-control" })
                                     <div class="validmsgbusinesIndustry"></div>
                                 </div>
                             </div>
@@ -196,14 +216,17 @@
                             <div class="col-md-6"></div>
                                 <div class="col-md-4">
                                     <div class="col-md-4">
-                                        <button Id="btnsubmit" name="button" value="Submit"  class="btn btn-block btn-primary btn-sm"  onclick="return  ValidateForm()">Submit</button>
+                                        <button Id="btnsubmit" name="button" value="@(Model.Id==0?"Submit":"Update")" class="btn btn-block btn-primary btn-sm" onclick="return  ValidateForm()">@(Model.Id == 0 ? "Submit" : "Update")</button>
                                     </div>
                                     <div class="col-md-4">
                                         <button Id="btnsubmit" name="button" value="Save Draft" class="btn btn-block btn-primary btn-sm">Save Draft</button>
                                     </div>
+                                    @if (Model.Id != 0 && Model.Status == "Save Draft")
+                                    {
                                     <div class="col-md-4">
-                                        <button Id="btnsubmit" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm">Delete</button>
+                                        <button Id="btnsubmit" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                     </div>
+                                    }
                                 </div>
 
                             </div>
@@ -229,13 +252,13 @@
     $(document).ready(function () {
 
 
-        $(document).on("change","#BusinessGroups_Id",function(){
-            DdlBind();
-        });
+        //$(document).on("change","#BusinessGroups_Id",function(){
+        //    DdlBind();
+        //});
 
-        $(document).on("change","#Segments_Id",function(){
-            DdlBind();
-        });
+        //$(document).on("change","#Segments_Id",function(){
+        //    DdlBind();
+        //});
 
         function DdlBind()
         {

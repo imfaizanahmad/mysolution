@@ -10,11 +10,22 @@ namespace MRM.ViewModel
 
     public class MasterCampaignViewModel
     {
+        public MasterCampaignViewModel()
+        {
+            BusinessGroupViewModels = new[] { new BusinessGroup() };
+            SegmentViewModels = (new[] { new Segment() });
+            BusinessLineViewModels = (new[] { new BusinessLine() });
+            ThemeViewModels = (new[] { new Theme() });
+            GeographyViewModels = (new[] { new Geography() });
+            IndustryViewModels = (new[] { new Industry() });
+            StartDate = DateTime.Now.ToString("MM/dd/yyyy");
+            EndDate = DateTime.Now.ToString("MM/dd/yyyy");
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string CampaignDescription { get; set; }
         public string Status { get; set; }
-        public bool IsActive { get; set; }
+        public Boolean IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }

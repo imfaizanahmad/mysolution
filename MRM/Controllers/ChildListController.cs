@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using MRM.Database.Model;
 using MRM.Business.Services;
+using MRM.ViewModel;
 
 namespace MRM.Controllers
 {
@@ -13,15 +14,31 @@ namespace MRM.Controllers
     public class ChildListController : Controller
     {
         GenericUnitOfWork dbobject = new GenericUnitOfWork();
-        public ActionResult ChildList()
+        TacticCampaignServices _tacticCampaignServices = new TacticCampaignServices();
+        ChildCampaignServices _childCampaignService = new ChildCampaignServices();
+        TacticCampaign objtactic = new TacticCampaign();
+        public ActionResult ChildList(string Type, int id = 0)
         {
+            TacticCampaignViewModel tcvm = new TacticCampaignViewModel();
+            tcvm.ChildCampaign_Id = id;
+            if (Type == "View")
+            {
+                objtactic.TacticCampaigns = _tacticCampaignServices.GetTacticBySubCampaignId(tcvm);
+                return RedirectToAction("TacticList", "TacticList");
+            }
+            else if (Type == "Delete")
+            {
+                bool result = _childCampaignService.DeleteSubCampaign(id);
+
+            }
+
             return View(this.GetChildCampaignList(1));
 
         }
 
-        public ActionResult ChildListById(int Id=0)
+        public ActionResult ChildListById(int Id = 0)
         {
-            
+
             return RedirectToAction("ChildList", "ChildList");
 
         }
@@ -38,7 +55,7 @@ namespace MRM.Controllers
 
         private ChildCampaign GetChildCampaignList(int currentPage)
         {
-            int maxRows = 10;
+            int maxRows = 2;
             ChildCampaignServices obj = new ChildCampaignServices();
             int totalCount = obj.GetChildCampaign().Count();
             ChildCampaign ChildCampaignObj = new ChildCampaign();

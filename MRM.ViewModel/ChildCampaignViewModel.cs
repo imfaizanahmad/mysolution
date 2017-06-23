@@ -18,6 +18,8 @@ namespace MRM.ViewModel
             ThemeViewModels = (new [] { new Theme() });
             GeographyViewModels = (new [] { new Geography() });
             IndustryViewModels = (new [] { new Industry() });
+            StartDate = DateTime.Now.ToString("MM/dd/yyyy");
+            EndDate = DateTime.Now.ToString("MM/dd/yyyy");
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -49,7 +51,7 @@ namespace MRM.ViewModel
 
         public int CampaignType { get; set; }
 
-
+        public Boolean IsActive { get; set; }
         public IEnumerable<Industry> IndustryViewModels { get; set; }
         public IEnumerable<Geography> GeographyViewModels { get; set; }
         public IEnumerable<Theme> ThemeViewModels { get; set; }

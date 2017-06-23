@@ -20,6 +20,24 @@
             font-size: 1.2em;
             font-weight: bold;
         }
+
+        .btn-edit {
+            width: 50px !important;
+            float: left;
+        }
+
+        .btn-view {
+            width: 50px !important;
+            float: left;
+            margin-top: 0% !important;
+            margin-left: 3%;
+        }
+
+        .btn-delete {
+            width: 50px !important;
+            float: right;
+            margin-top: 0% !important;
+        }
     </style>
 </head>
 <body>
@@ -34,11 +52,11 @@
                             <tr>
                                 <th>Tactic Campaign ID</th>
                                 <th>Name</th>
-                                <th style="width:400px">Tactic Campaign Description</th>
+                                <th style="width:30%">Tactic Campaign Description</th>
                                 <th>Status</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Action</th>
+                                <th style="width:10%;">Start Date</th>
+                                <th style="width:10%;">End Date</th>
+                                <th style="width:16%;">Action</th>
                             </tr>
                         </thead>
                         @foreach (var item in Model.TacticCampaigns)
@@ -49,10 +67,12 @@
                                     <td>@item.Name</td>
                                     <td>@item.TacticDescription</td>
                                     <td>@item.Status</td>
-                                    <td>@item.StartDate</td>
-                                    <td>@item.EndDate</td>
+                                    <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
+                                    <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
                                     <td>
-                                        <input type="button" class="btn btn-block btn-danger btn-sm" value="Delete" onclick="location.href='@Url.Action( "MasterCampaign", "MasterCampaign")'" />
+                                        <input type="button" class="btn btn-block btn-primary btn-sm btn-edit" value="Edit" onclick="location.href='@Url.Action( "TacticCampaign", "TacticCampaign", new { Id = item.Id })'" />
+                                        <input type="button" class="btn btn-block btn-primary btn-sm btn-view" value="View" onclick="location.href='@Url.Action( "TacticList", "TacticList", new { Id = item.Id, @Type="View" })'" />
+                                        <input type="button" class="btn btn-block btn-primary btn-sm btn-delete" value="Delete" onclick="if (confirm('Are you sure you want to delete?')) location.href='@Url.Action( "TacticList", "TacticList", new { Id = item.Id, @Type = "Delete" })'" />
                                     </td>
                                 </tr>
                             </tbody>
@@ -82,19 +102,19 @@
                         <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex" />
                     </div>
                     <div class="col-md-1">
-                        <input type="button" class="btn btn-block btn-primary btn-sm" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" style="width: 180%;height: 40px;margin-left: -85%;" />
+                        <input type="button" class="btn btn-block btn-primary btn-sm" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" style="width: 180% !important;height: 40px;margin-left: -85%;" />
 
                     </div>
                 </div>
             </fieldset>
         }
-          
-                <script type="text/javascript">
+
+        <script type="text/javascript">
                     function PagerClick(index) {
                         document.getElementById("hfCurrentPageIndex").value = index;
                         document.forms[0].submit();
                     }
-                </script>
-            </div>
+        </script>
+    </div>
 </body>
 </html>

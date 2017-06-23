@@ -7,9 +7,21 @@ using MRM.Database.Model;
 
 namespace MRM.ViewModel
 {
-
     public class TacticCampaignViewModel
     {
+        public TacticCampaignViewModel()
+        {
+            BusinessGroupViewModels = new[] { new BusinessGroup() };
+            SegmentViewModels = (new[] { new Segment() });
+            BusinessLineViewModels = (new[] { new BusinessLine() });
+            ThemeViewModels = (new[] { new Theme() });
+            GeographyViewModels = (new[] { new Geography() });
+            IndustryViewModels = (new[] { new Industry() });
+            ChildCampaignViewModels = (new[] { new ChildCampaign() });
+            VendorViewModels = (new[] { new Vendor() });
+            StartDate = DateTime.Now.ToString("MM/dd/yyyy");
+            EndDate = DateTime.Now.ToString("MM/dd/yyyy");
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string TacticDescription { get; set; }
@@ -18,6 +30,10 @@ namespace MRM.ViewModel
         public string EndDate { get; set; }
         public string Status { get; set; }
         public int ChildCampaign_Id { get; set; }
+        public string TacticType { get; set; }
+
+        public int MasterCampaign_Id { get; set; }
+        public Boolean IsActive { get; set; }
 
         public string ReachR1Goal { get; set; }
         public string ReachR1Low { get; set; }
@@ -32,7 +48,7 @@ namespace MRM.ViewModel
         public string ResponseR22Low { get; set; }
         public string ResponseR23High { get; set; }
 
-
+         
         public string EfficiencyE1Goal { get; set; }
         public string EfficiencyE1Low { get; set; }
         public string EfficiencyE1High { get; set; }
@@ -47,14 +63,16 @@ namespace MRM.ViewModel
         public IEnumerable<Segment> SegmentViewModels { get; set; }
         public IEnumerable<BusinessGroup> BusinessGroupViewModels { get; set; }
         public IEnumerable<BusinessLine> BusinessLineViewModels { get; set; }
+        public IEnumerable<MasterCampaign> MasterViewModels { get; set; }
         public IEnumerable<ChildCampaign> ChildCampaignViewModels { get; set; }
+
+        public IEnumerable<Vendor> VendorViewModels { get; set; }
         public int[] BusinessGroups_Id { get; set; }
         public int[] BusinessLines_Id { get; set; }
         public int[] Geographys_Id { get; set; }
         public int[] Industries_Id { get; set; }
         public int[] Segments_Id { get; set; }
         public int[] Themes_Id { get; set; }
-
         public int[] Vendor_Id { get; set; }
     }
 }

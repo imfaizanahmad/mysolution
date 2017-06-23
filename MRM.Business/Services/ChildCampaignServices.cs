@@ -42,45 +42,68 @@ namespace MRM.Business.Services
             childCampaignEntity.MarketingInfluenceOpportunity = model.MarketingInfluenceOpportunity;
             childCampaignEntity.MarketingGeneratedOpportunity = model.MarketingGeneratedOpportunity;
 
-            List<BusinessGroup> lstBGroup = new List<BusinessGroup>();
-            foreach (var item in model.BusinessGroups_Id)
+            List<BusinessLine> lstBline = null;
+            List<BusinessGroup> lstBGroup = null;
+            if (model.BusinessGroups_Id != null)
             {
-                var Bgroups = guow.GenericRepository<BusinessGroup>().GetByID(item);
-                lstBGroup.Add(Bgroups);
-            }
-            List<Theme> lsttheme = new List<Theme>();
-            foreach (var item in model.Themes_Id)
-            {
-                var theme = guow.GenericRepository<Theme>().GetByID(item);
-                lsttheme.Add(theme);
-            }
-            List<BusinessLine> lstBline = new List<BusinessLine>();
-            foreach (var item in model.BusinessLines_Id)
-            {
-                var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
-                lstBline.Add(Bline);
-            }
-
-            List<Segment> lstsegment = new List<Segment>();
-            foreach (var item in model.Segments_Id)
-            {
-                var segment = guow.GenericRepository<Segment>().GetByID(item);
-                lstsegment.Add(segment);
+                lstBGroup = new List<BusinessGroup>();
+                foreach (var item in model.BusinessGroups_Id)
+                {
+                    var Bgroups = guow.GenericRepository<BusinessGroup>().GetByID(item);
+                    lstBGroup.Add(Bgroups);
+                }
+                lstBline = new List<BusinessLine>();
+                foreach (var item in model.BusinessLines_Id)
+                {
+                    var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
+                    lstBline.Add(Bline);
+                }
             }
 
-            List<Geography> lstgeography = new List<Geography>();
-            foreach (var item in model.Geographys_Id)
+
+            List<Theme> lsttheme = null;
+            if (model.Themes_Id != null)
             {
-                var geography = guow.GenericRepository<Geography>().GetByID(item);
-                lstgeography.Add(geography);
+                lsttheme = new List<Theme>();
+                foreach (var item in model.Themes_Id)
+                {
+                    var theme = guow.GenericRepository<Theme>().GetByID(item);
+                    lsttheme.Add(theme);
+                }
+
             }
 
-            List<Industry> lstindustry = new List<Industry>();
-            foreach (var item in model.Industries_Id)
+            List<Industry> lstindustry = null;
+            List<Segment> lstsegment = null;
+
+            if (model.Segments_Id != null)
             {
-                var industry = guow.GenericRepository<Industry>().GetByID(item);
-                lstindustry.Add(industry);
+                lstsegment = new List<Segment>();
+                foreach (var item in model.Segments_Id)
+                {
+                    var segment = guow.GenericRepository<Segment>().GetByID(item);
+                    lstsegment.Add(segment);
+                }
+                lstindustry = new List<Industry>();
+                foreach (var item in model.Industries_Id)
+                {
+                    var industry = guow.GenericRepository<Industry>().GetByID(item);
+                    lstindustry.Add(industry);
+                }
             }
+
+            List<Geography> lstgeography = null;
+            if (model.Geographys_Id != null)
+            {
+                lstgeography = new List<Geography>();
+                foreach (var item in model.Geographys_Id)
+                {
+                    var geography = guow.GenericRepository<Geography>().GetByID(item);
+                    lstgeography.Add(geography);
+                }
+
+            }
+
 
             childCampaignEntity.BusinessGroups = lstBGroup;
             childCampaignEntity.Themes = lsttheme;
@@ -101,6 +124,25 @@ namespace MRM.Business.Services
         {
             List<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.Id == model.Id).ToList();
             return childCampaign;
+        }
+
+        //created by suraj
+        public List<ChildCampaign> GetChildCampaignByMasterId(ChildCampaignViewModel model)
+        {
+
+            List<ChildCampaign> lstchildcampaign = new List<ChildCampaign>();
+
+            MasterCampaign master = guow.GenericRepository<MasterCampaign>().GetByID(model.MasterCampaignId);
+            lstchildcampaign.AddRange(master.ChildCampaigns);
+            return lstchildcampaign;
+
+        }
+        //created by suraj
+        public bool DeleteSubCampaign(int Id)
+        {
+            guow.GenericRepository<ChildCampaign>().Delete(Id);
+            return true;
+
         }
     }
 }

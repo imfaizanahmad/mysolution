@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MRM.Database.GenericUnitOfWork;
 using MRM.Business.Services;
 using MRM.Database.Model;
+using MRM.ViewModel;
 
 namespace MRM.Controllers
 {
@@ -14,10 +15,28 @@ namespace MRM.Controllers
     {
 
         GenericUnitOfWork dbobject = new GenericUnitOfWork();
-        public ActionResult MasterList()
+        MasterCampaignServices _masterCampaignServices = new MasterCampaignServices();
+        ChildCampaignServices _childCampaignServices = new ChildCampaignServices();
+        MasterCampaign MasterCampaignObj = new MasterCampaign();
+        ChildCampaign childCampaignObj = new ChildCampaign();
+        public ActionResult MasterList(string Type, int id = 0)
         {
+
+            ChildCampaignViewModel ccvm = new ChildCampaignViewModel();
+            ccvm.MasterCampaignId = id;
+
+            if (Type == "View")
+            {
+                childCampaignObj.ChildCampaigns = _childCampaignServices.GetChildCampaignByMasterId(ccvm);
+                return RedirectToAction("ChildList", "ChildList");
+            }
+            else if (Type == "Delete")
+            {
+                bool result = _masterCampaignServices.DeleteMasterCampaign(id);
+
+            }
             return View(this.GetMasterCampaignList(1));
-           
+
         }
 
 
@@ -29,15 +48,15 @@ namespace MRM.Controllers
 
 
         // GET: MasterList
-       
+
         private MasterCampaign GetMasterCampaignList(int currentPage)
         {
             MasterCampaignServices obj = new MasterCampaignServices();
             int maxRows = 10;
             int totalCount = obj.GetMasterCampaign().Count();
-            MasterCampaign MasterCampaignObj = new MasterCampaign();
+            //MasterCampaign MasterCampaignObj = new MasterCampaign();
             MasterCampaignObj.MasterCampaigns = (from Mastercampaign in obj.GetMasterCampaign().ToList()
-                                                 //join fnekfw in obj.GetMasterCampaign() where (Mastercampaign.Id == fnekfw.Geographys) 
+                                                     //join fnekfw in obj.GetMasterCampaign() where (Mastercampaign.Id == fnekfw.Geographys) 
 
 
                                                  select Mastercampaign)
@@ -48,7 +67,7 @@ namespace MRM.Controllers
             MasterCampaignObj.PageCount = (int)Math.Ceiling(pageCount);
             MasterCampaignObj.CurrentPageIndex = currentPage;
             return MasterCampaignObj;
-          
+
         }
 
 

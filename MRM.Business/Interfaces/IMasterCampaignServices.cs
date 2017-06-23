@@ -12,5 +12,6 @@ namespace MRM.Business.Interfaces
         IEnumerable<MasterCampaign> GetMasterCampaign();
         bool CreateMasterCampaign(MasterCampaignViewModel campaign);
         List<MasterCampaign> GetMasterCampaignById(MasterCampaignViewModel model);
+        bool DeleteMasterCampaign(int Id);
     }
 }

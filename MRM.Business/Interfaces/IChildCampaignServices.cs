@@ -13,5 +13,8 @@ namespace MRM.Business.Interfaces
         IEnumerable<ChildCampaign> GetChildCampaign();
         bool CreateChildCampaign(ChildCampaignViewModel campaign);
         List<ChildCampaign> GetChildCampaignById(ChildCampaignViewModel model);
+
+        List<ChildCampaign> GetChildCampaignByMasterId(ChildCampaignViewModel model);
+        bool DeleteSubCampaign(int Id);
     }
 }

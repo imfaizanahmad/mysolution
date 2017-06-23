@@ -28,7 +28,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Master Campaign</label><span class="text-danger">*</span><br />
-                                        @*@Html.DropDownListFor(m => m.MasterViewModels, new SelectList(Model.MasterViewModels, "Id", "Name"), "Select Option", new { @class = "chosen-single form-control" })*@
+                                        @Html.DropDownListFor(m => m.MasterCampaign_Id, new SelectList(Model.MasterViewModels, "Id", "Name"), "Select Option", new { @class = "chosen-single form-control" ,onchange="this.form.submit(this.val)"})
                                         <div class="validmsgMastercampaign"></div>
                                     </div>
                                 </div>
@@ -45,11 +45,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Tactic Type<span class="text-danger">*</span></label><br />
-                                        @Html.DropDownList("Tactictype", new List<SelectListItem>
-                                     {
-                                        new SelectListItem{ Text="BG Led", Value = "0" },
-                                        new SelectListItem{ Text="GEPS", Value = "1" }
-                                     }, "Select Option", new { @class = "chosen-single form-control" })
+                                        @Html.TextBoxFor(m => m.TacticType, new { @maxlength = "25", @class = "form-control" })
                                         <div class="validmsgTactictype"></div>
                                     </div>
                                     </div>
@@ -124,14 +120,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Business Group</label><span class="text-danger">*</span><br />
-                                                @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
+                                                @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name"), new { @class = "chosen-select form-control",onchange="this.form.submit(this.val)" })
                                                 <div class="validmsgbusinesGp"></div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Segment</label><span class="text-danger">*</span><br />
-                                                @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
+                                                @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name"), new { @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" })
                                                 <div class="validmsgbusinesSegment"></div>
                                             </div>
                                         </div>
@@ -272,14 +268,17 @@
                                 <div class="col-md-6"></div>
                                 <div class="col-md-4">
                                     <div class="col-md-4">
-                                        <button Id="btnsubmit" name="button" value="Submit" class="btn btn-block btn-primary btn-sm" onclick="return  ValidateForm()">Submit</button>
+                                        <button Id="btnsubmit" name="button" value="@(Model.Id==0?"Submit":"Update")" class="btn btn-block btn-primary btn-sm" onclick="return  ValidateForm()">@(Model.Id == 0 ? "Submit" : "Update")</button>
                                     </div>
                                     <div class="col-md-4">
                                         <button Id="btnsubmit" name="button" value="Save Draft" class="btn btn-block btn-primary btn-sm">Save Draft</button>
                                     </div>
-                                    <div class="col-md-4">
-                                        <button Id="btnsubmit" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm">Delete</button>
-                                    </div>
+                                    @if (Model.Id != 0 && Model.Status == "Save Draft")
+                                    {
+                                        <div class="col-md-4">
+                                            <button Id="btnsubmit" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                        </div>
+                                    }
                                 </div>
 
                             </div>
@@ -312,14 +311,14 @@
 
         });
 
-        $(document).on("change","#BusinessGroups_Id",function(){
-            DdlBind();
-        });
+        //$(document).on("change","#BusinessGroups_Id",function(){
+        //    DdlBind();
+        //});
 
 
-        $(document).on("change","#Segments_Id",function(){
-            DdlBind();
-        });
+        //$(document).on("change","#Segments_Id",function(){
+        //    DdlBind();
+        //});
 
         function DdlBind()
         {
@@ -376,7 +375,7 @@
     function ValidateForm() {
         var flag = true;
         
-        if ($('#MasterViewModels').val() == "") {
+        if ($('#MasterCampaign_Id').val() == null) {
 
             $('.validmsgMastercampaign').text("Please select Master Campaign").css("color", "#b94a48");
             $('.validmsgMastercampaign').show();
@@ -386,20 +385,20 @@
         else {
             $('.validmsgMastercampaign').hide();
         }
-        if ($('#Tactictype').val() == "") {
+        //if ($('#Tactictype').val() == "") {
 
-            $('.validmsgTactictype').text("Please select Tactic Type").css("color", "#b94a48");
-            $('.validmsgTactictype').show();
-            flag = false;
+        //    $('.validmsgTactictype').text("Please select Tactic Type").css("color", "#b94a48");
+        //    $('.validmsgTactictype').show();
+        //    flag = false;
 
-        }
-        else {
-            $('.validmsgTactictype').hide();
-        }
+        //}
+        //else {
+        //    $('.validmsgTactictype').hide();
+        //}
         
         
 
-        if ($('#VendorViewModels').val() == "") {
+        if ($('#VendorViewModels').val() == null) {
 
             $('.validmsgVendor').text("Please select Vendor").css("color", "#b94a48");
             $('.validmsgVendor').show();
@@ -412,7 +411,7 @@
 
 
 
-        if ($('#ChildCampaignViewModels').val() == "") {
+        if ($('#ChildCampaign_Id').val() == null) {
 
             $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
             $('.validmsgSubcampaign').show();
@@ -468,18 +467,7 @@
         }
 
 
-        if ($('#subcampaigntype').val() == "1") {
-            if ($('#Industries_Id').val() == null) {
-
-                $('.validmsgbusinesIndustry').text("Please select industry from drop-down").css("color", "#b94a48");
-                $('.validmsgbusinesIndustry').show();
-                flag = false;
-
-            }
-            else {
-                $('.validmsgbusinesIndustry').hide();
-            }
-        }
+    
 
 
         if ($("#StartDate").find("input").val() == "") {
@@ -523,16 +511,15 @@
         }
 
 
-        if ($('#Status').val() == "") {
-            $('.validmsgstatus').text("Please select Status").css("color", "#b94a48");
-            $('.validmsgstatus').show();
-            flag = false;
+        //if ($('#Status').val() == "") {
+        //    $('.validmsgstatus').text("Please select Status").css("color", "#b94a48");
+        //    $('.validmsgstatus').show();
+        //    flag = false;
+        //}
+        //else {
 
-        }
-        else {
-
-            $('.validmsgstatus').hide();
-        }
+        //    $('.validmsgstatus').hide();
+        //}
 
         if ($('#TacticDescription').val() == "") {
             $('.validmsgtacticdesc').text("Please enter sub campaign description name").css("color", "#b94a48");
