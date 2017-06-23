@@ -187,7 +187,7 @@ namespace MRM.Controllers
                 if (model.BusinessGroups_Id == null) errorCounter++;
                 if (model.BusinessLines_Id == null) errorCounter++;
                 if (model.Segments_Id == null) errorCounter++;
-                if (model.CampaignType != 0 || model.CampaignType != 1) errorCounter++;
+                if (model.CampaignType != 0 && model.CampaignType != 1) errorCounter++;
                 if (Convert.ToInt32(model.CampaignType) == 1 && model.Industries_Id == null) errorCounter++;
                 if (model.StartDate == "") errorCounter++;
                 if (model.EndDate == "") errorCounter++;
@@ -234,12 +234,14 @@ namespace MRM.Controllers
                 Childvm.SegmentViewModels = _segmentService.GetSegment();
                 Childvm.ThemeViewModels = _themeService.GetTheme();
                 Childvm.GeographyViewModels = _geographyService.GetGeography();
-
+ 
                 List<ChildCampaign> childobjlist = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = Id });
                 foreach (var item in childobjlist)
                 {
                     //Selected Value bind in drop-down
-                    //For Theme
+                    Childvm.MasterCampaignId = item.MasterCampaigns.Id;
+
+                   //For Theme
                     int[] SelectedThemes = new int[item.Themes.Count];
                     for (int i = 0; i < item.Themes.Count; i++)
                     {
@@ -306,6 +308,18 @@ namespace MRM.Controllers
                     Childvm.Spend = item.Spend;
                     Childvm.Id = item.Id;
                     Childvm.Status = item.Status;
+                    Childvm.MILGoal = item.MILGoal;
+                    Childvm.MILLow = item.MILLow;
+                    Childvm.MILHigh = item.MILHigh;
+                    Childvm.MGLGoal = item.MGLGoal;
+                    Childvm.MGLLow = item.MGLLow;
+                    Childvm.MGLHigh = item.MGLHigh;
+                    Childvm.MIOGoal = item.MIOGoal;
+                    Childvm.MIOLow = item.MIOLow;
+                    Childvm.MIOHigh = item.MIOHigh;
+                    Childvm.MGOGoal = item.MGOGoal;
+                    Childvm.MGOLow = item.MGOLow;
+                    Childvm.MGOHigh = item.MGOHigh;
                 }
             }
 
