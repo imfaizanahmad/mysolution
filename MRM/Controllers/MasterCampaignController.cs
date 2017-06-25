@@ -128,12 +128,12 @@ namespace MRM.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int masterId)
+        public bool Delete(int masterId)
         {
             var masterCampaign = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = masterId }).First();
             masterCampaign.IsActive = false;
             _masterCampaignServices.Update(masterCampaign);
-            return RedirectToAction("MasterList", "MasterList");
+            return true;
         }
 
 
@@ -173,7 +173,7 @@ namespace MRM.Controllers
             model.IndustryViewModels = lst;
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
-            return View("MasterCampaign", model);
+            return PartialView("MasterCampaignForm", model);
         }
 
         [HttpPost]

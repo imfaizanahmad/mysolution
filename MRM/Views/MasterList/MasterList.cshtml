@@ -71,11 +71,11 @@
                                     <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
                                     <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
                                     <td>
-                                        
                                         @Html.ActionLink("View / Edit", "MasterCampaign", "MasterCampaign", new { id = item.Id}, new { })
-                                        @*@Url.Action("MasterCampaign", "MasterCampaign", new {Id = item.Id})*@
-                                        @*<input type="button" class="btn btn-block btn-primary btn-sm btn-edit" width="200" value="Edit/View" onclick="location.href = '@Url.Action("MasterCampaign", "MasterCampaign", new {Id = item.Id})'"/>*@
-                                        <input type="button" class="btn btn-block btn-primary btn-sm btn-delete" value="Delete" onclick="if (confirm('Are you sure you want to delete?')) location.href = '@Url.Action("MasterList", "MasterList", new {Id = item.Id, @Type = "Delete"})'"/>
+                                        @if (item.Status != "Complete")
+                                        {
+                                            <input type="button" class="btn btn-block btn-primary btn-sm btn-delete" value="Delete" onclick="if (confirm('Are you sure you want to delete?')) location.href = '@Url.Action("MasterList", "MasterList", new {Id = item.Id, @Type = "Delete"})'" />
+                                        }
                                     </td>
                                 </tr>
 
