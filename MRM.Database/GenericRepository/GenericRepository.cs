@@ -65,11 +65,12 @@ namespace MRM.Database.GenericRepository
             Context.SaveChanges();
         }
 
-        public virtual void Update(TEntity entityToUpdate)
+        public virtual TEntity Update(TEntity entityToUpdate)
         {
             DbSet.Attach(entityToUpdate);
             Context.Entry(entityToUpdate).State = EntityState.Modified;
             Context.SaveChanges();
+            return entityToUpdate;
         }
 
         //generic method to get many record on the basis of a condition.

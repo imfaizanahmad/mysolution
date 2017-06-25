@@ -43,20 +43,6 @@ namespace MRM.Controllers
             return View();
         }
 
-
-        //public ActionResult TacticCampaign()
-        //{
-        //  //  if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
-        //    Tacticvm.IndustryViewModels = _industryService.GetIndustry();
-        //    Tacticvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-        //    Tacticvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
-        //    Tacticvm.SegmentViewModels = _segmentService.GetSegment();
-        //    Tacticvm.GeographyViewModels = _geographyService.GetGeography();
-        //    Tacticvm.ThemeViewModels = _themeService.GetTheme();
-        //    Tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign();
-        //    return View(Tacticvm);
-        //}
-
         private bool isValid(TacticCampaignViewModel model)
         {
             int errorCounter = 0;
@@ -84,12 +70,7 @@ namespace MRM.Controllers
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.Name == "") errorCounter++;
                 if (model.TacticDescription == "") errorCounter++;
-            }
-
-            //int campaignTypeBGLed = 0;
-           
-       
-
+            }      
             return errorCounter == 0;
         }
         public ActionResult TacticCampaign(int Id = 0)
@@ -174,8 +155,32 @@ namespace MRM.Controllers
                     tacticvm.TacticDescription = item.TacticDescription;
                     tacticvm.StartDate = Convert.ToString(item.StartDate);
                     tacticvm.EndDate = Convert.ToString(item.EndDate);
+                    tacticvm.Status = item.Status;
                     tacticvm.Year = item.Year;
                     tacticvm.Status = item.Status;
+                    tacticvm.MasterCampaign_Id = item.MasterCampaign_Id;
+                    tacticvm.TacticType = item.TacticType;
+                    tacticvm.ReachR1Goal = item.ReachR1Goal;
+                    tacticvm.ReachR1Low = item.ReachR1Low;
+                    tacticvm.ReachR1High = item.ReachR1High;
+                    tacticvm.ReachR11Goal = item.ReachR11Goal;
+                    tacticvm.ReachR12Low = item.ReachR12Low;
+                    tacticvm.ReachR13High = item.ReachR13High;
+                    tacticvm.ResponseR1Goal = item.ResponseR1Goal;
+                    tacticvm.ResponseR1Low = item.ResponseR1Low;
+                    tacticvm.ResponseR1High = item.ResponseR1High;
+                    tacticvm.ResponseR21Goal = item.ResponseR21Goal;
+                    tacticvm.ResponseR22Low = item.ResponseR22Low;
+                    tacticvm.ResponseR23High = item.ResponseR23High;
+                    tacticvm.EfficiencyE1Goal = item.EfficiencyE1Goal;
+                    tacticvm.EfficiencyE1Low = item.EfficiencyE1Low;
+                    tacticvm.EfficiencyE1High = item.EfficiencyE1High;
+                    tacticvm.EfficiencyE11Goal = item.EfficiencyE11Goal;
+                    tacticvm.EfficiencyE12Low = item.EfficiencyE12Low;
+                    tacticvm.EfficiencyE13High = item.EfficiencyE13High;
+
+                    tacticvm.StartDate = Convert.ToString(item.StartDate);
+                    tacticvm.EndDate = Convert.ToString(item.EndDate);
                 }
             }
             return View(tacticvm);
@@ -202,7 +207,7 @@ namespace MRM.Controllers
 
 
             bool result;
-            if (isValid(model))
+            if (button != null && isValid(model))
             {
                 result = _tacticCampaignServices.CreateTacticCampaign(model);
                 if (result == true)
@@ -257,7 +262,7 @@ namespace MRM.Controllers
                 return View("TacticCampaign", model);
             }
 
-            if (model.BusinessGroups_Id != null)
+            if (model.BusinessGroups_Id != null && button == null)
             {
                 List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
                 model.BusinessGroupViewModels = _businessgroupService.GetBG();
@@ -275,7 +280,7 @@ namespace MRM.Controllers
                 model.ThemeViewModels = _themeService.GetTheme();
                 return View("TacticCampaign", model);
             }
-            else if (model.Segments_Id != null)
+            else if (model.Segments_Id != null && button == null)
             {
                 model.BusinessGroupViewModels = _businessgroupService.GetBG();
                 if (model.BusinessGroups_Id == null)

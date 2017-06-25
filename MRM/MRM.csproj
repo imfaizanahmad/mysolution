@@ -306,6 +306,7 @@
     <Content Include="Views\MasterList\MasterList.cshtml" />
     <Content Include="Views\ChildList\ChildList.cshtml" />
     <Content Include="Views\TacticList\TacticList.cshtml" />
+    <Content Include="Views\MasterCampaign\MasterCampaignForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,12 +37,16 @@ namespace MRM.Business.Services
         {
 
             List<Industry> lstIndustry = new List<Industry>();
-            foreach (var item in SegmentId)
+            if (SegmentId !=null)
             {
-                Segment bg = guow.GenericRepository<Segment>().GetByID(Convert.ToInt32(item));
-                lstIndustry.AddRange(bg.Industries);
-                //var Bline = guow.GenericRepository<BusinessLine>().Get( x => x.BusinessGroups.BusinessGroupId == item);
+                foreach (var item in SegmentId)
+                {
+                    Segment bg = guow.GenericRepository<Segment>().GetByID(Convert.ToInt32(item));
+                    lstIndustry.AddRange(bg.Industries);
+                    //var Bline = guow.GenericRepository<BusinessLine>().Get( x => x.BusinessGroups.BusinessGroupId == item);
+                }
             }
+
             return lstIndustry;
         }
     }

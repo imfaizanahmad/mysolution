@@ -77,7 +77,7 @@ namespace MRM.Controllers
             }
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
             bool result;
-            if (isValid(model))
+            if (button != null && isValid(model))
             {
                 result = _childCampaignServices.CreateChildCampaign(model);
                 if (result == true)
@@ -127,7 +127,7 @@ namespace MRM.Controllers
                 return View("ChildCampaign",model);
             }
 
-            if (model.BusinessGroups_Id != null)
+            if (model.BusinessGroups_Id != null && button == null)
             {
                 List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
                 model.BusinessGroupViewModels = _businessgroupService.GetBG();
@@ -144,7 +144,7 @@ namespace MRM.Controllers
                 model.ThemeViewModels = _themeService.GetTheme();
                 return View("ChildCampaign", model);
             }
-            else if (model.Segments_Id != null)
+            else if (model.Segments_Id != null && button == null)
             {
                 model.BusinessGroupViewModels = _businessgroupService.GetBG();
                 if (model.BusinessGroups_Id == null)

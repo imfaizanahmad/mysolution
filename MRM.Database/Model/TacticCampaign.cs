@@ -48,6 +48,7 @@ namespace MRM.Database.Model
         public virtual ICollection<Industry> Industries { get; set; }
         public virtual ICollection<Theme> Themes { get; set; }
         public virtual ICollection<Geography> Geographys { get; set; }
+        public virtual ICollection<Vendor> Vendors { get; set; }
         public virtual ChildCampaign ChildCampaigns { get; set; }
 
 

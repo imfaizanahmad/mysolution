@@ -33,8 +33,8 @@ namespace MRM.Business.Services
                 childCampaignEntity.MasterCampaigns = guow.GenericRepository<MasterCampaign>().GetByID(model.MasterCampaignId);
                 childCampaignEntity.Name = model.Name;
                 childCampaignEntity.CampaignDescription = model.CampaignDescription;
-                childCampaignEntity.StartDate = Convert.ToDateTime(model.StartDate);
-                childCampaignEntity.EndDate = Convert.ToDateTime(model.EndDate);
+                childCampaignEntity.StartDate = string.IsNullOrEmpty(model.StartDate) == true ? DateTime.Now : Convert.ToDateTime(model.StartDate);
+                childCampaignEntity.EndDate = string.IsNullOrEmpty(model.EndDate) == true ? DateTime.Now : Convert.ToDateTime(model.EndDate);
                 childCampaignEntity.Status = model.Status;
                 childCampaignEntity.CreatedBy = "user";
                 childCampaignEntity.Budget = model.Budget;

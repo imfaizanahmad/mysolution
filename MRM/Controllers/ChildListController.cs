@@ -59,7 +59,7 @@ namespace MRM.Controllers
             ChildCampaignServices obj = new ChildCampaignServices();
             int totalCount = obj.GetChildCampaign().Count();
             ChildCampaign ChildCampaignObj = new ChildCampaign();
-            ChildCampaignObj.ChildCampaigns = (from Childcampaign in obj.GetChildCampaign()
+            ChildCampaignObj.ChildCampaigns = (from Childcampaign in obj.GetChildCampaign().Where(x => x.IsActive)
                                                select Childcampaign)
                             .OrderByDescending(Mastercampaign => Mastercampaign.CreatedDate)
                             .Skip((currentPage - 1) * maxRows)

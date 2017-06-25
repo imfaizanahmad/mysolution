@@ -23,15 +23,8 @@ namespace MRM.Database.Model
         public DbSet<Industry> Industries { get; set; }
         public DbSet<Geography> Geographys { get; set; }
         public DbSet<Theme> Themes { get; set; }
-
-    //    public DbSet<ThemeMasterCampaign> ThemeMasterCampaigns { get; set; }
-
-       
+        public DbSet<Vendor> Vendors { get; set; }
 
     }
-    //public class ThemeMasterCampaign
-    //{
-    //    public int Theme_Id { get; set; }
-    //    public int MasterCampaign_Id { get; set; }
-    //}
+
 }

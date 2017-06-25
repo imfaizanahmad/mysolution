@@ -36,13 +36,18 @@ namespace MRM.Business.Services
         public List<BusinessLine> GetBusinessLineByBGId(int[] BGId)
         {
             List<BusinessLine> lstBline = new List<BusinessLine>();
-            foreach (var item in BGId)
+            if ( BGId != null)
             {
-                BusinessGroup bg = guow.GenericRepository<BusinessGroup>().GetByID(item);
-                lstBline.AddRange(bg.BusinessLines);
-                //var Bline = guow.GenericRepository<BusinessLine>().Get( x => x.BusinessGroups.BusinessGroupId == item);
-                //lstBline.Add(Bline);
+                foreach (var item in BGId)
+                {
+                    BusinessGroup bg = guow.GenericRepository<BusinessGroup>().GetByID(item);
+                    lstBline.AddRange(bg.BusinessLines);
+                    //var Bline = guow.GenericRepository<BusinessLine>().Get( x => x.BusinessGroups.BusinessGroupId == item);
+                    //lstBline.Add(Bline);
+                }
+
             }
+
             return lstBline;
         }
     }

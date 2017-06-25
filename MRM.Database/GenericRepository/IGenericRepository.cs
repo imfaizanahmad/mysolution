@@ -15,7 +15,7 @@ namespace MRM.Database.GenericRepository
         void Insert(TEntity entity);
         void Delete(object id);
         void Delete(TEntity entityToDelete);
-        void Update(TEntity entityToUpdate);
+        TEntity Update(TEntity entityToUpdate);
         IEnumerable<TEntity> GetMany(Func<TEntity, bool> where);
         IQueryable<TEntity> GetManyQueryable(Func<TEntity, bool> where);
         TEntity Get(Func<TEntity, Boolean> where);

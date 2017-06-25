@@ -43,7 +43,7 @@ namespace MRM.Controllers
             int totalCount = obj.GetTacticCampaign().Count();
             TacticCampaign TactiCampaignObj = new TacticCampaign();
 
-            TactiCampaignObj.TacticCampaigns = (from Tacticcampaign in obj.GetTacticCampaign()
+            TactiCampaignObj.TacticCampaigns = (from Tacticcampaign in obj.GetTacticCampaign().Where(x => x.IsActive)
                                                 select Tacticcampaign)
                             .OrderByDescending(Mastercampaign => Mastercampaign.CreatedDate)
                             .Skip((currentPage - 1) * maxRows)

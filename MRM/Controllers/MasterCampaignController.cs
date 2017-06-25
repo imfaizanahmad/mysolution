@@ -40,7 +40,7 @@ namespace MRM.Controllers
         {
             //if (Session["UserInfo"] == null) {return RedirectToAction("Index", "Home");}
             TempData["mastercount"] = "";
-            var mastercount = _masterCampaignServices.GetMasterCampaign().Count();           
+            var mastercount = _masterCampaignServices.GetMasterCampaign().Count();
             return View();
         }
 
@@ -48,11 +48,11 @@ namespace MRM.Controllers
         {
             //    if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             MasterCampaignViewModel mcvm = new MasterCampaignViewModel();
-                mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-                mcvm.SegmentViewModels = _segmentService.GetSegment();
-                mcvm.GeographyViewModels = _geographyService.GetGeography();
-                mcvm.ThemeViewModels = _themeService.GetTheme();
-            
+            mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+            mcvm.SegmentViewModels = _segmentService.GetSegment();
+            mcvm.GeographyViewModels = _geographyService.GetGeography();
+            mcvm.ThemeViewModels = _themeService.GetTheme();
+
             if (Id != 0)
             {
                 List<MasterCampaign> lst = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = Id });
@@ -67,7 +67,7 @@ namespace MRM.Controllers
                     mcvm.Themes_Id = SelectedThemes;
 
                     //For BusinessGroups
-                  
+
 
 
                     int[] SelectedBusinessGroup = new int[item.BusinessGroups.Count];
@@ -102,7 +102,7 @@ namespace MRM.Controllers
                     mcvm.Geographys_Id = SelectedGeography;
                     //For Industry
 
-                  
+
                     int[] SelectedIndustry = new int[item.Industries.Count];
                     for (int i = 0; i < item.Industries.Count; i++)
                     {
@@ -128,92 +128,100 @@ namespace MRM.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(MasterCampaignViewModel model,string button)
+        public ActionResult Delete(int masterId)
         {
-            // if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
-            if (button == "Submit" || button =="Update") { model.Status = "Complete"; }
-            else if (button == "Delete Draft") { model.IsActive = false; }
-            else if (button == "Save Draft") { model.Status = button; }
+            var masterCampaign = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = masterId }).First();
+            masterCampaign.IsActive = false;
+            _masterCampaignServices.Update(masterCampaign);
+            return RedirectToAction("MasterList", "MasterList");
+        }
 
-            if (model.Id!=0 && model.Status=="Save Draft")
+
+        public ActionResult LoadBusinessLine(MasterCampaignViewModel model)
+        {
+            List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
+            model.BusinessGroupViewModels = _businessgroupService.GetBG();
+            model.BusinessGroups_Id = model.BusinessGroups_Id;
+            model.BusinessLineViewModels = businesslist;
+            model.SegmentViewModels = _segmentService.GetSegment();
+            if (model.Segments_Id == null)
+                model.IndustryViewModels = (new Industry[] { new Industry() });
+            else
             {
-                bool result1 = _masterCampaignServices.DeleteMasterCampaign(model.Id);
-                if (result1 == true)
-                    return RedirectToAction("MasterCampaign", "MasterCampaign");
-                else
-                    return View("MasterCampaign", model);
-            }
-
-
-            if (button == "Save Draft")
-            {
-                if (_masterCampaignServices.CreateMasterCampaign(model) == true)
-                {
-                    return RedirectToAction("MasterList", "MasterList");
-                }
-                else
-                {
-                    return RedirectToAction("MasterCampaign", "MasterCampaign");
-                }
-            }
-
-            bool result;
-            if (isValid(model))
-            {
-                result = _masterCampaignServices.CreateMasterCampaign(model);
-                if (result == true)
-                {
-                    return RedirectToAction("MasterList", "MasterList");
-                }
-                else
-                {
-                    return RedirectToAction("MasterCampaign", "MasterCampaign");
-                }
-            }
-
-
-
-            ////////DDL Logic//////////////
-            if (model.BusinessGroups_Id != null)
-            {
-                List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
-                model.BusinessGroupViewModels = _businessgroupService.GetBG();
-                model.BusinessGroups_Id = model.BusinessGroups_Id;
-                model.BusinessLineViewModels = businesslist;
-                model.SegmentViewModels = _segmentService.GetSegment();
-                if (model.Segments_Id == null)
-                    model.IndustryViewModels = (new Industry[] { new Industry() });
-                else
-                {
-                    List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
-                    model.IndustryViewModels = lst;
-                }
-                model.GeographyViewModels = _geographyService.GetGeography();
-                model.ThemeViewModels = _themeService.GetTheme();
-                return View("MasterCampaign", model);
-            }
-            else if (model.Segments_Id != null)
-            {
-                model.BusinessGroupViewModels = _businessgroupService.GetBG();
-                if (model.BusinessGroups_Id == null)
-                    model.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
-                else
-                {
-                    List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
-                    model.BusinessLineViewModels = businesslist;
-                }
-                model.SegmentViewModels = _segmentService.GetSegment();
-                model.Segments_Id = model.Segments_Id;
                 List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
                 model.IndustryViewModels = lst;
-                model.GeographyViewModels = _geographyService.GetGeography();
-                model.ThemeViewModels = _themeService.GetTheme();
-                return View("MasterCampaign", model);
             }
+            model.GeographyViewModels = _geographyService.GetGeography();
+            model.ThemeViewModels = _themeService.GetTheme();
+            return PartialView("MasterCampaignForm", model);
+        }
 
-            ///////////////////////////
-            
-            return View(model);
+
+        public ActionResult LoadIndustry(MasterCampaignViewModel model)
+        {
+            model.BusinessGroupViewModels = _businessgroupService.GetBG();
+            if (model.BusinessGroups_Id == null)
+                model.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+            else
+            {
+                List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
+                model.BusinessLineViewModels = businesslist;
+            }
+            model.SegmentViewModels = _segmentService.GetSegment();
+            model.Segments_Id = model.Segments_Id;
+            List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
+            model.IndustryViewModels = lst;
+            model.GeographyViewModels = _geographyService.GetGeography();
+            model.ThemeViewModels = _themeService.GetTheme();
+            return View("MasterCampaign", model);
+        }
+
+        [HttpPost]
+        public bool Save(MasterCampaignViewModel model,string button)
+        {
+            try
+            {
+                //todo:
+                if (button == "Save Draft")
+                {
+                    if (model.Id == 0)// insert new record as draft
+                    {
+                        model.Status = "Save Draft";
+                        _masterCampaignServices.InsertMasterCampaign(model);
+                        return true;
+                    }
+                    else // Update master campaign 
+                    {
+                        model.Status = "Save Draft";
+                        _masterCampaignServices.UpdateForDraft(model);
+                        return true;
+                    }
+                }
+                else // submission 
+                {
+                    if (isValid(model))
+                    {
+                        if (model.Id == 0)// insert new record as draft
+                        {
+                            model.Status = "Complete";
+                            _masterCampaignServices.InsertMasterCampaign(model);
+                            return true;
+                        }
+                        else
+                        {
+                            model.Status = "Complete";
+                            _masterCampaignServices.Submit(model);
+                            return true;
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         private bool isValid(MasterCampaignViewModel model)
@@ -222,10 +230,16 @@ namespace MRM.Controllers
 
             if (model.Id != 0)
             {
-                if (model.CampaignDescription == "") errorCounter++;
+                if (model.BusinessGroups_Id == null) errorCounter++;
+                if (model.BusinessLines_Id == null) errorCounter++;
+                if (model.Segments_Id == null) errorCounter++;
+                if (model.Industries_Id == null) errorCounter++;
+                if (model.Geographys_Id == null) errorCounter++;
                 if (model.StartDate == "") errorCounter++;
                 if (model.EndDate == "") errorCounter++;
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
+                if (model.Name == "") errorCounter++;
+                if (model.CampaignDescription == "") errorCounter++;
 
             }
             else {
@@ -242,15 +256,7 @@ namespace MRM.Controllers
                 if (model.CampaignDescription == "") errorCounter++;
 
             }
-           
-           
-            //if (model.Status == "") errorCounter++;
-           
-
             return errorCounter == 0;
         }
-
-
-
     }
 }

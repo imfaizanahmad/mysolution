@@ -1,13 +1,10 @@
 ﻿@model MRM.ViewModel.MasterCampaignViewModel
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "MasterCampaign";
 
 }
-
 <script src="~/Scripts/jquery-2.1.3.min.js"></script>
-
 <style>
     #mydiv {
         position: absolute;
@@ -19,8 +16,6 @@
         background-color: grey;
         opacity: .8;
     }
-
-
     .loader {
         position: absolute;
         left: 50%;
@@ -47,241 +42,111 @@
     }
 </style>
 
-<div>
-
-@using (Ajax.BeginForm("Save", "MasterCampaign", new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
-{
-    <form> 
-        @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })    
-        <section class="content-header">          
-        </section>
-        <section class="content">
-            <!-- SELECT2 EXAMPLE -->
-            <div class="box box-default">
-                <div class="box-header with-border">
-                   
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                
-                    <fieldset>
-                      
-                        <legend>Master Campaign<span class="text-danger" style="float:right;font-size:x-small">Note: Mandatory fields is marked with red aestric (*)</span></legend>
-                      
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Master Campaign Name<span class="text-danger">*</span></label>
-                                    @Html.TextBoxFor(m => m.Name, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "form-control" } :
-                                            (object)new { @class = "form-control" })
-                                    <div class="validmsgMaster"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Master Campaign Description<span class="text-danger">*</span></label>
-                                    @Html.TextAreaFor(m => m.CampaignDescription, new { @class = "form-control" })
-                                    <div class="validmsgMasterDesc"></div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Theme</label>  <br />
-                                    @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name", Model.Themes_Id), (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
-                                            (object)new { @class = "chosen-single form-control" }
-)
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Geography</label><span class="text-danger">*</span><br />
-                                    @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                            (object)new { @class = "chosen-select form-control" }
-)
-                                    <div class="validmsgbusinesGeography"></div>
-                                </div>
-                            </div>
-
-
-
-                            </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Business Group<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id),
-(Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" } :
-                                            (object)new { @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" })
-                                    <div class="validmsgbusinesGp"></div>
-                                </div>
-                            </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Segment<span class="text-danger">*</span></label><br />
-                                        @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id),
-(Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" } :
-                                            (object)new { @class = "chosen-select form-control", onchange = "this.form.submit(this.val)" })
-                                        <div class="validmsgbusinesSegment"></div>
-                                    </div>
-                                </div>
-
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Business Line<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id),
-(Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "chosen-select form-control"} :
-                                            (object)new { @class = "chosen-select form-control" })
-                                    <div class="validmsgbusinesLine"></div>
-                                 </div>
-                            </div>
-                            <div class="col-md-6">
-
-
-                                <div class="form-group">
-                                    <label>Industry<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                            (object)new { @class = "chosen-select form-control" })
-                                    <div class="validmsgbusinesIndustry"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <label>Start Date<span class="text-danger">*</span></label>
-                                <div class="form-group">
-                                    <div class="col-md-6 date datealign">
-                                        <div class="input-group input-append date" id="StartDate">
-                                            @Html.TextBoxFor(m => m.StartDate, new { @maxlength = "10", @class = "form-control" })
-                                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                                        </div>
-                                    </div>
-                                    <div class="validmsgSdate"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label>End Date<span class="text-danger">*</span></label>
-                                <div class="form-group">
-                                    <div class="col-md-6 form-group date datealign">
-                                        <div class="input-group input-append date" id="EndDate">
-                                            @Html.TextBoxFor(m => m.EndDate, new { @maxlength = "10", @class = "form-control" })
-                                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                
-                            </div>
-                           
-                        </div>
-                       
-                        <!-- /.row -->
-                    </fieldset>
-                                </div>
-                                <!--Upper code /.col -->
-                    <fieldset>
-                        <div class="row" style="padding-top:10px">
-                            <div class="col-md-2">
-                                    <input type="button" class="btn btn-block btn-primary btn-sm" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
-                                    </div>
-                            <div class="col-md-6"></div>
-                                <div class="col-md-4">
-                                    <div class="col-md-4">
-                                        <button Id="btnsubmit" name="button" value="@(Model.Id==0?"Submit":"Update")" class="btn btn-block btn-primary btn-sm" onclick="return  ValidateForm()">@(Model.Id == 0 ? "Submit" : "Update")</button>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button Id="btnsubmit" name="button" value="Save Draft" class="btn btn-block btn-primary btn-sm">Save Draft</button>
-                                    </div>
-                                    @if (Model.Id != 0 && Model.Status == "Save Draft")
-                                    {
-                                    <div class="col-md-4">
-                                        <button Id="btnsubmit" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                    </div>
-                                    }
-                                </div>
-
-                            </div>
-                    </fieldset>
-                </div>
-                <!-- /.box-body -->
-          
-           
-</section>
-    </form>
-}
+<div id="dvFormMasterCampaign">
+        @Html.Partial("MasterCampaignForm", Model);
 </div>
 
 <link href="~/Content/datepicker3.css" rel="stylesheet" />
 <script src="~/Content/bootstrap-datepicker.js"></script>
 
+<style>
+    fieldset {
+        border: 1px solid #DDD;
+        padding: 0 1.4em 1.4em 1.4em;
+        margin: 25px 0 1.5em 0;
+    }
+
+
+    .datealign {
+        padding-left: 0px !important;
+    }
+
+    legend {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+</style>
+
 <script>
-
- 
-    $('#StartDate').datepicker();
-    $('#EndDate').datepicker();
-
     $(document).ready(function () {
 
+        $(document).on('click', '#btnSubmit', function () {
+            $.ajax({
+                type: "POST",
+                url: '/MasterCampaign/save?button=' + "Submit",
+                data: $("#frmMasterCampaign").serialize(), // serializes the form's elements.
+                success: function (data) {
+                    if (data == "True") window.location = "/MasterList/MasterList";
+                }
+            });
+        });
+        $(document).on('click', '#btnSaveDraft', function () {
+            $.ajax({
+                type: "POST",
+                url: '/MasterCampaign/save?button=' + "Save Draft",                
+                data: $("#frmMasterCampaign").serialize(), // serializes the form's elements.
+                success: function (data) {
+                    if (data == "True") window.location = "/MasterList/MasterList";
+                }
+            });
+        });
+        $(document).on('click', '#btnDelete', function () {
+            $.ajax({
+                type: "POST",
+                url: '/MasterCampaign/Delete?masterId=' + $('#Id').val(),
+                success: function (data) {
+                    if (data == "True") window.location = "/MasterList/MasterList";
+                    
+                }
+            });
+        });
 
-        //$(document).on("change","#BusinessGroups_Id",function(){
-        //    DdlBind();
-        //});
+        $('#StartDate').datepicker();
+        $('#EndDate').datepicker();
 
-        //$(document).on("change","#Segments_Id",function(){
-        //    DdlBind();
-        //});
+        $(document).on("change","#BusinessGroups_Id",function(){
+            $.ajax({
+                type: "POST",
+                url: '/MasterCampaign/LoadBusinessLine',
+                data: $("#frmMasterCampaign").serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                    $("#dvFormMasterCampaign").html(data);
+                }
+            });
+        });
+        $(document).on("change","#Segments_Id",function(){
+            $.ajax({
+                type: "POST",
+                url: '/MasterCampaign/LoadIndustry',
+                data: $("#frmMasterCampaign").serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                    $("#dvFormMasterCampaign").html(data);
+                }
+            });
+        });
 
         function DdlBind()
         {
-        
             var BusinessGroups_Id_ARR=[];
-            $('#BusinessGroups_Id :selected').each(function(i, selected){ 
+            $('#BusinessGroups_Id :selected').each(function(i, selected){
                 BusinessGroups_Id_ARR.push($(selected).val());
             });
-
 
             var Segments_Id_ARR=[];
             if($("#Segments_Id option:selected").val()=="")
                 Segments_Id= $("#Segments_Id option:selected").val();
             else
             {
-                $('#Segments_Id :selected').each(function(i, selected){ 
+                $('#Segments_Id :selected').each(function(i, selected){
                     Segments_Id_ARR.push($(selected).val());
                 });
             }
 
             var bgroup_params= '';
             var Segment_params='';
-            
+
             if (BusinessGroups_Id_ARR.length> 0 && Segments_Id_ARR.length<=0) {
                 BusinessGroups_Id_ARR.forEach(function(e){bgroup_params = bgroup_params+"BusinessGroups_Id="+e+"&";});
                 window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+Segment_params + '&_=' + (new Date()).getTime();
@@ -291,18 +156,18 @@
                 Segments_Id_ARR.forEach(function(e){Segment_params = Segment_params+"Segments_Id="+e+"&";});
                 window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+Segment_params + '&_=' + (new Date()).getTime();
             }
-            else 
+            else
             {
                 bgroup_params='';
                 Segment_params='';
                 window.location.href = '/MasterCampaign/MasterCampaign?'+bgroup_params+ Segment_params + '&_=' + (new Date()).getTime();
                 //handle for no selection
             }
-        
+
         }
         $('.chosen-single').chosen();
-
     });
+
     function ValidateForm() {
         var flag = true;
         if ($('#BusinessGroups_Id').val() == null) {
@@ -327,7 +192,7 @@
         {
             $('.validmsgbusinesLine').hide();
         }
-        
+
         if ($('#Segments_Id').val() == null) {
 
             $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
@@ -349,7 +214,7 @@
         else {
             $('.validmsgbusinesIndustry').hide();
         }
-        
+
 
         if ($('#Geographys_Id').val() == null) {
 
@@ -363,7 +228,7 @@
             $('.validmsgbusinesGeography').hide();
         }
 
-       
+
         if ($("#StartDate").find("input").val() == "") {
             $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
             $('.validmsgSdate').show();
@@ -374,7 +239,7 @@
         {
             $('.validmsgSdate').hide();
         }
-        
+
         if ($("#EndDate").find("input").val() == "") {
             $('.validmsgEdate').text("Please select End Date").css("color", "#b94a48");
             $('.validmsgEdate').show();
@@ -431,27 +296,7 @@
 
             true;
         }
-
     }
 
 
 </script>
-<style>
-    fieldset {
-        border: 1px solid #DDD;
-        padding: 0 1.4em 1.4em 1.4em;
-        margin: 25px 0 1.5em 0;
-    }
-
-
-    .datealign {
-        padding-left: 0px !important;
-    }
-
-    legend {
-        font-size: 1.2em;
-        font-weight: bold;
-    }
-      
-
-</style>

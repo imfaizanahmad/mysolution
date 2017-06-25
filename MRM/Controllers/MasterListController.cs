@@ -55,7 +55,7 @@ namespace MRM.Controllers
             int maxRows = 10;
             int totalCount = obj.GetMasterCampaign().Count();
             //MasterCampaign MasterCampaignObj = new MasterCampaign();
-            MasterCampaignObj.MasterCampaigns = (from Mastercampaign in obj.GetMasterCampaign().ToList()
+            MasterCampaignObj.MasterCampaigns = (from Mastercampaign in obj.GetMasterCampaign().Where(x=>x.IsActive ).ToList()
                                                      //join fnekfw in obj.GetMasterCampaign() where (Mastercampaign.Id == fnekfw.Geographys) 
 
 

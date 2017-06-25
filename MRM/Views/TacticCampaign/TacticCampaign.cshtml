@@ -147,15 +147,12 @@
                                                 <div class="validmsgbusinesIndustry"></div>
                                             </div>
                                         </div>
-                                    </div>
-                                  
-                                   
-                                   
+                                    </div>                                                             
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Vendor</label><span class="text-danger">*</span>
-                                               @*@Html.ListBoxFor(m => m.Vendor_Id, new MultiSelectList(Model.VendorViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })*@
+                                               @Html.ListBoxFor(m => m.Vendor_Id, new MultiSelectList(Model.VendorViewModels, "Id", "Name"), new { @class = "chosen-select form-control" })
                                                 <div class="validmsgvendor"></div>
                                             </div>
                                         </div>
