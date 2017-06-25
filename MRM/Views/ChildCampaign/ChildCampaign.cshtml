@@ -30,7 +30,7 @@
                                     @Html.DropDownListFor(m => m.MasterCampaignId, new SelectList(Model.MasterViewModels, "Id", "Name",
                                    Model.MasterCampaignId), "Select Option",
                                   (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "chosen-single form-control", onchange = "this.form.submit(this.val)" } :
+                                            (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
                                             (object)new { @class = "chosen-single form-control", onchange = "this.form.submit(this.val)" }
                                             )
                                     <div class="validmsgMastercampaign"></div>

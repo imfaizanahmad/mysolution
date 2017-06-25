@@ -70,6 +70,12 @@
 <script>
     $(document).ready(function () {
 
+        if ($('#Status').val() == "Complete") {
+            $('a[data-select-all="selectunselect"]').hide();
+        }
+
+        
+
         $(document).on('click', '#btnSubmit', function () {
             $.ajax({
                 type: "POST",
@@ -90,6 +96,7 @@
                 }
             });
         });
+
         $(document).on('click', '#btnDelete', function () {
             $.ajax({
                 type: "POST",
@@ -100,6 +107,32 @@
                 }
             });
         });
+
+
+
+        $(document).on('click',
+            'a[data-select-all="selectunselect"]', function() {
+                var selectallElement = $(this).attr('data-target-id');
+                var nextStage = $(this).attr('data-next-stage');
+
+                if (nextStage === "select") {
+                    $('#' + selectallElement + ' option').prop('selected', true);
+                    $(this).attr('data-next-stage', "unselect");
+                    $(this).text("Select None");
+
+                } else {
+                    $('#' + selectallElement + ' option').prop('selected', false);
+                    $(this).attr('data-next-stage', "select");
+                    $(this).text("Select All");
+                }
+
+                //var isTriggerEvent = $(this).attr('data-trigger-ev');
+                //if (isTriggerEvent === "change") {
+                //    $('#' + selectallElement).trigger("change");
+                //}
+
+                $('#' + selectallElement).trigger('chosen:updated');
+            });
 
         $('#StartDate').datepicker();
         $('#EndDate').datepicker();
