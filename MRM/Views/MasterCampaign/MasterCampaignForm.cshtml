@@ -173,17 +173,17 @@
                     <div class="col-md-4">
                         @if (Model.Status != "Complete")
                         {
-                        <div class="col-md-4">
-                            <button Id="btnSubmit" name="button" value="@(Model.Id == 0 ? "Submit" : "Update")" class="btn btn-block btn-primary btn-sm" onclick="return ValidateForm()">@(Model.Id == 0 ? "Submit" : "Update")</button>
-                        </div>
+                            <div class="col-md-4">                                
+                                <input type="button" Id="btnSubmit" name="button" value="@(Model.Id == 0 ? "Submit" : "Update")" class="btn btn-block btn-primary btn-sm" @(Model.Id == 0 ? "Submit" : "Update") onclick="return ValidateForm()"/>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="button" Id="btnSaveDraft" name="button" value="Save Draft" class="btn btn-block btn-primary btn-sm"/>
+                            </div>
                         }
                         @if (Model.Id != 0 && Model.Status == "Save Draft")
                         {
                             <div class="col-md-4">
-                                <input type="button" Id="btnSaveDraft" name="button" value="Save Draft" class="btn btn-block btn-primary btn-sm"/>
-                            </div>
-                            <div class="col-md-4">
-                                <button Id="btnDelete" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                <input type="button" Id="btnDelete" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')"  />
                             </div>
                         }
                     </div>
