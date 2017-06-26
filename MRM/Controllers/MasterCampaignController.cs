@@ -22,8 +22,6 @@ namespace MRM.Controllers
         private ThemeServices _themeService = null;
         private MasterCampaignServices _masterCampaignServices = null;
 
-        MasterCampaignViewModel mcvm = new MasterCampaignViewModel();
-
         public MasterCampaignController()
         {
             _industryService = new IndustryServices();
@@ -39,14 +37,13 @@ namespace MRM.Controllers
         public ActionResult Index()
         {
             //if (Session["UserInfo"] == null) {return RedirectToAction("Index", "Home");}
-            TempData["mastercount"] = "";
-            var mastercount = _masterCampaignServices.GetMasterCampaign().Count();
+            //TempData["mastercount"] = "";
+            //var mastercount = _masterCampaignServices.GetMasterCampaign().Count();
             return View();
         }
 
         public ActionResult MasterCampaign(int Id = 0)
         {
-            //    if (Session["UserInfo"] == null) { return RedirectToAction("Index", "Home"); }
             MasterCampaignViewModel mcvm = new MasterCampaignViewModel();
             mcvm.BusinessGroupViewModels = _businessgroupService.GetBG();
             mcvm.SegmentViewModels = _segmentService.GetSegment();
@@ -55,74 +52,56 @@ namespace MRM.Controllers
 
             if (Id != 0)
             {
-                List<MasterCampaign> lst = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = Id });
-                foreach (var item in lst)
-                {
-                    //For Theme
-                    int[] SelectedThemes = new int[item.Themes.Count];
-                    for (int i = 0; i < item.Themes.Count; i++)
+                MasterCampaign masterCampaign = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = Id }).First();
+
+
+                    if (masterCampaign.Themes != null && masterCampaign.Themes.Count > 0)
                     {
-                        SelectedThemes[i] = item.Themes.ElementAt(i).Id;
+                        mcvm.Themes_Id = masterCampaign.Themes.Select(t => t.Id).ToArray(); ;
                     }
-                    mcvm.Themes_Id = SelectedThemes;
-
-                    //For BusinessGroups
 
 
-
-                    int[] SelectedBusinessGroup = new int[item.BusinessGroups.Count];
-                    for (int i = 0; i < item.BusinessGroups.Count; i++)
+                    if (masterCampaign.BusinessGroups != null && masterCampaign.BusinessGroups.Count > 0)
                     {
-                        SelectedBusinessGroup[i] = item.BusinessGroups.ElementAt(i).Id;
+                        mcvm.BusinessGroups_Id = masterCampaign.BusinessGroups.Select(t => t.Id).ToArray(); ;
                     }
-                    mcvm.BusinessGroups_Id = SelectedBusinessGroup;
-                    List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(mcvm.BusinessGroups_Id);
-                    mcvm.BusinessLineViewModels = businesslist;
-                    //For BusinessLines
-                    int[] SelectedBusinessLine = new int[item.BusinessLines.Count];
-                    for (int i = 0; i < item.BusinessLines.Count; i++)
-                    {
-                        SelectedBusinessLine[i] = item.BusinessLines.ElementAt(i).Id;
-                    }
-                    mcvm.BusinessLines_Id = SelectedBusinessLine;
-                    //For Segment
-                    int[] SelectedSegment = new int[item.Segments.Count];
-                    for (int i = 0; i < item.Segments.Count; i++)
-                    {
-                        SelectedSegment[i] = item.Segments.ElementAt(i).Id;
-                    }
-                    mcvm.Segments_Id = SelectedSegment;
 
-                    //For Geography
-                    int[] SelectedGeography = new int[item.Geographys.Count];
-                    for (int i = 0; i < item.Geographys.Count; i++)
+                    mcvm.BusinessLineViewModels = _businesslineService.GetBusinessLineByBGId(mcvm.BusinessGroups_Id);
+
+                    if (masterCampaign.BusinessLines != null && masterCampaign.BusinessLines.Count > 0)
                     {
-                        SelectedGeography[i] = item.Geographys.ElementAt(i).Id;
+                        mcvm.BusinessLines_Id = masterCampaign.BusinessLines.Select(t => t.Id).ToArray(); ;
                     }
-                    mcvm.Geographys_Id = SelectedGeography;
-                    //For Industry
 
 
-                    int[] SelectedIndustry = new int[item.Industries.Count];
-                    for (int i = 0; i < item.Industries.Count; i++)
+                    if (masterCampaign.Geographys != null && masterCampaign.Geographys.Count > 0)
                     {
-                        SelectedIndustry[i] = item.Industries.ElementAt(i).Id;
+                        mcvm.Geographys_Id = masterCampaign.Geographys.Select(t => t.Id).ToArray(); ;
                     }
-                    mcvm.Industries_Id = SelectedIndustry;
-                    List<Industry> industryList = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id);
-                    mcvm.IndustryViewModels = industryList;
-                    mcvm.Name = item.Name;
-                    mcvm.CampaignDescription = item.CampaignDescription;
-                    mcvm.StartDate = Convert.ToString(item.StartDate);
-                    mcvm.EndDate = Convert.ToString(item.EndDate);
-                    mcvm.Id = Id;
-                    mcvm.Status = item.Status;
 
-                }
+                    if (masterCampaign.Segments != null && masterCampaign.Segments.Count > 0)
+                    {
+                        mcvm.Segments_Id = masterCampaign.Segments.Select(t => t.Id).ToArray(); ;
+                    }
+
+                    if (masterCampaign.Industries != null && masterCampaign.Industries.Count > 0)
+                    {
+                        mcvm.Industries_Id = masterCampaign.Industries.Select(t => t.Id).ToArray(); ;
+                    }
+
+                    mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id); ;
+
+
+
+                    mcvm.Name = masterCampaign.Name;
+                    mcvm.CampaignDescription = masterCampaign.CampaignDescription;
+                if (masterCampaign.StartDate != null) mcvm.StartDate = masterCampaign.StartDate.Value.ToString();
+                if (masterCampaign.EndDate != null) mcvm.EndDate = masterCampaign.EndDate.Value.ToString();
+                mcvm.Id = Id;
+                    mcvm.Status = masterCampaign.Status;
+
 
             }
-
-
 
             return View(mcvm);
         }
@@ -135,7 +114,6 @@ namespace MRM.Controllers
             _masterCampaignServices.Update(masterCampaign);
             return true;
         }
-
 
         public ActionResult LoadBusinessLine(MasterCampaignViewModel model)
         {
@@ -155,7 +133,6 @@ namespace MRM.Controllers
             model.ThemeViewModels = _themeService.GetTheme();
             return PartialView("MasterCampaignForm", model);
         }
-
 
         public ActionResult LoadIndustry(MasterCampaignViewModel model)
         {
@@ -235,8 +212,6 @@ namespace MRM.Controllers
                 if (model.Segments_Id == null) errorCounter++;
                 if (model.Industries_Id == null) errorCounter++;
                 if (model.Geographys_Id == null) errorCounter++;
-                if (model.StartDate == "") errorCounter++;
-                if (model.EndDate == "") errorCounter++;
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.Name == "") errorCounter++;
                 if (model.CampaignDescription == "") errorCounter++;
@@ -249,8 +224,6 @@ namespace MRM.Controllers
                 if (model.Segments_Id == null) errorCounter++;
                 if (model.Industries_Id == null) errorCounter++;
                 if (model.Geographys_Id == null) errorCounter++;
-                if (model.StartDate == "") errorCounter++;
-                if (model.EndDate == "") errorCounter++;
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.Name == "") errorCounter++;
                 if (model.CampaignDescription == "") errorCounter++;

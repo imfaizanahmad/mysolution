@@ -34,7 +34,7 @@
         }
 
         .btn-delete {
-            width: 50px !important;
+            width: 80px !important;
             float: right;
             margin-top: 0% !important;
         }
@@ -64,15 +64,17 @@
                             <tbody>
                                 <tr>
                                     <td>C-@item.Id</td>
-                                    <td>@Html.ActionLink((item.Name), "TacticListById", "TacticList", new { Id = item.Id }, null)</td>
+                                    <td>@Html.ActionLink((item.Name == null ? "----" : item.Name), "ChildCampaign", "ChildCampaign", new { Id = item.Id }, null)</td>                                    
                                     <td>@item.CampaignDescription</td>
                                     <td>@item.Status</td>
-                                    <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
-                                    <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
+                                    <td>@item.StartDate.Value.ToString("dd-MM-yyyy")</td>
+                                    <td>@item.EndDate.Value.ToString("dd-MM-yyyy")</td>
                                     <td>
-                                        <input type="button" class="btn btn-block btn-primary btn-sm btn-edit" value="Edit" onclick="location.href='@Url.Action( "ChildCampaign", "ChildCampaign", new { Id = item.Id })'" />
-                                        <input type="button" class="btn btn-block btn-primary btn-sm btn-view" value="View" onclick="location.href='@Url.Action( "ChildList", "ChildList", new { Id = item.Id, @Type="View" })'" />
-                                        <input type="button" class="btn btn-block btn-primary btn-sm btn-delete" value="Delete" onclick="if (confirm('Are you sure you want to delete?')) location.href='@Url.Action( "ChildList", "ChildList", new { Id = item.Id, @Type = "Delete" })'" />
+                                        @Html.ActionLink("View / Edit", "ChildCampaign", "ChildCampaign", new { id = item.Id}, new { })
+                                        @if (item.Status != "Complete")
+                                        {
+                                            <input type="button" class="btn btn-block btn-primary btn-sm btn-delete" value="Delete" onclick="if (confirm('Are you sure you want to delete?')) location.href = '@Url.Action("ChildList", "ChildList", new {Id = item.Id, @Type = "Delete"})'" />
+                                        }
                                     </td>
                                 </tr>
                             </tbody>

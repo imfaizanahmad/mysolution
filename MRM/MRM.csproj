@@ -236,6 +236,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\datepicker3.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.js" />
+    <Content Include="Content\MasterStyle.css" />
     <Content Include="Content\Multi-Select\chosen-sprite%402x.png" />
     <Content Include="Content\Multi-Select\chosen-sprite.png" />
     <Content Include="Content\Multi-Select\chosen.css" />
@@ -268,6 +271,7 @@
     <None Include="Properties\PublishProfiles\mrmlightapp - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\mrmlightv2 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ChildScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -276,9 +280,11 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MasterScript.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\TacticsScript.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -307,6 +313,8 @@
     <Content Include="Views\ChildList\ChildList.cshtml" />
     <Content Include="Views\TacticList\TacticList.cshtml" />
     <Content Include="Views\MasterCampaign\MasterCampaignForm.cshtml" />
+    <Content Include="Views\ChildCampaign\ChildCampaignForm.cshtml" />
+    <Content Include="Views\TacticCampaign\TacticCampaignForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

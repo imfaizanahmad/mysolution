@@ -1,0 +1,51 @@
+﻿
+fieldset {
+    border: 1px solid #DDD;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 25px 0 1.5em 0;
+}
+
+
+.datealign {
+    padding-left: 0px !important;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#mydiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: grey;
+    opacity: .8;
+}
+.loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -32px; /* -1 * image width / 2 */
+    margin-top: -32px; /* -1 * image height / 2 */
+    display: block;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    width: 120px;
+    height: 120px;
+}
+
+@@keyframes spin {
+     0% {
+         transform: rotate(0deg);
+     }
+
+     100% {
+         transform: rotate(360deg);
+     }
+ }

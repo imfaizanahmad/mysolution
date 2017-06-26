@@ -13,8 +13,8 @@ namespace MRM.Database.Model
         public string Name { get; set; }
         public string TacticDescription { get; set; }
         public string Year { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string Status { get; set; }
         public int MasterCampaign_Id { get; set; }
         public string TacticType { get; set; }
@@ -49,6 +49,7 @@ namespace MRM.Database.Model
         public virtual ICollection<Theme> Themes { get; set; }
         public virtual ICollection<Geography> Geographys { get; set; }
         public virtual ICollection<Vendor> Vendors { get; set; }
+        public virtual ICollection<TacticType> TacticTypes { get; set; }
         public virtual ChildCampaign ChildCampaigns { get; set; }
 
 

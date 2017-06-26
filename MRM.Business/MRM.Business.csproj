@@ -58,6 +58,7 @@
     <Compile Include="Interfaces\ISegmentServices.cs" />
     <Compile Include="Interfaces\IBusinessGroupServices.cs" />
     <Compile Include="Interfaces\IIndustryServices.cs" />
+    <Compile Include="Interfaces\IVendorServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BusinessGroupServices.cs" />
     <Compile Include="Services\BusinessLineServices.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Services\TacticCampaignServices.cs" />
     <Compile Include="Services\ThemeServices.cs" />
     <Compile Include="Services\IndustryServices.cs" />
+    <Compile Include="Services\VendorServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

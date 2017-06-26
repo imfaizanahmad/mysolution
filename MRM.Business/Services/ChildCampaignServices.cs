@@ -25,160 +25,171 @@ namespace MRM.Business.Services
             return childCampaign;
         }
 
-        public bool CreateChildCampaign(ChildCampaignViewModel model)
-        {
-            ChildCampaign childCampaignEntity = new ChildCampaign();
-            if (model.Id == 0)
-            {
-                childCampaignEntity.MasterCampaigns = guow.GenericRepository<MasterCampaign>().GetByID(model.MasterCampaignId);
-                childCampaignEntity.Name = model.Name;
-                childCampaignEntity.CampaignDescription = model.CampaignDescription;
-                childCampaignEntity.StartDate = string.IsNullOrEmpty(model.StartDate) == true ? DateTime.Now : Convert.ToDateTime(model.StartDate);
-                childCampaignEntity.EndDate = string.IsNullOrEmpty(model.EndDate) == true ? DateTime.Now : Convert.ToDateTime(model.EndDate);
-                childCampaignEntity.Status = model.Status;
-                childCampaignEntity.CreatedBy = "user";
-                childCampaignEntity.Budget = model.Budget;
-                childCampaignEntity.Spend = model.Spend;
-                childCampaignEntity.MarketingInfluenceLeads = model.MarketingInfluenceLeads;
-                childCampaignEntity.MarketingGeneratedLeads = model.MarketingGeneratedLeads;
-                childCampaignEntity.MarketingInfluenceOpportunity = model.MarketingInfluenceOpportunity;
-                childCampaignEntity.MarketingGeneratedOpportunity = model.MarketingGeneratedOpportunity;
-                childCampaignEntity.MILGoal = model.MILGoal;
-                childCampaignEntity.MILLow = model.MILLow;
-                childCampaignEntity.MILHigh = model.MILHigh;
-                childCampaignEntity.MGLGoal = model.MGLGoal;
-                childCampaignEntity.MGLLow = model.MGLLow;
-                childCampaignEntity.MGLHigh = model.MGLHigh;
-                childCampaignEntity.MIOGoal = model.MIOGoal;
-                childCampaignEntity.MIOLow = model.MIOLow;
-                childCampaignEntity.MIOHigh = model.MIOHigh;
-                childCampaignEntity. MGOGoal  = model.MGOGoal;
-                childCampaignEntity. MGOLow  = model.MGOLow;
-                childCampaignEntity.MGOHigh = model.MGOHigh;
-
-                List<BusinessLine> lstBline = null;
-                List<BusinessGroup> lstBGroup = null;
-                if (model.BusinessGroups_Id != null)
-                {
-                    lstBGroup = new List<BusinessGroup>();
-                    foreach (var item in model.BusinessGroups_Id)
-                    {
-                        var Bgroups = guow.GenericRepository<BusinessGroup>().GetByID(item);
-                        lstBGroup.Add(Bgroups);
-                    }
-                    lstBline = new List<BusinessLine>();
-                    foreach (var item in model.BusinessLines_Id)
-                    {
-                        var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
-                        lstBline.Add(Bline);
-                    }
-                }
-
-
-                List<Theme> lsttheme = null;
-                if (model.Themes_Id != null)
-                {
-                    lsttheme = new List<Theme>();
-                    foreach (var item in model.Themes_Id)
-                    {
-                        var theme = guow.GenericRepository<Theme>().GetByID(item);
-                        lsttheme.Add(theme);
-                    }
-
-                }
-
-                List<Industry> lstindustry = null;
-                List<Segment> lstsegment = null;
-
-                if (model.Segments_Id != null)
-                {
-                    lstsegment = new List<Segment>();
-                    foreach (var item in model.Segments_Id)
-                    {
-                        var segment = guow.GenericRepository<Segment>().GetByID(item);
-                        lstsegment.Add(segment);
-                    }
-                    lstindustry = new List<Industry>();
-                    foreach (var item in model.Industries_Id)
-                    {
-                        var industry = guow.GenericRepository<Industry>().GetByID(item);
-                        lstindustry.Add(industry);
-                    }
-                }
-
-                List<Geography> lstgeography = null;
-                if (model.Geographys_Id != null)
-                {
-                    lstgeography = new List<Geography>();
-                    foreach (var item in model.Geographys_Id)
-                    {
-                        var geography = guow.GenericRepository<Geography>().GetByID(item);
-                        lstgeography.Add(geography);
-                    }
-
-                }
-
-
-                childCampaignEntity.BusinessGroups = lstBGroup;
-                childCampaignEntity.Themes = lsttheme;
-                childCampaignEntity.BusinessLines = lstBline;
-                childCampaignEntity.Segments = lstsegment;
-                childCampaignEntity.Industries = lstindustry;
-                childCampaignEntity.Geographys = lstgeography;
-
-
-                guow.GenericRepository<ChildCampaign>().Insert(childCampaignEntity);
-            }
-            else
-            {
-                childCampaignEntity = guow.GenericRepository<ChildCampaign>().GetByID(model.Id);
-                childCampaignEntity.CampaignDescription = model.CampaignDescription;
-                childCampaignEntity.StartDate = string.IsNullOrEmpty(model.StartDate) == true ? DateTime.Now : Convert.ToDateTime(model.StartDate);
-                childCampaignEntity.EndDate = string.IsNullOrEmpty(model.EndDate) == true ? DateTime.Now : Convert.ToDateTime(model.EndDate);
-                childCampaignEntity.MILGoal = model.MILGoal;
-                childCampaignEntity.MILLow = model.MILLow;
-                childCampaignEntity.MILHigh = model.MILHigh;
-                childCampaignEntity.MGLGoal = model.MGLGoal;
-                childCampaignEntity.MGLLow = model.MGLLow;
-                childCampaignEntity.MGLHigh = model.MGLHigh;
-                childCampaignEntity.MIOGoal = model.MIOGoal;
-                childCampaignEntity.MIOLow = model.MIOLow;
-                childCampaignEntity.MIOHigh = model.MIOHigh;
-                childCampaignEntity.MGOGoal = model.MGOGoal;
-                childCampaignEntity.MGOLow = model.MGOLow;
-                childCampaignEntity.MGOHigh = model.MGOHigh;
-                guow.GenericRepository<ChildCampaign>().Update(childCampaignEntity);
-            }
-
-            if (childCampaignEntity.Id != 0)
-                return true;
-            else
-                return false;
-        }
-
         public List<ChildCampaign> GetChildCampaignById(ChildCampaignViewModel model)
         {
             List<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.Id == model.Id).ToList();
             return childCampaign;
         }
-
-        //created by suraj
-        public List<ChildCampaign> GetChildCampaignByMasterId(ChildCampaignViewModel model)
+        public List<ChildCampaign> GetChildCampaignByMasterId(int masterId)
         {
+            var lstchildcampaign = new List<ChildCampaign>();
 
-            List<ChildCampaign> lstchildcampaign = new List<ChildCampaign>();
-
-            MasterCampaign master = guow.GenericRepository<MasterCampaign>().GetByID(model.MasterCampaignId);
+            var master = guow.GenericRepository<MasterCampaign>().GetByID(masterId);
             lstchildcampaign.AddRange(master.ChildCampaigns);
             return lstchildcampaign;
 
         }
-        //created by suraj
-        public bool DeleteSubCampaign(int Id)
+
+        private void ModelToEntity(ChildCampaignViewModel model, ChildCampaign childCampaignEntity)
+        {
+            childCampaignEntity.MasterCampaigns = guow.GenericRepository<MasterCampaign>()
+                .GetByID(model.MasterCampaignId);
+            childCampaignEntity.Name = model.Name;
+            childCampaignEntity.CampaignDescription = model.CampaignDescription;
+            childCampaignEntity.StartDate = model.StartDate;
+            childCampaignEntity.EndDate = model.EndDate;
+            childCampaignEntity.Status = model.Status;
+            childCampaignEntity.CreatedBy = "user";
+            childCampaignEntity.Budget = model.Budget;
+            childCampaignEntity.Spend = model.Spend;
+            childCampaignEntity.MarketingInfluenceLeads = model.MarketingInfluenceLeads;
+            childCampaignEntity.MarketingGeneratedLeads = model.MarketingGeneratedLeads;
+            childCampaignEntity.MarketingInfluenceOpportunity = model.MarketingInfluenceOpportunity;
+            childCampaignEntity.MarketingGeneratedOpportunity = model.MarketingGeneratedOpportunity;
+            childCampaignEntity.MILGoal = model.MILGoal;
+            childCampaignEntity.MILLow = model.MILLow;
+            childCampaignEntity.MILHigh = model.MILHigh;
+            childCampaignEntity.MGLGoal = model.MGLGoal;
+            childCampaignEntity.MGLLow = model.MGLLow;
+            childCampaignEntity.MGLHigh = model.MGLHigh;
+            childCampaignEntity.MIOGoal = model.MIOGoal;
+            childCampaignEntity.MIOLow = model.MIOLow;
+            childCampaignEntity.MIOHigh = model.MIOHigh;
+            childCampaignEntity.MGOGoal = model.MGOGoal;
+            childCampaignEntity.MGOLow = model.MGOLow;
+            childCampaignEntity.MGOHigh = model.MGOHigh;
+
+            List<BusinessLine> lstBline = null;
+            List<BusinessGroup> lstBGroup = null;
+            if (model.BusinessGroups_Id != null)
+            {
+                lstBGroup = new List<BusinessGroup>();
+                foreach (var item in model.BusinessGroups_Id)
+                {
+                    var Bgroups = guow.GenericRepository<BusinessGroup>().GetByID(item);
+                    lstBGroup.Add(Bgroups);
+                }
+                lstBline = new List<BusinessLine>();
+                foreach (var item in model.BusinessLines_Id)
+                {
+                    var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
+                    lstBline.Add(Bline);
+                }
+            }
+
+
+            List<Theme> lsttheme = null;
+            if (model.Themes_Id != null)
+            {
+                lsttheme = new List<Theme>();
+                foreach (var item in model.Themes_Id)
+                {
+                    var theme = guow.GenericRepository<Theme>().GetByID(item);
+                    lsttheme.Add(theme);
+                }
+            }
+
+            List<Industry> lstindustry = null;
+            List<Segment> lstsegment = null;
+
+            if (model.Segments_Id != null)
+            {
+                lstsegment = new List<Segment>();
+                foreach (var item in model.Segments_Id)
+                {
+                    var segment = guow.GenericRepository<Segment>().GetByID(item);
+                    lstsegment.Add(segment);
+                }
+                lstindustry = new List<Industry>();
+                foreach (var item in model.Industries_Id)
+                {
+                    var industry = guow.GenericRepository<Industry>().GetByID(item);
+                    lstindustry.Add(industry);
+                }
+            }
+
+            List<Geography> lstgeography = null;
+            if (model.Geographys_Id != null)
+            {
+                lstgeography = new List<Geography>();
+                foreach (var item in model.Geographys_Id)
+                {
+                    var geography = guow.GenericRepository<Geography>().GetByID(item);
+                    lstgeography.Add(geography);
+                }
+            }
+
+
+            childCampaignEntity.BusinessGroups = lstBGroup;
+            childCampaignEntity.Themes = lsttheme;
+            childCampaignEntity.BusinessLines = lstBline;
+            childCampaignEntity.Segments = lstsegment;
+            childCampaignEntity.Industries = lstindustry;
+            childCampaignEntity.Geographys = lstgeography;
+        }
+
+        public void Update(ChildCampaignViewModel model)
+        {
+            var childCamp = LoadChilCampaignEntity(model.Id);
+            childCamp = FlushChildRecords(childCamp);
+            ModelToEntity(model, childCamp);
+            guow.GenericRepository<ChildCampaign>().Update(childCamp);
+        }
+
+        public bool InsertChildCampaign(ChildCampaignViewModel model)
+        {
+            var childCampaignEntity = new ChildCampaign();
+            ModelToEntity(model, childCampaignEntity);
+            guow.GenericRepository<ChildCampaign>().Insert(childCampaignEntity);
+            return childCampaignEntity.Id != 0;
+        }
+
+        private ChildCampaign LoadChilCampaignEntity(int masterCampaignId)
+        {
+            return guow.GenericRepository<ChildCampaign>().GetByID(masterCampaignId);
+        }
+
+        public ChildCampaign Update(ChildCampaign childCampaign)
+        {
+            return guow.GenericRepository<ChildCampaign>().Update(childCampaign);
+        }
+
+        public bool DeleteMasterCampaign(int Id)
+        {
+            guow.GenericRepository<MasterCampaign>().Delete(Id);
+            return true;
+
+        }
+
+       
+        private ChildCampaign FlushChildRecords(ChildCampaign childCampaignCamp)
+        {
+
+            childCampaignCamp.Industries.Remove(childCampaignCamp.Industries.FirstOrDefault<Industry>());
+            childCampaignCamp.Segments.Remove(childCampaignCamp.Segments.FirstOrDefault<Segment>());
+            childCampaignCamp.Themes.Remove(childCampaignCamp.Themes.FirstOrDefault<Theme>());
+            childCampaignCamp.Geographys.Remove(childCampaignCamp.Geographys.FirstOrDefault<Geography>());
+            childCampaignCamp.BusinessLines.Remove(childCampaignCamp.BusinessLines.FirstOrDefault<BusinessLine>());
+            childCampaignCamp.BusinessGroups.Remove(childCampaignCamp.BusinessGroups.FirstOrDefault<BusinessGroup>());
+            return childCampaignCamp;
+        }
+
+                public bool DeleteSubCampaign(int Id)
         {
             guow.GenericRepository<ChildCampaign>().Delete(Id);
             return true;
 
         }
+
     }
 }

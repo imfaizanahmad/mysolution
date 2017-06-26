@@ -12,12 +12,12 @@
         
     </fieldset>
     <fieldset>
-        @if (TempData["mastercount"].ToString() != "")
+        @*@if (TempData["mastercount"].ToString() != "")
         {
             <div class="row alert alert-danger">
                 <strong>Danger!</strong> @TempData["mastercount"].ToString()
             </div>
-        }
+        }*@
         <div class="row">
             <div class="col-md-3"><label>Master Campaign</label></div>
             <div class="col-md-2"><input type="button" class="btn btn-block btn-primary btn-sm" value="Create" onclick="location.href='@Url.Action("MasterCampaign", "MasterCampaign")'" /></div>

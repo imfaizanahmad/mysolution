@@ -18,25 +18,25 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public List<MasterCampaign> GetMasterCampaignById(MasterCampaignViewModel model)
-        {
-            List<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.Id == model.Id).ToList();
-            return masterCampaign;
-        }
-
         public IEnumerable<MasterCampaign> GetMasterCampaign()
         {
             IEnumerable<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAll();
             return masterCampaign;
         }
 
-        private MasterCampaign ModelToEntity(MasterCampaignViewModel model, MasterCampaign masterCampaignEntity)
+        public List<MasterCampaign> GetMasterCampaignById(MasterCampaignViewModel model)
+        {
+            List<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.Id == model.Id).ToList();
+            return masterCampaign;
+        }
+
+        private void ModelToEntity(MasterCampaignViewModel model, MasterCampaign masterCampaignEntity)
         {
             
             masterCampaignEntity.Name = model.Name;
             masterCampaignEntity.CampaignDescription = model.CampaignDescription;
-            masterCampaignEntity.StartDate = string.IsNullOrEmpty(model.StartDate) == true ? DateTime.Now : Convert.ToDateTime(model.StartDate);
-            masterCampaignEntity.EndDate = string.IsNullOrEmpty(model.EndDate) == true ? DateTime.Now : Convert.ToDateTime(model.EndDate);
+            masterCampaignEntity.StartDate = Convert.ToDateTime(model.StartDate) ;
+            masterCampaignEntity.EndDate = Convert.ToDateTime(model.EndDate);
             masterCampaignEntity.Status = model.Status;
             masterCampaignEntity.CreatedBy = "user";
 
@@ -119,7 +119,7 @@ namespace MRM.Business.Services
             masterCampaignEntity.Segments = lstsegment;
             masterCampaignEntity.Industries = lstindustry;
             masterCampaignEntity.Geographys = lstgeography;
-            return masterCampaignEntity;
+            return;
         }
 
         public bool InsertMasterCampaign(MasterCampaignViewModel model)
@@ -142,13 +142,6 @@ namespace MRM.Business.Services
         public MasterCampaign Update(MasterCampaign masterCampaign)
         {
             return guow.GenericRepository<MasterCampaign>().Update(masterCampaign);
-        }
-
-        public bool DeleteMasterCampaign(int Id)
-        {
-            guow.GenericRepository<MasterCampaign>().Delete(Id);
-            return true;
-
         }
 
         public void UpdateForDraft(MasterCampaignViewModel model)
@@ -177,6 +170,13 @@ namespace MRM.Business.Services
             masterCamp = FlushChildRecords(masterCamp);
             ModelToEntity(model, masterCamp);
             guow.GenericRepository<MasterCampaign>().Update(masterCamp);
+        }
+
+        public bool DeleteMasterCampaign(int Id)
+        {
+            guow.GenericRepository<MasterCampaign>().Delete(Id);
+            return true;
+
         }
     }
 }

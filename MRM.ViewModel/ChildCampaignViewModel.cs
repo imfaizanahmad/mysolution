@@ -18,8 +18,7 @@ namespace MRM.ViewModel
             ThemeViewModels = (new [] { new Theme() });
             GeographyViewModels = (new [] { new Geography() });
             IndustryViewModels = (new [] { new Industry() });
-            StartDate = DateTime.Now.ToString("MM/dd/yyyy");
-            EndDate = DateTime.Now.ToString("MM/dd/yyyy");
+            MasterViewModels = (new[] {new MasterCampaign()});
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -31,8 +30,8 @@ namespace MRM.ViewModel
         public string MarketingInfluenceOpportunity { get; set; }
         public string MarketingGeneratedOpportunity { get; set; }
         public string Status { get; set; }
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public string MILGoal { get; set; }
         public string MILLow { get; set; }
@@ -49,8 +48,6 @@ namespace MRM.ViewModel
 
         public int MasterCampaignId { get; set; }
 
-        public int CampaignType { get; set; }
-
         public Boolean IsActive { get; set; }
         public IEnumerable<Industry> IndustryViewModels { get; set; }
         public IEnumerable<Geography> GeographyViewModels { get; set; }
@@ -59,19 +56,12 @@ namespace MRM.ViewModel
         public IEnumerable<BusinessGroup> BusinessGroupViewModels { get; set; }
         public IEnumerable<BusinessLine> BusinessLineViewModels { get; set; }
         public IEnumerable<MasterCampaign> MasterViewModels { get; set; }
+        public CampaignType CampaignTypes { get; set; }
         public int[] BusinessGroups_Id { get; set; }
         public int[] BusinessLines_Id { get; set; }
         public int[] Geographys_Id { get; set; }
         public int[] Industries_Id { get; set; }
         public int[] Segments_Id { get; set; }
         public int[] Themes_Id { get; set; }
-
-        public IEnumerable<CampaignTypes> campaignTypeViewModels { get; set; }
-    }
-
-    public class CampaignTypes
-    {
-       public int Id { get; set; }
-       public string Name { get; set; }
     }
 }

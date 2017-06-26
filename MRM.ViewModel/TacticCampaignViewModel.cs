@@ -21,6 +21,7 @@ namespace MRM.ViewModel
             VendorViewModels = (new[] { new Vendor() });
             StartDate = DateTime.Now.ToString("MM/dd/yyyy");
             EndDate = DateTime.Now.ToString("MM/dd/yyyy");
+
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -29,9 +30,7 @@ namespace MRM.ViewModel
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public string Status { get; set; }
-        public int ChildCampaign_Id { get; set; }
-        public string TacticType { get; set; }
-
+        public int ChildCampaign_Id { get; set; }    
         public int MasterCampaign_Id { get; set; }
         public Boolean IsActive { get; set; }
 
@@ -65,8 +64,8 @@ namespace MRM.ViewModel
         public IEnumerable<BusinessLine> BusinessLineViewModels { get; set; }
         public IEnumerable<MasterCampaign> MasterViewModels { get; set; }
         public IEnumerable<ChildCampaign> ChildCampaignViewModels { get; set; }
-
         public IEnumerable<Vendor> VendorViewModels { get; set; }
+        public IEnumerable<TacticType> TacticTypeViewModels { get; set; }
         public int[] BusinessGroups_Id { get; set; }
         public int[] BusinessLines_Id { get; set; }
         public int[] Geographys_Id { get; set; }
@@ -74,5 +73,6 @@ namespace MRM.ViewModel
         public int[] Segments_Id { get; set; }
         public int[] Themes_Id { get; set; }
         public int[] Vendor_Id { get; set; }
+        public int[] Tactic_Id { get; set; }
     }
 }

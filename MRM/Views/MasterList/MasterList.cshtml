@@ -35,7 +35,7 @@
         }
 
         .btn-delete {
-            width: 50px !important;
+            width: 80px !important;
             float: right;
             margin-top: 0% !important;
         }
@@ -65,11 +65,11 @@
                             {
                                 <tr>
                                     <td>M-@item.Id.ToString("0000000")</td>
-                                    <td>@Html.ActionLink((item.Name==null?"----":item.Name), "ChildListById", "ChildList", new { Id = item.Id }, null)</td>
+                                    <td>@Html.ActionLink((item.Name==null?"----":item.Name), "MasterCampaign", "MasterCampaign", new { Id = item.Id }, null)</td>
                                     <td>@item.CampaignDescription</td>
                                     <td>@item.Status</td>
-                                    <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
-                                    <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
+                                    <td>@item.StartDate.Value.ToString("dd-MM-yyyy")</td>
+                                    <td>@item.EndDate.Value.ToString("dd-MM-yyyy")</td>
                                     <td>
                                         @Html.ActionLink("View / Edit", "MasterCampaign", "MasterCampaign", new { id = item.Id}, new { })
                                         @if (item.Status != "Complete")

@@ -19,6 +19,7 @@ namespace MRM.Controllers
         ChildCampaignServices _childCampaignServices = new ChildCampaignServices();
         MasterCampaign MasterCampaignObj = new MasterCampaign();
         ChildCampaign childCampaignObj = new ChildCampaign();
+
         public ActionResult MasterList(string Type, int id = 0)
         {
 
@@ -27,7 +28,7 @@ namespace MRM.Controllers
 
             if (Type == "View")
             {
-                childCampaignObj.ChildCampaigns = _childCampaignServices.GetChildCampaignByMasterId(ccvm);
+                childCampaignObj.ChildCampaigns = _childCampaignServices.GetChildCampaignByMasterId(ccvm.MasterCampaignId);
                 return RedirectToAction("ChildList", "ChildList");
             }
             else if (Type == "Delete")

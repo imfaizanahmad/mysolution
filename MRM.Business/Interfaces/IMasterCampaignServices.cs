@@ -12,6 +12,9 @@ namespace MRM.Business.Interfaces
         IEnumerable<MasterCampaign> GetMasterCampaign();
         bool InsertMasterCampaign(MasterCampaignViewModel campaign);
         List<MasterCampaign> GetMasterCampaignById(MasterCampaignViewModel model);
+        MasterCampaign Update(MasterCampaign masterCampaign);
+        void UpdateForDraft(MasterCampaignViewModel model);
+        void Submit(MasterCampaignViewModel model);
         bool DeleteMasterCampaign(int Id);
     }
 }

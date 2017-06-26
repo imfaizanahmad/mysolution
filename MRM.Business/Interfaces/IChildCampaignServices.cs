@@ -11,10 +11,11 @@ namespace MRM.Business.Interfaces
    public interface IChildCampaignServices
     {
         IEnumerable<ChildCampaign> GetChildCampaign();
-        bool CreateChildCampaign(ChildCampaignViewModel campaign);
         List<ChildCampaign> GetChildCampaignById(ChildCampaignViewModel model);
-
-        List<ChildCampaign> GetChildCampaignByMasterId(ChildCampaignViewModel model);
-        bool DeleteSubCampaign(int Id);
+        List<ChildCampaign> GetChildCampaignByMasterId(int masterId);
+        bool InsertChildCampaign(ChildCampaignViewModel model);
+        ChildCampaign Update(ChildCampaign childCampaign);
+        void Update(ChildCampaignViewModel model);
+        bool DeleteSubCampaign(int id);
     }
 }
