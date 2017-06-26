@@ -120,7 +120,7 @@
                             <label>Start Date<span class="text-danger">*</span></label>
                             <div class="form-group">
                                 <div class="col-md-6 date datealign">
-                                    <div class="input-group input-append date" id="StartDate">
+                                    <div class="input-group input-append date">
                                         @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
                                             (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
@@ -133,14 +133,18 @@
                         <div class="col-md-6">
                             <label>End Date<span class="text-danger">*</span></label>
                             <div class="form-group">
-                                <div class="col-md-6 form-group date datealign">
-                                    <div class="input-group input-append date" id="EndDate">
+                                <div id="dvMasterEndDate" class="col-md-6 form-group date datealign">
+                                    <div class="input-group input-append date">
                                         @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
                                             (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                 </div>
+                                
+                             
+                                
+
                             </div>
                             <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
                         </div>

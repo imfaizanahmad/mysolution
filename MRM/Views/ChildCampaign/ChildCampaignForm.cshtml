@@ -76,7 +76,7 @@
                                 <label>Start Date</label><span class="text-danger">*</span>
                                 <div class="form-group">
                                     <div class="col-md-6 date datealign">
-                                        <div class="input-group input-append date" id="StartDate">
+                                        <div class="input-group input-append date">
                                             @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
                                                 (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
@@ -91,7 +91,7 @@
                                 <label>End Date</label><span class="text-danger">*</span>
                                 <div class="form-group">
                                     <div class="col-md-6 form-group date datealign">
-                                        <div class="input-group input-append date" id="EndDate">
+                                        <div class="input-group input-append date">
                                             @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
                                                 (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
@@ -106,7 +106,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Campaign Type<span class="text-danger">*</span></label><br />
-                                    @Html.EnumDropDownListFor(m=>m.CampaignTypes,new {@class= "chosen-single form-control" } )
+                                    @Html.EnumDropDownListFor(m=>m.CampaignTypes,(Model.Id != 0 && Model.Status == "Complete") ?
+                                        (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
+                                        (object)new { @class = "chosen-single form-control"} )
                                     <div class="validmsgsubcampaigntype"></div>
                                 </div>
                             </div>
@@ -207,7 +209,7 @@
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
                                                     (object)new { @class = "form-control", @maxlength = "10" })</td>
                                             <td>@Html.TextBoxFor(m => m.MILHigh, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
+                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
                                                     (object)new { @class = "form-control", @maxlength = "10" })</td>
                                         </tr>
                                         <tr>
@@ -229,22 +231,22 @@
                                                     (object)new { @class = "form-control", @maxlength = "10" })</td>
                                             <td>@Html.TextBoxFor(m => m.MIOLow, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                    (object)new { @class = "form-control mrm-cal", @maxlength = "10" }) </td>
+                                                    (object)new { @class = "form-control", @maxlength = "10" }) </td>
                                             <td>@Html.TextBoxFor(m => m.MIOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                    (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</td>
+                                                    (object)new { @class = "form-control", @maxlength = "10" })</td>
                                         </tr>
                                         <tr>
                                             <td><label>MGO</label></td>
                                             <td>@Html.TextBoxFor(m => m.MGOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                    (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</td>
+                                                    (object)new { @class = "form-control", @maxlength = "10" })</td>
                                             <td>@Html.TextBoxFor(m => m.MGOLow, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                    (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</td>
+                                                    (object)new { @class = "form-control", @maxlength = "10" })</td>
                                             <td>@Html.TextBoxFor(m => m.MGOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                    (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</td>
+                                                    (object)new { @class = "form-control", @maxlength = "10" })</td>
                                         </tr>
                                     </tbody>
                                 </table>

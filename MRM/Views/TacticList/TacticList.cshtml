@@ -63,12 +63,12 @@
                 {
                             <tbody>
                                 <tr>
-                                    <td>T-@item.Id</td>
+                                    <td>T-@item.Id.ToString("0000000")</td>
                                     <td>@item.Name</td>
                                     <td>@item.TacticDescription</td>
                                     <td>@item.Status</td>
-                                    <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
-                                    <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
+                                    <td>@item.StartDate.Value.ToString("dd-MM-yyyy")</td>
+                                    <td>@item.EndDate.Value.ToString("dd-MM-yyyy")</td>
                                     <td>
                                         <input type="button" class="btn btn-block btn-primary btn-sm btn-edit" value="Edit" onclick="location.href='@Url.Action( "TacticCampaign", "TacticCampaign", new { Id = item.Id })'" />
                                         <input type="button" class="btn btn-block btn-primary btn-sm btn-view" value="View" onclick="location.href='@Url.Action( "TacticList", "TacticList", new { Id = item.Id, @Type="View" })'" />

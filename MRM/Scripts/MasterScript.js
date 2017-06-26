@@ -30,6 +30,7 @@ $(document).ready(function () {
         });
     });
 
+
     $(document).on('click', '#btnDelete', function () {
         $.ajax({
             type: "POST",

@@ -236,8 +236,24 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\datepicker3.css" />
-    <Content Include="Content\jquery-ui.css" />
-    <Content Include="Content\jquery-ui.min.js" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\AUTHORS.txt" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\external\jquery\jquery.js" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\index.html" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\jquery-ui.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\jquery-ui.js" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\jquery-ui.min.js" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\jquery-ui.structure.min.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\jquery-ui.theme.min.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\LICENSE.txt" />
     <Content Include="Content\MasterStyle.css" />
     <Content Include="Content\Multi-Select\chosen-sprite%402x.png" />
     <Content Include="Content\Multi-Select\chosen-sprite.png" />
@@ -264,6 +280,7 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\package.json" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

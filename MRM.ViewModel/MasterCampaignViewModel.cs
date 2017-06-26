@@ -18,8 +18,8 @@ namespace MRM.ViewModel
             ThemeViewModels = (new[] { new Theme() });
             GeographyViewModels = (new[] { new Geography() });
             IndustryViewModels = (new[] { new Industry() });
-            StartDate = DateTime.Now.ToString("MM/dd/yyyy");
-            EndDate = DateTime.Now.ToString("MM/dd/yyyy");
+            //StartDate = DateTime.Now.ToString("MM/dd/yyyy");
+            //EndDate = DateTime.Now.ToString("MM/dd/yyyy");
 
         }
         public int Id { get; set; }
@@ -28,8 +28,8 @@ namespace MRM.ViewModel
         public string Status { get; set; }
         public Boolean IsActive { get; set; }
         public string CreatedDate { get; set; }
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public IEnumerable<Industry> IndustryViewModels { get; set; }
         public IEnumerable<Geography> GeographyViewModels { get; set; }

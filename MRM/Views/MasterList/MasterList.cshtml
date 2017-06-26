@@ -42,14 +42,15 @@
     </style>
 </head>
 <body>
-    <div>
+    <div class="container-fluid">
         @using (Html.BeginForm("MasterList", "MasterList", FormMethod.Post))
         {
-            <fieldset>
-                <legend>Master Campaign Details</legend>
-                <div>
-                    <table class="table table-bordered" data-resizable-columns-id="demo-table">
-                        <thead class="header-background-color">
+            <div class="row">
+                <fieldset>
+                    <legend>Master Campaign Details</legend>
+                    <div>
+                        <table class="table table-bordered" data-resizable-columns-id="demo-table">
+                            <thead class="header-background-color">
                             <tr>
                                 <th>Master Campaign ID</th>
                                 <th>Name</th>
@@ -59,8 +60,8 @@
                                 <th style="width:10%;">End Date</th>
                                 <th style="width:16%;">Action</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             @foreach (var item in Model.MasterCampaigns)
                             {
                                 <tr>
@@ -80,37 +81,38 @@
                                 </tr>
 
                             }
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="row" style="padding-top:10px">
-                    <div class="col-md-11">
-                        <table cellpadding="0" cellspacing="0">
-                            <tr>
-                                @for (int i = 1; i <= Model.PageCount; i++)
-                                {
-                                    <td class="td-padding">
-                                        @if (i != Model.CurrentPageIndex)
-                                        {
-                                            <a href="javascript:PagerClick(@i);">@i</a>
-                                        }
-                                        else
-                                        {
-                                            <span>@i</span>
-                                        }
-                                    </td>
-                                }
-                            </tr>
+                            </tbody>
                         </table>
-                        <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex" />
                     </div>
-                    <div class="col-md-1">
-                        <input type="button" class="btn btn-block btn-primary btn-sm" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" style="width: 180% !important;height: 40px;margin-left: -85%;" />
 
+                    <div class="row" style="padding-top:10px">
+                        <div class="col-md-11">
+                            <table cellpadding="0" cellspacing="0">
+                                <tr>
+                                    @for (int i = 1; i <= Model.PageCount; i++)
+                                    {
+                                        <td class="td-padding">
+                                            @if (i != Model.CurrentPageIndex)
+                                            {
+                                                <a href="javascript:PagerClick(@i);">@i</a>
+                                            }
+                                            else
+                                            {
+                                                <span>@i</span>
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                            <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex" />
+                        </div>
+                        <div class="col-md-1">
+                            <input type="button" class="btn btn-block btn-primary btn-sm" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" style="width: 180% !important;height: 40px;margin-left: -85%;" />
+
+                        </div>
                     </div>
-                </div>
-            </fieldset>
+                </fieldset>
+            </div>
         }
 
 

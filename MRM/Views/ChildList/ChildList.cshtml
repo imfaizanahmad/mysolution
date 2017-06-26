@@ -63,7 +63,7 @@
                         {
                             <tbody>
                                 <tr>
-                                    <td>C-@item.Id</td>
+                                    <td>C-@item.Id.ToString("0000000")</td>
                                     <td>@Html.ActionLink((item.Name == null ? "----" : item.Name), "ChildCampaign", "ChildCampaign", new { Id = item.Id }, null)</td>                                    
                                     <td>@item.CampaignDescription</td>
                                     <td>@item.Status</td>

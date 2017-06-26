@@ -74,14 +74,6 @@
     <Compile Include="Migrations\201705311147380_LocalFisrt_310517.Designer.cs">
       <DependentUpon>201705311147380_LocalFisrt_310517.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706261213528_last migration.cs" />
-    <Compile Include="Migrations\201706261213528_last migration.Designer.cs">
-      <DependentUpon>201706261213528_last migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706261334070_last migration1.cs" />
-    <Compile Include="Migrations\201706261334070_last migration1.Designer.cs">
-      <DependentUpon>201706261334070_last migration1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
     <Compile Include="Model\BusinessLine.cs" />
@@ -107,12 +99,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705311147380_LocalFisrt_310517.resx">
       <DependentUpon>201705311147380_LocalFisrt_310517.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706261213528_last migration.resx">
-      <DependentUpon>201706261213528_last migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706261334070_last migration1.resx">
-      <DependentUpon>201706261334070_last migration1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
