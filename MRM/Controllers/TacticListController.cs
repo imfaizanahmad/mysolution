@@ -45,7 +45,7 @@ namespace MRM.Controllers
         {
             int maxRows = 10;
             TacticCampaignServices obj = new TacticCampaignServices();
-            int totalCount = obj.GetTacticCampaign().Count();
+            int totalCount = obj.GetTacticCampaign().Where(x => x.IsActive).Count(); ;
             TacticCampaign TactiCampaignObj = new TacticCampaign();
 
             TactiCampaignObj.TacticCampaigns = (from Tacticcampaign in obj.GetTacticCampaign().Where(x => x.IsActive)
@@ -53,7 +53,7 @@ namespace MRM.Controllers
                             .OrderByDescending(Mastercampaign => Mastercampaign.CreatedDate)
                             .Skip((currentPage - 1) * maxRows)
                             .Take(maxRows).ToList();
-            double pageCount = (double)((decimal)obj.GetTacticCampaign().Count() / Convert.ToDecimal(maxRows));
+            double pageCount = (double)((decimal)obj.GetTacticCampaign().Where(x => x.IsActive).Count() / Convert.ToDecimal(maxRows));
             TactiCampaignObj.PageCount = (int)Math.Ceiling(pageCount);
             TactiCampaignObj.CurrentPageIndex = currentPage;
             return TactiCampaignObj;

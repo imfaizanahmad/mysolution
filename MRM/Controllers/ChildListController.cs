@@ -57,16 +57,16 @@ namespace MRM.Controllers
 
         private ChildCampaign GetChildCampaignList(int currentPage)
         {
-            int maxRows = 2;
+            int maxRows = 10;
             ChildCampaignServices obj = new ChildCampaignServices();
-            int totalCount = obj.GetChildCampaign().Count();
+            int totalCount = obj.GetChildCampaign().Where(x => x.IsActive).Count();
             ChildCampaign ChildCampaignObj = new ChildCampaign();
             ChildCampaignObj.ChildCampaigns = (from Childcampaign in obj.GetChildCampaign().Where(x => x.IsActive)
                                                select Childcampaign)
                             .OrderByDescending(Mastercampaign => Mastercampaign.CreatedDate)
                             .Skip((currentPage - 1) * maxRows)
                             .Take(maxRows).ToList();
-            double pageCount = (double)((decimal)obj.GetChildCampaign().Count() / Convert.ToDecimal(maxRows));
+            double pageCount = (double)((decimal)obj.GetChildCampaign().Where(x => x.IsActive).Count() / Convert.ToDecimal(maxRows));
             ChildCampaignObj.PageCount = (int)Math.Ceiling(pageCount);
             ChildCampaignObj.CurrentPageIndex = currentPage;
             return ChildCampaignObj;
