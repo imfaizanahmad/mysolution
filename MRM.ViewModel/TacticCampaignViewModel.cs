@@ -19,16 +19,14 @@ namespace MRM.ViewModel
             IndustryViewModels = (new[] { new Industry() });
             ChildCampaignViewModels = (new[] { new ChildCampaign() });
             VendorViewModels = (new[] { new Vendor() });
-            StartDate = DateTime.Now.ToString("MM/dd/yyyy");
-            EndDate = DateTime.Now.ToString("MM/dd/yyyy");
 
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string TacticDescription { get; set; }
         public string Year { get; set; }
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string Status { get; set; }
         public int ChildCampaign_Id { get; set; }    
         public int MasterCampaign_Id { get; set; }

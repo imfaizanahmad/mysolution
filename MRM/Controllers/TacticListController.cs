@@ -23,7 +23,7 @@ namespace MRM.Controllers
 
         public ActionResult TacticListById(int Id)
         {
-            var tacticCampaign = _tacticCampaignServices.GetTacticBySubCampaignId(new TacticCampaignViewModel() { Id = Id }).First();
+            var tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel() { Id = Id }).First();
             tacticCampaign.IsActive = false;
             _tacticCampaignServices.Update(tacticCampaign);
 

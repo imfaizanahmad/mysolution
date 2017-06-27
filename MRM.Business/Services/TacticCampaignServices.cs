@@ -47,8 +47,8 @@ namespace MRM.Business.Services
             tacticCampaignEntity.ChildCampaigns.MasterCampaigns = guow.GenericRepository<MasterCampaign>().GetByID(model.MasterCampaign_Id);
             tacticCampaignEntity.Name = model.Name;
             tacticCampaignEntity.TacticDescription = model.TacticDescription;
-            tacticCampaignEntity.StartDate = Convert.ToDateTime(model.StartDate);
-            tacticCampaignEntity.EndDate = Convert.ToDateTime(model.EndDate);
+            tacticCampaignEntity.StartDate = model.StartDate;
+            tacticCampaignEntity.EndDate = model.EndDate;
             tacticCampaignEntity.Status = model.Status;
             tacticCampaignEntity.CreatedBy = "user";
             tacticCampaignEntity.Year = model.Year;

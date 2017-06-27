@@ -269,5 +269,15 @@ function ValidateChildForm() {
 
         $('.validmsgBudget').hide();
     }
+    debugger;
+    if ($('#Spend').val() == "") {
+        $('.validmsgSpend').text("Please enter spend.").css("color", "#b94a48");
+        $('.validmsgSpend').show();
+        flag = false;
+    }
+    else {
+
+        $('.validmsgSpend').hide();
+    }
     return flag;
 }

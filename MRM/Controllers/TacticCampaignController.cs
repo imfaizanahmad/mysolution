@@ -128,8 +128,8 @@ namespace MRM.Controllers
                 tacticvm.Id = tacticCampaign.Id;
                 tacticvm.Name = tacticCampaign.Name;
                 tacticvm.TacticDescription = tacticCampaign.TacticDescription;
-                tacticvm.StartDate = Convert.ToString(tacticCampaign.StartDate);
-                tacticvm.EndDate = Convert.ToString(tacticCampaign.EndDate);
+                tacticvm.StartDate = tacticCampaign.StartDate;
+                tacticvm.EndDate = tacticCampaign.EndDate;
                 tacticvm.Status = tacticCampaign.Status;
                 tacticvm.Year = tacticCampaign.Year;
                 tacticvm.Status = tacticCampaign.Status;
@@ -161,7 +161,7 @@ namespace MRM.Controllers
         [HttpPost]
         public bool Delete(int tacticId)
         {
-            var tacticCampaign = _tacticCampaignServices.GetTacticBySubCampaignId(new TacticCampaignViewModel() { Id = tacticId }).First();
+            var tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel() { Id = tacticId }).First();
 
             tacticCampaign.IsActive = false;
             _tacticCampaignServices.Update(tacticCampaign);

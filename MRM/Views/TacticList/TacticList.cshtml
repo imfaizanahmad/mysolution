@@ -67,8 +67,8 @@
                                 <td>@Html.ActionLink((item.Name==null?"----":item.Name), "TacticCampaign", "TacticCampaign", new { Id = item.Id }, null)</td>
                                 <td>@item.TacticDescription</td>
                                 <td>@item.Status</td>
-                                <td>@item.StartDate.Value.ToString("dd-MM-yyyy")</td>
-                                <td>@item.EndDate.Value.ToString("dd-MM-yyyy")</td>
+                                <td>@(item.StartDate?.ToString("dd-MM-yyyy") ?? string.Empty)</td>
+                                <td>@(item.EndDate?.ToString("dd-MM-yyyy") ?? string.Empty)</td>
                                 <td>
                                     @Html.ActionLink("View / Edit", "TacticCampaign", "TacticCampaign", new { id = item.Id}, new { })
                                     @if (item.Status != "Complete")

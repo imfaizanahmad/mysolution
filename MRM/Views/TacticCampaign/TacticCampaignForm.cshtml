@@ -96,14 +96,15 @@
                         </div>
 
                         <div class="row">
+
                             <div class="col-md-6">
-                                <label>Start Date</label><span class="text-danger">*</span>
+                                <label>Start Date<span class="text-danger">*</span></label>
                                 <div class="form-group">
                                     <div class="col-md-6 date datealign">
-                                        <div class="input-group input-append date" >
+                                        <div class="input-group input-append date">
                                             @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
-                                                (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
+                                            (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
+                                            (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
                                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -111,18 +112,22 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label>End Date</label><span class="text-danger">*</span>
+                                <label>End Date<span class="text-danger">*</span></label>
                                 <div class="form-group">
-                                    <div class="col-md-6 form-group date datealign">
-                                        <div class="input-group input-append date" >
+                                    <div id="dvMasterEndDate" class="col-md-6 form-group date datealign">
+                                        <div class="input-group input-append date">
                                             @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
-                                                (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
+                                            (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
+                                            (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
                                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
-                                    <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
+
+
+
+
                                 </div>
+                                <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
                             </div>
                         </div>
 
@@ -292,6 +297,12 @@
                                 {
                                     <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("TacticList", "TacticList")'"/></div>
                                 } 
+                                @if (Model.Id != 0 && Model.Status == "Save Draft")
+                                {
+                                    <div class="col-md-3">
+                                        <input type="button" Id="btnDeleteTactic" name="button" value="Delete Draft" class="btn btn-primary col-sm-12" onclick="return confirm('Are you sure you want to delete?')" />
+                                    </div>
+                                } 
                                 @if (Model.Status != "Complete")
                                 {
                                     <div class="col-md-3">
@@ -300,13 +311,7 @@
                                     <div class="col-md-3">
                                         <input type="button" Id="btnSubmitTactic" name="button" value="Submit" class="btn btn-primary col-sm-12" />
                                     </div>
-                                }
-                                @if (Model.Id != 0 && Model.Status == "Save Draft")
-                                {
-                                    <div class="col-md-3">
-                                        <input type="button" Id="btnDeleteTactic" name="button" value="Delete Draft" class="btn btn-primary col-sm-12" onclick="return confirm('Are you sure you want to delete?')" />
-                                    </div>
-                                }                                                              
+                                }                                                             
                             </div>
                         </div>
                     </div>

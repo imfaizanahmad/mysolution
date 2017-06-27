@@ -35,8 +35,8 @@ namespace MRM.Business.Services
             
             masterCampaignEntity.Name = model.Name;
             masterCampaignEntity.CampaignDescription = model.CampaignDescription;
-            masterCampaignEntity.StartDate = Convert.ToDateTime(model.StartDate) ;
-            masterCampaignEntity.EndDate = Convert.ToDateTime(model.EndDate);
+            masterCampaignEntity.StartDate = model.StartDate;
+            masterCampaignEntity.EndDate = model.EndDate;
             masterCampaignEntity.Status = model.Status;
             masterCampaignEntity.CreatedBy = "user";
 

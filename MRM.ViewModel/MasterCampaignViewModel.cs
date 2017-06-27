@@ -28,8 +28,8 @@ namespace MRM.ViewModel
         public string Status { get; set; }
         public Boolean IsActive { get; set; }
         public string CreatedDate { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public IEnumerable<Industry> IndustryViewModels { get; set; }
         public IEnumerable<Geography> GeographyViewModels { get; set; }
