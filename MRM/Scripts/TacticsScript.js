@@ -6,7 +6,7 @@
 
     //tactic camapaign post
     $(document).on('click', '#btnSubmitTactic', function () {
-        if (ValidateChildForm() === true) {
+        if (ValidateTacticForm() === true) {
             $.ajax({
                 type: "POST",
                 url: '/TacticCampaign/save?button=' + "Submit",
@@ -27,9 +27,9 @@
             data: $("#frmTacticCampaign").serialize(), // serializes the form's elements.
             success: function (data) {
                 if (data === "True") window.location = "/TacticList/TacticList";
-            }
+           }
         });
-      }
+     }
     });
 
     $(document).on('click', '#btnDeleteTactic', function () {
@@ -109,7 +109,7 @@
 
 function ValidateTacticSaveasDraft() {
     var flag = true;
-    if ($('#MasterCampaignId').val() == "" || $('#MasterCampaignId').val() == "None selected." || $('#MasterCampaignId').val() == null) {
+    if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
 
         $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
@@ -120,7 +120,7 @@ function ValidateTacticSaveasDraft() {
         $('.validmsgMastercampaign').hide();
     }
 
-    if ($('#ChildCampaign_Id').val() == null) {
+    if ($('#ChildCampaign_Id').val() == null || $('#ChildCampaign_Id').val() == 0) {
 
         $('.validmsgSubcampaign').text("Please select child Campaign").css("color", "#b94a48");
         $('.validmsgSubcampaign').show();
@@ -133,10 +133,10 @@ function ValidateTacticSaveasDraft() {
     return flag;
 }
 
-    function ValidateChildForm() {
+    function ValidateTacticForm() {
         var flag = true;
 
-        if ($('#MasterCampaignId').val() == "" || $('#MasterCampaignId').val() == "None selected." || $('#MasterCampaignId').val() == null) {
+        if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
 
             $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
             $('.validmsgMastercampaign').show();
@@ -147,7 +147,7 @@ function ValidateTacticSaveasDraft() {
             $('.validmsgMastercampaign').hide();
         }
 
-        if ($('#ChildCampaign_Id').val() == "" || $('#ChildCampaign_Id').val() == "None selected." || $('#ChildCampaign_Id').val() == null) {
+        if ($('#ChildCampaign_Id').val() == null || $('#ChildCampaign_Id').val() == 0) {
 
             $('.validmsgSubcampaign').text("Please select child Campaign").css("color", "#b94a48");
             $('.validmsgSubcampaign').show();

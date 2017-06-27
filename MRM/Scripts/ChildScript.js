@@ -97,7 +97,7 @@
 function ValidateChildSaveasDraft() {
     var flag = true;
 
-    if ($('#MasterCampaignId').val() == "" || $('#MasterCampaignId').val() == "None selected." || $('#MasterCampaignId').val() == null) {
+    if ($('#MasterCampaignId').val() == null) {
 
         $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
@@ -113,7 +113,7 @@ function ValidateChildSaveasDraft() {
 function ValidateChildForm() {
     var flag = true;
 
-    if ($('#MasterCampaignId').val() == "" || $('#MasterCampaignId').val() == "None selected." || $('#MasterCampaignId').val() == null) {
+    if ($('#MasterCampaignId').val() == null) {
 
         $('.validmsgMastercampaign').text("Please select Master Campaign").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
