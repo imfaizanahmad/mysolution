@@ -28,7 +28,9 @@ namespace MRM.Controllers
             }
             else if (Type == "Delete")
             {
-                bool result = _childCampaignService.DeleteSubCampaign(id);
+                var childCampaign = _childCampaignService.GetChildCampaignById(new ChildCampaignViewModel() { Id = id }).First();
+                childCampaign.IsActive = false;
+                _childCampaignService.Update(childCampaign);
 
             }
 

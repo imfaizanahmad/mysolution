@@ -1,16 +1,15 @@
 ﻿@model MRM.ViewModel.TacticCampaignViewModel
 
-
 <form id="frmTacticCampaign">
     @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
     @Html.HiddenFor(m => m.Status, new { @Value = Model.Status })
     <section class="content-header"></section>
-
     <section class="content">
         <!-- SELECT2 EXAMPLE -->
         <div class="box box-default">
-            <div class="box-header with-border">
-            </div>
+        <div class="box-header with-border">
+        </div>
+
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
@@ -101,7 +100,7 @@
                                 <label>Start Date</label><span class="text-danger">*</span>
                                 <div class="form-group">
                                     <div class="col-md-6 date datealign">
-                                        <div class="input-group input-append date" id="StartDate">
+                                        <div class="input-group input-append date" >
                                             @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
                                                 (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
@@ -115,7 +114,7 @@
                                 <label>End Date</label><span class="text-danger">*</span>
                                 <div class="form-group">
                                     <div class="col-md-6 form-group date datealign">
-                                        <div class="input-group input-append date" id="EndDate">
+                                        <div class="input-group input-append date" >
                                             @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
                                                 (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
@@ -183,12 +182,12 @@
 
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-11">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Benchmark</label>
+                                    <div class="col-md-9">
+                                        <label class="pull-right">Benchmark</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
 
                                     </div>
                                 </div>
@@ -203,108 +202,115 @@
                                     <div class="col-md-1"><label>R1</label></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1Goal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1Low, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1High, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label></label></div>
                                     <div class="col-md-1"><label>R1</label></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR11Goal,(Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR12Low, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR13High, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label>Response</label></div>
                                     <div class="col-md-1"><label>R2</label></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR1Goal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR1Low, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR1High, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label></label></div>
                                     <div class="col-md-1"><label>R2</label></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR21Goal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR22Low, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR23High, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label>Efficiency</label></div>
                                     <div class="col-md-1"><label>E1</label></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE1Goal,(Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE1Low, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE1High, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label></label></div>
                                     <div class="col-md-1"><label>E1</label></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE11Goal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE12Low, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE13High, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control mrm-cal", @maxlength = "10" })</div>
+                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
                                 </div>
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset>
-                        <div class="row" style="padding-top: 10px">
-                           
-                            <div class="col-md-2">
-                                <input type="button" class="btn btn-block btn-primary btn-sm" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'"/>
-                            </div>
-                            <div class="col-md-6"></div>
-                            <div class="col-md-4">
-                                @if (Model.Id == 0 || Model.Status == "Save Draft")
+                <fieldset>                    
+                    <div class="form-group">
+                        <div class="row " style="padding-top: 10px">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8"> 
+                                
+                                @if (Model.Status == "")
                                 {
-                                    <div class="col-md-4">
-                                        <input type="button" Id="btnSaveDrafttactic" name="button" value="Save Draft" class="btn btn-block btn-primary btn-sm"/>
+                                    <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'"/></div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("TacticList", "TacticList")'"/></div>
+                                } 
+                                @if (Model.Status != "Complete")
+                                {
+                                    <div class="col-md-3">
+                                        <input type="button" Id="btnSaveDrafttactic" name="button" value="Save Draft" class="btn btn-primary col-sm-12" />
                                     </div>
-
-                                    <div class="col-md-4">
-                                        <input type="button" Id="btnSubmitTactic" name="button" value="Submit" class="btn btn-block btn-primary btn-sm"/>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <input type="button" Id="btnDeleteTactic" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')"/>
+                                    <div class="col-md-3">
+                                        <input type="button" Id="btnSubmitTactic" name="button" value="Submit" class="btn btn-primary col-sm-12" />
                                     </div>
                                 }
+                                @if (Model.Id != 0 && Model.Status == "Save Draft")
+                                {
+                                    <div class="col-md-3">
+                                        <input type="button" Id="btnDeleteTactic" name="button" value="Delete Draft" class="btn btn-primary col-sm-12" onclick="return confirm('Are you sure you want to delete?')" />
+                                    </div>
+                                }                                                              
                             </div>
-
                         </div>
-                    </fieldset>
+                    </div>
+                </fieldset>
                 </div>
                 <!-- /.row -->
             </div>

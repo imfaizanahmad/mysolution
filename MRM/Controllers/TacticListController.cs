@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using MRM.Database.Model;
 using MRM.Business.Services;
+using MRM.ViewModel;
 
 namespace MRM.Controllers
 {
@@ -13,6 +14,7 @@ namespace MRM.Controllers
     public class TacticListController : Controller
     {
         GenericUnitOfWork dbobject = new GenericUnitOfWork();
+        TacticCampaignServices _tacticCampaignServices = new TacticCampaignServices();
         public ActionResult TacticList()
         {
             return View(this.GetTacticCampaignList(1));
@@ -21,6 +23,9 @@ namespace MRM.Controllers
 
         public ActionResult TacticListById(int Id)
         {
+            var tacticCampaign = _tacticCampaignServices.GetTacticBySubCampaignId(new TacticCampaignViewModel() { Id = Id }).First();
+            tacticCampaign.IsActive = false;
+            _tacticCampaignServices.Update(tacticCampaign);
 
             return RedirectToAction("TacticList", "TacticList");
 

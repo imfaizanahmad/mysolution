@@ -33,8 +33,9 @@ namespace MRM.Controllers
             }
             else if (Type == "Delete")
             {
-                bool result = _masterCampaignServices.DeleteMasterCampaign(id);
-
+                var masterCampaign = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = id }).First();
+                masterCampaign.IsActive = false;
+                _masterCampaignServices.Update(masterCampaign);
             }
             return View(this.GetMasterCampaignList(1));
 
@@ -56,7 +57,7 @@ namespace MRM.Controllers
             int maxRows = 10;
             int totalCount = obj.GetMasterCampaign().Count();
             //MasterCampaign MasterCampaignObj = new MasterCampaign();
-            MasterCampaignObj.MasterCampaigns = (from Mastercampaign in obj.GetMasterCampaign().Where(x=>x.IsActive ).ToList()
+            MasterCampaignObj.MasterCampaigns = (from Mastercampaign in obj.GetMasterCampaign().Where(x=>x.IsActive).ToList()
                                                      //join fnekfw in obj.GetMasterCampaign() where (Mastercampaign.Id == fnekfw.Geographys) 
 
 

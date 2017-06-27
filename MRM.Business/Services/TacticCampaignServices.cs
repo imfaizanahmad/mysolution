@@ -185,6 +185,11 @@ namespace MRM.Business.Services
             guow.GenericRepository<TacticCampaign>().Update(tacticCamp);
         }
 
+        public void Update(TacticCampaign entity)
+        {
+            guow.GenericRepository<TacticCampaign>().Update(entity);
+        }
+
         private TacticCampaign FlushChildRecords(TacticCampaign  tacticCampaignCamp)
         {
 

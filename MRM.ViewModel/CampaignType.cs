@@ -5,7 +5,7 @@ namespace MRM.ViewModel
 {
     public enum CampaignType
     {
-        [Display(Name= "BG Led")]
+        [Display(Name= "BG Lead")]
         BG_Led,
         GEPS
     }

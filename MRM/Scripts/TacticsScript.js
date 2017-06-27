@@ -32,7 +32,7 @@
     $(document).on('click', '#btnDeleteTactic', function () {
         $.ajax({
             type: "POST",
-            url: '/TacticCampaign/Delete?childId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
+            url: '/TacticCampaign/Delete?tacticId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
             success: function (data) {
                 if (data === "True") window.location = "/TacticList/TacticList";
 
@@ -80,7 +80,7 @@
         });
     });
 
-    $(document).on("change", "#MMasterCampaign_Id", function () {
+    $(document).on("change", "#MasterCampaign_Id", function () {
         $.ajax({
             type: "POST",
             url: "/TacticCampaign/LoadMasterCampaign",

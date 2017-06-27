@@ -182,14 +182,14 @@
                                 </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Benchmark</label>  
+                            <label class="pull-right">Benchmark</label>  
                         </div>
                         <div class="col-md-6">
 
                         </div>
                     </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-9">
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>
@@ -255,41 +255,43 @@
                        
                     </fieldset>
 
-                    <fieldset>
-                        <div class="row" style="padding-top: 10px">
-                            @if (Model.Status == "")
-                            {
-                                <div class="col-md-2">
-                                    <input type="button" class="btn btn-block btn-primary btn-sm" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'"/>
-                                </div>
-                            }
-                            else
-                            {
-                                    <div class="col-md-2">
-                                         <input type="button" class="btn btn-block btn-primary btn-sm" value="Back" onclick="location.href = '@Url.Action("ChildList", "ChildList")'"/>
-                                     </div>
-                            }
-                            <div class="col-md-6"></div>
-                            <div class="col-md-4">
+                <fieldset>
+                    <div class="form-group">
+                        <div class="row " style="padding-top: 10px">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8">                                
+                                @if (Model.Status == "")
+                                {
+                                    <div class="col-md-3">
+                                        <input type="button" class="btn btn-block btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'"/>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-3">
+                                        <input type="button" class="btn btn-block btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("ChildList", "ChildList")'"/>
+                                    </div>
+                                }
+
                                 @if (Model.Status != "Complete")
                                 {
                                     <div class="col-md-4">
-                                        <input type="button" Id="btnSubmitChild" name="button" value="Submit" class="btn btn-block btn-primary btn-sm"/>
+                                        <input type="button" Id="btnSubmitChild" name="button" value="Submit" class="btn btn-block btn-primary col-sm-12"/>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="button" Id="btnSaveDraftChild" name="button" value="Save Draft" class="btn btn-block btn-primary btn-sm"/>
+                                        <input type="button" Id="btnSaveDraftChild" name="button" value="Save Draft" class="btn btn-block btn-primary col-sm-12"/>
                                     </div>
                                 }
                                 @if (Model.Id != 0 && Model.Status == "Save Draft")
                                 {
                                     <div class="col-md-4">
-                                        <input type="button" Id="btnDeleteChild" name="button" value="Delete Draft" class="btn btn-block btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')"/>
+                                        <input type="button" Id="btnDeleteChild" name="button" value="Delete Draft" class="btn btn-block btn-primary col-sm-12" onclick="return confirm('Are you sure you want to delete?')"/>
                                     </div>
                                 }
                             </div>
-
                         </div>
-                    </fieldset>
+                        </div>
+                </fieldset>
                     <!-- /.row -->
                 </div>
                 <!-- /.box-body -->
