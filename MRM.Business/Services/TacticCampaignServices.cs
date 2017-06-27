@@ -28,7 +28,7 @@ namespace MRM.Business.Services
 
         public List<TacticCampaign> GetTacticCampaignById(TacticCampaignViewModel model)
         {
-            List<TacticCampaign> tacticCampaign = guow.GenericRepository<TacticCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes), (m => m.Vendors), (m => m.TacticTypes)).Where(t => t.Id == model.Id).ToList();
+            List<TacticCampaign> tacticCampaign = guow.GenericRepository<TacticCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes), (m => m.TacticTypes)).Where(t => t.Id == model.Id).ToList();
             return tacticCampaign;
         }
 
@@ -53,6 +53,7 @@ namespace MRM.Business.Services
             tacticCampaignEntity.CreatedBy = "user";
             tacticCampaignEntity.Year = model.Year;
             tacticCampaignEntity.Status = model.Status;
+            tacticCampaignEntity.Vendor = model.Vendor;
             tacticCampaignEntity.MasterCampaign_Id = model.MasterCampaign_Id;
             tacticCampaignEntity.ReachR1Goal = model.ReachR1Goal;
             tacticCampaignEntity.ReachR1Low = model.ReachR1Low;
@@ -164,7 +165,7 @@ namespace MRM.Business.Services
             tacticCampaignEntity.Segments = lstsegment;
             tacticCampaignEntity.Industries = lstindustry;
             tacticCampaignEntity.Geographys = lstgeography;
-            tacticCampaignEntity.Vendors = lstvendor;
+            //tacticCampaignEntity.Vendors = lstvendor;
             tacticCampaignEntity.TacticTypes = lstTacticType;
         }
 
@@ -199,7 +200,7 @@ namespace MRM.Business.Services
             tacticCampaignCamp.Geographys.Remove(tacticCampaignCamp.Geographys.FirstOrDefault<Geography>());
             tacticCampaignCamp.BusinessLines.Remove(tacticCampaignCamp.BusinessLines.FirstOrDefault<BusinessLine>());
             tacticCampaignCamp.BusinessGroups.Remove(tacticCampaignCamp.BusinessGroups.FirstOrDefault<BusinessGroup>());
-            tacticCampaignCamp.Vendors.Remove(tacticCampaignCamp.Vendors.FirstOrDefault<Vendor>());
+            //tacticCampaignCamp.Vendors.Remove(tacticCampaignCamp.Vendors.FirstOrDefault<Vendor>());
             tacticCampaignCamp.TacticTypes.Remove(tacticCampaignCamp.TacticTypes.FirstOrDefault<TacticType>());
             return tacticCampaignCamp;
         }

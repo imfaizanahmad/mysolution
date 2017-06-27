@@ -40,7 +40,7 @@ namespace MRM.Controllers
             ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
 
 
-            Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
+            Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where( t => t.Status == "Complete");
             Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
             Childvm.SegmentViewModels = _segmentService.GetSegment();
             Childvm.ThemeViewModels = _themeService.GetTheme();
@@ -148,7 +148,7 @@ namespace MRM.Controllers
                 model.IndustryViewModels = lst;
             }
             model.GeographyViewModels = _geographyService.GetGeography();
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
+            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
             model.ThemeViewModels = _themeService.GetTheme();
             return PartialView("ChildCampaignForm", model);
         }
@@ -169,7 +169,7 @@ namespace MRM.Controllers
             model.IndustryViewModels = lst;
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
+            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
             return PartialView("ChildCampaignForm", model);
         }
         public ActionResult LoadMasterCampaign(ChildCampaignViewModel model)
@@ -187,7 +187,7 @@ namespace MRM.Controllers
                 model.GeographyViewModels = item.Geographys;
             }
 
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
+            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
 
             return PartialView("ChildCampaignForm", model);
         }
@@ -196,7 +196,7 @@ namespace MRM.Controllers
         public bool Save(ChildCampaignViewModel model, string button)
         {
 
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign();
+            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
 
             try
             {
@@ -248,7 +248,6 @@ namespace MRM.Controllers
             }
             else
             {
-
                 if (model.MasterCampaignId == 0) errorCounter++;
                 if (model.BusinessGroups_Id == null) errorCounter++;
                 if (model.BusinessLines_Id == null) errorCounter++;

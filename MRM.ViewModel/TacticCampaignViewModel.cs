@@ -28,6 +28,7 @@ namespace MRM.ViewModel
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string Status { get; set; }
+        public string Vendor { get; set; }
         public int ChildCampaign_Id { get; set; }    
         public int MasterCampaign_Id { get; set; }
         public Boolean IsActive { get; set; }

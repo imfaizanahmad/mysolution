@@ -19,6 +19,8 @@
     });
 
     $(document).on('click', '#btnSaveDrafttactic', function () {
+        if (ValidateTacticSaveasDraft() === true)
+            {
         $.ajax({
             type: "POST",
             url: '/TacticCampaign/save?button=' + "Save Draft",
@@ -27,6 +29,7 @@
                 if (data === "True") window.location = "/TacticList/TacticList";
             }
         });
+      }
     });
 
     $(document).on('click', '#btnDeleteTactic', function () {
@@ -104,27 +107,64 @@
 
 });
 
+function ValidateTacticSaveasDraft() {
+    var flag = true;
+    if ($('#MasterCampaignId').val() == "" || $('#MasterCampaignId').val() == "None selected." || $('#MasterCampaignId').val() == null) {
+
+        $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
+        $('.validmsgMastercampaign').show();
+        flag = false;
+
+    }
+    else {
+        $('.validmsgMastercampaign').hide();
+    }
+
+    if ($('#ChildCampaign_Id').val() == null) {
+
+        $('.validmsgSubcampaign').text("Please select child Campaign").css("color", "#b94a48");
+        $('.validmsgSubcampaign').show();
+        flag = false;
+
+    } else {
+        $('.validmsgSubcampaign').hide();
+    }
+
+    return flag;
+}
 
     function ValidateChildForm() {
-            var flag = true;
-        if ($('#MasterCampaign_Id').val() == null) {
+        var flag = true;
 
-            $('.validmsgMastercampaign').text("Please select Master Campaign").css("color", "#b94a48");
+        if ($('#MasterCampaignId').val() == "" || $('#MasterCampaignId').val() == "None selected." || $('#MasterCampaignId').val() == null) {
+
+            $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
             $('.validmsgMastercampaign').show();
             flag = false;
 
-        } else {
+        }
+        else {
             $('.validmsgMastercampaign').hide();
         }
 
-        if ($('#Vendor_Id').val() == null) {
+        if ($('#ChildCampaign_Id').val() == "" || $('#ChildCampaign_Id').val() == "None selected." || $('#ChildCampaign_Id').val() == null) {
 
-            $('.validmsgVendor').text("Please select Vendor").css("color", "#b94a48");
-            $('.validmsgVendor').show();
+            $('.validmsgSubcampaign').text("Please select child Campaign").css("color", "#b94a48");
+            $('.validmsgSubcampaign').show();
             flag = false;
 
         } else {
-            $('.validmsgVendor').hide();
+            $('.validmsgSubcampaign').hide();
+        }
+
+        if ($('#Vendor').val() === "") {
+
+            $('.validmsgvendor').text("Please enter Vendor").css("color", "#b94a48");
+            $('.validmsgvendor').show();
+            flag = false;
+
+        } else {
+            $('.validmsgvendor').hide();
         }
 
         if ($('#Tactic_Id').val() == null) {

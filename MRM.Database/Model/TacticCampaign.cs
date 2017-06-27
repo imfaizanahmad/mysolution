@@ -18,6 +18,7 @@ namespace MRM.Database.Model
         public string Status { get; set; }
         public int MasterCampaign_Id { get; set; }
         public string TacticType { get; set; }
+        public string Vendor { get; set; }
 
         public string ReachR1Goal { get; set; }
         public string ReachR1Low { get; set; }
@@ -48,7 +49,7 @@ namespace MRM.Database.Model
         public virtual ICollection<Industry> Industries { get; set; }
         public virtual ICollection<Theme> Themes { get; set; }
         public virtual ICollection<Geography> Geographys { get; set; }
-        public virtual ICollection<Vendor> Vendors { get; set; }
+       // public virtual ICollection<Vendor> Vendors { get; set; }
         public virtual ICollection<TacticType> TacticTypes { get; set; }
         public virtual ChildCampaign ChildCampaigns { get; set; }
 

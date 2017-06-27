@@ -18,15 +18,17 @@
         }
     });
 
-    $(document).on('click', '#btnSaveDraftChild', function () {
-        $.ajax({
-            type: "POST",
-            url: '/ChildCampaign/save?button=' + "Save Draft",
-            data: $("#frmChildCampaign").serialize(), // serializes the form's elements.
-            success: function (data) {
-                if (data === "True") window.location = "/ChildList/ChildList";
-            }
-        });
+    $(document).on('click', '#btnSaveDraftChild', function() {
+        if (ValidateChildSaveasDraft() === true){
+            $.ajax({
+                type: "POST",
+                url: '/ChildCampaign/save?button=' + "Save Draft",
+                data: $("#frmChildCampaign").serialize(), // serializes the form's elements.
+                success: function(data) {
+                    if (data === "True") window.location = "/ChildList/ChildList";
+                }
+            });
+    }
     });
 
     $(document).on('click', '#btnDeleteChild', function () {
@@ -92,10 +94,26 @@
     });
 });
 
+function ValidateChildSaveasDraft() {
+    var flag = true;
+
+    if ($('#MasterCampaignId').val() == "" || $('#MasterCampaignId').val() == "None selected." || $('#MasterCampaignId').val() == null) {
+
+        $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
+        $('.validmsgMastercampaign').show();
+        flag = false;
+
+    }
+    else {
+        $('.validmsgMastercampaign').hide();
+    }
+    return flag;
+}
+
 function ValidateChildForm() {
     var flag = true;
 
-    if ($('#MasterCampaignId').val() == "" || $('#MasterCampaignId').val() == "None selected.") {
+    if ($('#MasterCampaignId').val() == "" || $('#MasterCampaignId').val() == "None selected." || $('#MasterCampaignId').val() == null) {
 
         $('.validmsgMastercampaign').text("Please select Master Campaign").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();

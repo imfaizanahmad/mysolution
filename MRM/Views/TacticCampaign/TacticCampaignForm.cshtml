@@ -122,10 +122,6 @@
                                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
                                 <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
                             </div>
@@ -175,9 +171,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Vendor</label><span class="text-danger">*</span><br />
-                                    @Html.ListBoxFor(m => m.Vendor_Id, new MultiSelectList(Model.VendorViewModels, "Id", "Name", Model.Vendor_Id), (Model.Id != 0 && Model.Status == "Complete") ?
+                                    @Html.TextBoxFor(m => m.Vendor, (Model.Id != 0 && Model.Status == "Complete") ?
+                                        (object)new { disabled = "disabled", @class = "form-control" } :
+                                        (object)new { @class = "form-control"} )
+                                    @*@Html.ListBoxFor(m => m.Vendor_Id, new MultiSelectList(Model.VendorViewModels, "Id", "Name", Model.Vendor_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                        (object)new { @class = "chosen-select form-control" }) <a data-next-stage="select" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>
+                                        (object)new { @class = "chosen-select form-control" }) <a data-next-stage="select" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
                                     <div class="validmsgvendor"></div>
                                 </div>
                             </div>
@@ -289,7 +288,7 @@
                             <div class="col-md-4"></div>
                             <div class="col-md-8"> 
                                 
-                                @if (Model.Status == "")
+                                @if (Model.Id == 0)
                                 {
                                     <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'"/></div>
                                 }

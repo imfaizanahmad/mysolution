@@ -20,6 +20,7 @@ $(document).ready(function () {
         });
 
     $(document).on('click', '#btnSaveDraft', function () {
+
         $.ajax({
             type: "POST",
             url: '/MasterCampaign/save?button=' + "Save Draft",
@@ -28,7 +29,9 @@ $(document).ready(function () {
                 if (data === "True") window.location = "/MasterList/MasterList";
             }
         });
+
     });
+
 
 
     $(document).on('click', '#btnDelete', function () {
@@ -84,11 +87,14 @@ $(document).ready(function () {
    
 });
 
+
 function ValidateMasterForm() {
     var flag = true;
+
+
     if ($('#BusinessGroups_Id').val() == null) {
 
-        $('.validmsgbusinesGp').text("Please select Business Group").css("color", "#b94a48");
+        $('.validmsgbusinesGp').text("Please select Business Group.").css("color", "#b94a48");
         $('.validmsgbusinesGp').show();
         flag = false;
 

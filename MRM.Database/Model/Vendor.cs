@@ -11,6 +11,6 @@ namespace MRM.Database.Model
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<TacticCampaign> TacticCampaigns { get; set; }
+        //public virtual ICollection<TacticCampaign> TacticCampaigns { get; set; }
     }
 }
