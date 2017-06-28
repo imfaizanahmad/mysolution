@@ -176,7 +176,8 @@ namespace MRM.Controllers
         {
 
 
-            List<ChildCampaign> masterChild = _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaignId);
+            //List<ChildCampaign> masterChild = _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaignId);
+            List<MasterCampaign> masterChild = _masterCampaignServices.GetMasterCampaignById(model.MasterCampaignId);
             foreach (var item in masterChild)
             {
                 model.IndustryViewModels = item.Industries;

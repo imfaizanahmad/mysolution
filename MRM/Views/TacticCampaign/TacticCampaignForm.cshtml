@@ -203,10 +203,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label>Reach</label></div>
-                                    <div class="col-md-1"><label>R1</label></div>
+                                    <div class="col-md-1"><label>R1</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1Goal, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
+                                                 (object) new {disabled = "disabled", @class = "form-control", @maxlength = "10"} :
+                                                 (object) new {@class = "form-control", @maxlength = "10"})
+                                    </div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1Low, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
                                                               (object)new { @class = "form-control", @maxlength = "10" })</div>
@@ -216,7 +217,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label></label></div>
-                                    <div class="col-md-1"><label>R1</label></div>
+                                    <div class="col-md-1"><label>R1</label> <span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR11Goal,(Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
                                                               (object)new { @class = "form-control", @maxlength = "10" })</div>
@@ -229,7 +230,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label>Response</label></div>
-                                    <div class="col-md-1"><label>R2</label></div>
+                                    <div class="col-md-1"><label>R2</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR1Goal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
                                                               (object)new { @class = "form-control", @maxlength = "10" })</div>
@@ -242,7 +243,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label></label></div>
-                                    <div class="col-md-1"><label>R2</label></div>
+                                    <div class="col-md-1"><label>R2</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR21Goal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
                                                               (object)new { @class = "form-control", @maxlength = "10" })</div>
@@ -255,7 +256,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label>Efficiency</label></div>
-                                    <div class="col-md-1"><label>E1</label></div>
+                                    <div class="col-md-1"><label>E1</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE1Goal,(Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
                                                               (object)new { @class = "form-control", @maxlength = "10" })</div>
@@ -268,7 +269,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"><label></label></div>
-                                    <div class="col-md-1"><label>E1</label></div>
+                                    <div class="col-md-1"><label>E1</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
                                     <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE11Goal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                               (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
                                                               (object)new { @class = "form-control", @maxlength = "10" })</div>

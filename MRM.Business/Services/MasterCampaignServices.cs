@@ -30,6 +30,13 @@ namespace MRM.Business.Services
             return masterCampaign;
         }
 
+        public List<MasterCampaign> GetMasterCampaignById(int masterId)
+        {
+            List<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.Id == masterId).ToList();
+            return masterCampaign;
+        }
+
+
         private void ModelToEntity(MasterCampaignViewModel model, MasterCampaign masterCampaignEntity)
         {
             
