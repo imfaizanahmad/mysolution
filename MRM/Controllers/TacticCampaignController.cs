@@ -122,7 +122,7 @@ namespace MRM.Controllers
 
                 if (tacticCampaign.TacticTypes != null && tacticCampaign.TacticTypes.Count > 0)
                 {
-                    tacticvm.Tactic_Id = tacticCampaign.TacticTypes.Select(t => t.Id).ToArray(); ;
+                    tacticvm.TacticType_Id = tacticCampaign.TacticTypes.Select(t => t.Id).ToArray(); ;
                 }
 
                 tacticvm.Id = tacticCampaign.Id;

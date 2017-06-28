@@ -90,8 +90,7 @@ $(document).ready(function () {
 
 function ValidateMasterForm() {
     var flag = true;
-
-
+    debugger 
     if ($('#BusinessGroups_Id').val() == null) {
 
         $('.validmsgbusinesGp').text("Please select Business Group.").css("color", "#b94a48");
@@ -149,7 +148,7 @@ function ValidateMasterForm() {
     }
 
 
-    if ($("#StartDate").find("input").val() == "") {
+    if ($("#StartDate").val() == "") {
         $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
         $('.validmsgSdate').show();
         flag = false;
@@ -159,7 +158,7 @@ function ValidateMasterForm() {
         $('.validmsgSdate').hide();
     }
 
-    if ($("#EndDate").find("input").val() == "") {
+    if ($("#EndDate").val() == "") {
         $('.validmsgEdate').text("Please select End Date").css("color", "#b94a48");
         $('.validmsgEdate').show();
         flag = false;
@@ -167,8 +166,10 @@ function ValidateMasterForm() {
     else {
         $('.validmsgEdate').hide();
     }
+
     var startdate = new Date($("#StartDate").find("input").val());
     var enddate = new Date($("#EndDate").find("input").val());
+
     if (startdate > enddate) {
         $('.validmsgDatecompare').text("End Date can not less than Start Date").css("color", "#b94a48");
         $('.validmsgDatecompare').show();
