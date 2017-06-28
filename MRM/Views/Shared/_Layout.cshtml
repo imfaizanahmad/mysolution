@@ -88,7 +88,6 @@
         commonUiInitialization();
     });
 
-
     var manageStartEndDate = function () {
         var sDate = new Date($('#StartDate').val());
         var dDate = new Date($('#EndDate').val());
@@ -111,15 +110,19 @@
         }
 
 
-        if ($("#EndDate").val().length > 0) {
-            if ($("#EndDate").val().indexOf(" ") > 0)
-            $("#EndDate").val($("#EndDate").val().substr(0, $("#EndDate").val().indexOf(" ")));
+        if ($("#EndDate").val() != undefined) {
+            if ($("#EndDate").val().length > 0) {
+                if ($("#EndDate").val().indexOf(" ") > 0)
+                    $("#EndDate").val($("#EndDate").val().substr(0, $("#EndDate").val().indexOf(" ")));
+            }
+
+            if ($("#StartDate").val().length > 0) {
+                if ($("#StartDate").val().indexOf(" ") > 0)
+                    $("#StartDate").val($("#StartDate").val().substr(0, $("#StartDate").val().indexOf(" ")));
+            }
         }
 
-        if ($("#StartDate").val().length > 0) {
-            if ($("#StartDate").val().indexOf(" ") > 0)
-            $("#StartDate").val($("#StartDate").val().substr(0, $("#StartDate").val().indexOf(" ")));
-        }
+        
     };
 
 
