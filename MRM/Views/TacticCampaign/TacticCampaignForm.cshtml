@@ -3,6 +3,8 @@
 <form id="frmTacticCampaign">
     @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
     @Html.HiddenFor(m => m.Status, new { @Value = Model.Status })
+    @Html.HiddenFor(m => m.MCStartDate, new { @Value = Model.MCStartDate })
+    @Html.HiddenFor(m => m.MCEndDate, new { @Value = Model.MCEndDate })
     <section class="content-header"></section>
     <section class="content">
         <!-- SELECT2 EXAMPLE -->
@@ -70,7 +72,7 @@
                                     <label>Tactic Description<span class="text-danger">*</span></label>
                                     @Html.TextAreaFor(m => m.TacticDescription, (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "form-control" } :
-                                        (object)new { @class = "form-control" })
+                                        (object)new { @class = "form-control", onkeypress = "return alpha(event)",@maxlength="500" })
                                     <div class="validmsgtacticdesc"></div>
                                 </div>
                             </div>
@@ -98,13 +100,13 @@
                         <div class="row">
 
                             <div class="col-md-6">
-                                <label>Start Date<span class="text-danger">*</span></label>
+                                <label>Start Date<span class="text-danger lb-sm">(Format: MM/DD/YYYY) *</span></label>
                                 <div class="form-group">
                                     <div class="col-md-6 date datealign">
                                         <div class="input-group input-append date">
                                             @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
-                                            (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
+                                            (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10", @placeholder = "MM/DD/YYYY" } :
+                                            (object)new { @class = "form-control mrm-cal", @maxlength = "10", @placeholder = "MM/DD/YYYY" })
                                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -112,13 +114,13 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label>End Date<span class="text-danger">*</span></label>
+                                <label>End Date<span class="text-danger lb-sm">(Format: MM/DD/YYYY) *</span></label>
                                 <div class="form-group">
                                     <div id="dvMasterEndDate" class="col-md-6 form-group date datealign">
                                         <div class="input-group input-append date">
                                             @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
-                                            (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
+                                            (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10", @placeholder = "MM/DD/YYYY" } :
+                                            (object)new { @class = "form-control mrm-cal", @maxlength = "10", @placeholder = "MM/DD/YYYY" })
                                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -126,7 +128,10 @@
                                 <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
                             </div>
                         </div>
-
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6"><div class="validmsgDateMCcompare"></div></div>
+                    </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -173,7 +178,7 @@
                                     <label>Vendor</label><span class="text-danger">*</span><br />
                                     @Html.TextBoxFor(m => m.Vendor, (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "form-control" } :
-                                        (object)new { @class = "form-control"} )
+                                        (object)new { @class = "form-control",@maxlength="50", onkeypress = "return blockSpecialChar(event)" })
                                     @*@Html.ListBoxFor(m => m.Vendor_Id, new MultiSelectList(Model.VendorViewModels, "Id", "Name", Model.Vendor_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                         (object)new { @class = "chosen-select form-control" }) <a data-next-stage="select" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
@@ -184,104 +189,88 @@
                             </div>
                         </div>
 
-
-                        <div class="row">
-                            <div class="col-md-11">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <label class="pull-right">Benchmark</label>
-                                    </div>
-                                    <div class="col-md-3">
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3"><label>Performance Metric</label></div>
-                                    <div class="col-md-3"><label>Goal</label></div>
-                                    <div class="col-md-3"><label>Low</label></div>
-                                    <div class="col-md-3"><label>High</label></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2"><label>Reach</label></div>
-                                    <div class="col-md-1"><label>R1</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1Goal, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                 (object) new {disabled = "disabled", @class = "form-control", @maxlength = "10"} :
-                                                 (object) new {@class = "form-control", @maxlength = "10"})
-                                    </div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1Low, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR1High, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2"><label></label></div>
-                                    <div class="col-md-1"><label>R1</label> <span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR11Goal,(Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR12Low, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ReachR13High, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2"><label>Response</label></div>
-                                    <div class="col-md-1"><label>R2</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR1Goal, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR1Low, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR1High, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2"><label></label></div>
-                                    <div class="col-md-1"><label>R2</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR21Goal, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR22Low, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.ResponseR23High, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2"><label>Efficiency</label></div>
-                                    <div class="col-md-1"><label>E1</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE1Goal,(Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE1Low, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE1High, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2"><label></label></div>
-                                    <div class="col-md-1"><label>E1</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE11Goal, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE12Low, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                    <div class="col-md-3">@Html.TextBoxFor(m => m.EfficiencyE13High, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                              (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                              (object)new { @class = "form-control", @maxlength = "10" })</div>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="pull-right">Benchmark</label>  
                         </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9" style="margin-left: 130px;margin-right: 150px">
+                            <table class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <td><label>Pipeline Metric</label></td>
+                                    <td><label></label></td>
+                                    <td><label>Goal</label></td>
+                                    <td><label>Low</label></td>
+                                    <td><label>High</label></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><label>Reach</label></td>
+                                    <td><label>Metric</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></td>
+                                    <td>@Html.TextBoxFor(m => m.ReachR1Goal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object) new {disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object) new {@class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                    <td>@Html.TextBoxFor(m => m.ReachR1Low, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                    <td>@Html.TextBoxFor(m => m.ReachR1High, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                </tr>
+                                <tr>
+                                    <td><label></label></td>
+                                    <td><label>Metric</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></td>
+                                    <td>@Html.TextBoxFor(m => m.ReachR11Goal,(Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                    <td>@Html.TextBoxFor(m => m.ReachR12Low, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                    <td>@Html.TextBoxFor(m => m.ReachR13High, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })
+                                        <div class="validmsgReachMetric"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label>Response</label></td>
+                                    <td><label>Metric</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></td>
+                                    <td>@Html.TextBoxFor(m => m.ResponseR1Goal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                        (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                        (object)new { @class = "form-control", @maxlength = "50" , onkeypress = "numericvalidate(event)" })</td>
+                                    <td>@Html.TextBoxFor(m => m.ResponseR1Low, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" }) </td>
+                                    <td>@Html.TextBoxFor(m => m.ResponseR1High, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                </tr>
+                                <tr>
+                                    <td><label>Response</label></td>
+                                    <td><label>Metric</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></td>
+                                    <td>@Html.TextBoxFor(m => m.ResponseR21Goal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                    <td>@Html.TextBoxFor(m => m.ResponseR22Low, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" }) </td>
+                                    <td>@Html.TextBoxFor(m => m.ResponseR23High, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                            (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })
+                                        <div class="validmsgResponseMetric"></div></td>
+                                </tr>
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                     </fieldset>
                 <fieldset>                    
                     <div class="form-group">

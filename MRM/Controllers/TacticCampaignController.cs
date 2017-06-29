@@ -309,7 +309,12 @@ namespace MRM.Controllers
                     model.SegmentViewModels = item.Segments;
                     model.ThemeViewModels = item.Themes;
                     model.GeographyViewModels = item.Geographys;
+                    model.StartDate = item.StartDate;
+                    model.EndDate = item.EndDate;
+                    model.MCStartDate = item.StartDate;
+                    model.MCEndDate = item.EndDate;
                 }
+
             }
             
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
@@ -385,6 +390,25 @@ namespace MRM.Controllers
 
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.TacticDescription == "") errorCounter++;
+
+
+                //if ((model.ReachR1Goal == "" || model.ReachR1Low == "" || model.ReachR1High == "") &&
+                //    (model.ReachR11Goal == "" || model.ReachR12Low == "" || model.ReachR13High == ""))
+                //    errorCounter++;
+                //if ((model.ResponseR1Goal == "" || model.ResponseR1High == "" || model.ResponseR1Low == "") &&
+                //    (model.ResponseR21Goal == "" || model.ResponseR22Low == "" || model.ResponseR23High == ""))
+                //    errorCounter++;
+                if (model.StartDate == null) errorCounter++;
+                if (model.EndDate == null) errorCounter++;
+                if (model.StartDate != null && model.EndDate != null)
+                {
+                    if (model.StartDate != null && model.EndDate != null)
+                    {
+                        if (model.StartDate < model.MCStartDate || model.EndDate > model.MCEndDate) errorCounter++;
+                    }
+
+                }
+               
             }
             else
             {
@@ -398,6 +422,22 @@ namespace MRM.Controllers
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.Name == "") errorCounter++;
                 if (model.TacticDescription == "") errorCounter++;
+                //if ((model.ReachR1Goal == "" || model.ReachR1Low == "" || model.ReachR1High == "") &&
+                //    (model.ReachR11Goal == "" || model.ReachR12Low == "" || model.ReachR13High == ""))
+                //    errorCounter++;
+                //if ((model.ResponseR1Goal == "" || model.ResponseR1High == "" || model.ResponseR1Low == "") &&
+                //    (model.ResponseR21Goal == "" || model.ResponseR22Low == "" || model.ResponseR23High == ""))
+                //    errorCounter++;
+                if (model.StartDate == null) errorCounter++;
+                if (model.EndDate == null) errorCounter++;
+                if (model.StartDate != null && model.EndDate != null)
+                {
+                    if (model.StartDate != null && model.EndDate != null)
+                    {
+                        if (model.StartDate < model.MCStartDate || model.EndDate > model.MCEndDate) errorCounter++;
+                    }
+
+                }
             }      
             return errorCounter == 0;
         }

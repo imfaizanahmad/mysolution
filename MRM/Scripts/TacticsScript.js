@@ -107,6 +107,26 @@
 
 });
 
+//Special character not allowed
+function blockSpecialChar(e) {
+    var k;
+    document.all ? k = e.keyCode : k = e.which;
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+}
+
+//Numeric validation
+function numericvalidate(evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode(key);
+    var regex = /[0-9]|\./;
+    if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+}
+
+
 function ValidateTacticSaveasDraft() {
     var flag = true;
     if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
@@ -129,6 +149,50 @@ function ValidateTacticSaveasDraft() {
     } else {
         $('.validmsgSubcampaign').hide();
     }
+
+    var startdate = new Date($("#StartDate").val());
+    var enddate = new Date($("#EndDate").val());
+
+    var MCStartdate = new Date($("#MCStartDate").val());
+    var MCEnddate = new Date($("#MCEndDate").val());
+
+    var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
+    var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
+        if (startdate < MCStartdate || enddate > MCEnddate) {
+            $('.validmsgDateMCcompare').text("Tactic campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
+            flag = false;
+        } else {
+            $('.validmsgDateMCcompare').hide();
+        }
+    }
+
+
+
+
+    //if (($('#ReachR1Goal').val() === "" || $('#ReachR1Low').val() === "" || $('#ReachR1High').val() === "") && ($('#ReachR11Goal').val() === "" || $('#ReachR12Low').val() === "" || $('#ReachR13High').val() === "")) {
+
+    //    $('.validmsgReachMetric').text("Please fill atleast one Reach Metric").css("color", "#b94a48");
+    //    $('.validmsgReachMetric').show();
+    //    flag = false;
+
+    //} else {
+    //    $('.validmsgReachMetric').hide();
+    //}
+
+    //if (($('#ResponseR1Goal').val() === "" || $('#ResponseR1Low').val() === "" || $('#ResponseR1High').val() === "") && ($('#ResponseR21Goal').val() === "" || $('#ResponseR22Low').val() === "" || $('#ResponseR23High').val() === "")) {
+
+    //    $('.validmsgResponseMetric').text("Please fill atleast one Response Metric").css("color", "#b94a48");
+    //    $('.validmsgResponseMetric').show();
+    //    flag = false;
+
+    //} else {
+    //    $('.validmsgResponseMetric').hide();
+    //}
+
+
+
 
     return flag;
 }
@@ -157,7 +221,7 @@ function ValidateTacticSaveasDraft() {
             $('.validmsgSubcampaign').hide();
         }
 
-        if ($('#Vendor').val() === "") {
+        if ($('#Vendor').val().trim() === "") {
 
             $('.validmsgvendor').text("Please enter Vendor").css("color", "#b94a48");
             $('.validmsgvendor').show();
@@ -266,8 +330,26 @@ function ValidateTacticSaveasDraft() {
             $('.validmsgEdate').hide();
         }
 
-        var startdate = new Date($("#StartDate").find("input").val());
-        var enddate = new Date($("#EndDate").find("input").val());
+        //var startdate = new Date($("#StartDate").find("input").val());
+        //var enddate = new Date($("#EndDate").find("input").val());
+
+        var startdate = new Date($("#StartDate").val());
+        var enddate = new Date($("#EndDate").val());
+
+        var MCStartdate = new Date($("#MCStartDate").val());
+        var MCEnddate = new Date($("#MCEndDate").val());
+
+        var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
+        var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+        if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
+            if (startdate < MCStartdate || enddate > MCEnddate) {
+                $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + "to " + DisMCEnddate + "").css("color", "#b94a48");
+                $('.validmsgDateMCcompare').show();
+                flag = false;
+            } else {
+                $('.validmsgDateMCcompare').hide();
+            }
+        }
 
         if (startdate > enddate) {
             $('.validmsgDatecompare').text("End date can not less than start date").css("color", "#b94a48");
@@ -277,7 +359,7 @@ function ValidateTacticSaveasDraft() {
             $('.validmsgDatecompare').hide();
         }
 
-        if ($('#Name').val() == "") {
+        if ($('#Name').val().trim() == "") {
             $('.validmsgtacticname').text("Please enter sub campaign name").css("color", "#b94a48");
             $('.validmsgtacticname').show();
             flag = false;
@@ -287,7 +369,7 @@ function ValidateTacticSaveasDraft() {
             $('.validmsgtacticname').hide();
         }
 
-        if ($('#TacticDescription').val() == "") {
+        if ($('#TacticDescription').val().trim() == "") {
             $('.validmsgtacticdesc').text("Please enter sub campaign description name").css("color", "#b94a48");
             $('.validmsgtacticdesc').show();
             flag = false;
@@ -306,4 +388,17 @@ function ValidateTacticSaveasDraft() {
         }
            
             return flag;
-}
+    }
+
+    //Prevent to user enter special character in Description Area.
+    function alpha(e) {
+        if (document.getElementById("TacticDescription").value.length < 500) {
+            var k;
+            document.all ? k = e.keyCode : k = e.which;
+            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+        }
+        else {
+            alert("You can't enter more then 500 character in description field!")
+            return false;
+        }
+    }

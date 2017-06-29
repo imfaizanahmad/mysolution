@@ -94,6 +94,19 @@
     });
 });
 
+
+//Numeric validation
+function numericvalidate(evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode(key);
+    var regex = /[0-9]|\./;
+    if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+}
+
 function ValidateChildSaveasDraft() {
     var flag = true;
 
@@ -107,6 +120,24 @@ function ValidateChildSaveasDraft() {
     else {
         $('.validmsgMastercampaign').hide();
     }
+
+    var startdate = new Date($("#StartDate").val());
+    var enddate = new Date($("#EndDate").val());
+    var MCStartdate = new Date($("#MCStartDate").val());
+    var MCEnddate = new Date($("#MCEndDate").val());
+
+    var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
+    var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
+        if (startdate < MCStartdate || enddate > MCEnddate) {
+            $('.validmsgDateMCcompare').text("Sub Campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
+            flag = false;
+        } else {
+            $('.validmsgDateMCcompare').hide();
+        }
+    }
+
     return flag;
 }
 
@@ -231,8 +262,31 @@ function ValidateChildForm() {
         $('.validmsgEdate').hide();
     }
 
-    var startdate = new Date($("#StartDate").find("input").val());
-    var enddate = new Date($("#EndDate").find("input").val());
+    //var startdate = new Date($("#StartDate").find("input").val());
+    //var enddate = new Date($("#EndDate").find("input").val());
+
+    var startdate =new Date($("#StartDate").val());
+    var enddate =new Date($("#EndDate").val());
+
+    var MCStartdate =new Date($("#MCStartDate").val());
+    var MCEnddate =new Date($("#MCEndDate").val());
+
+    
+    
+
+   var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
+   var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "")
+    {
+        if (startdate < MCStartdate || enddate > MCEnddate) {
+            $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + "to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
+            flag = false;
+        } else {
+            $('.validmsgDateMCcompare').hide();
+        }
+    }
+
 
     if (startdate > enddate) {
         $('.validmsgDatecompare').text("End Date can not less than Start Date").css("color", "#b94a48");
@@ -243,7 +297,7 @@ function ValidateChildForm() {
         $('.validmsgDatecompare').hide();
     }
 
-    if ($('#Name').val() == "") {
+    if ($('#Name').val().trim() == "") {
         $('.validmsgSubCamp').text("Please enter Sub Campaign Name").css("color", "#b94a48");
         $('.validmsgSubCamp').show();
         flag = false;
@@ -254,7 +308,7 @@ function ValidateChildForm() {
         $('.validmsgSubCamp').hide();
     }
 
-    if ($('#CampaignDescription').val() == "") {
+    if ($('#CampaignDescription').val().trim() == "") {
         $('.validmsgSubCampDesc').text("Please enter Sub Campaign Description").css("color", "#b94a48");
         $('.validmsgSubCampDesc').show();
         flag = false;
@@ -264,7 +318,7 @@ function ValidateChildForm() {
         $('.validmsgSubCampDesc').hide();
     }
 
-    if ($('#Budget').val() == "") {
+    if ($('#Budget').val().trim() == "") {
         $('.validmsgBudget').text("Please enter Budget").css("color", "#b94a48");
         $('.validmsgBudget').show();
         flag = false;
@@ -273,15 +327,28 @@ function ValidateChildForm() {
 
         $('.validmsgBudget').hide();
     }
+   
+    //if ($('#Spend').val() == "") {
+    //    $('.validmsgSpend').text("Please enter spend.").css("color", "#b94a48");
+    //    $('.validmsgSpend').show();
+    //    flag = false;
+    //}
+    //else {
 
-    if ($('#Spend').val() == "") {
-        $('.validmsgSpend').text("Please enter spend.").css("color", "#b94a48");
-        $('.validmsgSpend').show();
-        flag = false;
+    //    $('.validmsgSpend').hide();
+    //}
+    return flag;
+}
+
+//Prevent to user enter special character in Description Area.
+function alpha(e) {
+    if (document.getElementById("CampaignDescription").value.length < 500) {
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
     }
     else {
-
-        $('.validmsgSpend').hide();
+        alert("You can't enter more then 500 character in description field!")
+        return false;
     }
-    return flag;
 }
