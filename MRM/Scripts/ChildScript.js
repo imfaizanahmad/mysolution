@@ -94,6 +94,19 @@
     });
 });
 
+
+//Numeric validation
+function numericvalidate(evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode(key);
+    var regex = /[0-9]|\./;
+    if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+}
+
 function ValidateChildSaveasDraft() {
     var flag = true;
 
@@ -107,6 +120,24 @@ function ValidateChildSaveasDraft() {
     else {
         $('.validmsgMastercampaign').hide();
     }
+
+    var startdate = new Date($("#StartDate").val());
+    var enddate = new Date($("#EndDate").val());
+    var MCStartdate = new Date($("#MCStartDate").val());
+    var MCEnddate = new Date($("#MCEndDate").val());
+
+    var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
+    var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
+        if (startdate < MCStartdate || enddate > MCEnddate) {
+            $('.validmsgDateMCcompare').text("Sub Campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
+            flag = false;
+        } else {
+            $('.validmsgDateMCcompare').hide();
+        }
+    }
+
     return flag;
 }
 
@@ -179,30 +210,16 @@ function ValidateChildForm() {
         $('.validmsgsubcampaigntype').hide();
     }
 
-
-    if ($('#CampaignType').val() == "1") {
-        if ($('#Industries_Id').val() == null) {
-
-            $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");
-            $('.validmsgbusinesIndustry').show();
-            flag = false;
-
-        }
-        else {
-            $('.validmsgbusinesIndustry').hide();
-        }
-    }
-
-    if ($('#CampaignType').val() == 0) {
-
-        CampaignTypeval = "0";//$("#CampaignType option:selected").val();
+    if ($('#CampaignTypes').val() == 0) {
+        $('.validmsgSingleSegment').hide();
+        CampaignTypeval = $("#CampaignType option:selected").val();
 
         var BGArr = [];
         $('#BusinessGroups_Id :selected').each(function (i, selected) {
             BGArr.push($(selected).val());
         });
 
-        if (BGArr.length != 1) {
+        if (BGArr.length > 1) {
             $('.validmsgSingleBGselect').text("You can not select multiple Business Group").css("color", "#b94a48");
             $('.validmsgSingleBGselect').show();
             flag = false;
@@ -211,13 +228,13 @@ function ValidateChildForm() {
     }
     else {
         CampaignTypeval = $("#CampaignType option:selected").val();
-
+        $('.validmsgSingleBGselect').hide();
         var SegArr = [];
         $('#Segments_Id :selected').each(function (i, selected) {
             SegArr.push($(selected).val());
         });
 
-        if (SegArr.length !== 1) {
+        if (SegArr.length > 1) {
             $(".validmsgSingleSegment").text("You can not select multiple Segment").css("color", "#b94a48");
             $('.validmsgSingleSegment').show();
             flag = false;
@@ -225,8 +242,6 @@ function ValidateChildForm() {
         else { $('.validmsgSingleSegment').hide(); }
 
     }
-
-
 
     if ($("#StartDate").val() == "") {
         $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
@@ -247,8 +262,31 @@ function ValidateChildForm() {
         $('.validmsgEdate').hide();
     }
 
-    var startdate = new Date($("#StartDate").find("input").val());
-    var enddate = new Date($("#EndDate").find("input").val());
+    //var startdate = new Date($("#StartDate").find("input").val());
+    //var enddate = new Date($("#EndDate").find("input").val());
+
+    var startdate =new Date($("#StartDate").val());
+    var enddate =new Date($("#EndDate").val());
+
+    var MCStartdate =new Date($("#MCStartDate").val());
+    var MCEnddate =new Date($("#MCEndDate").val());
+
+    
+    
+
+   var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
+   var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "")
+    {
+        if (startdate < MCStartdate || enddate > MCEnddate) {
+            $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + "to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
+            flag = false;
+        } else {
+            $('.validmsgDateMCcompare').hide();
+        }
+    }
+
 
     if (startdate > enddate) {
         $('.validmsgDatecompare').text("End Date can not less than Start Date").css("color", "#b94a48");
@@ -290,15 +328,15 @@ function ValidateChildForm() {
         $('.validmsgBudget').hide();
     }
    
-    if ($('#Spend').val().trim() == "") {
-        $('.validmsgSpend').text("Please enter spend.").css("color", "#b94a48");
-        $('.validmsgSpend').show();
-        flag = false;
-    }
-    else {
+    //if ($('#Spend').val() == "") {
+    //    $('.validmsgSpend').text("Please enter spend.").css("color", "#b94a48");
+    //    $('.validmsgSpend').show();
+    //    flag = false;
+    //}
+    //else {
 
-        $('.validmsgSpend').hide();
-    }
+    //    $('.validmsgSpend').hide();
+    //}
     return flag;
 }
 

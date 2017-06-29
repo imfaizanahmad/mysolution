@@ -212,6 +212,8 @@ namespace MRM.Controllers
                 if (model.Segments_Id == null) errorCounter++;
                 if (model.Industries_Id == null) errorCounter++;
                 if (model.Geographys_Id == null) errorCounter++;
+                if (model.StartDate == null) errorCounter++;
+                if (model.EndDate == null) errorCounter++;
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.Name == "") errorCounter++;
                 if (model.CampaignDescription == "") errorCounter++;
@@ -225,6 +227,8 @@ namespace MRM.Controllers
                 if (model.Segments_Id == null) errorCounter++;
                 if (model.Industries_Id == null) errorCounter++;
                 if (model.Geographys_Id == null) errorCounter++;
+                if (model.StartDate == null) errorCounter++;
+                if (model.EndDate == null) errorCounter++;
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.Name == "") errorCounter++;
                 if (model.CampaignDescription == "") errorCounter++;

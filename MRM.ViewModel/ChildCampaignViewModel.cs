@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +31,11 @@ namespace MRM.ViewModel
         public string MarketingInfluenceOpportunity { get; set; }
         public string MarketingGeneratedOpportunity { get; set; }
         public string Status { get; set; }
+       
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public DateTime? MCStartDate { get; set; }
+        public DateTime? MCEndDate { get; set; }
 
         public string MILGoal { get; set; }
         public string MILLow { get; set; }
