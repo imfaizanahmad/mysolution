@@ -47,7 +47,7 @@
                                     <label>Sub Campaign Description<span class="text-danger">*</span></label>
                                     @Html.TextAreaFor(m => m.CampaignDescription, (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "form-control" } :
-                                        (object)new { @class = "form-control"})
+                                        (object)new { @class = "form-control", maxlength = 500, onkeypress = "return alpha(event)" })
                                     <div class="validmsgSubCampDesc"></div>
                                 </div>
                             </div>
@@ -285,7 +285,7 @@
                                 @if (Model.Status != "Complete")
                                 {
                                     <div class="col-md-3">
-                                        <input type="button" Id="btnSaveDraftChild" name="button" value="Save Draft" class="btn btn-primary col-sm-12" />
+                                        <input type="button" Id="btnSaveDraftChild" name="button" value="Draft" class="btn btn-primary col-sm-12" />
                                     </div>
                                     <div class="col-md-3">
                                         <input type="button" Id="btnSubmitChild" name="button" value="Submit" class="btn btn-primary col-sm-12" />

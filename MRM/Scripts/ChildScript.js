@@ -313,7 +313,7 @@ function ValidateChildForm() {
         $('.validmsgDatecompare').hide();
     }
 
-    if ($('#Name').val() == "") {
+    if ($('#Name').val().trim() == "") {
         $('.validmsgSubCamp').text("Please enter Sub Campaign Name").css("color", "#b94a48");
         $('.validmsgSubCamp').show();
         flag = false;
@@ -324,7 +324,7 @@ function ValidateChildForm() {
         $('.validmsgSubCamp').hide();
     }
 
-    if ($('#CampaignDescription').val() == "") {
+    if ($('#CampaignDescription').val().trim() == "") {
         $('.validmsgSubCampDesc').text("Please enter Sub Campaign Description").css("color", "#b94a48");
         $('.validmsgSubCampDesc').show();
         flag = false;
@@ -334,7 +334,7 @@ function ValidateChildForm() {
         $('.validmsgSubCampDesc').hide();
     }
 
-    if ($('#Budget').val() == "") {
+    if ($('#Budget').val().trim() == "") {
         $('.validmsgBudget').text("Please enter Budget").css("color", "#b94a48");
         $('.validmsgBudget').show();
         flag = false;
@@ -354,4 +354,17 @@ function ValidateChildForm() {
     //    $('.validmsgSpend').hide();
     //}
     return flag;
+}
+
+//Prevent to user enter special character in Description Area.
+function alpha(e) {
+    if (document.getElementById("CampaignDescription").value.length < 500) {
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+    }
+    else {
+        alert("You can't enter more then 500 character in description field!")
+        return false;
+    }
 }
