@@ -22,14 +22,17 @@ namespace MRM
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
+                      "~/ Scripts/Configuration.js",
                        "~/Scripts/js/jquery.dataTables.js",
                       "~/Scripts/js/dataTables.bootstrap.js"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                     "~/Content/font-awesome.min.css",
+                     "~/Content/ionicons.min.css",
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/dataTables.bootstrap.css"
+                      "~/Content/dataTables.bootstrap.css"                      
                       ));
         }
     }

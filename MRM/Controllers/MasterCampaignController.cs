@@ -242,7 +242,7 @@ namespace MRM.Controllers
         [HttpGet]
         public JsonResult GetMasterCampaignList()
         {
-            List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetMasterCampaign()
+            List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetMasterCampaign().OrderByDescending(x => x.CreatedDate)
                                                                        where campaign.IsActive == true
                                                                        select
                                                                        new MasterCampaignViewModelListing
@@ -255,8 +255,16 @@ namespace MRM.Controllers
                                                                            EndDate = String.Format("{0:MM/dd/yyyy}", campaign.EndDate)
                                                                        }
 
-                                                     ).OrderByDescending(x => x.CreatedDate).ToList();
+                                                     ).ToList();
             return Json(masterCampaignList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteCampaign(int id)
+        {
+            var masterCampaign = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = id }).FirstOrDefault();
+            masterCampaign.IsActive = false;
+            _masterCampaignServices.Update(masterCampaign);
+            return Json(GetMasterCampaignList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

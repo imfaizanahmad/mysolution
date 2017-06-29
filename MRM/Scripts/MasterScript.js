@@ -1,8 +1,5 @@
 ﻿var CampaignTypeval;
 $(document).ready(function () {
-
-    MasterCampaignBindGrid($(this));
-
     if ($('#Status').val() === "Complete") {
         $('a[data-select-all="selectunselect"]').hide();
     }
@@ -86,7 +83,7 @@ $(document).ready(function () {
             }
         });
     });
-   
+
 });
 
 
@@ -203,96 +200,14 @@ function ValidateMasterForm() {
 }
 //Prevent to user enter special character in Description Area.
 function alpha(e) {
-    
+
     if (document.getElementById("CampaignDescription").value.length < 500) {
         var k;
         document.all ? k = e.keyCode : k = e.which;
         return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
     }
-    else
-    {
+    else {
         alert("You can't enter more then 500 character in description field!")
         return false;
     }
-}
-
-function MasterCampaignBindGrid(panel) {
-    //$('#loadingSpinner').show();
-    var sdata = {
-    };
-
-    $.ajax({
-        type: 'get',
-        contentType: "application/json",
-        url: "/MasterCampaign/GetMasterCampaignList",
-        data: JSON.stringify(sdata),
-        success: function (dataset) {
-            debugger;
-            var table = panel.find('#masterCampaignGrid').DataTable({
-                paging: true,
-                responsive: true,
-                ordering: true,
-                info: false,
-                data: dataset,
-                "autoWidth": false,
-                "lengthChange": false,
-                initComplete: function (settings, json) {
-                    //$('#loadingSpinner').hide();
-                },
-                columns: [
-                    { title: "Campaign Id", data: "Id" },
-                    { title: "Name", data: "Name" },
-                    { title: "Description", data: "CampaignDescription" },
-                    { title: "Status", data: "Status" },
-                    { title: "Start date", data: "StartDate" },
-                    { title: "End date", data: "EndDate" },
-                    { title: "Action" },
-                ],
-                columnDefs: [
-                        {
-                            "targets": 6, //Action
-                            "data": null,
-                            "render": function (data, type, full, meta) {
-                                if (data.Status && data.Status.toLowerCase() != 'complete')
-                                    return '<a href="#" title="View Campaign">View/Edit</a> &nbsp;&nbsp;<input type="button" title="Delete" class="btn btn-block btn-primary btn-sm btn-delete" value="Delete"  />';
-                                else
-                                    return '<a href="#" title="View Campaign">View/Edit</a> &nbsp;&nbsp;<input type="button" title="Delete" class="btn btn-block btn-sm btn-delete" value="Delete" disabled />';
-                            }
-                        },
-                ]
-            });
-
-            panel.find('#masterCampaignGrid tbody').on('click', '.btn-delete', function () {
-                debugger;
-                var row = table.row($(this).parents('tr'));
-                var data = row.data();
-                var campaignId = parseInt(data.Id.slice(1))
-                var action = $(this).attr('title');
-                var actionUrl = "";
-                if (action == "Delete") {
-                    actionUrl = "";
-                }
-                else {
-                    actionUrl = "";
-                }
-                sdata = {};
-                sdata.Id = campaignId;
-                $.ajax({
-                    type: 'post',
-                    contentType: "application/json",
-                    url: actionUrl,
-                    data: JSON.stringify(sdata),
-                    success: function (result) {
-                       
-                    },
-                    error: function (jqxhr, textStatus, error) {
-
-                    }
-                });
-            });
-        },
-        error: function (jqxhr, textStatus, error) {
-            //panel.find('#loadingSpinner').hide();
-        }
-    });
 }

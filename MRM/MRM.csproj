@@ -237,6 +237,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dataTables.bootstrap.css" />
     <Content Include="Content\datepicker3.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\ionicons.min.css" />
     <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\AUTHORS.txt" />
     <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\external\jquery\jquery.js" />
     <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\images\ui-icons_444444_256x240.png" />
@@ -272,6 +274,7 @@
     <Content Include="Content\Multi-Select\docsupport\prism.js" />
     <Content Include="Content\Multi-Select\docsupport\style.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -282,6 +285,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\package.json" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -289,7 +298,9 @@
     <None Include="Properties\PublishProfiles\mrmlightapp - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\mrmlightv2 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CampaignList.js" />
     <Content Include="Scripts\ChildScript.js" />
+    <Content Include="Scripts\Configuration.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

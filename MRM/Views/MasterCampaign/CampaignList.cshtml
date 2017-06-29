@@ -2,7 +2,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Master Campaining List";
 }
-<script src="~/Scripts/MasterScript.js"></script>
+
+<script src="~/Scripts/Configuration.js"></script>
+<script src="~/Scripts/CampaignList.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +17,12 @@
                 <legend>Master Campaign Details</legend>
                 <div class="table-responsive">
                     <table id="masterCampaignGrid" class="display compact table table-striped table-bordered table-hover dataTable" style="font-size:inherit;" role="grid"></table>
+                </div>
+                <div class="row">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <input type="button" class="btn btn-block btn-primary btn-sm pull-right" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
+                    </div>
                 </div>
             </fieldset>
         </div>
