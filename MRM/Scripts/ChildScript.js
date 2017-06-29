@@ -179,30 +179,16 @@ function ValidateChildForm() {
         $('.validmsgsubcampaigntype').hide();
     }
 
-
-    if ($('#CampaignType').val() == "1") {
-        if ($('#Industries_Id').val() == null) {
-
-            $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");
-            $('.validmsgbusinesIndustry').show();
-            flag = false;
-
-        }
-        else {
-            $('.validmsgbusinesIndustry').hide();
-        }
-    }
-
-    if ($('#CampaignType').val() == 0) {
-
-        CampaignTypeval = "0";//$("#CampaignType option:selected").val();
+    if ($('#CampaignTypes').val() == 0) {
+        $('.validmsgSingleSegment').hide();
+        CampaignTypeval = $("#CampaignType option:selected").val();
 
         var BGArr = [];
         $('#BusinessGroups_Id :selected').each(function (i, selected) {
             BGArr.push($(selected).val());
         });
 
-        if (BGArr.length != 1) {
+        if (BGArr.length > 1) {
             $('.validmsgSingleBGselect').text("You can not select multiple Business Group").css("color", "#b94a48");
             $('.validmsgSingleBGselect').show();
             flag = false;
@@ -211,13 +197,13 @@ function ValidateChildForm() {
     }
     else {
         CampaignTypeval = $("#CampaignType option:selected").val();
-
+        $('.validmsgSingleBGselect').hide();
         var SegArr = [];
         $('#Segments_Id :selected').each(function (i, selected) {
             SegArr.push($(selected).val());
         });
 
-        if (SegArr.length !== 1) {
+        if (SegArr.length > 1) {
             $(".validmsgSingleSegment").text("You can not select multiple Segment").css("color", "#b94a48");
             $('.validmsgSingleSegment').show();
             flag = false;
@@ -225,8 +211,6 @@ function ValidateChildForm() {
         else { $('.validmsgSingleSegment').hide(); }
 
     }
-
-
 
     if ($("#StartDate").val() == "") {
         $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
@@ -289,7 +273,7 @@ function ValidateChildForm() {
 
         $('.validmsgBudget').hide();
     }
-    debugger;
+
     if ($('#Spend').val() == "") {
         $('.validmsgSpend').text("Please enter spend.").css("color", "#b94a48");
         $('.validmsgSpend').show();
