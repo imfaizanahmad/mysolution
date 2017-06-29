@@ -186,7 +186,12 @@ namespace MRM.Controllers
                 model.SegmentViewModels = item.Segments;
                 model.ThemeViewModels = item.Themes;
                 model.GeographyViewModels = item.Geographys;
+                model.StartDate = item.StartDate;
+                model.EndDate = item.EndDate;
+                model.MCStartDate = item.StartDate;
+                model.MCEndDate = item.EndDate;
             }
+
 
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
 
@@ -246,6 +251,16 @@ namespace MRM.Controllers
             {
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.CampaignDescription == "") errorCounter++;
+                if (model.StartDate == null) errorCounter++;
+                if (model.EndDate == null) errorCounter++;
+                if (model.StartDate != null && model.EndDate != null)
+                {
+                    if (model.StartDate != null && model.EndDate != null)
+                    {
+                        if (model.StartDate < model.MCStartDate || model.EndDate > model.MCEndDate) errorCounter++;
+                    }
+
+                }
             }
             else
             {
@@ -253,12 +268,13 @@ namespace MRM.Controllers
                 if (model.BusinessGroups_Id == null) errorCounter++;
                 if (model.BusinessLines_Id == null) errorCounter++;
                 if (model.Segments_Id == null) errorCounter++;
+                if (model.StartDate == null) errorCounter++;
+                if (model.EndDate == null) errorCounter++;
                 if (model.CampaignTypes == CampaignType.GEPS && model.Industries_Id == null) errorCounter++;
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.Name == "") errorCounter++;
                 if (model.CampaignDescription == "") errorCounter++;
                 if (model.Budget == "") errorCounter++;
-                if (model.Spend == "") errorCounter++;
                 if (model.CampaignTypes == CampaignType.BG_Led)
                 {
                     var bgArr = model.BusinessGroups_Id;
@@ -268,6 +284,15 @@ namespace MRM.Controllers
                 {
                     var segArr = model.Segments_Id;
                     if (segArr != null && segArr.Length != 1) errorCounter++;
+                }
+
+                if (model.StartDate != null && model.EndDate != null)
+                {
+                    if (model.StartDate != null && model.EndDate != null)
+                    {
+                        if (model.StartDate < model.MCStartDate || model.EndDate > model.MCEndDate) errorCounter++;
+                    }
+
                 }
             }
 

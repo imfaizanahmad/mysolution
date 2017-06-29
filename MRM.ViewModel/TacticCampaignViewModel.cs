@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,8 +26,13 @@ namespace MRM.ViewModel
         public string Name { get; set; }
         public string TacticDescription { get; set; }
         public string Year { get; set; }
+
+       
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public DateTime? MCStartDate { get; set; }
+        public DateTime? MCEndDate { get; set; }
+
         public string Status { get; set; }
         public string Vendor { get; set; }
         public int ChildCampaign_Id { get; set; }    
