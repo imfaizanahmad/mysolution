@@ -21,11 +21,16 @@ namespace MRM
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                       "~/Scripts/js/jquery.dataTables.js",
+                      "~/Scripts/js/dataTables.bootstrap.js"
+                      ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/dataTables.bootstrap.css"
+                      ));
         }
     }
 }

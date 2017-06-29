@@ -235,6 +235,7 @@
     <Content Include="Content\bootstrap-multiselect.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dataTables.bootstrap.css" />
     <Content Include="Content\datepicker3.css" />
     <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\AUTHORS.txt" />
     <Content Include="Content\jquery-ui-1.12.1\jquery-ui-1.12.1\external\jquery\jquery.js" />
@@ -297,6 +298,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\dataTables.bootstrap.js" />
+    <Content Include="Scripts\js\jquery.dataTables.js" />
     <Content Include="Scripts\MasterScript.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -332,6 +335,7 @@
     <Content Include="Views\MasterCampaign\MasterCampaignForm.cshtml" />
     <Content Include="Views\ChildCampaign\ChildCampaignForm.cshtml" />
     <Content Include="Views\TacticCampaign\TacticCampaignForm.cshtml" />
+    <Content Include="Views\MasterCampaign\CampaignList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
