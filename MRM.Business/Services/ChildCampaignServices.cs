@@ -40,6 +40,12 @@ namespace MRM.Business.Services
 
         }
 
+        public List<ChildCampaign> GetDDLValuesByChildId(int childId)
+        {
+            List<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.Id == childId).ToList();
+            return childCampaign;
+        }
+
         private void ModelToEntity(ChildCampaignViewModel model, ChildCampaign childCampaignEntity)
         {
             childCampaignEntity.MasterCampaigns = guow.GenericRepository<MasterCampaign>()
