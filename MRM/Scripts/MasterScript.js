@@ -86,7 +86,7 @@ $(document).ready(function () {
             }
         });
     });
-
+   
 });
 
 
@@ -151,7 +151,7 @@ function ValidateMasterForm() {
     }
 
 
-    if ($("#StartDate").find("input").val() == "") {
+    if ($("#StartDate").val() == "") {
         $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
         $('.validmsgSdate').show();
         flag = false;
@@ -161,7 +161,7 @@ function ValidateMasterForm() {
         $('.validmsgSdate').hide();
     }
 
-    if ($("#EndDate").find("input").val() == "") {
+    if ($("#EndDate").val() == "") {
         $('.validmsgEdate').text("Please select End Date").css("color", "#b94a48");
         $('.validmsgEdate').show();
         flag = false;
@@ -169,8 +169,10 @@ function ValidateMasterForm() {
     else {
         $('.validmsgEdate').hide();
     }
+
     var startdate = new Date($("#StartDate").find("input").val());
     var enddate = new Date($("#EndDate").find("input").val());
+
     if (startdate > enddate) {
         $('.validmsgDatecompare').text("End Date can not less than Start Date").css("color", "#b94a48");
         $('.validmsgDatecompare').show();
@@ -180,7 +182,7 @@ function ValidateMasterForm() {
         $('.validmsgDatecompare').hide();
     }
 
-    if ($('#Name').val() == "") {
+    if ($('#Name').val().trim() == "") {
         $('.validmsgMaster').text("Please enter Master Campaign Name").css("color", "#b94a48");
         $('.validmsgMaster').show();
         flag = false;
@@ -189,7 +191,7 @@ function ValidateMasterForm() {
         $('.validmsgMaster').hide();
     }
 
-    if ($('#CampaignDescription').val() === "") {
+    if ($('#CampaignDescription').val().trim() === "") {
         $('.validmsgMasterDesc').text("Please enter Master Campaign Description").css("color", "#b94a48");
         $('.validmsgMasterDesc').show();
         flag = false;
@@ -198,6 +200,20 @@ function ValidateMasterForm() {
         $('.validmsgMasterDesc').hide();
     }
     return flag;
+}
+//Prevent to user enter special character in Description Area.
+function alpha(e) {
+    
+    if (document.getElementById("CampaignDescription").value.length < 500) {
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+    }
+    else
+    {
+        alert("You can't enter more then 500 character in description field!")
+        return false;
+    }
 }
 
 function MasterCampaignBindGrid(panel) {

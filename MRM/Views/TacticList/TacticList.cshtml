@@ -63,12 +63,12 @@
                         {
                             <tbody>
                             <tr>
-                                <td>T-@item.Id.ToString("0000000")</td>
-                                <td>@Html.ActionLink((item.Name==null?"----":item.Name), "TacticCampaign", "TacticCampaign", new { Id = item.Id }, null)</td>
+                                <td>T@(item.Id.ToString("0000000"))</td>
+                                <td>@(item.Name==null?"----":item.Name)</td>
                                 <td>@item.TacticDescription</td>
-                                <td>@item.Status</td>
-                                <td>@(item.StartDate?.ToString("dd-MM-yyyy") ?? string.Empty)</td>
-                                <td>@(item.EndDate?.ToString("dd-MM-yyyy") ?? string.Empty)</td>
+                                <td>@(item.Status== "Complete" ? "Active" : "Save Draft") </td>
+                                <td>@(item.StartDate?.ToString("MM/dd/yyyy") ?? string.Empty)</td>
+                                <td>@(item.EndDate?.ToString("MM/dd/yyyy") ?? string.Empty)</td>
                                 <td>
                                     @Html.ActionLink("View / Edit", "TacticCampaign", "TacticCampaign", new { id = item.Id}, new { })
                                     @if (item.Status != "Complete")

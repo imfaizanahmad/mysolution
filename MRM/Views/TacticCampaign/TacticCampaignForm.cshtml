@@ -44,8 +44,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Tactic Type<span class="text-danger">*</span></label><br />
-                                    @Html.DropDownListFor(m => m.Tactic_Id, new SelectList(Model.TacticTypeViewModels, "Id", "Name",
-                                        Model.Tactic_Id),
+                                    @Html.DropDownListFor(m => m.TacticType_Id, new SelectList(Model.TacticTypeViewModels, "Id", "Name",
+                                        Model.TacticType_Id),
                                         Model.Id != 0 && Model.Status == "Complete" ?
                                             (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
                                             (object)new { @class = "chosen-single form-control" })
@@ -70,7 +70,7 @@
                                     <label>Tactic Description<span class="text-danger">*</span></label>
                                     @Html.TextAreaFor(m => m.TacticDescription, (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "form-control" } :
-                                        (object)new { @class = "form-control" })
+                                        (object)new { @class = "form-control", maxlength = 500, onkeypress = "return alpha(event)" })
                                     <div class="validmsgtacticdesc"></div>
                                 </div>
                             </div>
@@ -98,13 +98,13 @@
                         <div class="row">
 
                             <div class="col-md-6">
-                                <label>Start Date<span class="text-danger">*</span></label>
+                                <label>Start Date<span class="text-danger">*</span> [MM/DD/YYYY]</label>
                                 <div class="form-group">
                                     <div class="col-md-6 date datealign">
                                         <div class="input-group input-append date">
                                             @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
-                                            (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
+                                            (object)new { @class = "form-control mrm-cal", @maxlength = "10", @placeholder = "[MM/DD/YYYY]" })
                                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -112,13 +112,13 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label>End Date<span class="text-danger">*</span></label>
+                                <label>End Date<span class="text-danger">*</span> [MM/DD/YYYY]</label>
                                 <div class="form-group">
                                     <div id="dvMasterEndDate" class="col-md-6 form-group date datealign">
                                         <div class="input-group input-append date">
                                             @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
-                                            (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
+                                            (object)new { @class = "form-control mrm-cal", @maxlength = "10", @placeholder = "[MM/DD/YYYY]" })
                                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
@@ -306,7 +306,7 @@
                                 @if (Model.Status != "Complete")
                                 {
                                     <div class="col-md-3">
-                                        <input type="button" Id="btnSaveDrafttactic" name="button" value="Save Draft" class="btn btn-primary col-sm-12" />
+                                        <input type="button" Id="btnSaveDrafttactic" name="button" value="Draft" class="btn btn-primary col-sm-12" />
                                     </div>
                                     <div class="col-md-3">
                                         <input type="button" Id="btnSubmitTactic" name="button" value="Submit" class="btn btn-primary col-sm-12" />

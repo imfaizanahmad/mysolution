@@ -135,7 +135,7 @@ function ValidateTacticSaveasDraft() {
 
     function ValidateTacticForm() {
         var flag = true;
-
+        debugger 
         if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
 
             $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
@@ -157,7 +157,7 @@ function ValidateTacticSaveasDraft() {
             $('.validmsgSubcampaign').hide();
         }
 
-        if ($('#Vendor').val() === "") {
+        if ($('#Vendor').val().trim() === "") {
 
             $('.validmsgvendor').text("Please enter Vendor").css("color", "#b94a48");
             $('.validmsgvendor').show();
@@ -167,7 +167,7 @@ function ValidateTacticSaveasDraft() {
             $('.validmsgvendor').hide();
         }
 
-        if ($('#Tactic_Id').val() == null) {
+        if ($('#TacticType_Id').val() == null) {
 
             $('.validmsgTactictype').text("Please select Vendor").css("color", "#b94a48");
             $('.validmsgTactictype').show();
@@ -247,25 +247,28 @@ function ValidateTacticSaveasDraft() {
         }
 
 
-        if ($("#StartDate").find("input").val() == "") {
-            $('.validmsgSdate').text("Please select start date").css("color", "#b94a48");
+        if ($("#StartDate").val() == "") {
+            $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
             $('.validmsgSdate').show();
             flag = false;
 
-        } else {
+        }
+        else {
             $('.validmsgSdate').hide();
         }
 
-        if ($("#EndDate").find("input").val() == "") {
-            $('.validmsgEdate').text("Please select end date").css("color", "#b94a48");
+        if ($("#EndDate").val() == "") {
+            $('.validmsgEdate').text("Please select End Date").css("color", "#b94a48");
             $('.validmsgEdate').show();
             flag = false;
-        } else {
+        }
+        else {
             $('.validmsgEdate').hide();
         }
 
         var startdate = new Date($("#StartDate").find("input").val());
         var enddate = new Date($("#EndDate").find("input").val());
+
         if (startdate > enddate) {
             $('.validmsgDatecompare').text("End date can not less than start date").css("color", "#b94a48");
             $('.validmsgDatecompare').show();
@@ -274,7 +277,7 @@ function ValidateTacticSaveasDraft() {
             $('.validmsgDatecompare').hide();
         }
 
-        if ($('#Name').val() == "") {
+        if ($('#Name').val().trim() == "") {
             $('.validmsgtacticname').text("Please enter sub campaign name").css("color", "#b94a48");
             $('.validmsgtacticname').show();
             flag = false;
@@ -284,7 +287,7 @@ function ValidateTacticSaveasDraft() {
             $('.validmsgtacticname').hide();
         }
 
-        if ($('#TacticDescription').val() == "") {
+        if ($('#TacticDescription').val().trim() == "") {
             $('.validmsgtacticdesc').text("Please enter sub campaign description name").css("color", "#b94a48");
             $('.validmsgtacticdesc').show();
             flag = false;
@@ -303,4 +306,17 @@ function ValidateTacticSaveasDraft() {
         }
            
             return flag;
-}
+    }
+
+    //Prevent to user enter special character in Description Area.
+    function alpha(e) {
+        if (document.getElementById("TacticDescription").value.length < 500) {
+            var k;
+            document.all ? k = e.keyCode : k = e.which;
+            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+        }
+        else {
+            alert("You can't enter more then 500 character in description field!")
+            return false;
+        }
+    }

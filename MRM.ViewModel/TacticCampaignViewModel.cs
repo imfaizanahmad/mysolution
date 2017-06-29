@@ -73,5 +73,6 @@ namespace MRM.ViewModel
         public int[] Themes_Id { get; set; }
         public int[] Vendor_Id { get; set; }
         public int[] Tactic_Id { get; set; }
+        public int[] TacticType_Id { get; set; }
     }
 }

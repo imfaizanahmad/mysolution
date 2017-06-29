@@ -148,10 +148,10 @@ namespace MRM.Business.Services
             }
 
             List<TacticType> lstTacticType = null;
-            if (model.Tactic_Id != null)
+            if (model.TacticType_Id != null)
             {
                 lstTacticType = new List<TacticType>();
-                foreach (var item in model.Tactic_Id)
+                foreach (var item in model.TacticType_Id)
                 {
                     var tacticType = guow.GenericRepository<TacticType>().GetByID(item);
                     lstTacticType.Add(tacticType);

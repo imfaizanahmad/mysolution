@@ -17,5 +17,6 @@ namespace MRM.Business.Interfaces
         ChildCampaign Update(ChildCampaign childCampaign);
         void Update(ChildCampaignViewModel model);
         bool DeleteSubCampaign(int id);
+        List<ChildCampaign> GetDDLValuesByChildId(int masterId);
     }
 }
