@@ -72,7 +72,7 @@
                                     <label>Tactic Description<span class="text-danger">*</span></label>
                                     @Html.TextAreaFor(m => m.TacticDescription, (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "form-control" } :
-                                        (object)new { @class = "form-control" })
+                                        (object)new { @class = "form-control", onkeypress = "return alpha(event)",@maxlength="500" })
                                     <div class="validmsgtacticdesc"></div>
                                 </div>
                             </div>

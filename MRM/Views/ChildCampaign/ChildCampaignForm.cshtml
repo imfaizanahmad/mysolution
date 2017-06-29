@@ -76,7 +76,7 @@
                         <div class="col-md-6">
                             <label>Start Date</label><span class="text-danger lb-sm">(Format: MM/DD/YYYY) *</span>
                             <div class="form-group">
-                                <div class="col-md-6 date datealign">
+                                <div class="col-md-6 date datealign">;
                                     <div class="input-group input-append date">
                                         @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10", @placeholder = "MM/DD/YYYY" } :

@@ -30,9 +30,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Master Campaign Description<span class="text-danger">*</span></label>
-                                @Html.TextBoxFor(m => m.CampaignDescription, (Model.Id != 0 && Model.Status == "Complete") ?
+                                @Html.TextAreaFor(m => m.CampaignDescription, (Model.Id != 0 && Model.Status == "Complete") ?
                                     (object)new { disabled = "disabled", @class = "form-control" } :
-                                    (object)new { @class = "form-control" })
+                                    (object)new { @class = "form-control",@maxlength="500", onkeypress = "return alpha(event)" })
                                 <div class="validmsgMasterDesc"></div>
                             </div>
 
