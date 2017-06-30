@@ -91,12 +91,13 @@
 
         $(document).on("change", "#CampaignTypes", function () {
             GetBGandSegmentSingleDDl();
+            chosenclear();
         });
     });
 
     function GetBGandSegmentSingleDDl() {
         var $select = $('#BusinessGroups_Id');
-        var $selectSegment = $('#Segments_Id');;
+        var $selectSegment = $('#Segments_Id');
         if ($('#CampaignTypes').val() == 0) {
             $select.chosen('destroy');
             $select.removeAttr('multiple');
@@ -116,6 +117,27 @@
             $select.chosen();
         }
     }
+
+    function chosenclear() {
+        var $select = $('#BusinessGroups_Id');
+        var $selectSegment = $('#Segments_Id');
+
+        if ($('#CampaignTypes').val() == 0)
+        {
+            $selectSegment.prop('selected', false);
+            $selectSegment.val('');
+            $selectSegment.trigger('chosen:updated');
+             
+        }
+        else {
+            $select.prop('selected', false);
+            $select.val('');
+            $select.trigger('chosen:updated');
+        }
+
+    }
+
+
 
     var manageStartEndDate = function () {
         var sDate = new Date($('#StartDate').val());
