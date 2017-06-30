@@ -92,6 +92,19 @@ namespace MRM.Controllers
                 }
 
 
+                if (Childvm.MasterCampaignId != 0)
+                {
+                    List<MasterCampaign> masterChild =
+                        _masterCampaignServices.GetMasterCampaignById(Childvm.MasterCampaignId);
+                    foreach (var item in masterChild)
+                    {
+                        Childvm.BusinessGroupViewModels = item.BusinessGroups;
+                        Childvm.SegmentViewModels = item.Segments;
+                        Childvm.GeographyViewModels = item.Geographys;
+                        Childvm.ThemeViewModels = item.Themes;
+                    }
+                }
+
                 Childvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(Childvm.Segments_Id); ;
                 Childvm.Name = childCampaign.Name;
                 Childvm.CampaignDescription = childCampaign.CampaignDescription;
@@ -206,9 +219,6 @@ namespace MRM.Controllers
                    // model.IndustryViewModels = item.Industries;
                 }
             }
-
-
-
 
 
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
