@@ -360,7 +360,7 @@ namespace MRM.Controllers
         [HttpGet]
         public JsonResult GetChildCampaignList()
         {
-            List<ChildCampaignViewModelList> childCampaignList = (from campaign in _childCampaignServices.GetChildCampaign().OrderByDescending(x => x.CreatedDate)
+            List<ChildCampaignViewModelList> childCampaignList = (from campaign in _childCampaignServices.GetChildCampaign()
                                                                   where campaign.IsActive == true
                                                                   select
                                                                   new ChildCampaignViewModelList
