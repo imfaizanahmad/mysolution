@@ -102,8 +102,6 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-
-
                             <div class="form-group">
                                 <label>Industry<span class="text-danger">*</span></label><br />
                                 @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), (Model.Id != 0 && Model.Status == "Complete") ?
@@ -125,8 +123,9 @@
                                             (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
+                                    <div class="validmsgSdate"></div>
                                 </div>
-                                <div class="validmsgSdate"></div>
+                               
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -139,9 +138,10 @@
                                             (object)new { @class = "form-control mrm-cal", @maxlength = "10" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
+                                    <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
                                 </div>
                             </div>
-                            <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
+                           
                         </div>
                     </div>
 
@@ -201,4 +201,5 @@
         </div>
     </section>
 </form>
+
 

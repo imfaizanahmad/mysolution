@@ -115,11 +115,15 @@ namespace MRM.Business.Services
                     var segment = guow.GenericRepository<Segment>().GetByID(item);
                     lstsegment.Add(segment);
                 }
-                lstindustry = new List<Industry>();
-                foreach (var item in model.Industries_Id)
+
+                if (model.Industries_Id != null)
                 {
-                    var industry = guow.GenericRepository<Industry>().GetByID(item);
-                    lstindustry.Add(industry);
+                    lstindustry = new List<Industry>();
+                    foreach (var item in model.Industries_Id)
+                    {
+                        var industry = guow.GenericRepository<Industry>().GetByID(item);
+                        lstindustry.Add(industry);
+                    }
                 }
             }
 
