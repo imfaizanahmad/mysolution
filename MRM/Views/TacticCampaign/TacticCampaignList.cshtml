@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Tactic Campaining List";
+}
+
+@*<script src="~/Scripts/js/jquery.dataTables.js"></script>
+<script src="~/Scripts/js/dataTables.bootstrap.js"></script>*@
+
+<script src="~/Scripts/Configuration.js"></script>
+<script src="~/Scripts/TacticCampaignList.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <fieldset>
+                <legend>Tactic Campaign Details</legend>
+                <div class="table-responsive">
+                    <table id="tacticCampaignGrid" class="display compact table table-striped table-bordered table-hover dataTable" style="font-size:inherit;" role="grid"></table>
+                </div>
+                <div class="row">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <input type="button" class="btn btn-block btn-primary btn-sm pull-right" value="Back" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</body>
+</html>
