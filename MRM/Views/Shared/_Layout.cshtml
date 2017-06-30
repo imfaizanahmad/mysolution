@@ -107,7 +107,7 @@
             $selectSegment.attr('multiple', 'multiple');
             $selectSegment.chosen();
         }
-        else {
+        else if ($('#CampaignTypes').val() == 1){
             $selectSegment.chosen('destroy');
             $selectSegment.removeAttr('multiple');
             $selectSegment.chosen();
@@ -129,15 +129,13 @@
             $selectSegment.trigger('chosen:updated');
              
         }
-        else {
+        else if ($('#CampaignTypes').val() == 1) {
             $select.prop('selected', false);
             $select.val('');
             $select.trigger('chosen:updated');
         }
 
     }
-
-
 
     var manageStartEndDate = function () {
         var sDate = new Date($('#StartDate').val());
