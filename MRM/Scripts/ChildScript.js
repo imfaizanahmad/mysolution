@@ -3,7 +3,7 @@
     if ($('#Status').val() == "Complete") {
         $('a[data-select-all="selectunselect"]').hide();
     }
-
+     
     //child camapaign post
     $(document).on('click', '#btnSubmitChild', function () {
         if (ValidateChildForm() === true) {
@@ -91,19 +91,21 @@
                 $("#dvFormChildCampaign").html(data);
             }
         });
-    });
+        });       
 });
 
 
+
+
 //Numeric validation
-function numericvalidate(evt) {
+    function numericvalidate(evt) {
     var theEvent = evt || window.event;
     var key = theEvent.keyCode || theEvent.which;
     key = String.fromCharCode(key);
     var regex = /[0-9]|\./;
     if (!regex.test(key)) {
         theEvent.returnValue = false;
-        if (theEvent.preventDefault) theEvent.preventDefault();
+        if(theEvent.preventDefault) theEvent.preventDefault();
     }
 }
 

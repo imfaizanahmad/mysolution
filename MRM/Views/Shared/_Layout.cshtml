@@ -82,11 +82,40 @@
 
         commonUiInitialization();
         $('#globalLoader').remove();
+        GetBGandSegmentSingleDDl();
     });
 
     $(document).ready(function () {
         commonUiInitialization();
+        GetBGandSegmentSingleDDl();
+
+        $(document).on("change", "#CampaignTypes", function () {
+            GetBGandSegmentSingleDDl();
+        });
     });
+
+    function GetBGandSegmentSingleDDl() {
+        var $select = $('#BusinessGroups_Id');
+        var $selectSegment = $('#Segments_Id');;
+        if ($('#CampaignTypes').val() == 0) {
+            $select.chosen('destroy');
+            $select.removeAttr('multiple');
+            $select.chosen();
+
+            $selectSegment.chosen('destroy');
+            $selectSegment.attr('multiple', 'multiple');
+            $selectSegment.chosen();
+        }
+        else {
+            $selectSegment.chosen('destroy');
+            $selectSegment.removeAttr('multiple');
+            $selectSegment.chosen();
+
+            $select.chosen('destroy');
+            $select.attr('multiple', 'multiple');
+            $select.chosen();
+        }
+    }
 
     var manageStartEndDate = function () {
         var sDate = new Date($('#StartDate').val());
