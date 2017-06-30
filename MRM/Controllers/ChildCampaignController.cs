@@ -141,13 +141,7 @@ namespace MRM.Controllers
             model.BusinessLineViewModels = businesslist;
             model.SegmentViewModels = _segmentService.GetSegment();
 
-            if (model.Segments_Id == null)
-                model.IndustryViewModels = (new Industry[] { new Industry() });
-            else
-            {
-                List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
-                model.IndustryViewModels = lst;
-            }
+           
 
             if (model.MasterCampaignId != 0)
             {
@@ -155,14 +149,22 @@ namespace MRM.Controllers
                     _masterCampaignServices.GetMasterCampaignById(model.MasterCampaignId);
                 foreach (var item in masterChild)
                 {
-                    model.BusinessLineViewModels = item.BusinessLines;
+                   // model.BusinessLineViewModels = item.BusinessLines;
                     model.BusinessGroupViewModels = item.BusinessGroups;
                     model.SegmentViewModels = item.Segments;
                     model.GeographyViewModels = item.Geographys;
                     model.ThemeViewModels = item.Themes;
-                    model.IndustryViewModels = item.Industries;
+                   // model.IndustryViewModels = item.Industries;
 
                 }
+            }
+
+            if (model.Segments_Id == null)
+                model.IndustryViewModels = (new Industry[] { new Industry() });
+            else
+            {
+                List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
+                model.IndustryViewModels = lst;
             }
 
             //   model.GeographyViewModels = _geographyService.GetGeography();
@@ -174,6 +176,7 @@ namespace MRM.Controllers
         {
 
             model.BusinessGroupViewModels = _businessgroupService.GetBG();
+
             if (model.BusinessGroups_Id == null)
                 model.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
             else
@@ -196,10 +199,11 @@ namespace MRM.Controllers
                     _masterCampaignServices.GetMasterCampaignById(model.MasterCampaignId);
                 foreach (var item in masterChild)
                 {
+                    model.BusinessGroupViewModels = item.BusinessGroups;
                     model.SegmentViewModels = item.Segments;
                     model.GeographyViewModels = item.Geographys;
                     model.ThemeViewModels = item.Themes;
-                    model.IndustryViewModels = item.Industries;
+                   // model.IndustryViewModels = item.Industries;
                 }
             }
 

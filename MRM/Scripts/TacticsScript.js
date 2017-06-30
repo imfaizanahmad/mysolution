@@ -160,7 +160,7 @@ function ValidateTacticSaveasDraft() {
     var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Tactic campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').text("Tactic campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " "+ "to " + DisMCEnddate + "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {

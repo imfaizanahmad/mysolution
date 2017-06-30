@@ -74,6 +74,8 @@ namespace MRM.Business.Services
             tacticCampaignEntity.EfficiencyE12Low = model.EfficiencyE12Low;
             tacticCampaignEntity.EfficiencyE13High = model.EfficiencyE13High;
 
+            //tacticCampaignEntity.TacticTypes = model.TacticType_Id;
+
             List<BusinessLine> lstBline = null;
             List<BusinessGroup> lstBGroup = null;
             if (model.BusinessGroups_Id != null)
@@ -85,10 +87,13 @@ namespace MRM.Business.Services
                     lstBGroup.Add(Bgroups);
                 }
                 lstBline = new List<BusinessLine>();
-                foreach (var item in model.BusinessLines_Id)
+                if (model.BusinessLines_Id != null)
                 {
-                    var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
-                    lstBline.Add(Bline);
+                    foreach (var item in model.BusinessLines_Id)
+                    {
+                        var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
+                        lstBline.Add(Bline);
+                    }
                 }
             }
 
@@ -116,10 +121,14 @@ namespace MRM.Business.Services
                     lstsegment.Add(segment);
                 }
                 lstindustry = new List<Industry>();
-                foreach (var item in model.Industries_Id)
+
+                if (model.Industries_Id != null)
                 {
-                    var industry = guow.GenericRepository<Industry>().GetByID(item);
-                    lstindustry.Add(industry);
+                    foreach (var item in model.Industries_Id)
+                    {
+                        var industry = guow.GenericRepository<Industry>().GetByID(item);
+                        lstindustry.Add(industry);
+                    }
                 }
             }
 
@@ -158,6 +167,8 @@ namespace MRM.Business.Services
                 }
 
             }
+
+            
 
             tacticCampaignEntity.BusinessGroups = lstBGroup;
             tacticCampaignEntity.Themes = lsttheme;
