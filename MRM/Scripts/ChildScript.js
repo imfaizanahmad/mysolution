@@ -12,7 +12,7 @@
                 url: '/ChildCampaign/save?button=' + "Submit",
                 data: $("#frmChildCampaign").serialize(), // serializes the form's elements.
                 success: function (data) {
-                    if (data === "True") window.location = "/ChildList/ChildList";
+                    if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
                 }
             });
         }
@@ -25,7 +25,7 @@
                 url: '/ChildCampaign/save?button=' + "Save Draft",
                 data: $("#frmChildCampaign").serialize(), // serializes the form's elements.
                 success: function(data) {
-                    if (data === "True") window.location = "/ChildList/ChildList";
+                    if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
                 }
             });
     }
@@ -36,7 +36,7 @@
             type: "POST",
             url: '/ChildCampaign/Delete?childId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
             success: function (data) {
-                if (data === "True") window.location = "/ChildList/ChildList";
+                if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
 
             }
         });
@@ -98,7 +98,7 @@
 
 
 //Numeric validation
-    function numericvalidate(evt) {
+function numericvalidate(evt) {
     var theEvent = evt || window.event;
     var key = theEvent.keyCode || theEvent.which;
     key = String.fromCharCode(key);
@@ -132,7 +132,7 @@ function ValidateChildSaveasDraft() {
     var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Sub Campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').text("Sub Campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " "+"to " + DisMCEnddate + "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {

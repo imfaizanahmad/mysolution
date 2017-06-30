@@ -13,7 +13,6 @@ function MasterCampaignBindGrid(panel) {
         url: "/MasterCampaign/GetMasterCampaignList",
         data: JSON.stringify(sdata),
         success: function (dataset) {
-            debugger;
             var table = panel.find('#masterCampaignGrid').DataTable({
                 paging: true,
                 responsive: true,

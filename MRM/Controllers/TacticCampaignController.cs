@@ -100,6 +100,7 @@ namespace MRM.Controllers
                 }
 
 
+
                 //TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = Id }).First();
 
                 if (tacticCampaign.ChildCampaigns.MasterCampaigns != null && tacticCampaign.ChildCampaigns.MasterCampaigns.Id != 0)
@@ -442,7 +443,38 @@ namespace MRM.Controllers
             return errorCounter == 0;
         }
 
+        public ActionResult TacticCampaignList()
+        {
+            ChildCampaignViewModel childCampaignViewModel = new ChildCampaignViewModel();
+            return View(childCampaignViewModel);
+        }
 
-                
+        [HttpGet]
+        public JsonResult GetTacticCampaignList()
+        {
+            List<TacticCampaignViewModelList> childCampaignList = (from campaign in _tacticCampaignServices.GetTacticCampaign().OrderByDescending(x => x.CreatedDate)
+                                                                  where campaign.IsActive == true
+                                                                  select
+                                                                  new TacticCampaignViewModelList
+                                                                  {
+                                                                      Id = string.Format("T{0}", campaign.Id.ToString("0000000")),
+                                                                      Name = campaign.Name,
+                                                                      TacticDescription = campaign.TacticDescription,
+                                                                      Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
+                                                                      StartDate = String.Format("{0:MM/dd/yyyy}", campaign.StartDate),
+                                                                      EndDate = String.Format("{0:MM/dd/yyyy}", campaign.EndDate)
+                                                                  }
+                                                                 ).ToList();
+            return Json(childCampaignList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteTacticCampaign(int id)
+        {
+            var tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel() { Id = id }).FirstOrDefault();
+            tacticCampaign.IsActive = false;
+            _tacticCampaignServices.Update(tacticCampaign);
+            return Json(GetTacticCampaignList(), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

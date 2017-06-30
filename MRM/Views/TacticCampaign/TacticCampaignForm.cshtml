@@ -252,7 +252,7 @@
                                             (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
                                 </tr>
                                 <tr>
-                                    <td><label>Response</label></td>
+                                    <td><label></label></td>
                                     <td><label>Metric</label><span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" style="color: #c6daff;"></span></td>
                                     <td>@Html.TextBoxFor(m => m.ResponseR21Goal, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
@@ -284,7 +284,7 @@
                                 }
                                 else
                                 {
-                                    <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("TacticList", "TacticList")'"/></div>
+                                    <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("TacticCampaignList", "TacticCampaign")'"/></div>
                                 } 
                                 @if (Model.Id != 0 && Model.Status == "Save Draft")
                                 {

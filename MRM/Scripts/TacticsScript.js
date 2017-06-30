@@ -12,7 +12,7 @@
                 url: '/TacticCampaign/save?button=' + "Submit",
                 data: $("#frmTacticCampaign").serialize(), // serializes the form's elements.
                 success: function (data) {
-                    if (data === "True") window.location = "/TacticList/TacticList";
+                    if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
                 }
             });
         }
@@ -26,7 +26,7 @@
             url: '/TacticCampaign/save?button=' + "Save Draft",
             data: $("#frmTacticCampaign").serialize(), // serializes the form's elements.
             success: function (data) {
-                if (data === "True") window.location = "/TacticList/TacticList";
+                if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
            }
         });
      }
@@ -37,7 +37,7 @@
             type: "POST",
             url: '/TacticCampaign/Delete?tacticId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
             success: function (data) {
-                if (data === "True") window.location = "/TacticList/TacticList";
+                if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
 
             }
         });
@@ -160,7 +160,7 @@ function ValidateTacticSaveasDraft() {
     var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Tactic campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').text("Tactic campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " "+ "to " + DisMCEnddate + "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {
@@ -199,7 +199,6 @@ function ValidateTacticSaveasDraft() {
 
     function ValidateTacticForm() {
         var flag = true;
-        debugger 
         if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
 
             $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
