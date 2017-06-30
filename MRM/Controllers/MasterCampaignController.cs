@@ -254,7 +254,7 @@ namespace MRM.Controllers
                                                                            Id = string.Format("M{0}", campaign.Id.ToString("0000000")),
                                                                            Name = campaign.Name,
                                                                            CampaignDescription = campaign.CampaignDescription,
-                                                                           Status = campaign.Status,
+                                                                           Status = campaign.Status=="Save Draft"? "Draft":"Active",
                                                                            StartDate = String.Format("{0:MM/dd/yyyy}", campaign.StartDate),
                                                                            EndDate = String.Format("{0:MM/dd/yyyy}", campaign.EndDate)
                                                                        }
