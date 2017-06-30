@@ -125,13 +125,17 @@
         }
 
         if ($('#StartDate').val() === "") {
+            $("#dvEndDate").datepicker().attr('readonly', 'readonly');
+            $("#dvEndDate").datepicker('remove');
             $("#EndDate").datepicker().attr('readonly', 'readonly');
             $("#EndDate").datepicker('remove');
             $("#EndDate").val("");
         } else {
+            $("#dvEndDate").datepicker().removeAttr('readonly');
+            $("#dvEndDate").datepicker('remove');
             $("#EndDate").datepicker().removeAttr('readonly');
             $("#EndDate").datepicker('remove');
-            $("#EndDate").datepicker({
+            $("#dvEndDate").datepicker({
                 format: 'mm/dd/yyyy',
                 startDate: new Date($('#StartDate').val()),
                 formatDate: 'mm/dd/yyyy'

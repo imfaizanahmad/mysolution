@@ -23,7 +23,7 @@
                                 <label>Master Campaign Name<span class="text-danger">*</span></label>
                                 @Html.TextBoxFor(m => m.Name, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control" } :
-                                            (object)new { @class = "form-control" })
+                                            (object)new { @class = "form-control",@maxlength="50" })
                                 <div class="validmsgMaster"></div>
                             </div>
                         </div>
@@ -115,11 +115,10 @@
                     </div>
 
                     <div class="row">
-
                         <div class="col-md-6">
                             <label>Start Date<span class="text-danger lb-sm">(Format: MM/DD/YYYY) *</span></label>
                             <div class="form-group">
-                                <div class="col-md-6 date datealign">
+                                <div class="col-md-6 date datealign mrm-cal">
                                     <div class="input-group input-append date">
                                         @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
@@ -133,7 +132,7 @@
                         <div class="col-md-6">
                             <label>End Date<span class="text-danger lb-sm">(Format: MM/DD/YYYY) *</span></label>
                             <div class="form-group">
-                                <div id="dvMasterEndDate" class="col-md-6 form-group date datealign">
+                                <div id="dvEndDate" class="col-md-6 form-group date datealign mrm-cal">
                                     <div class="input-group input-append date">
                                         @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control mrm-cal", @maxlength = "10" } :
@@ -141,10 +140,6 @@
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                 </div>
-                                
-                             
-                                
-
                             </div>
                             <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
                         </div>
