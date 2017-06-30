@@ -1,19 +1,18 @@
 ﻿$(function () {
-    MasterCampaignBindGrid($(this));
+    TacticCampaignBindGrid($(this));
 });
 
-function MasterCampaignBindGrid(panel) {
-    //$('#loadingSpinner').show();
+function TacticCampaignBindGrid(panel) {
     var sdata = {
     };
 
     $.ajax({
         type: 'get',
         contentType: "application/json",
-        url: "/MasterCampaign/GetMasterCampaignList",
+        url: "/TacticCampaign/GetTacticCampaignList",
         data: JSON.stringify(sdata),
         success: function (dataset) {
-            var table = panel.find('#masterCampaignGrid').DataTable({
+            var table = panel.find('#tacticCampaignGrid').DataTable({
                 paging: true,
                 responsive: true,
                 ordering: true,
@@ -27,7 +26,7 @@ function MasterCampaignBindGrid(panel) {
                 columns: [
                     { title: "Campaign Id", data: "Id" },
                     { title: "Name", data: "Name" },
-                    { title: "Description", data: "CampaignDescription" },
+                    { title: "Description", data: "TacticDescription" },
                     { title: "Status", data: "Status" },
                     { title: "Start date", data: "StartDate" },
                     { title: "End date", data: "EndDate" },
@@ -39,22 +38,22 @@ function MasterCampaignBindGrid(panel) {
                             "data": null,
                             "render": function (data, type, full, meta) {
                                 if (data.Status && data.Status.toLowerCase() === 'active')
-                                    return '<a href="/MasterCampaign/MasterCampaign?id=' + parseInt(data.Id.slice(1)) + '"  title="View Campaign" class="btn-mc-action">View/Edit</a> &nbsp;&nbsp;<input type="button" title="Delete" campaignId=' + parseInt(data.Id.slice(1)) + ' class="btn btn-block btn-sm btn-mc-action" value="Delete" disabled />';
+                                    return '<a href="/TacticCampaign/TacticCampaign?id=' + parseInt(data.Id.slice(1)) + '"  title="View Campaign" class="btn-mc-action">View/Edit</a> &nbsp;&nbsp;<input type="button" title="Delete" campaignId=' + parseInt(data.Id.slice(1)) + ' class="btn btn-block btn-sm btn-mc-action" value="Delete" disabled />';
                                 else
-                                    return '<a href="/MasterCampaign/MasterCampaign?id=' + parseInt(data.Id.slice(1)) + '"  title="View Campaign" class="btn-mc-action">View/Edit</a> &nbsp;&nbsp;<input type="button" title="Delete" campaignId=' + parseInt(data.Id.slice(1)) + ' class="btn btn-block btn-primary btn-sm btn-mc-action" value="Delete" data-toggle="modal"  />';
+                                    return '<a href="/TacticCampaign/TacticCampaign?id=' + parseInt(data.Id.slice(1)) + '"  title="View Campaign" class="btn-mc-action">View/Edit</a> &nbsp;&nbsp;<input type="button" title="Delete" campaignId=' + parseInt(data.Id.slice(1)) + ' class="btn btn-block btn-primary btn-sm btn-mc-action" value="Delete" data-toggle="modal"  />';
                             }
                         },
                 ]
             });
 
-            panel.find('#masterCampaignGrid tbody').on('click', '.btn-mc-action', function () {               
-                var campaignId = parseInt($(this).attr('campaignId'))
+            panel.find('#tacticCampaignGrid tbody').on('click', '.btn-mc-action', function () {
+                var tacticCampaignId = parseInt($(this).attr('campaignId'))
                 var action = $(this).attr('title');
                 sdata = {};
-                sdata.Id = campaignId;
+                sdata.Id = tacticCampaignId;
                 var actionUrl = "";
                 if (action === "Delete") {
-                    actionUrl = "/MasterCampaign/DeleteCampaign";
+                    actionUrl = "/TacticCampaign/DeleteTacticCampaign";
                     ConfigurationModel.ConfirmationDialog('Confirmation !', 'Are you sure you want to delete?', function () {
                         $.ajax({
                             type: 'post',
@@ -62,9 +61,9 @@ function MasterCampaignBindGrid(panel) {
                             url: actionUrl,
                             data: JSON.stringify(sdata),
                             success: function (result) {
-                                if (panel.find('#masterCampaignGrid')[0].childNodes.length > 0) {
-                                    panel.find('#masterCampaignGrid').dataTable().fnDestroy();                                   
-                                    MasterCampaignBindGrid(panel);
+                                if (panel.find('#tacticCampaignGrid')[0].childNodes.length > 0) {
+                                    panel.find('#tacticCampaignGrid').dataTable().fnDestroy();
+                                    TacticCampaignBindGrid(panel);
                                 }
                             },
                             error: function (jqxhr, textStatus, error) {
@@ -75,7 +74,7 @@ function MasterCampaignBindGrid(panel) {
                     });
                 }
                 //else {
-                //    actionUrl = "/MasterCampaign/MasterCampaign?id=" + campaignId;
+                //    actionUrl = "/ChildCampaign/MasterCampaign?id=" + campaignId;
                 //    window.location = actionUrl
                 //}
             });

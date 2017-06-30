@@ -85,11 +85,14 @@ namespace MRM.Business.Services
                     var Bgroups = guow.GenericRepository<BusinessGroup>().GetByID(item);
                     lstBGroup.Add(Bgroups);
                 }
-                lstBline = new List<BusinessLine>();
-                foreach (var item in model.BusinessLines_Id)
+                if (model.BusinessLines_Id != null)
                 {
-                    var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
-                    lstBline.Add(Bline);
+                    lstBline = new List<BusinessLine>();
+                    foreach (var item in model.BusinessLines_Id)
+                    {
+                        var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
+                        lstBline.Add(Bline);
+                    }
                 }
             }
 
@@ -117,10 +120,13 @@ namespace MRM.Business.Services
                     lstsegment.Add(segment);
                 }
                 lstindustry = new List<Industry>();
-                foreach (var item in model.Industries_Id)
+                if (model.Industries_Id != null)
                 {
-                    var industry = guow.GenericRepository<Industry>().GetByID(item);
-                    lstindustry.Add(industry);
+                    foreach (var item in model.Industries_Id)
+                    {
+                        var industry = guow.GenericRepository<Industry>().GetByID(item);
+                        lstindustry.Add(industry);
+                    }
                 }
             }
 
