@@ -13,13 +13,13 @@ namespace MRM.ViewModel
     {
         public ChildCampaignViewModel()
         {
-            BusinessGroupViewModels = new [] { new BusinessGroup() };
-            SegmentViewModels = (new [] { new Segment() });
-            BusinessLineViewModels = (new [] { new BusinessLine() });
-            ThemeViewModels = (new [] { new Theme() });
-            GeographyViewModels = (new [] { new Geography() });
-            IndustryViewModels = (new [] { new Industry() });
-            MasterViewModels = (new[] {new MasterCampaign()});
+            BusinessGroupViewModels = new[] { new BusinessGroup() };
+            SegmentViewModels = (new[] { new Segment() });
+            BusinessLineViewModels = (new[] { new BusinessLine() });
+            ThemeViewModels = (new[] { new Theme() });
+            GeographyViewModels = (new[] { new Geography() });
+            IndustryViewModels = (new[] { new Industry() });
+            MasterViewModels = (new[] { new MasterCampaign() });
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -31,7 +31,7 @@ namespace MRM.ViewModel
         public string MarketingInfluenceOpportunity { get; set; }
         public string MarketingGeneratedOpportunity { get; set; }
         public string Status { get; set; }
-       
+
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public DateTime? MCStartDate { get; set; }
@@ -67,5 +67,15 @@ namespace MRM.ViewModel
         public int[] Industries_Id { get; set; }
         public int[] Segments_Id { get; set; }
         public int[] Themes_Id { get; set; }
+    }
+
+    public class ChildCampaignViewModelList
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string CampaignDescription { get; set; }
+        public string Status { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
     }
 }

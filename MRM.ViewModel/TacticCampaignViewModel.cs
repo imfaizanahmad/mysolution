@@ -27,7 +27,7 @@ namespace MRM.ViewModel
         public string TacticDescription { get; set; }
         public string Year { get; set; }
 
-       
+
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public DateTime? MCStartDate { get; set; }
@@ -35,7 +35,7 @@ namespace MRM.ViewModel
 
         public string Status { get; set; }
         public string Vendor { get; set; }
-        public int ChildCampaign_Id { get; set; }    
+        public int ChildCampaign_Id { get; set; }
         public int MasterCampaign_Id { get; set; }
         public Boolean IsActive { get; set; }
 
@@ -52,7 +52,7 @@ namespace MRM.ViewModel
         public string ResponseR22Low { get; set; }
         public string ResponseR23High { get; set; }
 
-         
+
         public string EfficiencyE1Goal { get; set; }
         public string EfficiencyE1Low { get; set; }
         public string EfficiencyE1High { get; set; }
@@ -80,5 +80,15 @@ namespace MRM.ViewModel
         public int[] Vendor_Id { get; set; }
         public int[] Tactic_Id { get; set; }
         public int[] TacticType_Id { get; set; }
+    }
+
+    public class TacticCampaignViewModelList
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string TacticDescription { get; set; }       
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }    
+        public string Status { get; set; }
     }
 }

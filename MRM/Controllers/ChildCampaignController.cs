@@ -40,7 +40,7 @@ namespace MRM.Controllers
             ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
 
 
-            Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where( t => t.Status == "Complete");
+            Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
             Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
             Childvm.SegmentViewModels = _segmentService.GetSegment();
             Childvm.ThemeViewModels = _themeService.GetTheme();
@@ -341,5 +341,37 @@ namespace MRM.Controllers
             return errorCounter == 0;
         }
 
+        public ActionResult ChildCampaignList()
+        {
+            ChildCampaignViewModel childCampaignViewModel = new ChildCampaignViewModel();
+            return View(childCampaignViewModel);
+        }
+
+        [HttpGet]
+        public JsonResult GetChildCampaignList()
+        {
+            List<ChildCampaignViewModelList> childCampaignList = (from campaign in _childCampaignServices.GetChildCampaign().OrderByDescending(x => x.CreatedDate)
+                                                                  where campaign.IsActive == true
+                                                                  select
+                                                                  new ChildCampaignViewModelList
+                                                                  {
+                                                                      Id = string.Format("C{0}", campaign.Id.ToString("0000000")),
+                                                                      Name = campaign.Name,
+                                                                      CampaignDescription = campaign.CampaignDescription,
+                                                                      Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
+                                                                      StartDate = String.Format("{0:MM/dd/yyyy}", campaign.StartDate),
+                                                                      EndDate = String.Format("{0:MM/dd/yyyy}", campaign.EndDate)
+                                                                  }
+                                                                 ).ToList();
+            return Json(childCampaignList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteChildCampaign(int id)
+        {
+            var childCampaign = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel() { Id = id }).FirstOrDefault();
+            childCampaign.IsActive = false;
+            _childCampaignServices.Update(childCampaign);
+            return Json(GetChildCampaignList(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

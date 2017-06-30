@@ -11,7 +11,7 @@ using MRM.ViewModel;
 
 namespace MRM.Business.Services
 {
-   public class TacticCampaignServices : ITacticCampaignServices
+    public class TacticCampaignServices : ITacticCampaignServices
     {
         private GenericUnitOfWork guow = null;
 
@@ -202,7 +202,7 @@ namespace MRM.Business.Services
             guow.GenericRepository<TacticCampaign>().Update(entity);
         }
 
-        private TacticCampaign FlushChildRecords(TacticCampaign  tacticCampaignCamp)
+        private TacticCampaign FlushChildRecords(TacticCampaign tacticCampaignCamp)
         {
 
             tacticCampaignCamp.Industries.Remove(tacticCampaignCamp.Industries.FirstOrDefault<Industry>());
