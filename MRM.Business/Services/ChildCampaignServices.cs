@@ -85,14 +85,11 @@ namespace MRM.Business.Services
                     var Bgroups = guow.GenericRepository<BusinessGroup>().GetByID(item);
                     lstBGroup.Add(Bgroups);
                 }
-                if (model.BusinessLines_Id != null)
+                lstBline = new List<BusinessLine>();
+                foreach (var item in model.BusinessLines_Id)
                 {
-                    lstBline = new List<BusinessLine>();
-                    foreach (var item in model.BusinessLines_Id)
-                    {
-                        var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
-                        lstBline.Add(Bline);
-                    }
+                    var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
+                    lstBline.Add(Bline);
                 }
             }
 
