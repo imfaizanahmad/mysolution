@@ -23,7 +23,7 @@
                                 <label>Master Campaign Name<span class="text-danger">*</span></label>
                                 @Html.TextBoxFor(m => m.Name, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control" } :
-                                            (object)new { @class = "form-control",@maxlength="50" })
+                                            (object)new { @class = "form-control", @maxlength = "50" })
                                 <div class="validmsgMaster"></div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                 <label>Master Campaign Description<span class="text-danger">*</span></label>
                                 @Html.TextAreaFor(m => m.CampaignDescription, (Model.Id != 0 && Model.Status == "Complete") ?
                                     (object)new { disabled = "disabled", @class = "form-control" } :
-                                    (object)new { @class = "form-control",@maxlength="500", onkeypress = "return alpha(event)" })
+                                    (object)new { @class = "form-control", @maxlength = "500", onkeypress = "return alpha(event)" })
                                 <div class="validmsgMasterDesc"></div>
                             </div>
 
@@ -46,7 +46,7 @@
                                 <label>Theme</label>  <br />
                                 @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name", Model.Themes_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                            (object)new { @class = "chosen-select form-control" }) <a data-next-stage="select" data-target-id="Themes_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>
+                                            (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) <a data-next-stage="select" data-target-id="Themes_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>
 
 
                             </div>
@@ -56,7 +56,7 @@
                                 <label>Geography</label><span class="text-danger">*</span><br />
                                 @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                            (object)new { @class = "chosen-select form-control" }) <a data-next-stage="select" data-target-id="Geographys_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>
+                                            (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) <a data-next-stage="select" data-target-id="Geographys_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>
 
 
                                 <div class="validmsgbusinesGeography"></div>
@@ -70,9 +70,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Business Group<span class="text-danger">*</span></label><br />
-                                @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id),(Model.Id != 0 && Model.Status == "Complete") ?
+                                @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                    (object)new { @class = "chosen-select form-control" }) 
+                                    (object)new { @class = "chosen-select form-control" })
                                 @*<a data-next-stage="select" data-target-id="BusinessGroups_Id" data-trigger-ev="change" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
                                 <div class="validmsgbusinesGp"></div>
                             </div>
@@ -80,9 +80,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Segment<span class="text-danger">*</span></label><br />
-                                @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id),(Model.Id != 0 && Model.Status == "Complete") ?
+                                @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                    (object)new { @class = "chosen-select form-control" }) 
+                                    (object)new { @class = "chosen-select form-control" })
                                 @*<a data-next-stage="select" data-trigger-ev="change"  data-target-id="Segments_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
                                 <div class="validmsgbusinesSegment"></div>
                             </div>
@@ -95,9 +95,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Business Line<span class="text-danger">*</span></label><br />
-                                @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id),(Model.Id != 0 && Model.Status == "Complete") ?
+                                @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                            (object)new { @class = "chosen-select form-control" }) <a data-next-stage="select" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>
+                                            (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) <a data-next-stage="select" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>
                                 <div class="validmsgbusinesLine"></div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                                 <label>Industry<span class="text-danger">*</span></label><br />
                                 @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                            (object)new { @class = "chosen-select form-control" }) <a data-next-stage="select" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>
+                                            (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) <a data-next-stage="select" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>
                                 <div class="validmsgbusinesIndustry"></div>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                                     </div>
                                     <div class="validmsgSdate"></div>
                                 </div>
-                               
+
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -143,7 +143,7 @@
                                     <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
 
@@ -165,28 +165,28 @@
                 </fieldset>
             </div>
             <!--Upper code /.col -->
-            <fieldset>             
-                
-                
+            <fieldset>
+
+
                 <div class="form-group">
                     <div class="row " style="padding-top: 10px">
                         <div class="col-md-4"></div>
-                        <div class="col-md-8"> 
-                                
+                        <div class="col-md-8">
+
                             @if (Model.Id == 0)
                             {
-                                <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'"/></div>
+                                <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'" /></div>
                             }
                             else
                             {
-                                <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("CampaignList", "MasterCampaign")'"/></div>
-                            } 
+                                <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("CampaignList", "MasterCampaign")'" /></div>
+                            }
                             @if (Model.Id != 0 && Model.Status == "Save Draft")
                             {
                                 <div class="col-md-3">
                                     <input type="button" Id="btnDelete" name="button" value="Delete Draft" class="btn btn-primary col-sm-12" onclick="return confirm('Are you sure you want to delete?')" />
                                 </div>
-                            } 
+                            }
                             @if (Model.Status != "Complete")
                             {
                                 <div class="col-md-3">
@@ -195,10 +195,10 @@
                                 <div class="col-md-3">
                                     <input type="button" Id="btnSubmit" name="button" value="Submit" class="btn btn-primary col-sm-12" />
                                 </div>
-                            }                                                             
+                            }
                         </div>
                     </div>
-                </div>                                                                
+                </div>
             </fieldset>
         </div>
     </section>
