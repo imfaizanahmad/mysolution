@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
 
+    //To make tactic type list single selection
+    $('#TacticType_Id').removeAttr('multiple');
+
     if ($('#Status').val() == "Complete") {
         $('a[data-select-all="selectunselect"]').hide();
     }
