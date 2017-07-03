@@ -175,7 +175,6 @@
             }
         }
 
-        
     };
 
 
@@ -184,10 +183,20 @@
         $('.chosen-single').chosen();
         $('.mrm-cal').datepicker({
             format: 'mm/dd/yyyy'
+           
         });
         $('.mrm-cal').each(function () { if ($(this).val().indexOf('1/1/0001') >= 0) { $(this).val(''); } });
 
+
         manageStartEndDate();
+        var selectedstartdate = $("#StartDate").val();
+        var selectedenddate = $("#EndDate").val();
+        if ($("#StartDate").val() !== "")
+        { $('#StartDate').datepicker('setDate', selectedstartdate); }
+        if ($("#EndDate").val() !== "")
+        { $('#EndDate').datepicker('setDate', selectedenddate); }
+
+      
 
         $(document).on('change', '#StartDate', function () {
             manageStartEndDate();

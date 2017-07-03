@@ -160,16 +160,13 @@ function ValidateTacticSaveasDraft() {
     var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Tactic campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " "+ "to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').text("Tactic campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {
             $('.validmsgDateMCcompare').hide();
         }
     }
-
-
-
 
     //if (($('#ReachR1Goal').val() === "" || $('#ReachR1Low').val() === "" || $('#ReachR1High').val() === "") && ($('#ReachR11Goal').val() === "" || $('#ReachR12Low').val() === "" || $('#ReachR13High').val() === "")) {
 
@@ -342,7 +339,7 @@ function ValidateTacticSaveasDraft() {
         var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
         if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
             if (startdate < MCStartdate || enddate > MCEnddate) {
-                $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + "to " + DisMCEnddate + "").css("color", "#b94a48");
+                $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
                 $('.validmsgDateMCcompare').show();
                 flag = false;
             } else {
@@ -385,6 +382,30 @@ function ValidateTacticSaveasDraft() {
 
             $('.validmsgyear').hide();
         }
+
+
+
+        if (($('#ReachR1Goal').val() === "" || $('#ReachR1Low').val() === "" || $('#ReachR1High').val() === "") && ($('#ReachR11Goal').val() === "" || $('#ReachR12Low').val() === "" || $('#ReachR13High').val() === "")) {
+
+            $('.validmsgReachMetric').text("Please fill atleast one Reach Metric").css("color", "#b94a48");
+            $('.validmsgReachMetric').show();
+            flag = false;
+
+        } else {
+            $('.validmsgReachMetric').hide();
+        }
+
+        if (($('#ResponseR1Goal').val() === "" || $('#ResponseR1Low').val() === "" || $('#ResponseR1High').val() === "") && ($('#ResponseR21Goal').val() === "" || $('#ResponseR22Low').val() === "" || $('#ResponseR23High').val() === "")) {
+
+            $('.validmsgResponseMetric').text("Please fill atleast one Response Metric").css("color", "#b94a48");
+            $('.validmsgResponseMetric').show();
+            flag = false;
+
+        } else {
+            $('.validmsgResponseMetric').hide();
+        }
+
+
            
             return flag;
     }
