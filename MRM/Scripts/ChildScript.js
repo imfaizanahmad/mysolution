@@ -60,6 +60,7 @@
         $('#' + selectallElement).trigger('chosen:updated');
     });
 
+
     $(document).on("change", "#BusinessGroups_Id", function () {
         $.ajax({
             type: "POST",
