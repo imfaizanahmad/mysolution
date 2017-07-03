@@ -492,7 +492,7 @@ namespace MRM.Controllers
         [HttpGet]
         public JsonResult GetTacticCampaignList()
         {
-            List<TacticCampaignViewModelList> childCampaignList = (from campaign in _tacticCampaignServices.GetTacticCampaign().OrderByDescending(x => x.CreatedDate)
+            List<TacticCampaignViewModelList> childCampaignList = (from campaign in _tacticCampaignServices.GetTacticCampaign()
                                                                   where campaign.IsActive == true
                                                                   select
                                                                   new TacticCampaignViewModelList

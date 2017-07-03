@@ -246,7 +246,7 @@ namespace MRM.Controllers
         [HttpGet]
         public JsonResult GetMasterCampaignList()
         {
-            List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetMasterCampaign().OrderByDescending(x => x.CreatedDate)
+            List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetMasterCampaign()
                                                                        where campaign.IsActive == true
                                                                        select
                                                                        new MasterCampaignViewModelListing

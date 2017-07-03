@@ -24,6 +24,7 @@ function MasterCampaignBindGrid(panel) {
                 initComplete: function (settings, json) {
                     //$('#loadingSpinner').hide();
                 },
+                "order": [[0, "desc"]],
                 columns: [
                     { title: "Campaign Id", data: "Id" },
                     { title: "Name", data: "Name" },
