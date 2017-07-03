@@ -132,7 +132,9 @@ function ValidateChildSaveasDraft() {
     var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Sub Campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " "+"to " + DisMCEnddate + "").css("color", "#b94a48");
+
+            var msg=
+            $('.validmsgDateMCcompare').text("Sub Campaign Start and End should be between Master campaign Date: " +DisMCStartdate+ " to " +DisMCEnddate+ "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {
@@ -281,7 +283,7 @@ function ValidateChildForm() {
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "")
     {
         if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + "to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {
