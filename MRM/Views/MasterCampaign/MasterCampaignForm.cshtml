@@ -73,7 +73,8 @@
                                 @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                     (object)new { @class = "chosen-select form-control" })
-                                @*<a data-next-stage="select" data-target-id="BusinessGroups_Id" data-trigger-ev="change" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
+                                   <a data-next-stage="select" data-target-id="BusinessGroups_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a> 
+                                 @*<a data-next-stage="select" data-target-id="BusinessGroups_Id" data-trigger-ev="change" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
                                 <div class="validmsgbusinesGp"></div>
                             </div>
                         </div>
@@ -83,7 +84,8 @@
                                 @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                     (object)new { @class = "chosen-select form-control" })
-                                @*<a data-next-stage="select" data-trigger-ev="change"  data-target-id="Segments_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
+                                <a data-next-stage="select" data-target-id="Segments_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a> 
+                                 @*<a data-next-stage="select" data-trigger-ev="change"  data-target-id="Segments_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
                                 <div class="validmsgbusinesSegment"></div>
                             </div>
                         </div>
