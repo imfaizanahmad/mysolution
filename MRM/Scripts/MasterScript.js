@@ -211,3 +211,17 @@ function alpha(e) {
         return false;
     }
 }
+
+$(function () {
+    $("#CampaignDescription").bind('paste', function () {
+        setTimeout(function () {
+            //get the value of the input text
+            var data = $('#CampaignDescription').val();
+            //replace the special characters to '' 
+            var dataFull = data.replace(/[^\w\s]/gi, '');
+            //set the new value of the input text without special characters
+            $('#CampaignDescription').val(dataFull);
+        });
+
+    });
+});

@@ -33,3 +33,31 @@ textarea {
 .td-padding {
 padding:2px;
 }
+
+
+#masterCampaignGrid th:nth-child(3) {
+    width:320px!important;
+}
+#masterCampaignGrid th:nth-child(2) {
+    width:100px!important;
+}
+
+#childCampaignGrid th:nth-child(3) {
+    width:320px!important;
+}
+#childCampaignGrid th:nth-child(2) {
+    width:100px!important;
+}
+
+
+#tacticCampaignGrid th:nth-child(3) {
+    width:320px!important;
+}
+#tacticCampaignGrid th:nth-child(2) {
+    width:100px!important;
+}
+
+    table.display {
+        table-layout: fixed;
+        word-wrap: break-word;
+    }  
