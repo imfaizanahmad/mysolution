@@ -175,6 +175,14 @@
             }
         }
 
+
+        //Date selected value highlighted
+        var selectedenddate = $("#EndDate").val();
+        if ($("#EndDate").val() !== "") {
+            $('#dvEndDate').datepicker('update', selectedenddate);
+            $('#EndDate').datepicker('update', selectedenddate);
+        }
+
     };
 
 
@@ -189,19 +197,22 @@
 
 
         manageStartEndDate();
-        var selectedstartdate = $("#StartDate").val();
-        var selectedenddate = $("#EndDate").val();
-        if ($("#StartDate").val() !== "")
-        { $('#StartDate').datepicker('setDate', selectedstartdate); }
-        if ($("#EndDate").val() !== "")
-        { $('#EndDate').datepicker('setDate', selectedenddate); }
 
-      
 
         $(document).on('change', '#StartDate', function () {
             manageStartEndDate();
+
         });
     };
+
+    //Date selected value highlighted
+    function HighlightSelectedDate() {
+        var selectedstartdate = $("#StartDate").val();
+        if ($("#StartDate").val() !== "") {
+            $('#dvStartDate').datepicker('update', selectedstartdate);
+            $('#StartDate').datepicker('update', selectedstartdate);
+        }
+    }
 
     function DDLSelectUnselect(thisOpt) {
         if ($(thisOpt).val() == null) {
