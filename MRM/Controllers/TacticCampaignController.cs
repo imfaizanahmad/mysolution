@@ -220,6 +220,21 @@ namespace MRM.Controllers
                 model.IndustryViewModels = lst;
             }
 
+            //If sub campaign is not defined for corressponding master campaign
+            List<MasterCampaign> mastercampaignvalues = _masterCampaignServices.GetMasterCampaignById(model.MasterCampaign_Id);
+            if (mastercampaignvalues.Count > 0)
+            {
+                foreach (var item in mastercampaignvalues)
+                {
+                    model.IndustryViewModels = item.Industries;
+                    model.BusinessGroupViewModels = item.BusinessGroups;
+                    model.BusinessLineViewModels = item.BusinessLines;
+                    model.SegmentViewModels = item.Segments;
+                    model.ThemeViewModels = item.Themes;
+                    model.GeographyViewModels = item.Geographys;
+                }
+
+            }
 
             if (model.ChildCampaign_Id != 0)
             {
