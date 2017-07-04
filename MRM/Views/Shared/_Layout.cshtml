@@ -86,6 +86,7 @@
     });
 
     $(document).ready(function () {
+        HighlightSelectedDate();
         commonUiInitialization();
         GetBGandSegmentSingleDDl();
 
@@ -164,6 +165,7 @@
 
 
         if ($("#EndDate").val() != undefined) {
+            debugger 
             if ($("#EndDate").val().length > 0) {
                 if ($("#EndDate").val().indexOf(" ") > 0)
                     $("#EndDate").val($("#EndDate").val().substr(0, $("#EndDate").val().indexOf(" ")));
