@@ -92,7 +92,6 @@ namespace MRM.Controllers
                 mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id); ;
 
 
-
                 mcvm.Name = masterCampaign.Name;
                 mcvm.CampaignDescription = masterCampaign.CampaignDescription;
                 if (masterCampaign.StartDate != null) mcvm.StartDate = masterCampaign.StartDate.Value;
