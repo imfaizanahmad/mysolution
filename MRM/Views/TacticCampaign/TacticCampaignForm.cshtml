@@ -46,7 +46,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Tactic Type<span class="text-danger">*</span></label><br />
-                                    @Html.ListBoxFor(m => m.TacticType_Id, new SelectList(Model.TacticTypeViewModels, "Id", "Name",
+                                    @Html.DropDownListFor(m => m.TacticType_Id, new SelectList(Model.TacticTypeViewModels, "Id", "Name",
                                         Model.TacticType_Id),
                                         Model.Id != 0 && Model.Status == "Complete" ?
                                             (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
