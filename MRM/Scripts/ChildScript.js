@@ -266,7 +266,7 @@ function ValidateChildForm() {
         }
     }
     else {
-        $('.validmsgbusinesGp').hide();
+        $('.validmsgbusinesIndustry').hide();
     }
 
     if ($('#BusinessLines_Id').val() == null) {
