@@ -15,7 +15,7 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <fieldset>
-                        <legend>Sub Campaign<span class="text-danger" style="float:right;font-size:x-small">Note: Mandatory fields is marked with red aestric (*)</span></legend>
+                        <legend class="header-color">Sub Campaign<span class="text-danger" style="float:right;font-size:x-small">Note: Mandatory fields is marked with red aestric (*)</span></legend>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -281,7 +281,7 @@
                                 @if (Model.Id != 0 && Model.Status == "Save Draft")
                                 {
                                     <div class="col-md-3">
-                                        <input type="button" Id="btnDeleteChild" name="button" value="Delete Draft" class="btn btn-primary col-sm-12" onclick="return confirm('Are you sure you want to delete?')" />
+                                        <input type="button" Id="btnDeleteChild" name="button" value="Delete Draft" class="btn btn-primary col-sm-12" />
                                     </div>
                                 }  
                                 @if (Model.Status != "Complete")

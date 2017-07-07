@@ -7,7 +7,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    margin-top:15px;
+    margin-top: 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -26,38 +26,91 @@ textarea {
 
 /* Set table header color wide by default light gray */
 .header-background-color {
-   background-color:#428bca;
-   color:#FFF;
+    background-color: #428bca;
+    color: #FFF;
 }
 
 .td-padding {
-padding:2px;
+    padding: 2px;
 }
 
 
 #masterCampaignGrid th:nth-child(3) {
-    width:320px!important;
+    width: 320px !important;
 }
+
 #masterCampaignGrid th:nth-child(2) {
-    width:100px!important;
+    width: 100px !important;
 }
 
 #childCampaignGrid th:nth-child(3) {
-    width:320px!important;
+    width: 320px !important;
 }
+
 #childCampaignGrid th:nth-child(2) {
-    width:100px!important;
+    width: 100px !important;
 }
 
 
 #tacticCampaignGrid th:nth-child(3) {
-    width:320px!important;
-}
-#tacticCampaignGrid th:nth-child(2) {
-    width:100px!important;
+    width: 320px !important;
 }
 
-    table.display {
-        table-layout: fixed;
-        word-wrap: break-word;
-    }  
+#tacticCampaignGrid th:nth-child(2) {
+    width: 100px !important;
+}
+
+table.display {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.header-color {
+    color: #001135;
+}
+
+/*a {
+    color: #124191 !important;
+}*/
+
+.btnSignIn {
+    font-weight: bold;
+    color: #FFFFFF !important;
+    margin-top: 10%;
+}
+
+.text-danger {
+    color: #FF3154 !important;
+}
+
+.table tfoot > tr > td {
+    padding: 8px !important;
+    line-height: 1.428571429 !important;
+    border-top: 1px solid #dddddd !important;
+}
+
+.btn-primary {
+    background-color: #124191 !important;
+}
+
+.navbar-inverse {
+    background-color: #124191 !important;
+}
+
+.pagination > .active > span:focus {
+    background-color: #124191 !important;
+}
+
+label {
+    color: #000000 !important;
+}
+
+body {
+  color: #000000 !important;
+}
+.btn-danger {
+  background-color: #FF3154 !important;
+}
+.footer-color {
+    color: #000000 !important;
+}

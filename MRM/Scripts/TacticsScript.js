@@ -36,13 +36,15 @@
     });
 
     $(document).on('click', '#btnDeleteTactic', function () {
-        $.ajax({
-            type: "POST",
-            url: '/TacticCampaign/Delete?tacticId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
-            success: function (data) {
-                if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
+        ConfigurationModel.ConfirmationDialog('Confirmation !', 'Are you sure you want to delete?', function () {
+            $.ajax({
+                type: "POST",
+                url: '/TacticCampaign/Delete?tacticId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
+                success: function (data) {
+                    if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
 
-            }
+                }
+            });
         });
     });
 

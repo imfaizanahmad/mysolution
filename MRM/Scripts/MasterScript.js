@@ -34,14 +34,20 @@ $(document).ready(function () {
 
 
     $(document).on('click', '#btnDelete', function () {
+       
+        ConfigurationModel.ConfirmationDialog('Confirmation !', 'Are you sure you want to delete?', function () {
         $.ajax({
             type: "POST",
             url: '/MasterCampaign/Delete?masterId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
-            success: function (data) {
+            success: function (data)
+            {
                 if (data === "True") window.location = "/MasterCampaign/CampaignList";
-
+                
             }
         });
+       
+        });
+       
     });
 
     $(document).on('click', 'a[data-select-all="selectunselect"]', function () {

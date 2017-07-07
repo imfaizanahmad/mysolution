@@ -32,65 +32,67 @@
     });
 
     $(document).on('click', '#btnDeleteChild', function () {
-        $.ajax({
-            type: "POST",
-            url: '/ChildCampaign/Delete?childId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
-            success: function (data) {
-                if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
+        ConfigurationModel.ConfirmationDialog('Confirmation !', 'Are you sure you want to delete?', function () {
+            $.ajax({
+                type: "POST",
+                url: '/ChildCampaign/Delete?childId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
+                success: function (data) {
+                    if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
 
-            }
-        });
+                }
+            });
+    });
     });
 
-    $(document).on('click', 'a[data-select-all="selectunselect"]', function () {
-        var selectallElement = $(this).attr('data-target-id');
-        var nextStage = $(this).attr('data-next-stage');
+$(document).on('click', 'a[data-select-all="selectunselect"]', function () {
+    var selectallElement = $(this).attr('data-target-id');
+    var nextStage = $(this).attr('data-next-stage');
 
-        if (nextStage === "select") {
-            $('#' + selectallElement + ' option').prop('selected', true);
-            $(this).attr('data-next-stage', "unselect");
-            $(this).text("Select None");
+    if (nextStage === "select") {
+        $('#' + selectallElement + ' option').prop('selected', true);
+        $(this).attr('data-next-stage', "unselect");
+        $(this).text("Select None");
 
-        } else {
-            $('#' + selectallElement + ' option').prop('selected', false);
-            $(this).attr('data-next-stage', "select");
-            $(this).text("Select All");
+    } else {
+        $('#' + selectallElement + ' option').prop('selected', false);
+        $(this).attr('data-next-stage', "select");
+        $(this).text("Select All");
         }
 
         $('#' + selectallElement).trigger('chosen:updated');
-    });
+        });
 
     $(document).on("change", "#BusinessGroups_Id", function () {
         $.ajax({
-            type: "POST",
+        type: "POST",
             url: "/ChildCampaign/LoadBusinessLine",
             data: $("#frmChildCampaign").serialize(),
-            success: function (data) {
+                success: function (data) {
                 $("#dvFormChildCampaign").html(data);
-            }
-        });
+    }
+    });
     });
 
-    $(document).on("change", "#Segments_Id", function () {
-        $.ajax({
-            type: "POST",
-            url: "/ChildCampaign/LoadIndustry",
-            data: $("#frmChildCampaign").serialize(),
-            success: function (data) {
+$(document).on("change", "#Segments_Id", function () {
+    $.ajax({
+    type: "POST",
+        url: "/ChildCampaign/LoadIndustry",
+        data: $("#frmChildCampaign").serialize(),
+                success: function (data) {
                 $("#dvFormChildCampaign").html(data);
-            }
-        });
+}
+    });
     });
 
-    $(document).on("change", "#MasterCampaignId", function () {
-        $.ajax({
-            type: "POST",
-            url: "/ChildCampaign/LoadMasterCampaign",
-            data: $("#frmChildCampaign").serialize(),
-            success: function (data) {
+$(document).on("change", "#MasterCampaignId", function () {
+    $.ajax({
+    type: "POST",
+        url: "/ChildCampaign/LoadMasterCampaign",
+        data: $("#frmChildCampaign").serialize(),
+                success: function (data) {
                 $("#dvFormChildCampaign").html(data);
-            }
-        });
+}
+    });
         });       
 });
 

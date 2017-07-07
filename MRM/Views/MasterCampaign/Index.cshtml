@@ -4,7 +4,7 @@
 }
 
 <div class="jumbotron">
-    <h2>Welcome MRM Campaign</h2>
+    <h2 class="header-color">Welcome Nokia Campaign</h2>
 
     <fieldset>
         <span style="font-family:'Times New Roman', Times, serif;font-size:medium;">MRM description.<br />
@@ -19,19 +19,19 @@
             </div>
         }*@
         <div class="row">
-            <div class="col-md-3"><label>Master Campaign</label></div>
+            <div class="col-md-3"><label class="header-color">Master Campaign</label></div>
             <div class="col-md-2"><input type="button" class="btn btn-block btn-primary btn-sm" value="Create" onclick="location.href='@Url.Action("MasterCampaign", "MasterCampaign")'" /></div>
             @*<div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="Edit" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" /></div>*@
             <div class="col-md-2"><input type="button" class="btn btn-block btn-primary btn-sm" value="View All" onclick="location.href='@Url.Action("CampaignList", "MasterCampaign")'" /></div>
         </div>
         <div class="row" style="padding-top:15px">
-            <div class="col-md-3"><label>Sub Campaign</label></div>
+            <div class="col-md-3"><label class="header-color">Sub Campaign</label></div>
             <div class="col-md-2"><input type="button" class="btn btn-block btn-primary btn-sm" value="Create" onclick="location.href='@Url.Action("ChildCampaign", "ChildCampaign")'" /></div>
             @*<div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="Edit" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" /></div>*@
             <div class="col-md-2"><input type="button" class="btn btn-block btn-primary btn-sm" value="View All" onclick="location.href='@Url.Action("ChildCampaignList", "ChildCampaign")'" /></div>
         </div>
         <div class="row" style="padding-top:15px">
-            <div class="col-md-3"><label>Tactic</label></div>
+            <div class="col-md-3"><label class="header-color">Tactic</label></div>
             <div class="col-md-2"><input type="button" class="btn btn-block btn-primary btn-sm" value="Create" onclick="location.href='@Url.Action("TacticCampaign", "TacticCampaign")'" /></div>
             @*<div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="Edit" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" /></div>*@
             <div class="col-md-2"><input type="button" class="btn btn-block btn-primary btn-sm" value="View All" onclick="location.href='@Url.Action("TacticCampaignList", "TacticCampaign")'" /></div>
