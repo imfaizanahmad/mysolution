@@ -37,6 +37,14 @@ namespace MRM.ViewModel
         public IEnumerable<Segment> SegmentViewModels { get; set; }
         public IEnumerable<BusinessGroup> BusinessGroupViewModels { get; set; }
         public IEnumerable<BusinessLine> BusinessLineViewModels { get; set; }
+
+        public bool ThemeSelectUnselect { get; set; }
+        public bool BgSelectUnselect { get; set; }
+        public bool BlSelectUnselect { get; set; }
+        public bool GeoSelectUnselect { get; set; }
+        public bool SegSelectUnselect { get; set; }
+        public bool IndustrySelectUnselect { get; set; }
+
         public int[] BusinessGroups_Id { get; set; }
         public int[] BusinessLines_Id { get; set; }
         public int[] Geographys_Id { get; set; }

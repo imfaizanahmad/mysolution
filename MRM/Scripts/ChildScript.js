@@ -3,7 +3,14 @@
     if ($('#Status').val() == "Complete") {
         $('a[data-select-all="selectunselect"]').hide();
     }
-     
+
+    if ($('#CampaignTypes').val() == 0)
+    $('a[data-target-id="BusinessGroups_Id"]').hide();
+
+
+
+    PreventSpecialChar();
+
     //child camapaign post
     $(document).on('click', '#btnSubmitChild', function () {
         if (ValidateChildForm() === true) {
@@ -32,68 +39,148 @@
     });
 
     $(document).on('click', '#btnDeleteChild', function () {
-        $.ajax({
-            type: "POST",
-            url: '/ChildCampaign/Delete?childId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
-            success: function (data) {
-                if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
+        ConfigurationModel.ConfirmationDialog('Confirmation !', 'Are you sure you want to delete?', function () {
+            $.ajax({
+                type: "POST",
+                url: '/ChildCampaign/Delete?childId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
+                success: function (data) {
+                    if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
 
-            }
-        });
+                }
+            });
+    });
     });
 
-    $(document).on('click', 'a[data-select-all="selectunselect"]', function () {
-        var selectallElement = $(this).attr('data-target-id');
-        var nextStage = $(this).attr('data-next-stage');
+$(document).on('click', 'a[data-select-all="selectunselect"]', function () {
+    var selectallElement = $(this).attr('data-target-id');
+    var nextStage = $(this).attr('data-next-stage');
 
-        if (nextStage === "select") {
-            $('#' + selectallElement + ' option').prop('selected', true);
-            $(this).attr('data-next-stage', "unselect");
-            $(this).text("Select None");
+    if (nextStage === "select") {
+        $('#' + selectallElement + ' option').prop('selected', true);
+        $(this).attr('data-next-stage', "unselect");
+        $(this).text("Select None");
 
-        } else {
-            $('#' + selectallElement + ' option').prop('selected', false);
-            $(this).attr('data-next-stage', "select");
-            $(this).text("Select All");
+    } else {
+        $('#' + selectallElement + ' option').prop('selected', false);
+        $(this).attr('data-next-stage', "select");
+        $(this).text("Select All");
         }
 
         $('#' + selectallElement).trigger('chosen:updated');
+
     });
 
     $(document).on("change", "#BusinessGroups_Id", function () {
         $.ajax({
-            type: "POST",
+        type: "POST",
             url: "/ChildCampaign/LoadBusinessLine",
             data: $("#frmChildCampaign").serialize(),
-            success: function (data) {
+                success: function (data) {
                 $("#dvFormChildCampaign").html(data);
+                PreventSpecialChar();
             }
         });
     });
 
-    $(document).on("change", "#Segments_Id", function () {
-        $.ajax({
-            type: "POST",
-            url: "/ChildCampaign/LoadIndustry",
-            data: $("#frmChildCampaign").serialize(),
-            success: function (data) {
+$(document).on("change", "#Segments_Id", function () {
+    $.ajax({
+    type: "POST",
+        url: "/ChildCampaign/LoadIndustry",
+        data: $("#frmChildCampaign").serialize(),
+                success: function (data) {
                 $("#dvFormChildCampaign").html(data);
+                PreventSpecialChar();
             }
         });
     });
 
-    $(document).on("change", "#MasterCampaignId", function () {
-        $.ajax({
-            type: "POST",
-            url: "/ChildCampaign/LoadMasterCampaign",
-            data: $("#frmChildCampaign").serialize(),
-            success: function (data) {
+$(document).on("change", "#MasterCampaignId", function () {
+    $.ajax({
+    type: "POST",
+        url: "/ChildCampaign/LoadMasterCampaign",
+        data: $("#frmChildCampaign").serialize(),
+                success: function (data) {
                 $("#dvFormChildCampaign").html(data);
+                PreventSpecialChar();
             }
         });
-        });       
+    });
+
+
+    //Click BusinessGroup for select -unselect
+    $(document).on('click', 'a[data-target-id="BusinessGroups_Id"]', function () {
+
+        var getselectedval = $("#BusinessGroups_Id").closest('.form-group').find('a[data-select-all="BGselectunselect"]');
+        var selectallElement = getselectedval.attr('data-target-id');
+        var nextStage = getselectedval.attr('data-next-stage');
+
+        if (nextStage === "bgselect") {
+            $('#' + selectallElement + ' option').prop('selected', true);
+            getselectedval.attr('data-next-stage', "bgunselect");
+            getselectedval.text("Select None");
+
+        } else {
+            $('#' + selectallElement + ' option').prop('selected', false);
+            getselectedval.attr('data-next-stage', "bgselect");
+            getselectedval.text("Select All");
+        }
+        $('#' + selectallElement).trigger('chosen:updated');
+
+        //Load Business Line
+        funcLoadBusinessLine();
+    });
+    //Click Segment for select -unselect
+    $(document).on('click', 'a[data-target-id="Segments_Id"]', function () {
+        var getselectedval = $("#Segments_Id").closest('.form-group').find('a[data-select-all="Segselectunselect"]');
+        var selectallElement = getselectedval.attr('data-target-id');
+        var nextStage = getselectedval.attr('data-next-stage');
+
+        if (nextStage === "Segselect") {
+            $('#' + selectallElement + ' option').prop('selected', true);
+            getselectedval.attr('data-next-stage', "Segunselect");
+            getselectedval.text("Select None");
+
+        } else {
+            $('#' + selectallElement + ' option').prop('selected', false);
+            getselectedval.attr('data-next-stage', "Segselect");
+            getselectedval.text("Select All");
+        }
+        $('#' + selectallElement).trigger('chosen:updated');
+
+        //Load Industry
+        funcLoadIndustry();
+    });
 });
 
+
+//Load BusinessLine 
+function funcLoadBusinessLine() {
+    if ($("#BusinessGroups_Id").val() != null) {
+        $.ajax({
+            type: "POST",
+            url: '/ChildCampaign/LoadBusinessLine',
+            data: $("#frmChildCampaign").serialize(),
+            success: function (data) {
+                $("#dvFormChildCampaign").html(data);
+                PreventSpecialChar();
+            }
+        });
+    }
+}
+//Load Industry
+function funcLoadIndustry() {
+    if ($("#Segments_Id").val() != null) {
+        $.ajax({
+            type: "POST",
+            url: '/ChildCampaign/LoadIndustry',
+            data: $("#frmChildCampaign").serialize(),
+            success: function (data) {
+                $("#dvFormChildCampaign").html(data);
+                PreventSpecialChar();
+            }
+        });
+    }
+}
 
 
 
@@ -134,7 +221,7 @@ function ValidateChildSaveasDraft() {
         if (startdate < MCStartdate || enddate > MCEnddate) {
 
             var msg=
-            $('.validmsgDateMCcompare').text("Sub Campaign Start and End should be between Master campaign Date: " +DisMCStartdate+ " to " +DisMCEnddate+ "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').text("Sub Campaign start and end date should be between Master Campaign date: " +DisMCStartdate+ " to " +DisMCEnddate+ "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {
@@ -283,7 +370,7 @@ function ValidateChildForm() {
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "")
     {
         if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').text("Sub Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {
@@ -355,4 +442,17 @@ function alpha(e) {
         alert("You can't enter more then 500 character in description field!")
         return false;
     }
+}
+function PreventSpecialChar() {
+    $("#CampaignDescription").bind('paste', function () {
+        setTimeout(function () {
+            //get the value of the input text
+            var data = $('#CampaignDescription').val();
+            //replace the special characters to '' 
+            var dataFull = data.replace(/[^\w\s]/gi, '');
+            //set the new value of the input text without special characters
+            $('#CampaignDescription').val(dataFull);
+        });
+
+    });
 }

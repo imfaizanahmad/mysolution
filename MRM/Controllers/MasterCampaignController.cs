@@ -64,6 +64,7 @@ namespace MRM.Controllers
                 if (masterCampaign.BusinessGroups != null && masterCampaign.BusinessGroups.Count > 0)
                 {
                     mcvm.BusinessGroups_Id = masterCampaign.BusinessGroups.Select(t => t.Id).ToArray(); ;
+                    mcvm.BgSelectUnselect = true;
                 }
 
                 mcvm.BusinessLineViewModels = _businesslineService.GetBusinessLineByBGId(mcvm.BusinessGroups_Id);
@@ -82,6 +83,7 @@ namespace MRM.Controllers
                 if (masterCampaign.Segments != null && masterCampaign.Segments.Count > 0)
                 {
                     mcvm.Segments_Id = masterCampaign.Segments.Select(t => t.Id).ToArray(); ;
+                    mcvm.SegSelectUnselect = true;
                 }
 
                 if (masterCampaign.Industries != null && masterCampaign.Industries.Count > 0)
@@ -92,7 +94,6 @@ namespace MRM.Controllers
                 mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id); ;
 
 
-
                 mcvm.Name = masterCampaign.Name;
                 mcvm.CampaignDescription = masterCampaign.CampaignDescription;
                 if (masterCampaign.StartDate != null) mcvm.StartDate = masterCampaign.StartDate.Value;
@@ -100,7 +101,7 @@ namespace MRM.Controllers
                 mcvm.Id = Id;
                 mcvm.Status = masterCampaign.Status;
 
-
+                ManageSelectUnselect(mcvm);
             }
 
             return View(mcvm);
@@ -129,6 +130,9 @@ namespace MRM.Controllers
                 List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
                 model.IndustryViewModels = lst;
             }
+
+            ManageSelectUnselect(model);
+
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
             return PartialView("MasterCampaignForm", model);
@@ -145,12 +149,36 @@ namespace MRM.Controllers
                 model.BusinessLineViewModels = businesslist;
             }
             model.SegmentViewModels = _segmentService.GetSegment();
+           
+
             model.Segments_Id = model.Segments_Id;
             List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
             model.IndustryViewModels = lst;
+
+            ManageSelectUnselect(model);
+
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
             return PartialView("MasterCampaignForm", model);
+        }
+
+        //Manage SelectUnselect
+        public MasterCampaignViewModel ManageSelectUnselect(MasterCampaignViewModel model)
+        {
+            if ((model.BusinessGroups_Id != null && (model.BusinessGroupViewModels.ToList().Count > model.BusinessGroups_Id.Length)) || model.BusinessGroups_Id == null) { model.BgSelectUnselect = false; }
+            else { model.BgSelectUnselect = true; }
+            if ((model.BusinessLines_Id != null && (model.BusinessLineViewModels.ToList().Count > model.BusinessLines_Id.Length)) || model.BusinessLines_Id == null) { model.BlSelectUnselect = false; }
+            else { model.BlSelectUnselect = true; }
+            if ((model.Segments_Id != null && (model.SegmentViewModels.ToList().Count > model.Segments_Id.Length)) || model.Segments_Id == null) { model.SegSelectUnselect = false; }
+            else { model.SegSelectUnselect = true; }
+            if ((model.Industries_Id != null && (model.IndustryViewModels.ToList().Count > model.Industries_Id.Length)) || model.Industries_Id == null) { model.IndustrySelectUnselect = false; }
+            else { model.IndustrySelectUnselect = true; }
+            if ((model.Themes_Id != null && (model.ThemeViewModels.ToList().Count > model.Themes_Id.Length)) || model.Themes_Id == null) { model.ThemeSelectUnselect = false; }
+            else { model.ThemeSelectUnselect = true; }
+            if ((model.Geographys_Id != null && (model.GeographyViewModels.ToList().Count > model.Geographys_Id.Length)) || model.Geographys_Id == null) { model.GeoSelectUnselect = false; }
+            else { model.GeoSelectUnselect = true; }
+
+            return model;
         }
 
         [HttpPost]
