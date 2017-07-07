@@ -114,3 +114,17 @@ body {
 .footer-color {
     color: #000000 !important;
 }
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus 
+{
+    background-color: #124191 !important;
+}
+
+a {
+    color: #124191 !important;
+   
+}
