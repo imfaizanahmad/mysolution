@@ -257,12 +257,13 @@ function ValidateChildForm() {
         $('.validmsgbusinesGp').hide();
     }
 
-    if ($('#Industries_Id').val() == null) {
+    if ($('#CampaignTypes').val() == 1) {
+        if ($('#Industries_Id').val() == null) {
 
-        $('.validmsgbusinesIndustry').text("Please select Business Group").css("color", "#b94a48");
-        $('.validmsgbusinesIndustry').show();
-        flag = false;
-
+            $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");
+            $('.validmsgbusinesIndustry').show();
+            flag = false;
+        }
     }
     else {
         $('.validmsgbusinesGp').hide();
@@ -284,7 +285,6 @@ function ValidateChildForm() {
         $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
         $('.validmsgbusinesSegment').show();
         flag = false;
-
     }
     else {
         $('.validmsgbusinesSegment').hide();

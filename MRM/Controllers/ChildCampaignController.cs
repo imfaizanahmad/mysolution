@@ -363,6 +363,10 @@ namespace MRM.Controllers
                     var segArr = model.Segments_Id;
                     if (segArr != null && segArr.Length != 1) errorCounter++;
                 }
+                if (model.CampaignTypes == CampaignType.GEPS)
+                {
+                    if (model.Industries_Id == null) errorCounter++;
+                }
 
                 if (model.StartDate != null && model.EndDate != null)
                 {
