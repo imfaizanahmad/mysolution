@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201705311147380_LocalFisrt_310517.Designer.cs">
       <DependentUpon>201705311147380_LocalFisrt_310517.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707041154506_local_db_04072017_4.cs" />
+    <Compile Include="Migrations\201707041154506_local_db_04072017_4.Designer.cs">
+      <DependentUpon>201707041154506_local_db_04072017_4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
     <Compile Include="Model\BusinessLine.cs" />
@@ -82,9 +86,12 @@
     <Compile Include="Model\Geography.cs" />
     <Compile Include="Model\Industry.cs" />
     <Compile Include="Model\MasterCampaign.cs" />
+    <Compile Include="Model\MetricReach.cs" />
+    <Compile Include="Model\MetricResponse.cs" />
     <Compile Include="Model\MRMContext.cs" />
     <Compile Include="Model\Segment.cs" />
     <Compile Include="Model\TacticCampaign.cs" />
+    <Compile Include="Model\TacticCampaignReachResponse.cs" />
     <Compile Include="Model\TacticType.cs" />
     <Compile Include="Model\Theme.cs" />
     <Compile Include="Model\Vendor.cs" />
@@ -99,6 +106,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705311147380_LocalFisrt_310517.resx">
       <DependentUpon>201705311147380_LocalFisrt_310517.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707041154506_local_db_04072017_4.resx">
+      <DependentUpon>201707041154506_local_db_04072017_4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

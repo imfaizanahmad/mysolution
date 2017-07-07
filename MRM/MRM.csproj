@@ -222,6 +222,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterDataController.cs" />
     <Compile Include="Controllers\MasterListController.cs" />
+    <Compile Include="Controllers\MetricController.cs" />
     <Compile Include="Controllers\TacticCampaignController.cs" />
     <Compile Include="Controllers\TacticListController.cs" />
     <Compile Include="Global.asax.cs">
@@ -355,6 +356,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Metric\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

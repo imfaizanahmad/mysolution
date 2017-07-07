@@ -7,6 +7,7 @@ using MRM.ViewModel;
 using MRM.Business.Services;
 using MRM.Database.Model;
 using MRM.Database.GenericRepository;
+using System.Web.Script.Serialization;
 
 namespace MRM.Controllers
 {
@@ -24,6 +25,9 @@ namespace MRM.Controllers
         private ChildCampaignServices _childCampaignServices = null;
         private MasterCampaignServices _masterCampaignServices = null;
 
+        private MetricReachServices _metricReachServices = null;
+        private MetricResponseServices _metricResponseServices = null;
+
         TacticCampaignViewModel Tacticvm = new TacticCampaignViewModel();
 
         public TacticCampaignController()
@@ -38,6 +42,9 @@ namespace MRM.Controllers
             _childCampaignServices = new ChildCampaignServices();
            // _vendorService = new VendorServices();
             _masterCampaignServices = new MasterCampaignServices();
+
+            _metricReachServices = new MetricReachServices();
+            _metricResponseServices = new MetricResponseServices();
         }
 
         public ActionResult TacticCampaign(int Id = 0)
@@ -56,6 +63,10 @@ namespace MRM.Controllers
                 tacticvm.SegmentViewModels = _segmentService.GetSegment();
                 tacticvm.ThemeViewModels = _themeService.GetTheme();
                 tacticvm.GeographyViewModels = _geographyService.GetGeography();
+
+                tacticvm.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
+                tacticvm.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
+
                 return View(tacticvm);
             }
 
@@ -166,26 +177,32 @@ namespace MRM.Controllers
                 tacticvm.Year = tacticCampaign.Year;
                 tacticvm.Status = tacticCampaign.Status;
                 tacticvm.MasterCampaign_Id = tacticCampaign.MasterCampaign_Id;
+
+                tacticvm.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
+                tacticvm.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
+                tacticvm.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
+
                 //tacticvm.TacticTypeViewModels = tacticCampaign.TacticTypes;
-                tacticvm.ReachR1Goal = tacticCampaign.ReachR1Goal;
-                tacticvm.ReachR1Low = tacticCampaign.ReachR1Low;
-                tacticvm.ReachR1High = tacticCampaign.ReachR1High;
-                tacticvm.ReachR11Goal = tacticCampaign.ReachR11Goal;
-                tacticvm.ReachR12Low = tacticCampaign.ReachR12Low;
-                tacticvm.ReachR13High = tacticCampaign.ReachR13High;
-                tacticvm.ResponseR1Goal = tacticCampaign.ResponseR1Goal;
-                tacticvm.ResponseR1Low = tacticCampaign.ResponseR1Low;
-                tacticvm.ResponseR1High = tacticCampaign.ResponseR1High;
-                tacticvm.ResponseR21Goal = tacticCampaign.ResponseR21Goal;
-                tacticvm.ResponseR22Low = tacticCampaign.ResponseR22Low;
-                tacticvm.ResponseR23High = tacticCampaign.ResponseR23High;
-                tacticvm.EfficiencyE1Goal = tacticCampaign.EfficiencyE1Goal;
-                tacticvm.EfficiencyE1Low = tacticCampaign.EfficiencyE1Low;
-                tacticvm.EfficiencyE1High = tacticCampaign.EfficiencyE1High;
-                tacticvm.EfficiencyE11Goal = tacticCampaign.EfficiencyE11Goal;
-                tacticvm.EfficiencyE12Low = tacticCampaign.EfficiencyE12Low;
-                tacticvm.EfficiencyE13High = tacticCampaign.EfficiencyE13High;
-                
+
+                //tacticvm.ReachR1Goal = tacticCampaign.ReachR1Goal;
+                //tacticvm.ReachR1Low = tacticCampaign.ReachR1Low;
+                //tacticvm.ReachR1High = tacticCampaign.ReachR1High;
+                //tacticvm.ReachR11Goal = tacticCampaign.ReachR11Goal;
+                //tacticvm.ReachR12Low = tacticCampaign.ReachR12Low;
+                //tacticvm.ReachR13High = tacticCampaign.ReachR13High;
+                //tacticvm.ResponseR1Goal = tacticCampaign.ResponseR1Goal;
+                //tacticvm.ResponseR1Low = tacticCampaign.ResponseR1Low;
+                //tacticvm.ResponseR1High = tacticCampaign.ResponseR1High;
+                //tacticvm.ResponseR21Goal = tacticCampaign.ResponseR21Goal;
+                //tacticvm.ResponseR22Low = tacticCampaign.ResponseR22Low;
+                //tacticvm.ResponseR23High = tacticCampaign.ResponseR23High;
+                //tacticvm.EfficiencyE1Goal = tacticCampaign.EfficiencyE1Goal;
+                //tacticvm.EfficiencyE1Low = tacticCampaign.EfficiencyE1Low;
+                //tacticvm.EfficiencyE1High = tacticCampaign.EfficiencyE1High;
+                //tacticvm.EfficiencyE11Goal = tacticCampaign.EfficiencyE11Goal;
+                //tacticvm.EfficiencyE12Low = tacticCampaign.EfficiencyE12Low;
+                //tacticvm.EfficiencyE13High = tacticCampaign.EfficiencyE13High;
+
             }
             return View(tacticvm);
         }
@@ -245,6 +262,9 @@ namespace MRM.Controllers
                 model.ChildCampaignViewModels = model.MasterCampaign_Id != 0 ? _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaign_Id).Where(t => t.Status == "Complete") : _childCampaignServices.GetChildCampaign().Where(t => t.Status == "Complete");
                 model.ChildCampaign_Id = model.ChildCampaign_Id;
             }
+
+            model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
+            model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
 
             return PartialView("TacticCampaignForm", model);
         }
@@ -310,6 +330,11 @@ namespace MRM.Controllers
 
             model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
             //model.VendorViewModels = _vendorService.GetVendor();
+
+            model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
+            model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
+
+
             return PartialView("TacticCampaignForm", model);
         }
 
@@ -362,6 +387,9 @@ namespace MRM.Controllers
             model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
             //model.VendorViewModels = _vendorService.GetVendor();
 
+            model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
+            model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
+
             return PartialView("TacticCampaignForm", model);
         }
 
@@ -384,12 +412,16 @@ namespace MRM.Controllers
            // model.VendorViewModels = _vendorService.GetVendor();
             model.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign().Where(t => t.Status == "Complete");
 
+            model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
+            model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
+
             return PartialView("TacticCampaignForm", model);
         }
 
-        public bool Save(TacticCampaignViewModel model, string button)
+        public bool Save(string jsonModel, string button)
         {
-            //todo:
+            // Deserializing json model to object 
+            TacticCampaignViewModel model = new JavaScriptSerializer().Deserialize<TacticCampaignViewModel>(jsonModel);          
             if (button == "Save Draft")
             {
                 if (model.Id == 0)// insert new record as draft

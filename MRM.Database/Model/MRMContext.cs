@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace MRM.Database.Model
 {
-   public class MRMContext : DbContext
+    public class MRMContext : DbContext
     {
         public MRMContext() : base("DBConnectionString")
         {
@@ -24,6 +24,9 @@ namespace MRM.Database.Model
         public DbSet<Geography> Geographys { get; set; }
         public DbSet<Theme> Themes { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
+
+        public DbSet<MetricReach> MetricReachs { get; set; }
+        public DbSet<MetricResponse> MetricResponses { get; set; }
 
     }
 

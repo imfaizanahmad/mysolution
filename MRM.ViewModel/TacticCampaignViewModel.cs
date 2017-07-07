@@ -20,6 +20,11 @@ namespace MRM.ViewModel
             IndustryViewModels = (new[] { new Industry() });
             ChildCampaignViewModels = (new[] { new ChildCampaign() });
             VendorViewModels = (new[] { new Vendor() });
+             
+            TacticCampaignReachResponseViewModels = (new[] {
+                new TacticCampaignReachResponse {MetricType="Reach",MetricId=default(int),Goal=default(int),Low=default(int),High=default(int) },
+                new TacticCampaignReachResponse { MetricType="Response",MetricId=default(int),Goal=default(int),Low=default(int),High=default(int)}
+            });
 
         }
         public int Id { get; set; }
@@ -80,15 +85,21 @@ namespace MRM.ViewModel
         public int[] Vendor_Id { get; set; }
         public int[] Tactic_Id { get; set; }
         public int[] TacticType_Id { get; set; }
+
+        //public int MetricReach_Id { get; set; }
+        public IEnumerable<MetricReach> MetricReachViewModels { get; set; }
+        //public int MetricResponse_Id { get; set; }
+        public IEnumerable<MetricResponse> MetricResponseViewModels { get; set; }
+        public IEnumerable<TacticCampaignReachResponse> TacticCampaignReachResponseViewModels { get; set; }
     }
 
     public class TacticCampaignViewModelList
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public string TacticDescription { get; set; }       
+        public string TacticDescription { get; set; }
         public string StartDate { get; set; }
-        public string EndDate { get; set; }    
+        public string EndDate { get; set; }
         public string Status { get; set; }
     }
 }

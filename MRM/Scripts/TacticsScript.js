@@ -9,11 +9,12 @@
 
     //tactic camapaign post
     $(document).on('click', '#btnSubmitTactic', function () {
+        var sdata = CollectTacticFormData();
         if (ValidateTacticForm() === true) {
             $.ajax({
                 type: "POST",
-                url: '/TacticCampaign/save?button=' + "Submit",
-                data: $("#frmTacticCampaign").serialize(), // serializes the form's elements.
+                url: '/TacticCampaign/save',//?button=' + "Submit",
+                data: { "jsonModel": JSON.stringify(sdata), "button": "Submit" },//$("#frmTacticCampaign").serialize(), // serializes the form's elements.
                 success: function (data) {
                     if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
                 }
@@ -22,17 +23,19 @@
     });
 
     $(document).on('click', '#btnSaveDrafttactic', function () {
-        if (ValidateTacticSaveasDraft() === true)
-            {
-        $.ajax({
-            type: "POST",
-            url: '/TacticCampaign/save?button=' + "Save Draft",
-            data: $("#frmTacticCampaign").serialize(), // serializes the form's elements.
-            success: function (data) {
-                if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
-           }
-        });
-     }
+        var sdata = CollectTacticFormData();
+        if (ValidateTacticSaveasDraft() === true) {
+            $.ajax({
+                type: "POST",
+                //url: '/TacticCampaign/save?button=' + "Save Draft",
+                //data: $("#frmTacticCampaign").serialize(), //$("#frmTacticCampaign").serialize(), // serializes the form's elements.
+                url: '/TacticCampaign/save',
+                data: { "jsonModel": JSON.stringify(sdata), "button": "Save Draft" },
+                success: function (data) {
+                    if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
+                }
+            });
+        }
     });
 
     $(document).on('click', '#btnDeleteTactic', function () {
@@ -108,7 +111,96 @@
         });
     });
 
+    $(document).on('click', '#btnAddReachRow', function () {
+        var $options = $('#tblBenchmark tbody tr.trReach').find('.ddlMetricReach').html();
+
+        var reachTblRow = $('<tr><td><label><input value="Reach" name="MetricType" type="hidden"></label></td>\
+                           <td><select id="MetricReach_Id" class="form-control ddlMetricReach chosen-single">' + $options + '</select></td>\
+                           <td><input type="text" class="form-control goal" maxlength="50" name="ReachGoal" onkeypress="numericvalidate(event)" value="" /></td>\
+                           <td><input type="text" class="form-control low" maxlength="50" name="ReachLow" onkeypress="numericvalidate(event)" value="" /></td>\
+                           <td><input type="text" class="form-control high" maxlength="50" name="ReachHigh" onkeypress="numericvalidate(event)" value="" /></td>\
+                           <td><input type="button" Id="btnRemoveReachRow" class="btn btn-white removeRow" title="Remove Row" value="Remove" /></td>\
+                       </tr>');
+
+        $('#tblBenchmark tbody tr.trResponse').before(reachTblRow);
+        reachTblRow.find('select').chosen().trigger('chosen:updated');
+
+        if ($('#tblBenchmark tbody tr.trReach select.ddlMetricReach > option').length == $('#tblBenchmark tbody tr .ddlMetricReach').length) {
+            $('#tblBenchmark tbody #btnAddReachRow').prop('disabled', true);
+        }
+
+        DisableOptionBasedOnSelection('ddlMetricReach');
+    });
+
+    $(document).on('click', '#btnResponseRow', function () {
+        var $options = $('#tblBenchmark tbody tr.trResponse').find('.ddlMetricResponse').html();
+
+        var responseTblRow = $('<tr><td><label><input value="Response" name="MetricType" type="hidden"></label></td>\
+                           <td><select id="MetricResponse_Id" class="form-control ddlMetricResponse chosen-single">' + $options + '</select></td>\
+                           <td><input type="text" class="form-control goal" maxlength="50" name="ResponseGoal" onkeypress="numericvalidate(event)" value="" /></td>\
+                           <td><input type="text" class="form-control low" maxlength="50" name="ResponseLow" onkeypress="numericvalidate(event)" value="" /></td>\
+                           <td><input type="text" class="form-control high" maxlength="50" name="ResponseHigh" onkeypress="numericvalidate(event)" value="" /></td>\
+                           <td><input type="button" Id="btnRemoveResponseRow" class="btn btn-white removeRow" title="Remove Row" value="Remove" /></td>\
+                       </tr>');
+
+        $('#tblBenchmark tbody tr:last').after(responseTblRow);
+        responseTblRow.find('select').chosen().trigger('chosen:updated');
+
+        if ($('#tblBenchmark tbody tr.trResponse select.ddlMetricResponse > option').length == $('#tblBenchmark tbody tr .ddlMetricResponse').length) {
+            $('#tblBenchmark tbody #btnResponseRow').prop('disabled', true);
+        }
+
+        DisableOptionBasedOnSelection('ddlMetricResponse');
+
+    });
+
+    $('#tblBenchmark tbody').on("click", ".removeRow", function () {
+        $(this).closest("tr").remove();
+
+        if ($('#tblBenchmark tbody tr.trReach select.ddlMetricReach > option').length >= $('#tblBenchmark tbody tr .ddlMetricReach').length) {
+            $('#tblBenchmark tbody #btnAddReachRow').prop('disabled', false);
+
+            DisableOptionBasedOnSelection('ddlMetricReach');
+        }
+
+        if ($('#tblBenchmark tbody tr.trResponse select.ddlMetricResponse > option').length >= $('#tblBenchmark tbody tr .ddlMetricResponse').length) {
+            $('#tblBenchmark tbody #btnResponseRow').prop('disabled', false);
+
+            DisableOptionBasedOnSelection('ddlMetricResponse');
+        }
+    });
+
+    // BindMetricReachList($(this));
+
+    // BindMetricResponseList($(this));
+
+    $('#tblBenchmark tbody').on('change', 'select.ddlMetricReach', function () {
+        DisableOptionBasedOnSelection('ddlMetricReach');
+    });
+
+    $('#tblBenchmark tbody').on('change', 'select.ddlMetricResponse', function () {
+        DisableOptionBasedOnSelection('ddlMetricResponse');
+    });
+
 });
+
+function DisableOptionBasedOnSelection(ddlType) {
+    debugger;
+    if (ddlType == 'ddlMetricReach') {
+        var ddlMetricReach = $('#tblBenchmark tbody select.ddlMetricReach');
+        ddlMetricReach.find('option').prop('disabled', false);
+        ddlMetricReach.each(function () {
+            ddlMetricReach.not(this).find('option[value="' + this.value + '"]').prop('disabled', true);
+        });
+    }
+    else {
+        var ddlMetricResponse = $('#tblBenchmark tbody select.ddlMetricResponse');
+        ddlMetricResponse.find('option').prop('disabled', false);
+        ddlMetricResponse.each(function () {
+            ddlMetricResponse.not(this).find('option[value="' + this.value + '"]').prop('disabled', true);
+        });
+    }
+}
 
 //Special character not allowed
 function blockSpecialChar(e) {
@@ -128,7 +220,6 @@ function numericvalidate(evt) {
         if (theEvent.preventDefault) theEvent.preventDefault();
     }
 }
-
 
 function ValidateTacticSaveasDraft() {
     var flag = true;
@@ -197,231 +288,340 @@ function ValidateTacticSaveasDraft() {
     return flag;
 }
 
-    function ValidateTacticForm() {
-        var flag = true;
-        if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
+function ValidateTacticForm() {
+    var flag = true;
+    if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
 
-            $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
-            $('.validmsgMastercampaign').show();
+        $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
+        $('.validmsgMastercampaign').show();
+        flag = false;
+
+    }
+    else {
+        $('.validmsgMastercampaign').hide();
+    }
+
+    if ($('#ChildCampaign_Id').val() == null || $('#ChildCampaign_Id').val() == 0) {
+
+        $('.validmsgSubcampaign').text("Please select child Campaign").css("color", "#b94a48");
+        $('.validmsgSubcampaign').show();
+        flag = false;
+
+    } else {
+        $('.validmsgSubcampaign').hide();
+    }
+
+    if ($('#Vendor').val().trim() === "") {
+
+        $('.validmsgvendor').text("Please enter Vendor").css("color", "#b94a48");
+        $('.validmsgvendor').show();
+        flag = false;
+
+    } else {
+        $('.validmsgvendor').hide();
+    }
+
+    if ($('#TacticType_Id').val() == null) {
+
+        $('.validmsgTactictype').text("Please select Vendor").css("color", "#b94a48");
+        $('.validmsgTactictype').show();
+        flag = false;
+
+    } else {
+        $('.validmsgTactictype').hide();
+    }
+
+    if ($('#ChildCampaign_Id').val() == null) {
+
+        $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
+        $('.validmsgSubcampaign').show();
+        flag = false;
+
+    } else {
+        $('.validmsgSubcampaign').hide();
+    }
+
+    if ($('#BusinessGroups_Id').val() == null) {
+
+        $('.validmsgbusinesGp').text("Please select Business Group").css("color", "#b94a48");
+        $('.validmsgbusinesGp').show();
+        flag = false;
+
+    } else {
+        $('.validmsgbusinesGp').hide();
+    }
+
+    if ($('#BusinessLines_Id').val() == null) {
+
+        $('.validmsgbusinesLine').text("Please select business line from drop-down").css("color", "#b94a48");
+        $('.validmsgbusinesLine').show();
+        flag = false;
+
+    } else {
+        $('.validmsgbusinesLine').hide();
+    }
+
+    if ($('#Segments_Id').val() == null) {
+
+        $('.validmsgbusinesSegment').text("Please select segment from drop-down").css("color", "#b94a48");
+        $('.validmsgbusinesSegment').show();
+        flag = false;
+
+    } else {
+        $('.validmsgbusinesSegment').hide();
+    }
+
+    if ($('#Industries_Id').val() == null) {
+
+        $('.validmsgbusinesIndustry').text("Please select business line from drop-down").css("color", "#b94a48");
+        $('.validmsgbusinesIndustry').show();
+        flag = false;
+
+    } else {
+        $('.validmsgbusinesIndustry').hide();
+    }
+
+    if ($('#Geographys_Id').val() == null) {
+        $('.validmsggeography').text("Please select geography from drop-down").css("color", "#b94a48");
+        $('.validmsggeography').show();
+        flag = false;
+
+    } else {
+        $('.validmsggeography').hide();
+    }
+
+    if ($('#subcampaigntype').val() == "") {
+
+        $('.validmsgsubcampaigntype').text("Please select Type (Sub Campaign)").css("color", "#b94a48");
+        $('.validmsgsubcampaigntype').show();
+        flag = false;
+
+    } else {
+        $('.validmsgsubcampaigntype').hide();
+    }
+
+
+    if ($("#StartDate").val() == "") {
+        $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
+        $('.validmsgSdate').show();
+        flag = false;
+
+    }
+    else {
+        $('.validmsgSdate').hide();
+    }
+
+    if ($("#EndDate").val() == "") {
+        $('.validmsgEdate').text("Please select End Date").css("color", "#b94a48");
+        $('.validmsgEdate').show();
+        flag = false;
+    }
+    else {
+        $('.validmsgEdate').hide();
+    }
+
+    //var startdate = new Date($("#StartDate").find("input").val());
+    //var enddate = new Date($("#EndDate").find("input").val());
+
+    var startdate = new Date($("#StartDate").val());
+    var enddate = new Date($("#EndDate").val());
+
+    var MCStartdate = new Date($("#MCStartDate").val());
+    var MCEnddate = new Date($("#MCEndDate").val());
+
+    var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
+    var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
+        if (startdate < MCStartdate || enddate > MCEnddate) {
+            $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
             flag = false;
-
-        }
-        else {
-            $('.validmsgMastercampaign').hide();
-        }
-
-        if ($('#ChildCampaign_Id').val() == null || $('#ChildCampaign_Id').val() == 0) {
-
-            $('.validmsgSubcampaign').text("Please select child Campaign").css("color", "#b94a48");
-            $('.validmsgSubcampaign').show();
-            flag = false;
-
         } else {
-            $('.validmsgSubcampaign').hide();
+            $('.validmsgDateMCcompare').hide();
         }
+    }
 
-        if ($('#Vendor').val().trim() === "") {
+    if (startdate > enddate) {
+        $('.validmsgDatecompare').text("End date can not less than start date").css("color", "#b94a48");
+        $('.validmsgDatecompare').show();
+        flag = false;
+    } else {
+        $('.validmsgDatecompare').hide();
+    }
 
-            $('.validmsgvendor').text("Please enter Vendor").css("color", "#b94a48");
-            $('.validmsgvendor').show();
-            flag = false;
+    if ($('#Name').val().trim() == "") {
+        $('.validmsgtacticname').text("Please enter sub campaign name").css("color", "#b94a48");
+        $('.validmsgtacticname').show();
+        flag = false;
 
-        } else {
-            $('.validmsgvendor').hide();
-        }
+    } else {
 
-        if ($('#TacticType_Id').val() == null) {
+        $('.validmsgtacticname').hide();
+    }
 
-            $('.validmsgTactictype').text("Please select Vendor").css("color", "#b94a48");
-            $('.validmsgTactictype').show();
-            flag = false;
+    if ($('#TacticDescription').val().trim() == "") {
+        $('.validmsgtacticdesc').text("Please enter sub campaign description name").css("color", "#b94a48");
+        $('.validmsgtacticdesc').show();
+        flag = false;
+    } else {
 
-        } else {
-            $('.validmsgTactictype').hide();
-        }
+        $('.validmsgSubCampDesc').hide();
+    }
 
-        if ($('#ChildCampaign_Id').val() == null) {
+    if ($('#Year').val() == "") {
+        $('.validmsgyear').text("Please enter Year").css("color", "#b94a48");
+        $('.validmsgyear').show();
+        flag = false;
+    } else {
 
-            $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
-            $('.validmsgSubcampaign').show();
-            flag = false;
-
-        } else {
-            $('.validmsgSubcampaign').hide();
-        }
-
-        if ($('#BusinessGroups_Id').val() == null) {
-
-            $('.validmsgbusinesGp').text("Please select Business Group").css("color", "#b94a48");
-            $('.validmsgbusinesGp').show();
-            flag = false;
-
-        } else {
-            $('.validmsgbusinesGp').hide();
-        }
-
-        if ($('#BusinessLines_Id').val() == null) {
-
-            $('.validmsgbusinesLine').text("Please select business line from drop-down").css("color", "#b94a48");
-            $('.validmsgbusinesLine').show();
-            flag = false;
-
-        } else {
-            $('.validmsgbusinesLine').hide();
-        }
-
-        if ($('#Segments_Id').val() == null) {
-
-            $('.validmsgbusinesSegment').text("Please select segment from drop-down").css("color", "#b94a48");
-            $('.validmsgbusinesSegment').show();
-            flag = false;
-
-        } else {
-            $('.validmsgbusinesSegment').hide();
-        }
-
-        if ($('#Industries_Id').val() == null) {
-
-            $('.validmsgbusinesIndustry').text("Please select business line from drop-down").css("color", "#b94a48");
-            $('.validmsgbusinesIndustry').show();
-            flag = false;
-
-        } else {
-            $('.validmsgbusinesIndustry').hide();
-        }
-
-        if ($('#Geographys_Id').val() == null) {
-            $('.validmsggeography').text("Please select geography from drop-down").css("color", "#b94a48");
-            $('.validmsggeography').show();
-            flag = false;
-
-        } else {
-            $('.validmsggeography').hide();
-        }
-
-        if ($('#subcampaigntype').val() == "") {
-
-            $('.validmsgsubcampaigntype').text("Please select Type (Sub Campaign)").css("color", "#b94a48");
-            $('.validmsgsubcampaigntype').show();
-            flag = false;
-
-        } else {
-            $('.validmsgsubcampaigntype').hide();
-        }
+        $('.validmsgyear').hide();
+    }
 
 
-        if ($("#StartDate").val() == "") {
-            $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
-            $('.validmsgSdate').show();
-            flag = false;
 
-        }
-        else {
-            $('.validmsgSdate').hide();
-        }
+    if (($('#ReachR1Goal').val() === "" || $('#ReachR1Low').val() === "" || $('#ReachR1High').val() === "") && ($('#ReachR11Goal').val() === "" || $('#ReachR12Low').val() === "" || $('#ReachR13High').val() === "")) {
 
-        if ($("#EndDate").val() == "") {
-            $('.validmsgEdate').text("Please select End Date").css("color", "#b94a48");
-            $('.validmsgEdate').show();
-            flag = false;
-        }
-        else {
-            $('.validmsgEdate').hide();
-        }
+        $('.validmsgReachMetric').text("Please fill atleast one Reach Metric").css("color", "#b94a48");
+        $('.validmsgReachMetric').show();
+        flag = false;
 
-        //var startdate = new Date($("#StartDate").find("input").val());
-        //var enddate = new Date($("#EndDate").find("input").val());
+    } else {
+        $('.validmsgReachMetric').hide();
+    }
 
-        var startdate = new Date($("#StartDate").val());
-        var enddate = new Date($("#EndDate").val());
+    if (($('#ResponseR1Goal').val() === "" || $('#ResponseR1Low').val() === "" || $('#ResponseR1High').val() === "") && ($('#ResponseR21Goal').val() === "" || $('#ResponseR22Low').val() === "" || $('#ResponseR23High').val() === "")) {
 
-        var MCStartdate = new Date($("#MCStartDate").val());
-        var MCEnddate = new Date($("#MCEndDate").val());
+        $('.validmsgResponseMetric').text("Please fill atleast one Response Metric").css("color", "#b94a48");
+        $('.validmsgResponseMetric').show();
+        flag = false;
 
-        var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
-        var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
-        if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
-            if (startdate < MCStartdate || enddate > MCEnddate) {
-                $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
-                $('.validmsgDateMCcompare').show();
-                flag = false;
-            } else {
-                $('.validmsgDateMCcompare').hide();
+    } else {
+        $('.validmsgResponseMetric').hide();
+    }
+
+
+
+    return flag;
+}
+
+//Prevent to user enter special character in Description Area.
+function alpha(e) {
+    if (document.getElementById("TacticDescription").value.length < 500) {
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+    }
+    else {
+        alert("You can't enter more then 500 character in description field!")
+        return false;
+    }
+}
+
+function BindMetricReachList(panel) {
+    var sdata = {};
+
+    $.ajax({
+        type: 'get',
+        contentType: "application/json",
+        url: "/Metric/GetMetricReachList",
+        data: JSON.stringify(sdata),
+        success: function (dataset) {
+            var result = dataset.metricReachList;
+            var options = '';
+            if (result != null) {
+                for (var i = 0; i < result.length; i++) {
+                    options += '<option value="' + result[i].Id + '">' + result[i].Name + '</option>';
+                }
+                panel.find('#tblBenchmark').find('.ddlMetricReach').append(options);
+                //panel.find('#tblBenchmark').find('.ddlMetricReach').trigger('chosen:updated');
             }
+        },
+        error: function (jqxhr, textStatus, error) {
+            // debugger;
         }
+    });
+}
 
-        if (startdate > enddate) {
-            $('.validmsgDatecompare').text("End date can not less than start date").css("color", "#b94a48");
-            $('.validmsgDatecompare').show();
-            flag = false;
-        } else {
-            $('.validmsgDatecompare').hide();
+function BindMetricResponseList(panel) {
+    var sdata = {};
+
+    $.ajax({
+        type: 'get',
+        contentType: "application/json",
+        url: "/Metric/GetMetricResponseList",
+        data: JSON.stringify(sdata),
+        success: function (dataset) {
+            var result = dataset.metricResponseList;
+            var options = '';
+            if (result != null) {
+                for (var i = 0; i < result.length; i++) {
+                    options += '<option value="' + result[i].Id + '">' + result[i].Name + '</option>';
+                }
+                panel.find('#tblBenchmark').find('.ddlMetricResponse').append(options);
+                //panel.find('#tblBenchmark').find('.ddlMetricResponse').trigger('chosen:updated');
+            }
+        },
+        error: function (jqxhr, textStatus, error) {
+
         }
+    });
+}
 
-        if ($('#Name').val().trim() == "") {
-            $('.validmsgtacticname').text("Please enter sub campaign name").css("color", "#b94a48");
-            $('.validmsgtacticname').show();
-            flag = false;
+function CollectTacticFormData() {
+    var data = {};
+    data.MasterCampaign_Id = $('#frmTacticCampaign').find('#MasterCampaign_Id option:selected').val();
+    data.ChildCampaign_Id = $('#frmTacticCampaign').find('#ChildCampaign_Id option:selected').val();
 
-        } else {
+    data.TacticType_Id = [];
+    data.TacticType_Id.push(parseInt($('#frmTacticCampaign').find('#TacticType_Id option:selected').val()));
 
-            $('.validmsgtacticname').hide();
-        }
+    data.Name = $('#frmTacticCampaign').find('#Name').val();
+    data.TacticDescription = $('#frmTacticCampaign').find('#TacticDescription').val();
 
-        if ($('#TacticDescription').val().trim() == "") {
-            $('.validmsgtacticdesc').text("Please enter sub campaign description name").css("color", "#b94a48");
-            $('.validmsgtacticdesc').show();
-            flag = false;
-        } else {
+    data.Themes_Id = [];
+    $('#frmTacticCampaign').find('#Themes_Id').closest('.form-group').find('ul li.search-choice').each(function () {
+        data.Themes_Id.push($('#frmTacticCampaign').find('#Themes_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
+    });
 
-            $('.validmsgSubCampDesc').hide();
-        }
+    data.Geographys_Id = [];
+    $('#frmTacticCampaign').find('#Geographys_Id').closest('.form-group').find('ul li.search-choice').each(function () {
+        data.Geographys_Id.push($('#frmTacticCampaign').find('#Geographys_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
+    });
 
-        if ($('#Year').val() == "") {
-            $('.validmsgyear').text("Please enter Year").css("color", "#b94a48");
-            $('.validmsgyear').show();
-            flag = false;
-        } else {
+    data.StartDate = $('#frmTacticCampaign').find('#StartDate').val();
+    data.EndDate = $('#frmTacticCampaign').find('#EndDate').val();
 
-            $('.validmsgyear').hide();
-        }
+    data.BusinessGroups_Id = [];
+    businessGroups_Id = parseInt($('#frmTacticCampaign').find('#BusinessGroups_Id option:selected').val());//Array
+    data.BusinessGroups_Id.push(businessGroups_Id);
 
+    data.Segments_Id = [];
+    segments_Id = parseInt($('#frmTacticCampaign').find('#Segments_Id option:selected').val());//Array
+    data.Segments_Id.push(segments_Id);
 
+    data.BusinessLines_Id = [];
+    $('#frmTacticCampaign').find('#BusinessLines_Id').closest('.form-group').find('ul li.search-choice').each(function () {
+        data.BusinessLines_Id.push($('#frmTacticCampaign').find('#BusinessLines_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
+    });
 
-        if (($('#ReachR1Goal').val() === "" || $('#ReachR1Low').val() === "" || $('#ReachR1High').val() === "") && ($('#ReachR11Goal').val() === "" || $('#ReachR12Low').val() === "" || $('#ReachR13High').val() === "")) {
-
-            $('.validmsgReachMetric').text("Please fill atleast one Reach Metric").css("color", "#b94a48");
-            $('.validmsgReachMetric').show();
-            flag = false;
-
-        } else {
-            $('.validmsgReachMetric').hide();
-        }
-
-        if (($('#ResponseR1Goal').val() === "" || $('#ResponseR1Low').val() === "" || $('#ResponseR1High').val() === "") && ($('#ResponseR21Goal').val() === "" || $('#ResponseR22Low').val() === "" || $('#ResponseR23High').val() === "")) {
-
-            $('.validmsgResponseMetric').text("Please fill atleast one Response Metric").css("color", "#b94a48");
-            $('.validmsgResponseMetric').show();
-            flag = false;
-
-        } else {
-            $('.validmsgResponseMetric').hide();
-        }
+    data.Industries_Id = [];
+    $('#frmTacticCampaign').find('#Industries_Id').closest('.form-group').find('ul li.search-choice').each(function () {
+        data.Industries_Id.push($('#frmTacticCampaign').find('#Industries_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
+    });
 
 
-           
-            return flag;
-    }
+    data.Vendor = $('#frmTacticCampaign').find('#Vendor').val();
+    data.TacticCampaignReachResponseViewModels = [];
+    $('#frmTacticCampaign').find('#tblBenchmark tbody tr').each(function () {
+        data.TacticCampaignReachResponseViewModels.push({
+            MetricType: $(this).find('input[type="hidden"]').val(),
+            MetricId: $(this).find('.ddlMetricReach option:selected').val(),
+            Goal: $(this).find('.goal').val(),
+            Low: $(this).find('.low').val(),
+            High: $(this).find('.high').val()
+        })
+    });
 
-    //Prevent to user enter special character in Description Area.
-    function alpha(e) {
-        if (document.getElementById("TacticDescription").value.length < 500) {
-            var k;
-            document.all ? k = e.keyCode : k = e.which;
-            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
-        }
-        else {
-            alert("You can't enter more then 500 character in description field!")
-            return false;
-        }
-    }
+    return data;
+}
+

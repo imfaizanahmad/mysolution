@@ -45,6 +45,8 @@
     <Compile Include="ChildCampaignViewModel.cs" />
     <Compile Include="MasterCampaignViewModel.cs" />
     <Compile Include="MasterCampaignViewModelListing.cs" />
+    <Compile Include="MetricReachViewModel.cs" />
+    <Compile Include="MetricResponseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TacticCampaignViewModel.cs" />
   </ItemGroup>

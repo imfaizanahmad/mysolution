@@ -53,6 +53,9 @@
     <Compile Include="Interfaces\IChildCampaignServices.cs" />
     <Compile Include="Interfaces\IGeographyServices.cs" />
     <Compile Include="Interfaces\IMasterCampaignServices.cs" />
+    <Compile Include="Interfaces\IMetricReachServices.cs" />
+    <Compile Include="Interfaces\IMetricResponseServices.cs" />
+    <Compile Include="Interfaces\ITacticCampaignReachResponsesServices.cs" />
     <Compile Include="Interfaces\ITacticCampaignServices.cs" />
     <Compile Include="Interfaces\IThemeServices.cs" />
     <Compile Include="Interfaces\ISegmentServices.cs" />
@@ -64,8 +67,11 @@
     <Compile Include="Services\BusinessLineServices.cs" />
     <Compile Include="Services\ChildCampaignServices.cs" />
     <Compile Include="Services\MasterCampaignServices.cs" />
+    <Compile Include="Services\MetricReachServices.cs" />
+    <Compile Include="Services\MetricResponseServices.cs" />
     <Compile Include="Services\SegmentServices.cs" />
     <Compile Include="Services\GeographyServices.cs" />
+    <Compile Include="Services\TacticCampaignReachResponsesServices.cs" />
     <Compile Include="Services\TacticCampaignServices.cs" />
     <Compile Include="Services\ThemeServices.cs" />
     <Compile Include="Services\IndustryServices.cs" />
