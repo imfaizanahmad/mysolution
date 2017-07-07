@@ -89,7 +89,7 @@
     });
 
     $(document).ready(function () {
-        HighlightSelectedDate();
+
         commonUiInitialization();
         GetBGandSegmentSingleDDl();
 
@@ -110,6 +110,9 @@
             $selectSegment.chosen('destroy');
             $selectSegment.attr('multiple', 'multiple');
             $selectSegment.chosen();
+
+            $('a[data-target-id="BusinessGroups_Id"]').hide();
+            $('a[data-target-id="Segments_Id"]').show();
         }
         else if ($('#CampaignTypes').val() == 1){
             $selectSegment.chosen('destroy');
@@ -119,6 +122,9 @@
             $select.chosen('destroy');
             $select.attr('multiple', 'multiple');
             $select.chosen();
+
+            $('a[data-target-id="BusinessGroups_Id"]').show();
+            $('a[data-target-id="Segments_Id"]').hide();
         }
     }
 
@@ -168,6 +174,7 @@
 
 
         if ($("#EndDate").val() != undefined) {
+             
             if ($("#EndDate").val().length > 0) {
                 if ($("#EndDate").val().indexOf(" ") > 0)
                     $("#EndDate").val($("#EndDate").val().substr(0, $("#EndDate").val().indexOf(" ")));
@@ -201,8 +208,7 @@
 
 
         manageStartEndDate();
-
-
+        HighlightSelectedDate();
         $(document).on('change', '#StartDate', function () {
             manageStartEndDate();
 
@@ -230,16 +236,18 @@
             $('#' + selectallElement).trigger('chosen:updated');
         }
     }
+
+ 
 </script>
 <style>
    
 
     /*.ui-widget-content{border:0px solid #fff !important}*/
-     .dialogbg {
-         background: transparent;
-         border: 0px solid #fff !important;
-         border-style: none;
-     }
+    .dialogbg {
+        background: transparent;
+        border: 0px solid #fff !important;
+        border-style: none;
+    }
     .loader {
         border: 16px solid #f3f3f3;
         border-radius: 50%;
@@ -259,4 +267,11 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+
+    /*//Set scroll on multi select*/
+   ul.chosen-choices {
+        overflow: auto!important;
+        max-height: 80px;
+    }
+
 </style>

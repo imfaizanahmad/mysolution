@@ -61,6 +61,15 @@ namespace MRM.ViewModel
         public string EfficiencyE12Low { get; set; }
         public string EfficiencyE13High { get; set; }
 
+
+        public bool ThemeSelectUnselect { get; set; }
+        public bool BgSelectUnselect { get; set; }
+        public bool BlSelectUnselect { get; set; }
+        public bool GeoSelectUnselect { get; set; }
+        public bool SegSelectUnselect { get; set; }
+        public bool IndustrySelectUnselect { get; set; }
+
+
         public IEnumerable<Industry> IndustryViewModels { get; set; }
         public IEnumerable<Geography> GeographyViewModels { get; set; }
         public IEnumerable<Theme> ThemeViewModels { get; set; }
