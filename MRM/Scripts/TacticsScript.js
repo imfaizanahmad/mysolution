@@ -69,7 +69,7 @@
         }
 
         $('#' + selectallElement).trigger('chosen:updated');
-      
+
     });
 
     $(document).on("change", "#BusinessGroups_Id", function () {
@@ -151,6 +151,22 @@
         var getselectedval = $("#Segments_Id").closest('.form-group').find('a[data-select-all="Segselectunselect"]');
         var selectallElement = getselectedval.attr('data-target-id');
         var nextStage = getselectedval.attr('data-next-stage');
+        if (nextStage === "Segselect") {
+            $('#' + selectallElement + ' option').prop('selected', true);
+            getselectedval.attr('data-next-stage', "Segunselect");
+            getselectedval.text("Select None");
+
+        } else {
+            $('#' + selectallElement + ' option').prop('selected', false);
+            getselectedval.attr('data-next-stage', "Segselect");
+            getselectedval.text("Select All");
+        }
+        $('#' + selectallElement).trigger('chosen:updated');
+
+        //Load Industry
+        funcLoadIndustry();
+    });
+
     $(document).on('click', '#btnAddReachRow', function () {
         var $options = $('#tblBenchmark tbody tr.trReach').find('.ddlMetricReach').html();
 
@@ -225,7 +241,6 @@
 });
 
 function DisableOptionBasedOnSelection(ddlType) {
-    debugger;
     if (ddlType == 'ddlMetricReach') {
         var ddlMetricReach = $('#tblBenchmark tbody select.ddlMetricReach');
         ddlMetricReach.find('option').prop('disabled', false);
@@ -241,25 +256,6 @@ function DisableOptionBasedOnSelection(ddlType) {
         });
     }
 }
-
-        if (nextStage === "Segselect") {
-            $('#' + selectallElement + ' option').prop('selected', true);
-            getselectedval.attr('data-next-stage', "Segunselect");
-            getselectedval.text("Select None");
-
-        } else {
-            $('#' + selectallElement + ' option').prop('selected', false);
-            getselectedval.attr('data-next-stage', "Segselect");
-            getselectedval.text("Select All");
-        }
-        $('#' + selectallElement).trigger('chosen:updated');
-
-        //Load Industry
-        funcLoadIndustry();
-    });
-
-});
-
 
 //Load BusinessLine 
 function funcLoadBusinessLine() {
@@ -519,17 +515,17 @@ function ValidateTacticForm() {
     var MCStartdate = new Date($("#MCStartDate").val());
     var MCEnddate = new Date($("#MCEndDate").val());
 
-        var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
-        var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
-        if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
-            if (startdate < MCStartdate || enddate > MCEnddate) {
-                $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
-                $('.validmsgDateMCcompare').show();
-                flag = false;
-            } else {
-                $('.validmsgDateMCcompare').hide();
-            }
+    var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
+    var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
+        if (startdate < MCStartdate || enddate > MCEnddate) {
+            $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
+            flag = false;
+        } else {
+            $('.validmsgDateMCcompare').hide();
         }
+    }
 
     if (startdate > enddate) {
         $('.validmsgDatecompare').text("End date can not less than start date").css("color", "#b94a48");
@@ -659,6 +655,7 @@ function BindMetricResponseList(panel) {
 
 function CollectTacticFormData() {
     var data = {};
+    data.Id = $('#frmTacticCampaign').find('input[name="Id"]').val()
     data.MasterCampaign_Id = $('#frmTacticCampaign').find('#MasterCampaign_Id option:selected').val();
     data.ChildCampaign_Id = $('#frmTacticCampaign').find('#ChildCampaign_Id option:selected').val();
 
@@ -682,12 +679,14 @@ function CollectTacticFormData() {
     data.EndDate = $('#frmTacticCampaign').find('#EndDate').val();
 
     data.BusinessGroups_Id = [];
-    businessGroups_Id = parseInt($('#frmTacticCampaign').find('#BusinessGroups_Id option:selected').val());//Array
-    data.BusinessGroups_Id.push(businessGroups_Id);
+    $('#frmTacticCampaign').find('#BusinessGroups_Id').closest('.form-group').find('ul li.search-choice').each(function () {
+        data.BusinessGroups_Id.push($('#frmTacticCampaign').find('#BusinessGroups_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
+    });
 
     data.Segments_Id = [];
-    segments_Id = parseInt($('#frmTacticCampaign').find('#Segments_Id option:selected').val());//Array
-    data.Segments_Id.push(segments_Id);
+    $('#frmTacticCampaign').find('#Segments_Id').closest('.form-group').find('ul li.search-choice').each(function () {
+        data.Segments_Id.push($('#frmTacticCampaign').find('#Segments_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
+    });
 
     data.BusinessLines_Id = [];
     $('#frmTacticCampaign').find('#BusinessLines_Id').closest('.form-group').find('ul li.search-choice').each(function () {
@@ -715,18 +714,18 @@ function CollectTacticFormData() {
     return data;
 }
 
-    //Prevent to user enter special character in Description Area.
-    function alpha(e) {
-        if (document.getElementById("TacticDescription").value.length < 500) {
-            var k;
-            document.all ? k = e.keyCode : k = e.which;
-            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
-        }
-        else {
-            alert("You can't enter more then 500 character in description field!")
-            return false;
-        }
+//Prevent to user enter special character in Description Area.
+function alpha(e) {
+    if (document.getElementById("TacticDescription").value.length < 500) {
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
     }
+    else {
+        alert("You can't enter more then 500 character in description field!")
+        return false;
+    }
+}
 
 function PreventSpecialChar() {
     $("#TacticDescription").bind('paste', function () {

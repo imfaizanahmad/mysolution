@@ -20,28 +20,6 @@ namespace MRM.Database.Model
         public string TacticType { get; set; }
         public string Vendor { get; set; }
 
-        //public string ReachR1Goal { get; set; }
-        //public string ReachR1Low { get; set; }
-        //public string ReachR1High { get; set; }
-        //public string ReachR11Goal { get; set; }
-        //public string ReachR12Low { get; set; }
-        //public string ReachR13High { get; set; }
-        //public string ResponseR1Goal { get; set; }
-        //public string ResponseR1Low { get; set; }
-        //public string ResponseR1High { get; set; }
-        //public string ResponseR21Goal { get; set; }
-        //public string ResponseR22Low { get; set; }
-        //public string ResponseR23High { get; set; }
-
-        //public string EfficiencyE1Goal { get; set; }
-        //public string EfficiencyE1Low { get; set; }
-        //public string EfficiencyE1High { get; set; }
-
-        //public string EfficiencyE11Goal { get; set; }
-        //public string EfficiencyE12Low { get; set; }
-        //public string EfficiencyE13High { get; set; }
-
-
         public virtual ICollection<BusinessGroup> BusinessGroups { get; set; }
         public virtual ICollection<BusinessLine> BusinessLines { get; set; }
         public virtual ICollection<Segment> Segments { get; set; }
