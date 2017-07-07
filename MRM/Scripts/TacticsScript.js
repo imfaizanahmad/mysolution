@@ -709,13 +709,13 @@ function CollectTacticFormData() {
     data.Vendor = $('#frmTacticCampaign').find('#Vendor').val();
 
     data.TacticCampaignReachResponseViewModels = [];
-    $('#frmTacticCampaign').find('#tblBenchmark tbody tr').each(function () {
+    $('#frmTacticCampaign').find('#tblBenchmark tbody tr').each(function () {      
         data.TacticCampaignReachResponseViewModels.push({
             MetricType: $(this).find('input[type="hidden"]').val(),
             MetricId: $(this).find('.ddlMetricReach option:selected').val(),
-            Goal: $(this).find('.goal').val(),
-            Low: $(this).find('.low').val(),
-            High: $(this).find('.high').val()
+            Goal: $(this).find('.goal').val() == "" ? 0 : $(this).find('.goal').val(),
+            Low: $(this).find('.low').val() == "" ? 0 : $(this).find('.low').val(),
+            High: $(this).find('.high').val() == "" ? 0 : $(this).find('.high').val()
         })
     });
 
