@@ -121,7 +121,7 @@ body {
 .pagination > .active > a:focus,
 .pagination > .active > span:focus 
 {
-    background-color: #124191 !important;
+    background-color: #d5e3ef !important;
 }
 
 a {
