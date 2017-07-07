@@ -7,6 +7,8 @@
         $('a[data-select-all="selectunselect"]').hide();
     }
 
+    PreventSpecialChar();
+
     //tactic camapaign post
     $(document).on('click', '#btnSubmitTactic', function () {
         if (ValidateTacticForm() === true) {
@@ -62,6 +64,7 @@
         }
 
         $('#' + selectallElement).trigger('chosen:updated');
+      
     });
 
     $(document).on("change", "#BusinessGroups_Id", function () {
@@ -71,6 +74,8 @@
             data: $("#frmTacticCampaign").serialize(),
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
+                $('#TacticType_Id').removeAttr('multiple');
+                PreventSpecialChar();
             }
         });
     });
@@ -82,6 +87,8 @@
             data: $("#frmTacticCampaign").serialize(),
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
+                $('#TacticType_Id').removeAttr('multiple');
+                PreventSpecialChar();
             }
         });
     });
@@ -93,6 +100,8 @@
             data: $("#frmTacticCampaign").serialize(),
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
+                $('#TacticType_Id').removeAttr('multiple');
+                PreventSpecialChar();
             }
         });
     });
@@ -104,11 +113,89 @@
             data: $("#frmTacticCampaign").serialize(),
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
+                $('#TacticType_Id').removeAttr('multiple');
+                PreventSpecialChar();
             }
         });
     });
 
+    //Click BusinessGroup for select -unselect
+    $(document).on('click', 'a[data-target-id="BusinessGroups_Id"]', function () {
+
+        var getselectedval = $("#BusinessGroups_Id").closest('.form-group').find('a[data-select-all="BGselectunselect"]');
+        var selectallElement = getselectedval.attr('data-target-id');
+        var nextStage = getselectedval.attr('data-next-stage');
+
+        if (nextStage === "bgselect") {
+            $('#' + selectallElement + ' option').prop('selected', true);
+            getselectedval.attr('data-next-stage', "bgunselect");
+            getselectedval.text("Select None");
+
+        } else {
+            $('#' + selectallElement + ' option').prop('selected', false);
+            getselectedval.attr('data-next-stage', "bgselect");
+            getselectedval.text("Select All");
+        }
+        $('#' + selectallElement).trigger('chosen:updated');
+
+        //Load Business Line
+        funcLoadBusinessLine();
+    });
+    //Click Segment for select -unselect
+    $(document).on('click', 'a[data-target-id="Segments_Id"]', function () {
+        var getselectedval = $("#Segments_Id").closest('.form-group').find('a[data-select-all="Segselectunselect"]');
+        var selectallElement = getselectedval.attr('data-target-id');
+        var nextStage = getselectedval.attr('data-next-stage');
+
+        if (nextStage === "Segselect") {
+            $('#' + selectallElement + ' option').prop('selected', true);
+            getselectedval.attr('data-next-stage', "Segunselect");
+            getselectedval.text("Select None");
+
+        } else {
+            $('#' + selectallElement + ' option').prop('selected', false);
+            getselectedval.attr('data-next-stage', "Segselect");
+            getselectedval.text("Select All");
+        }
+        $('#' + selectallElement).trigger('chosen:updated');
+
+        //Load Industry
+        funcLoadIndustry();
+    });
+
 });
+
+
+//Load BusinessLine 
+function funcLoadBusinessLine() {
+    if ($("#BusinessGroups_Id").val() != null) {
+        $.ajax({
+            type: "POST",
+            url: '/TacticCampaign/LoadBusinessLine',
+            data: $("#frmTacticCampaign").serialize(),
+            success: function (data) {
+                $("#dvFormTacticCampaign").html(data);
+                PreventSpecialChar();
+            }
+        });
+    }
+}
+//Load Industry
+function funcLoadIndustry() {
+    if ($("#Segments_Id").val() != null) {
+        $.ajax({
+            type: "POST",
+            url: '/TacticCampaign/LoadIndustry',
+            data: $("#frmTacticCampaign").serialize(),
+            success: function (data) {
+                $("#dvFormTacticCampaign").html(data);
+                PreventSpecialChar();
+            }
+        });
+    }
+}
+
+
 
 //Special character not allowed
 function blockSpecialChar(e) {
@@ -163,7 +250,7 @@ function ValidateTacticSaveasDraft() {
     var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Tactic campaign Start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {
@@ -342,7 +429,7 @@ function ValidateTacticSaveasDraft() {
         var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
         if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
             if (startdate < MCStartdate || enddate > MCEnddate) {
-                $('.validmsgDateMCcompare').text("Sub campaign start and End should be between Master campaign Date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+                $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
                 $('.validmsgDateMCcompare').show();
                 flag = false;
             } else {
@@ -425,16 +512,17 @@ function ValidateTacticSaveasDraft() {
             return false;
         }
     }
-    $(function () {
-        $("#TacticDescription").bind('paste', function () {
-            setTimeout(function () {
-                //get the value of the input text
-                var data = $('#TacticDescription').val();
-                //replace the special characters to '' 
-                var dataFull = data.replace(/[^\w\s]/gi, '');
-                //set the new value of the input text without special characters
-                $('#TacticDescription').val(dataFull);
-            });
 
+function PreventSpecialChar() {
+    $("#TacticDescription").bind('paste', function () {
+        setTimeout(function () {
+            //get the value of the input text
+            var data = $('#TacticDescription').val();
+            //replace the special characters to '' 
+            var dataFull = data.replace(/[^\w\s]/gi, '');
+            //set the new value of the input text without special characters
+            $('#TacticDescription').val(dataFull);
         });
+
     });
+}

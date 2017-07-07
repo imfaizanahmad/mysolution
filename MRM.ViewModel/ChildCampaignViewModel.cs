@@ -50,6 +50,15 @@ namespace MRM.ViewModel
         public string MGOLow { get; set; }
         public string MGOHigh { get; set; }
 
+        public bool ThemeSelectUnselect { get; set; }
+        public bool BgSelectUnselect { get; set; }
+        public bool BlSelectUnselect { get; set; }
+        public bool GeoSelectUnselect { get; set; }
+        public bool SegSelectUnselect { get; set; }
+        public bool IndustrySelectUnselect { get; set; }
+
+
+
         public int MasterCampaignId { get; set; }
 
         public Boolean IsActive { get; set; }
