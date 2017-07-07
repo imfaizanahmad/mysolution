@@ -12,7 +12,7 @@
     //tactic camapaign post
     $(document).on('click', '#btnSubmitTactic', function () {
         var sdata = CollectTacticFormData();
-        if (ValidateTacticForm() === true) {
+        if (ValidateSubmitTacticForm() === true) {
             $.ajax({
                 type: "POST",
                 url: '/TacticCampaign/save',//?button=' + "Submit",
@@ -348,33 +348,37 @@ function ValidateTacticSaveasDraft() {
         }
     }
 
-    //if (($('#ReachR1Goal').val() === "" || $('#ReachR1Low').val() === "" || $('#ReachR1High').val() === "") && ($('#ReachR11Goal').val() === "" || $('#ReachR12Low').val() === "" || $('#ReachR13High').val() === "")) {
+    //var trReach = $('#frmTacticCampaign').find('#tblBenchmark tbody tr.trReach');
+    //var rachGoal = trReach.find('.goal').val();
+    //var rachLow = trReach.find('.low').val();
+    //var rachHigh = trReach.find('.high').val();
 
+    //var trResponse = $('#frmTacticCampaign').find('#tblBenchmark tbody tr.trResponse');
+    //var responseGoal = trResponse.find('.goal').val();
+    //var responseLow = trResponse.find('.low').val();
+    //var responseHigh = trResponse.find('.high').val();
+
+    //if (rachGoal == 0 || rachLow == 0 || rachHigh == 0) {
     //    $('.validmsgReachMetric').text("Please fill atleast one Reach Metric").css("color", "#b94a48");
     //    $('.validmsgReachMetric').show();
     //    flag = false;
-
-    //} else {
+    //}
+    //else {
     //    $('.validmsgReachMetric').hide();
     //}
 
-    //if (($('#ResponseR1Goal').val() === "" || $('#ResponseR1Low').val() === "" || $('#ResponseR1High').val() === "") && ($('#ResponseR21Goal').val() === "" || $('#ResponseR22Low').val() === "" || $('#ResponseR23High').val() === "")) {
-
+    //if (responseGoal == 0 || responseLow == 0 || responseHigh == 0) {
     //    $('.validmsgResponseMetric').text("Please fill atleast one Response Metric").css("color", "#b94a48");
     //    $('.validmsgResponseMetric').show();
     //    flag = false;
-
-    //} else {
+    //}
+    //else {
     //    $('.validmsgResponseMetric').hide();
     //}
-
-
-
-
     return flag;
 }
 
-function ValidateTacticForm() {
+function ValidateSubmitTacticForm() {
     var flag = true;
     if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
 
@@ -563,29 +567,33 @@ function ValidateTacticForm() {
         $('.validmsgyear').hide();
     }
 
+    var trReach = $('#frmTacticCampaign').find('#tblBenchmark tbody tr.trReach');
+    var rachGoal = trReach.find('.goal').val();
+    var rachLow = trReach.find('.low').val();
+    var rachHigh = trReach.find('.high').val();
 
+    var trResponse = $('#frmTacticCampaign').find('#tblBenchmark tbody tr.trResponse');
+    var responseGoal = trResponse.find('.goal').val();
+    var responseLow = trResponse.find('.low').val();
+    var responseHigh = trResponse.find('.high').val();
 
-    if (($('#ReachR1Goal').val() === "" || $('#ReachR1Low').val() === "" || $('#ReachR1High').val() === "") && ($('#ReachR11Goal').val() === "" || $('#ReachR12Low').val() === "" || $('#ReachR13High').val() === "")) {
-
+    if (rachGoal == 0 || rachLow == 0 || rachHigh == 0) {
         $('.validmsgReachMetric').text("Please fill atleast one Reach Metric").css("color", "#b94a48");
         $('.validmsgReachMetric').show();
         flag = false;
-
-    } else {
+    }
+    else {
         $('.validmsgReachMetric').hide();
     }
 
-    if (($('#ResponseR1Goal').val() === "" || $('#ResponseR1Low').val() === "" || $('#ResponseR1High').val() === "") && ($('#ResponseR21Goal').val() === "" || $('#ResponseR22Low').val() === "" || $('#ResponseR23High').val() === "")) {
-
+    if (responseGoal == 0 || responseLow == 0 || responseHigh == 0) {
         $('.validmsgResponseMetric').text("Please fill atleast one Response Metric").css("color", "#b94a48");
         $('.validmsgResponseMetric').show();
         flag = false;
-
-    } else {
+    }
+    else {
         $('.validmsgResponseMetric').hide();
     }
-
-
 
     return flag;
 }
@@ -698,8 +706,8 @@ function CollectTacticFormData() {
         data.Industries_Id.push($('#frmTacticCampaign').find('#Industries_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
     });
 
-
     data.Vendor = $('#frmTacticCampaign').find('#Vendor').val();
+
     data.TacticCampaignReachResponseViewModels = [];
     $('#frmTacticCampaign').find('#tblBenchmark tbody tr').each(function () {
         data.TacticCampaignReachResponseViewModels.push({

@@ -55,26 +55,7 @@ namespace MRM.Business.Services
             tacticCampaignEntity.Status = model.Status;
             tacticCampaignEntity.Vendor = model.Vendor;
             tacticCampaignEntity.MasterCampaign_Id = model.MasterCampaign_Id;
-
-            //tacticCampaignEntity.ReachR1Goal = model.ReachR1Goal;
-            //tacticCampaignEntity.ReachR1Low = model.ReachR1Low;
-            //tacticCampaignEntity.ReachR1High = model.ReachR1High;
-            //tacticCampaignEntity.ReachR11Goal = model.ReachR11Goal;
-            //tacticCampaignEntity.ReachR12Low = model.ReachR12Low;
-            //tacticCampaignEntity.ReachR13High = model.ReachR13High;
-            //tacticCampaignEntity.ResponseR1Goal = model.ResponseR1Goal;
-            //tacticCampaignEntity.ResponseR1Low = model.ResponseR1Low;
-            //tacticCampaignEntity.ResponseR1High = model.ResponseR1High;
-            //tacticCampaignEntity.ResponseR21Goal = model.ResponseR21Goal;
-            //tacticCampaignEntity.ResponseR22Low = model.ResponseR22Low;
-            //tacticCampaignEntity.ResponseR23High = model.ResponseR23High;
-            //tacticCampaignEntity.EfficiencyE1Goal = model.EfficiencyE1Goal;
-            //tacticCampaignEntity.EfficiencyE1Low = model.EfficiencyE1Low;
-            //tacticCampaignEntity.EfficiencyE1High = model.EfficiencyE1High;
-            //tacticCampaignEntity.EfficiencyE11Goal = model.EfficiencyE11Goal;
-            //tacticCampaignEntity.EfficiencyE12Low = model.EfficiencyE12Low;
-            //tacticCampaignEntity.EfficiencyE13High = model.EfficiencyE13High;
-
+            
             //tacticCampaignEntity.TacticTypes = model.TacticType_Id;
 
             List<BusinessLine> lstBline = null;
