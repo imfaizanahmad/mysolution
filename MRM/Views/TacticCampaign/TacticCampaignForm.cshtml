@@ -251,27 +251,27 @@
                                                     <td>
                                                         @Html.TextBoxFor(m => m.TacticCampaignReachResponseViewModels.ToList()[i].Goal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                (object)new { @class = "form-control goal", @maxlength = "50", onkeypress = "numericvalidate(event)" })
+                                                (object)new { @class = "form-control goal mrminttostring", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                                     </td>
                                                     <td>
                                                         @Html.TextBoxFor(m => m.TacticCampaignReachResponseViewModels.ToList()[i].Low, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                (object)new { @class = "form-control low", @maxlength = "50", onkeypress = "numericvalidate(event)" })
+                                                (object)new { @class = "form-control low mrminttostring", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                                     </td>
                                                     <td>
                                                         @Html.TextBoxFor(m => m.TacticCampaignReachResponseViewModels.ToList()[i].High, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                (object)new { @class = "form-control high", @maxlength = "50", onkeypress = "numericvalidate(event)" })
+                                                (object)new { @class = "form-control high mrminttostring", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                                     </td>
 
                                                     <td>
                                                         @if (iReachCount == 1)
                                                         {
-                                                            <input type="button" Id="btnAddReachRow" name="Add Reach Row" value="Add" class="btn" title="Add New Row" disabled="@(Model.Status =="Complete" ? true : false)" />
+                                                            <input type="button" Id="btnAddReachRow" name="Add Reach Row" value="+" class="btn btn-primary" title="Add New Row" disabled="@(Model.Status =="Complete" ? true : false)" />
                                                         }
                                                         else
                                                         {
-                                                            <input type="button" id="btnRemoveReachRow" class="btn btn-white removeRow" title="Remove Row" value="Remove" disabled="@(Model.Status == "Complete" ? true : false)" />
+                                                            <input type="button" id="btnRemoveReachRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" disabled="@(Model.Status == "Complete" ? true : false)" />
                                                         }
 
                                                         <span class="validmsgReachMetric"></span>
@@ -298,27 +298,27 @@
                                                     <td>
                                                         @Html.TextBoxFor(m => m.TacticCampaignReachResponseViewModels.ToList()[i].Goal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                (object)new { @class = "form-control goal", @maxlength = "50", onkeypress = "numericvalidate(event)" })
+                                                (object)new { @class = "form-control goal mrminttostring", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                                     </td>
                                                     <td>
                                                         @Html.TextBoxFor(m => m.TacticCampaignReachResponseViewModels.ToList()[i].Low, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                (object)new { @class = "form-control low", @maxlength = "50", onkeypress = "numericvalidate(event)" })
+                                                (object)new { @class = "form-control low mrminttostring", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                                     </td>
                                                     <td>
                                                         @Html.TextBoxFor(m => m.TacticCampaignReachResponseViewModels.ToList()[i].High, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                (object)new { @class = "form-control high", @maxlength = "50", onkeypress = "numericvalidate(event)" })
+                                                (object)new { @class = "form-control high mrminttostring", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                                     </td>
 
                                                     <td>
                                                         @if (iResponseCount == 1)
                                                         {
-                                                            <input type="button" Id="btnResponseRow" name="Add Response Row" value="Add" class="btn" title="Add New Row" disabled="@(Model.Status == "Complete" ? true : false)" />
+                                                            <input type="button" Id="btnResponseRow" name="Add Response Row" value="+" class="btn btn-primary" title="Add New Row" disabled="@(Model.Status == "Complete" ? true : false)" />
                                                         }
                                                         else
                                                         {
-                                                            <input type="button" id="btnRemoveResponseRow" class="btn btn-white removeRow" title="Remove Row" value="Remove" disabled="@(Model.Status == "Complete" ? true : false)"/>
+                                                            <input type="button" id="btnRemoveResponseRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" disabled="@(Model.Status == "Complete" ? true : false)"/>
                                                         }
 
                                                         <span class="validmsgResponseMetric"></span>

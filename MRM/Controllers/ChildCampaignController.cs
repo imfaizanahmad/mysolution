@@ -52,10 +52,10 @@ namespace MRM.Controllers
                 ChildCampaign childCampaign = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = Id }).First();
 
 
-                if (Childvm.MasterCampaignId != 0)
+                if (childCampaign.MasterCampaigns.Id != 0)
                 {
                     List<MasterCampaign> masterChild =
-                        _masterCampaignServices.GetMasterCampaignById(Childvm.MasterCampaignId);
+                        _masterCampaignServices.GetMasterCampaignById(childCampaign.MasterCampaigns.Id);
                     foreach (var item in masterChild)
                     {
                         Childvm.BusinessGroupViewModels = item.BusinessGroups;
@@ -185,6 +185,7 @@ namespace MRM.Controllers
             }
 
             ManageSelectUnselect(model);
+
             //   model.GeographyViewModels = _geographyService.GetGeography();
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
            // model.ThemeViewModels = _themeService.GetTheme();
@@ -251,6 +252,7 @@ namespace MRM.Controllers
                 model.MCEndDate = item.EndDate;
             }
             ManageSelectUnselect(model);
+
 
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
 

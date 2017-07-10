@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
+
     //To make tactic type list single selection
     $('#TacticType_Id').removeAttr('multiple');
 
@@ -175,7 +177,7 @@
                            <td><input type="text" class="form-control goal" maxlength="50" name="ReachGoal" onkeypress="numericvalidate(event)" value="" /></td>\
                            <td><input type="text" class="form-control low" maxlength="50" name="ReachLow" onkeypress="numericvalidate(event)" value="" /></td>\
                            <td><input type="text" class="form-control high" maxlength="50" name="ReachHigh" onkeypress="numericvalidate(event)" value="" /></td>\
-                           <td><input type="button" Id="btnRemoveReachRow" class="btn btn-white removeRow" title="Remove Row" value="Remove" /></td>\
+                           <td><input type="button" Id="btnRemoveReachRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" /></td>\
                        </tr>');
 
         $('#tblBenchmark tbody tr.trResponse').before(reachTblRow);
@@ -196,7 +198,7 @@
                            <td><input type="text" class="form-control goal" maxlength="50" name="ResponseGoal" onkeypress="numericvalidate(event)" value="" /></td>\
                            <td><input type="text" class="form-control low" maxlength="50" name="ResponseLow" onkeypress="numericvalidate(event)" value="" /></td>\
                            <td><input type="text" class="form-control high" maxlength="50" name="ResponseHigh" onkeypress="numericvalidate(event)" value="" /></td>\
-                           <td><input type="button" Id="btnRemoveResponseRow" class="btn btn-white removeRow" title="Remove Row" value="Remove" /></td>\
+                           <td><input type="button" Id="btnRemoveResponseRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" /></td>\
                        </tr>');
 
         $('#tblBenchmark tbody tr:last').after(responseTblRow);
@@ -577,7 +579,7 @@ function ValidateSubmitTacticForm() {
     var responseLow = trResponse.find('.low').val();
     var responseHigh = trResponse.find('.high').val();
 
-    if (rachGoal == 0 || rachLow == 0 || rachHigh == 0) {
+    if (rachGoal == "" || rachLow == "" || rachHigh == "") {
         $('.validmsgReachMetric').text("Please fill atleast one Reach Metric").css("color", "#b94a48");
         $('.validmsgReachMetric').show();
         flag = false;
@@ -586,7 +588,7 @@ function ValidateSubmitTacticForm() {
         $('.validmsgReachMetric').hide();
     }
 
-    if (responseGoal == 0 || responseLow == 0 || responseHigh == 0) {
+    if (responseGoal == "" || responseLow == "" || responseHigh == "") {
         $('.validmsgResponseMetric').text("Please fill atleast one Response Metric").css("color", "#b94a48");
         $('.validmsgResponseMetric').show();
         flag = false;
