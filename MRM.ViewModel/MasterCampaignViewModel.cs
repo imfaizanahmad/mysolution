@@ -38,6 +38,8 @@ namespace MRM.ViewModel
         public IEnumerable<BusinessGroup> BusinessGroupViewModels { get; set; }
         public IEnumerable<BusinessLine> BusinessLineViewModels { get; set; }
 
+        public string StatusInheritaceStamp { get; set; }
+        public string InheritanceStatus { get; set; }
         public bool ThemeSelectUnselect { get; set; }
         public bool BgSelectUnselect { get; set; }
         public bool BlSelectUnselect { get; set; }
@@ -53,5 +55,6 @@ namespace MRM.ViewModel
         public int[] Themes_Id { get; set; }
         //public int[] SelectedThemes_Id {get; set;}
         
+
     }
 }

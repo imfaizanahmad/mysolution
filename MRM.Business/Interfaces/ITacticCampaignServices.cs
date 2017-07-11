@@ -15,6 +15,9 @@ namespace MRM.Business.Interfaces
         bool DeleteTacticCampaign(int Id);
         List<TacticCampaign> GetTacticCampaignById(TacticCampaignViewModel model);
 
+        List<TacticCampaign> GetTacticCampaignByMasterId(int id);
+        List<TacticCampaign> GetTacticCampaignByChildId(int id);
+
 
     }
 }

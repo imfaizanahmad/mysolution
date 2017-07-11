@@ -41,6 +41,20 @@ namespace MRM.Business.Services
 
         }
 
+
+        public List<TacticCampaign> GetTacticCampaignByMasterId(int id)
+        {
+            List<TacticCampaign> returnlist=  guow.GenericRepository<TacticCampaign>().GetAll().Where(t => t.MasterCampaign_Id == id).ToList();
+            return returnlist;
+        }
+
+        public List<TacticCampaign> GetTacticCampaignByChildId(int id)
+        {
+            List<TacticCampaign> returnlist = guow.GenericRepository<TacticCampaign>().GetAll().Where(t => t.ChildCampaigns.Id == id).ToList();
+            return returnlist;
+        }
+
+
         private void ModelToEntity(TacticCampaignViewModel model, TacticCampaign tacticCampaignEntity)
         {
             tacticCampaignEntity.ChildCampaigns = guow.GenericRepository<ChildCampaign>().GetByID(model.ChildCampaign_Id);
@@ -150,8 +164,6 @@ namespace MRM.Business.Services
 
             }
 
-            
-
             tacticCampaignEntity.BusinessGroups = lstBGroup;
             tacticCampaignEntity.Themes = lsttheme;
             tacticCampaignEntity.BusinessLines = lstBline;
@@ -161,6 +173,27 @@ namespace MRM.Business.Services
             //tacticCampaignEntity.Vendors = lstvendor;
             tacticCampaignEntity.TacticTypes = lstTacticType;
             tacticCampaignEntity.TacticCampaignReachResponses = model.TacticCampaignReachResponseViewModels.ToList();
+
+            TacticCampaignReachResponse tacticReachModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Reach").FirstOrDefault();
+            TacticCampaignReachResponse tacticResponseModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Response").FirstOrDefault();
+            if ((tacticReachModel.Goal != 0 && tacticReachModel.Low != 0 && tacticReachModel.High != 0) &&
+                (tacticResponseModel.Goal != 0 && tacticResponseModel.Low != 0 &&
+                 tacticResponseModel.High != 0))
+            {
+                tacticCampaignEntity.InheritStatus = "Complete";
+            }
+            else
+            {
+                if (model.Status == "Save Draft") { 
+                  tacticCampaignEntity.InheritStatus = model.Status;}
+                else
+                {
+                    tacticCampaignEntity.InheritStatus = "Active";
+                }
+            }
+
+
+
         }
 
         public bool InsertTacticCampaign(TacticCampaignViewModel model)

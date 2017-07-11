@@ -2,6 +2,8 @@
 
     if ($('#Status').val() == "Complete") {
         $('a[data-select-all="selectunselect"]').hide();
+        $('a[data-target-id="BusinessGroups_Id"]').hide();
+        $('a[data-target-id="Segments_Id"]').hide();
     }
 
     if ($('#CampaignTypes').val() == 0)
@@ -292,7 +294,7 @@ function ValidateChildForm() {
 
     if ($('#CampaignType').val() == "") {
 
-        $('.validmsgsubcampaigntype').text("Please select Campaign Type").css("color", "#b94a48");
+        $('.validmsgsubcampaigntype').text("Please select Campaign Lead").css("color", "#b94a48");
         $('.validmsgsubcampaigntype').show();
         flag = false;
 

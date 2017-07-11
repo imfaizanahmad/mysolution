@@ -75,7 +75,7 @@ namespace MRM.Controllers
                 tacticvm.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();            
 
                 TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = Id }).First();
-
+                
                 if (tacticCampaign.ChildCampaigns.Id != 0)
                 {
                     List<ChildCampaign> childCampaign = _childCampaignServices.GetDDLValuesByChildId(tacticCampaign.ChildCampaigns.Id);
@@ -164,6 +164,19 @@ namespace MRM.Controllers
                 tacticvm.Year = tacticCampaign.Year;
                 tacticvm.Status = tacticCampaign.Status;
                 tacticvm.MasterCampaign_Id = tacticCampaign.MasterCampaign_Id;
+               
+
+                var MasterCampaignName = string.Empty;
+                foreach (var val in tacticvm.MasterViewModels)
+                {
+                    if (val.Id == tacticCampaign.MasterCampaign_Id)
+                    {MasterCampaignName = val.Name;}
+                }
+                //if ((tacticvm.Status == "Complete") && (tacticvm.EndDate<DateTime.Now)) { tacticvm.InheritanceStatus = "Complete"; }
+                //else { tacticvm.InheritanceStatus = "Active"; }
+                tacticvm.StatusInheritaceStamp = String.Format("{0:yy}", tacticCampaign.UpdatedDate) + "." + MasterCampaignName + "." + tacticvm.Name + " //" + (tacticCampaign.InheritStatus=="Save Draft"?"Draft": tacticCampaign.InheritStatus) +
+                                                " // " + String.Format("{0:ddMMyy HH:MM}", tacticCampaign.UpdatedDate);
+
 
                 tacticvm.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
                 tacticvm.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();

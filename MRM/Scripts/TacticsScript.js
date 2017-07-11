@@ -7,6 +7,8 @@
 
     if ($('#Status').val() == "Complete") {
         $('a[data-select-all="selectunselect"]').hide();
+        $('a[data-target-id="BusinessGroups_Id"]').hide();
+        $('a[data-target-id="Segments_Id"]').hide();
     }
 
     PreventSpecialChar();
@@ -83,6 +85,7 @@
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
+                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
             }
         });
     });
@@ -96,6 +99,7 @@
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
+                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
             }
         });
     });
@@ -109,6 +113,7 @@
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
+                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
             }
         });
     });
@@ -122,6 +127,7 @@
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
+                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
             }
         });
     });
@@ -269,6 +275,7 @@ function funcLoadBusinessLine() {
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
                 PreventSpecialChar();
+                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
             }
         });
     }
@@ -283,6 +290,7 @@ function funcLoadIndustry() {
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
                 PreventSpecialChar();
+                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
             }
         });
     }
@@ -474,7 +482,7 @@ function ValidateSubmitTacticForm() {
     }
 
     if ($('#Geographys_Id').val() == null) {
-        $('.validmsggeography').text("Please select geography from drop-down").css("color", "#b94a48");
+        $('.validmsggeography').text("Please select Markets").css("color", "#b94a48");
         $('.validmsggeography').show();
         flag = false;
 

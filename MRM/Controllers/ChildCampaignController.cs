@@ -22,6 +22,7 @@ namespace MRM.Controllers
         private ThemeServices _themeService = null;
         private MasterCampaignServices _masterCampaignServices = null;
         private ChildCampaignServices _childCampaignServices = null;
+        private TacticCampaignServices _tacticCampaignServices = null;
 
         public ChildCampaignController()
         {
@@ -33,6 +34,7 @@ namespace MRM.Controllers
             _themeService = new ThemeServices();
             _masterCampaignServices = new MasterCampaignServices();
             _childCampaignServices = new ChildCampaignServices();
+            _tacticCampaignServices=new TacticCampaignServices();
         }
 
         public ActionResult ChildCampaign(int Id = 0)
@@ -51,6 +53,16 @@ namespace MRM.Controllers
 
                 ChildCampaign childCampaign = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = Id }).First();
 
+                List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByChildId(Id).ToList();
+                var Inheritanceflag=0;
+                foreach (var itemtacticList in tacticList)
+                {
+                    if (itemtacticList.InheritStatus != "Complete")
+                        Inheritanceflag = 1;
+                }
+
+                if (Inheritanceflag== 0) { Childvm.InheritanceStatus = "Complete"; }
+                else { Childvm.InheritanceStatus = "Active"; }
 
                 if (childCampaign.MasterCampaigns.Id != 0)
                 {
@@ -135,6 +147,27 @@ namespace MRM.Controllers
                 Childvm.MGOGoal = childCampaign.MGOGoal;
                 Childvm.MGOLow = childCampaign.MGOLow;
                 Childvm.MGOHigh = childCampaign.MGOHigh;
+
+
+
+
+                
+
+                //if(Childvm.MasterViewModels.Any(x => x..Contains(childCampaign.MasterCampaigns.Id)))
+
+
+                var MasterCampaignName=string.Empty;
+                foreach (var val in Childvm.MasterViewModels)
+                {
+                    if (val.Id == childCampaign.MasterCampaigns.Id)
+                    {
+                        MasterCampaignName = val.Name;
+                    }
+                }
+                //Childvm.StatusInheritaceStamp = String.Format("{0:yy}", Childvm.StartDate) + "."+ MasterCampaignName + "." + Childvm.Name + " //" + Childvm.InheritanceStatus +
+                //                             " // " + String.Format("{0:ddMMyy HH:MM}", Childvm.StartDate);
+                Childvm.StatusInheritaceStamp = String.Format("{0:yy}", childCampaign.UpdatedDate) + "." + MasterCampaignName + "." + Childvm.Name + " //" +  (Childvm.Status=="Save Draft"?"Draft":Childvm.InheritanceStatus) +
+                                                 " // " + String.Format("{0:ddMMyy HH:MM}", childCampaign.UpdatedDate);
 
                 ManageSelectUnselect(Childvm);
             }
