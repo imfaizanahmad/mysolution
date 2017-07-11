@@ -20,6 +20,8 @@ namespace MRM.Database.Model
         public string TacticType { get; set; }
         public string Vendor { get; set; }
 
+        public string InheritStatus { get; set; }
+
         public virtual ICollection<BusinessGroup> BusinessGroups { get; set; }
         public virtual ICollection<BusinessLine> BusinessLines { get; set; }
         public virtual ICollection<Segment> Segments { get; set; }

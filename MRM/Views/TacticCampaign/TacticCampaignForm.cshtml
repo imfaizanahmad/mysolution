@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Geography</label><span class="text-danger">*</span><br />
+                                    <label>Markets</label><span class="text-danger">*</span><br />
                                     @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                         (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
@@ -336,7 +336,16 @@
                                 </table>
                             </div>
                         </div>
-
+                        
+                    <div class="row">
+                        <div class="col-md-6">
+                          
+                        </div>
+                        <div class="col-md-6" style="text-align: right">
+                            @Model.StatusInheritaceStamp
+                        </div>
+                    </div>
+                   
                     </fieldset>
                     <fieldset>
                         <div class="form-group">

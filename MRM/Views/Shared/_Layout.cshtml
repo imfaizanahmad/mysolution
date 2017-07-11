@@ -224,7 +224,8 @@
     }
 
     function DDLSelectUnselect(thisOpt) {
-        if ($(thisOpt).val() == null) {
+        if ($(thisOpt).val() == null)
+        {
             var getselectedval = $(thisOpt).closest('.form-group').find('a[data-select-all="selectunselect"]');
             var selectallElement = getselectedval.attr('data-target-id');
             var nextStage = getselectedval.attr('data-next-stage');
@@ -232,6 +233,16 @@
             getselectedval.attr('data-next-stage', "select");
             getselectedval.text("Select All");
             $('#' + selectallElement).trigger('chosen:updated');
+        }
+        else if ($(thisOpt).val().length>0)
+        {
+            var getselectedval = $(thisOpt).closest('.form-group').find('a[data-select-all="selectunselect"]');
+            var selectallElement = getselectedval.attr('data-target-id');
+            var nextStage = getselectedval.attr('data-next-stage');
+            getselectedval.attr('data-next-stage', "select");
+            getselectedval.text("Select All");
+            $('#' + selectallElement).trigger('chosen:updated');
+         
         }
     }
 </script>

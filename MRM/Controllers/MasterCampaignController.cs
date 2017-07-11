@@ -21,6 +21,7 @@ namespace MRM.Controllers
         private GeographyServices _geographyService = null;
         private ThemeServices _themeService = null;
         private MasterCampaignServices _masterCampaignServices = null;
+        private TacticCampaignServices _tacticCampaignServices = null;
 
         public MasterCampaignController()
         {
@@ -31,6 +32,7 @@ namespace MRM.Controllers
             _geographyService = new GeographyServices();
             _themeService = new ThemeServices();
             _masterCampaignServices = new MasterCampaignServices();
+            _tacticCampaignServices = new TacticCampaignServices();
         }
 
         // GET: CampaignForm
@@ -54,7 +56,22 @@ namespace MRM.Controllers
             {
                 MasterCampaign masterCampaign = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = Id }).First();
 
+                
+                List<TacticCampaign> tacticList= _tacticCampaignServices.GetTacticCampaignByMasterId(Id).ToList();
 
+                var Inheritanceflag = 0;
+                foreach (var itemtacticList in tacticList)
+                {
+                    if (itemtacticList.InheritStatus != "Complete")
+                        Inheritanceflag = 1;
+                }
+                if (tacticList.Count==0)
+                {
+                    mcvm.InheritanceStatus = (masterCampaign.Status == "Save Draft" ? "Draft" : "Active");
+                }
+                else if (Inheritanceflag == 0) { mcvm.InheritanceStatus = "Complete"; }
+                else {mcvm.InheritanceStatus = "Active";}
+           
                 if (masterCampaign.Themes != null && masterCampaign.Themes.Count > 0)
                 {
                     mcvm.Themes_Id = masterCampaign.Themes.Select(t => t.Id).ToArray(); ;
@@ -100,6 +117,14 @@ namespace MRM.Controllers
                 if (masterCampaign.EndDate != null) mcvm.EndDate = masterCampaign.EndDate.Value;
                 mcvm.Id = Id;
                 mcvm.Status = masterCampaign.Status;
+
+
+                //mcvm.StatusInheritaceStamp = String.Format("{0:yy}", mcvm.StartDate) + "." + mcvm.Name + " //" + mcvm.InheritanceStatus +
+                //                             " // " + String.Format("{0:ddMMyy HH:MM}", mcvm.StartDate);
+
+                mcvm.StatusInheritaceStamp = String.Format("{0:yy}", masterCampaign.UpdatedDate) + "." + mcvm.Name + " //" + (mcvm.Status == "Save Draft" ? "Draft" : mcvm.InheritanceStatus) +
+                                                " // " + String.Format("{0:ddMMyy HH:MM}", masterCampaign.UpdatedDate);
+
 
                 ManageSelectUnselect(mcvm);
             }
@@ -153,10 +178,8 @@ namespace MRM.Controllers
 
             model.Segments_Id = model.Segments_Id;
             List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
-            model.IndustryViewModels = lst;
-
+            model.IndustryViewModels = lst.Where(t=>t.IsActive==true);
             ManageSelectUnselect(model);
-
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
             return PartialView("MasterCampaignForm", model);

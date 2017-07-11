@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Geography</label><span class="text-danger">*</span><br />
+                                <label>Markets</label><span class="text-danger">*</span><br />
                                 @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                     (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) 
@@ -169,14 +169,9 @@
                         <div class="col-md-6">
 
                         </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-6">
-
+                        <div class="col-md-6" style="text-align: right">
+                           @Model.StatusInheritaceStamp
                         </div>
-
                     </div>
 
                     <!-- /.row -->
@@ -190,7 +185,7 @@
                     <div class="row " style="padding-top: 10px">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-
+                              
                             @if (Model.Id == 0)
                             {
                                 <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'" /></div>

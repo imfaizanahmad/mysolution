@@ -75,7 +75,7 @@ namespace MRM.Controllers
                 tacticvm.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();            
 
                 TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = Id }).First();
-
+                
                 if (tacticCampaign.ChildCampaigns.Id != 0)
                 {
                     List<ChildCampaign> childCampaign = _childCampaignServices.GetDDLValuesByChildId(tacticCampaign.ChildCampaigns.Id);
@@ -164,6 +164,25 @@ namespace MRM.Controllers
                 tacticvm.Year = tacticCampaign.Year;
                 tacticvm.Status = tacticCampaign.Status;
                 tacticvm.MasterCampaign_Id = tacticCampaign.MasterCampaign_Id;
+               
+
+                var MasterCampaignName = string.Empty;
+                var ChildCampaignName = string.Empty;
+                foreach (var val in tacticvm.MasterViewModels)
+                {
+                    if (val.Id == tacticCampaign.MasterCampaign_Id)
+                    {MasterCampaignName = val.Name;}
+                }
+                foreach (var val in tacticvm.ChildCampaignViewModels)
+                {
+                    if (val.Id == tacticCampaign.ChildCampaigns.Id)
+                    { ChildCampaignName = val.Name; }
+                }
+                //if ((tacticvm.Status == "Complete") && (tacticvm.EndDate<DateTime.Now)) { tacticvm.InheritanceStatus = "Complete"; }
+                //else { tacticvm.InheritanceStatus = "Active"; }
+                tacticvm.StatusInheritaceStamp = String.Format("{0:yy}", tacticCampaign.UpdatedDate) + "." + MasterCampaignName + "." + ChildCampaignName + " //" + (tacticCampaign.InheritStatus=="Save Draft"?"Draft": tacticCampaign.InheritStatus) +
+                                                " // " + String.Format("{0:ddMMyy HH:MM}", tacticCampaign.UpdatedDate);
+
 
                 tacticvm.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
                 tacticvm.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
@@ -265,7 +284,7 @@ namespace MRM.Controllers
             model.SegmentViewModels = _segmentService.GetSegment();
             model.Segments_Id = model.Segments_Id;
             List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
-            model.IndustryViewModels = lst;
+            model.IndustryViewModels = lst.Where(t=>t.IsActive==true);
 
             //If sub campaign is not defined for corressponding master campaign
             List<MasterCampaign> mastercampaignvalues = _masterCampaignServices.GetMasterCampaignById(model.MasterCampaign_Id);

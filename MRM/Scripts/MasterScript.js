@@ -2,6 +2,8 @@
 $(document).ready(function () {
     if ($('#Status').val() === "Complete") {
         $('a[data-select-all="selectunselect"]').hide();
+        $('a[data-target-id="BusinessGroups_Id"]').hide();
+        $('a[data-target-id="Segments_Id"]').hide();
     }
 
     PreventSpecialChar();
@@ -219,7 +221,7 @@ function ValidateMasterForm() {
 
     if ($('#Geographys_Id').val() === null) {
 
-        $('.validmsgbusinesGeography').text("Please select geography from drop-down").css("color", "#b94a48");
+        $('.validmsgbusinesGeography').text("Please select Markets").css("color", "#b94a48");
         $('.validmsgbusinesGeography').show();
         flag = false;
 

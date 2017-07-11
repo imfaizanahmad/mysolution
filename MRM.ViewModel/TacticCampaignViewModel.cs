@@ -51,7 +51,8 @@ namespace MRM.ViewModel
         public bool GeoSelectUnselect { get; set; }
         public bool SegSelectUnselect { get; set; }
         public bool IndustrySelectUnselect { get; set; }
-
+        public string StatusInheritaceStamp { get; set; }
+        public string InheritanceStatus { get; set; }
 
         public IEnumerable<Industry> IndustryViewModels { get; set; }
         public IEnumerable<Geography> GeographyViewModels { get; set; }

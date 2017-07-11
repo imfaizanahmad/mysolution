@@ -57,7 +57,8 @@ namespace MRM.ViewModel
         public bool SegSelectUnselect { get; set; }
         public bool IndustrySelectUnselect { get; set; }
 
-
+        public string StatusInheritaceStamp { get; set; }
+        public string InheritanceStatus { get; set; }
 
         public int MasterCampaignId { get; set; }
 
