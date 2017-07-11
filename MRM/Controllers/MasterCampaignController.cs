@@ -153,10 +153,8 @@ namespace MRM.Controllers
 
             model.Segments_Id = model.Segments_Id;
             List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
-            model.IndustryViewModels = lst;
-
+            model.IndustryViewModels = lst.Where(t=>t.IsActive==true);
             ManageSelectUnselect(model);
-
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
             return PartialView("MasterCampaignForm", model);
