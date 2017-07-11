@@ -130,6 +130,13 @@
             $('a[data-target-id="BusinessGroups_Id"]').show();
             $('a[data-target-id="Segments_Id"]').hide();
         }
+
+        if ($('#Status').val() == "Complete") {
+            $('a[data-select-all="selectunselect"]').hide();
+            $('a[data-target-id="BusinessGroups_Id"]').hide();
+            $('a[data-target-id="Segments_Id"]').hide();
+        }
+
     }
 
     function chosenclear() {
