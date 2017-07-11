@@ -108,7 +108,7 @@ namespace MRM.Controllers
                     mcvm.Industries_Id = masterCampaign.Industries.Select(t => t.Id).ToArray(); ;
                 }
 
-                mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id); ;
+                mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id).Where(t=>t.IsActive==true); ;
 
 
                 mcvm.Name = masterCampaign.Name;

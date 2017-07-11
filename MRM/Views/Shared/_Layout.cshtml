@@ -231,26 +231,33 @@
     }
 
     function DDLSelectUnselect(thisOpt) {
+        var getselectedval = $(thisOpt).closest('.form-group').find('a[data-select-all="selectunselect"]');
+        var selectallElement = getselectedval.attr('data-target-id');
+        var nextStage = getselectedval.attr('data-next-stage');
         if ($(thisOpt).val() == null)
         {
-            var getselectedval = $(thisOpt).closest('.form-group').find('a[data-select-all="selectunselect"]');
-            var selectallElement = getselectedval.attr('data-target-id');
-            var nextStage = getselectedval.attr('data-next-stage');
+           
             $('#' + selectallElement + ' option').prop('selected', false);
             getselectedval.attr('data-next-stage', "select");
             getselectedval.text("Select All");
             $('#' + selectallElement).trigger('chosen:updated');
         }
-        else if ($(thisOpt).val().length>0)
+        else if ($('#'+selectallElement).children('option').length==$(thisOpt).val().length)
         {
-            var getselectedval = $(thisOpt).closest('.form-group').find('a[data-select-all="selectunselect"]');
-            var selectallElement = getselectedval.attr('data-target-id');
-            var nextStage = getselectedval.attr('data-next-stage');
-            getselectedval.attr('data-next-stage', "select");
-            getselectedval.text("Select All");
+            getselectedval.attr('data-next-stage', "unselect");
+            getselectedval.text("Select None");
             $('#' + selectallElement).trigger('chosen:updated');
          
         }
+
+        else if ($(thisOpt).val().length < $('#' + selectallElement).children('option').length)
+        {
+            getselectedval.attr('data-next-stage', "select");
+            getselectedval.text("Select All");
+            $('#' + selectallElement).trigger('chosen:updated');
+
+        }
+
     }
 </script>
 
