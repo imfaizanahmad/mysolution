@@ -60,8 +60,11 @@ namespace MRM.Controllers
                     if (itemtacticList.InheritStatus != "Complete")
                         Inheritanceflag = 1;
                 }
-
-                if (Inheritanceflag== 0) { Childvm.InheritanceStatus = "Complete"; }
+                if (tacticList.Count == 0)
+                {
+                    Childvm.InheritanceStatus = (childCampaign.Status == "Save Draft" ? "Draft" : "Active");
+                }
+                else if (Inheritanceflag== 0) { Childvm.InheritanceStatus = "Complete"; }
                 else { Childvm.InheritanceStatus = "Active"; }
 
                 if (childCampaign.MasterCampaigns.Id != 0)

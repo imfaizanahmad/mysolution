@@ -167,14 +167,20 @@ namespace MRM.Controllers
                
 
                 var MasterCampaignName = string.Empty;
+                var ChildCampaignName = string.Empty;
                 foreach (var val in tacticvm.MasterViewModels)
                 {
                     if (val.Id == tacticCampaign.MasterCampaign_Id)
                     {MasterCampaignName = val.Name;}
                 }
+                foreach (var val in tacticvm.ChildCampaignViewModels)
+                {
+                    if (val.Id == tacticCampaign.ChildCampaigns.Id)
+                    { ChildCampaignName = val.Name; }
+                }
                 //if ((tacticvm.Status == "Complete") && (tacticvm.EndDate<DateTime.Now)) { tacticvm.InheritanceStatus = "Complete"; }
                 //else { tacticvm.InheritanceStatus = "Active"; }
-                tacticvm.StatusInheritaceStamp = String.Format("{0:yy}", tacticCampaign.UpdatedDate) + "." + MasterCampaignName + "." + tacticvm.Name + " //" + (tacticCampaign.InheritStatus=="Save Draft"?"Draft": tacticCampaign.InheritStatus) +
+                tacticvm.StatusInheritaceStamp = String.Format("{0:yy}", tacticCampaign.UpdatedDate) + "." + MasterCampaignName + "." + ChildCampaignName + " //" + (tacticCampaign.InheritStatus=="Save Draft"?"Draft": tacticCampaign.InheritStatus) +
                                                 " // " + String.Format("{0:ddMMyy HH:MM}", tacticCampaign.UpdatedDate);
 
 
