@@ -93,6 +93,11 @@ table.display {
     background-color: #124191 !important;
 }
 
+.btn-primary:hover {
+    background-color: #428bca !important;
+}
+
+
 .navbar-inverse {
     background-color: #124191 !important;
 }

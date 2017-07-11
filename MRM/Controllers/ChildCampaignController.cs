@@ -240,7 +240,7 @@ namespace MRM.Controllers
             //model.SegmentViewModels = _segmentService.GetSegment();
             model.Segments_Id = model.Segments_Id;
             List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
-            model.IndustryViewModels = lst;
+            model.IndustryViewModels = lst.Where(t=>t.IsActive==true);
 
             //model.GeographyViewModels = _geographyService.GetGeography();
             // model.ThemeViewModels = _themeService.GetTheme();
