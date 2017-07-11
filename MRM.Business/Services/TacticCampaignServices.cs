@@ -176,23 +176,29 @@ namespace MRM.Business.Services
 
             TacticCampaignReachResponse tacticReachModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Reach").FirstOrDefault();
             TacticCampaignReachResponse tacticResponseModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Response").FirstOrDefault();
-            if ((tacticReachModel.Goal != 0 && tacticReachModel.Low != 0 && tacticReachModel.High != 0) &&
+            if (((tacticReachModel.Goal != 0 && tacticReachModel.Low != 0 && tacticReachModel.High != 0) &&
                 (tacticResponseModel.Goal != 0 && tacticResponseModel.Low != 0 &&
-                 tacticResponseModel.High != 0))
+                 tacticResponseModel.High != 0)))
             {
-                tacticCampaignEntity.InheritStatus = "Complete";
+                tacticCampaignEntity.InheritStatus = "Active";
+            }
+            //else
+            //{
+            if (model.Status == "Save Draft")
+            {
+                tacticCampaignEntity.InheritStatus = model.Status;
             }
             else
             {
-                if (model.Status == "Save Draft") { 
-                  tacticCampaignEntity.InheritStatus = model.Status;}
-                else
-                {
-                    tacticCampaignEntity.InheritStatus = "Active";
-                }
+                tacticCampaignEntity.InheritStatus = "Complete";
             }
+           
+            //}
 
-
+            if (model.EndDate < DateTime.Now)
+            {
+                tacticCampaignEntity.InheritStatus = "Complete";
+            }
 
         }
 
