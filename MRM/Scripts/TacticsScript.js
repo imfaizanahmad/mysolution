@@ -170,9 +170,8 @@
     });
 
     $(document).on('click', '#btnAddReachRow', function () {
-        var $options = $('#tblBenchmark tbody tr.trReach').find('.ddlMetricReach').html();
-
-        var reachTblRow = $('<tr><td><label><input value="Reach" name="MetricType" type="hidden"></label></td>\
+        var $options = $('#tblBenchmark tbody tr.trReach').find('.ddlMetricReach').html();      
+        var reachTblRow = $('<tr><td><label><input value="Reach" name="MetricType" type="hidden" /><input value="0" class="hdnMetric" type="hidden" /></label></td>\
                            <td><select id="MetricReach_Id" class="form-control ddlMetricReach chosen-single">' + $options + '</select></td>\
                            <td><input type="text" class="form-control goal" maxlength="50" name="ReachGoal" onkeypress="numericvalidate(event)" value="" /></td>\
                            <td><input type="text" class="form-control low" maxlength="50" name="ReachLow" onkeypress="numericvalidate(event)" value="" /></td>\
@@ -193,7 +192,7 @@
     $(document).on('click', '#btnResponseRow', function () {
         var $options = $('#tblBenchmark tbody tr.trResponse').find('.ddlMetricResponse').html();
 
-        var responseTblRow = $('<tr><td><label><input value="Response" name="MetricType" type="hidden"></label></td>\
+        var responseTblRow = $('<tr><td><label><input value="Response" name="MetricType" type="hidden" /><input value="0" class="hdnMetric" type="hidden" /></label></td>\
                            <td><select id="MetricResponse_Id" class="form-control ddlMetricResponse chosen-single">' + $options + '</select></td>\
                            <td><input type="text" class="form-control goal" maxlength="50" name="ResponseGoal" onkeypress="numericvalidate(event)" value="" /></td>\
                            <td><input type="text" class="form-control low" maxlength="50" name="ResponseLow" onkeypress="numericvalidate(event)" value="" /></td>\
@@ -239,6 +238,10 @@
     $('#tblBenchmark tbody').on('change', 'select.ddlMetricResponse', function () {
         DisableOptionBasedOnSelection('ddlMetricResponse');
     });
+
+    //Load at first time binding grid from server result
+    //DisableOptionBasedOnSelection('ddlMetricReach');
+    //DisableOptionBasedOnSelection('ddlMetricResponse');
 
 });
 
@@ -713,6 +716,7 @@ function CollectTacticFormData() {
     data.TacticCampaignReachResponseViewModels = [];
     $('#frmTacticCampaign').find('#tblBenchmark tbody tr').each(function () {      
         data.TacticCampaignReachResponseViewModels.push({
+            Id: $(this).find('input[class="hdnMetric"]').val(),
             MetricType: $(this).find('input[type="hidden"]').val(),
             MetricId: $(this).find('.ddlMetricReach option:selected').val(),
             Goal: $(this).find('.goal').val() == "" ? 0 : $(this).find('.goal').val(),

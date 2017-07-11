@@ -159,8 +159,9 @@ namespace MRM.Business.Services
             tacticCampaignEntity.Industries = lstindustry;
             tacticCampaignEntity.Geographys = lstgeography;
             //tacticCampaignEntity.Vendors = lstvendor;
-            tacticCampaignEntity.TacticTypes = lstTacticType;
+            tacticCampaignEntity.TacticTypes = lstTacticType;            
             tacticCampaignEntity.TacticCampaignReachResponses = model.TacticCampaignReachResponseViewModels.ToList();
+            
         }
 
         public bool InsertTacticCampaign(TacticCampaignViewModel model)
@@ -196,6 +197,7 @@ namespace MRM.Business.Services
             tacticCampaignCamp.BusinessGroups.Remove(tacticCampaignCamp.BusinessGroups.FirstOrDefault<BusinessGroup>());
             //tacticCampaignCamp.Vendors.Remove(tacticCampaignCamp.Vendors.FirstOrDefault<Vendor>());
             tacticCampaignCamp.TacticTypes.Remove(tacticCampaignCamp.TacticTypes.FirstOrDefault<TacticType>());
+            tacticCampaignCamp.TacticCampaignReachResponses.Remove(tacticCampaignCamp.TacticCampaignReachResponses.FirstOrDefault<TacticCampaignReachResponse>());
             return tacticCampaignCamp;
         }
 
