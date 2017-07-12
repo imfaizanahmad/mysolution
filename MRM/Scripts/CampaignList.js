@@ -28,7 +28,7 @@ function MasterCampaignBindGrid(panel) {
                 columns: [
                     { title: "Campaign Id", data: "Id" },
                     { title: "Name", data: "Name" },
-                    { title: "Description", data: "CampaignDescription" },
+                    { title: "Master Campaign Description & Goals", data: "CampaignDescription" },
                     { title: "Status", data: "InheritStatus" },
                     { title: "Start date", data: "StartDate" },
                     { title: "End date", data: "EndDate" },

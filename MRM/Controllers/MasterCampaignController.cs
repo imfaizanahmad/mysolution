@@ -310,8 +310,13 @@ namespace MRM.Controllers
         {
 
             List<ChildCampaign> childList = _masterCampaignServices.GetChildCampaignByMasterId(Id).ToList();
+
             var Inheritanceflag = 1;
             string InheritanceStatus = string.Empty;
+
+            if (childList.Count == 0)
+            {InheritanceStatus = "Active";}
+
             foreach (var itemChildList in childList)
             {
                 List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByMasterId(itemChildList.Id).ToList();

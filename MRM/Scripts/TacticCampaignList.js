@@ -27,7 +27,7 @@ function TacticCampaignBindGrid(panel) {
                 columns: [
                     { title: "Campaign Id", data: "Id" },
                     { title: "Name", data: "Name" },
-                    { title: "Description", data: "TacticDescription" },
+                    { title: "Tactic Description & Goals", data: "TacticDescription" },
                     { title: "Status", data: "InheritStatus" },
                     { title: "Start date", data: "StartDate" },
                     { title: "End date", data: "EndDate" },

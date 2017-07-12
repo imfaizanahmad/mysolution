@@ -27,7 +27,7 @@ function ChildCampaignBindGrid(panel) {
                 columns: [
                     { title: "Campaign Id", data: "Id" },
                     { title: "Name", data: "Name" },
-                    { title: "Description", data: "CampaignDescription" },
+                    { title: "Sub Campaign Description & Goals", data: "CampaignDescription" },
                     { title: "Status", data: "InheritStatus" },
                     { title: "Start date", data: "StartDate" },
                     { title: "End date", data: "EndDate" },
