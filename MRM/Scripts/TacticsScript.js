@@ -2,6 +2,14 @@
 
     $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
 
+    //if ($("#SubCampaignType").val == 1) {
+    //    $('.Industrymanage-mandate').show();
+    //} else {
+    //    $('.Industrymanage-mandate').hide();
+    //}
+
+    ($("#SubCampaignType").val == 1) ? $('.Industrymanage-mandate').show() : $('.Industrymanage-mandate').hide();
+
     //To make tactic type list single selection
     $('#TacticType_Id').removeAttr('multiple');
 
@@ -324,7 +332,7 @@ function ValidateTacticSaveasDraft() {
     var flag = true;
     if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
 
-        $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
+        $('.validmsgMastercampaign').text("Please select Master Campaign.").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
         flag = false;
 
@@ -335,7 +343,7 @@ function ValidateTacticSaveasDraft() {
 
     if ($('#ChildCampaign_Id').val() == null || $('#ChildCampaign_Id').val() == 0) {
 
-        $('.validmsgSubcampaign').text("Please select child Campaign").css("color", "#b94a48");
+        $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
         $('.validmsgSubcampaign').show();
         flag = false;
 
@@ -353,7 +361,7 @@ function ValidateTacticSaveasDraft() {
     var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Sub Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {
@@ -395,7 +403,7 @@ function ValidateSubmitTacticForm() {
     var flag = true;
     if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
 
-        $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
+        $('.validmsgMastercampaign').text("Please select Master Campaign.").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
         flag = false;
 
@@ -406,7 +414,7 @@ function ValidateSubmitTacticForm() {
 
     if ($('#ChildCampaign_Id').val() == null || $('#ChildCampaign_Id').val() == 0) {
 
-        $('.validmsgSubcampaign').text("Please select child Campaign").css("color", "#b94a48");
+        $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
         $('.validmsgSubcampaign').show();
         flag = false;
 
@@ -414,19 +422,19 @@ function ValidateSubmitTacticForm() {
         $('.validmsgSubcampaign').hide();
     }
 
-    if ($('#Vendor').val().trim() === "") {
+    //if ($('#Vendor').val().trim() === "") {
 
-        $('.validmsgvendor').text("Please enter Vendor").css("color", "#b94a48");
-        $('.validmsgvendor').show();
-        flag = false;
+    //    $('.validmsgvendor').text("Please enter Vendor").css("color", "#b94a48");
+    //    $('.validmsgvendor').show();
+    //    flag = false;
 
-    } else {
-        $('.validmsgvendor').hide();
-    }
+    //} else {
+    //    $('.validmsgvendor').hide();
+    //}
 
     if ($('#TacticType_Id').val() == null) {
 
-        $('.validmsgTactictype').text("Please select Vendor").css("color", "#b94a48");
+        $('.validmsgTactictype').text("Please select Tactic Type").css("color", "#b94a48");
         $('.validmsgTactictype').show();
         flag = false;
 
@@ -456,7 +464,7 @@ function ValidateSubmitTacticForm() {
 
     if ($('#BusinessLines_Id').val() == null) {
 
-        $('.validmsgbusinesLine').text("Please select business line from drop-down").css("color", "#b94a48");
+        $('.validmsgbusinesLine').text("Please select Business Line").css("color", "#b94a48");
         $('.validmsgbusinesLine').show();
         flag = false;
 
@@ -466,7 +474,7 @@ function ValidateSubmitTacticForm() {
 
     if ($('#Segments_Id').val() == null) {
 
-        $('.validmsgbusinesSegment').text("Please select segment from drop-down").css("color", "#b94a48");
+        $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
         $('.validmsgbusinesSegment').show();
         flag = false;
 
@@ -474,14 +482,16 @@ function ValidateSubmitTacticForm() {
         $('.validmsgbusinesSegment').hide();
     }
 
-    if ($('#Industries_Id').val() == null) {
+    if ($("#SubCampaignType").val == 1) {
+        if ($('#Industries_Id').val() == null) {
 
-        $('.validmsgbusinesIndustry').text("Please select business line from drop-down").css("color", "#b94a48");
-        $('.validmsgbusinesIndustry').show();
-        flag = false;
+            $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");
+            $('.validmsgbusinesIndustry').show();
+            flag = false;
 
-    } else {
-        $('.validmsgbusinesIndustry').hide();
+        } else {
+            $('.validmsgbusinesIndustry').hide();
+        }
     }
 
     if ($('#Geographys_Id').val() == null) {
@@ -536,7 +546,7 @@ function ValidateSubmitTacticForm() {
     var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Sub Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
         } else {
@@ -553,7 +563,7 @@ function ValidateSubmitTacticForm() {
     }
 
     if ($('#Name').val().trim() == "") {
-        $('.validmsgtacticname').text("Please enter sub campaign name").css("color", "#b94a48");
+        $('.validmsgtacticname').text("Please enter Tactic Name").css("color", "#b94a48");
         $('.validmsgtacticname').show();
         flag = false;
 
@@ -563,7 +573,7 @@ function ValidateSubmitTacticForm() {
     }
 
     if ($('#TacticDescription').val().trim() == "") {
-        $('.validmsgtacticdesc').text("Please enter sub campaign description name").css("color", "#b94a48");
+        $('.validmsgtacticdesc').text("Please enter Tactic Description & Goals").css("color", "#b94a48");
         $('.validmsgtacticdesc').show();
         flag = false;
     } else {

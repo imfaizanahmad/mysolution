@@ -209,7 +209,7 @@ function ValidateMasterForm() {
 
     if ($('#Industries_Id').val() == null) {
 
-        $('.validmsgbusinesIndustry').text("Please select industry from drop-down").css("color", "#b94a48");
+        $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");
         $('.validmsgbusinesIndustry').show();
         flag = false;
 
@@ -272,7 +272,7 @@ function ValidateMasterForm() {
     }
 
     if ($('#CampaignDescription').val().trim() === "") {
-        $('.validmsgMasterDesc').text("Please enter Master Campaign Description").css("color", "#b94a48");
+        $('.validmsgMasterDesc').text("Please enter Master Campaign Description & Goals").css("color", "#b94a48");
         $('.validmsgMasterDesc').show();
         flag = false;
     }

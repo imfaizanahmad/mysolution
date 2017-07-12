@@ -36,6 +36,11 @@ namespace MRM.Business.Services
             return masterCampaign;
         }
 
+        public List<ChildCampaign> GetChildCampaignByMasterId(int id)
+        {
+            List<ChildCampaign> returnlist = guow.GenericRepository<ChildCampaign>().GetAll().Where(t => t.MasterCampaigns.Id == id).ToList();
+            return returnlist;
+        }
 
         private void ModelToEntity(MasterCampaignViewModel model, MasterCampaign masterCampaignEntity)
         {

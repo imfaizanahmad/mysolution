@@ -16,5 +16,6 @@ namespace MRM.Business.Interfaces
         void UpdateForDraft(MasterCampaignViewModel model);
         void Submit(MasterCampaignViewModel model);
         bool DeleteMasterCampaign(int Id);
+        List<ChildCampaign> GetChildCampaignByMasterId(int id);
     }
 }

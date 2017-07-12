@@ -117,6 +117,8 @@
             $('a[data-target-id="BusinessGroups_Id"]').hide();
             $('a[data-target-id="Segments_Id"]').show();
             $('.validmsgbusinesIndustry').hide();
+            $('.manage-mandate').hide();
+           
         }
         else if ($('#CampaignTypes').val() == 1) {
             $selectSegment.chosen('destroy');
@@ -129,6 +131,7 @@
 
             $('a[data-target-id="BusinessGroups_Id"]').show();
             $('a[data-target-id="Segments_Id"]').hide();
+            $('.manage-mandate').show();
         }
 
         if ($('#Status').val() == "Complete") {

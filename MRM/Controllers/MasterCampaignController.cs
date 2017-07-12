@@ -22,7 +22,7 @@ namespace MRM.Controllers
         private ThemeServices _themeService = null;
         private MasterCampaignServices _masterCampaignServices = null;
         private TacticCampaignServices _tacticCampaignServices = null;
-
+       
         public MasterCampaignController()
         {
             _industryService = new IndustryServices();
@@ -56,22 +56,8 @@ namespace MRM.Controllers
             {
                 MasterCampaign masterCampaign = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = Id }).First();
 
-                
-                List<TacticCampaign> tacticList= _tacticCampaignServices.GetTacticCampaignByMasterId(Id).ToList();
+                mcvm.InheritanceStatus= ReturnInheritStatus(Id);
 
-                var Inheritanceflag = 0;
-                foreach (var itemtacticList in tacticList)
-                {
-                    if (itemtacticList.InheritStatus != "Complete")
-                        Inheritanceflag = 1;
-                }
-                if (tacticList.Count==0)
-                {
-                    mcvm.InheritanceStatus = (masterCampaign.Status == "Save Draft" ? "Draft" : "Active");
-                }
-                else if (Inheritanceflag == 0) { mcvm.InheritanceStatus = "Complete"; }
-                else {mcvm.InheritanceStatus = "Active";}
-           
                 if (masterCampaign.Themes != null && masterCampaign.Themes.Count > 0)
                 {
                     mcvm.Themes_Id = masterCampaign.Themes.Select(t => t.Id).ToArray(); ;
@@ -118,9 +104,6 @@ namespace MRM.Controllers
                 mcvm.Id = Id;
                 mcvm.Status = masterCampaign.Status;
 
-
-                //mcvm.StatusInheritaceStamp = String.Format("{0:yy}", mcvm.StartDate) + "." + mcvm.Name + " //" + mcvm.InheritanceStatus +
-                //                             " // " + String.Format("{0:ddMMyy HH:MM}", mcvm.StartDate);
 
                 mcvm.StatusInheritaceStamp = String.Format("{0:yy}", masterCampaign.UpdatedDate) + "." + mcvm.Name + " //" + (mcvm.Status == "Save Draft" ? "Draft" : mcvm.InheritanceStatus) +
                                                 " // " + String.Format("{0:ddMMyy HH:MM}", masterCampaign.UpdatedDate);
@@ -304,6 +287,7 @@ namespace MRM.Controllers
                                                                        {
                                                                            Id = string.Format("M{0}", campaign.Id.ToString("0000000")),
                                                                            Name = campaign.Name,
+                                                                           InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
                                                                            CampaignDescription = campaign.CampaignDescription,
                                                                            Status = campaign.Status=="Save Draft"? "Draft":"Active",
                                                                            StartDate = String.Format("{0:MM/dd/yyyy}", campaign.StartDate),
@@ -320,6 +304,33 @@ namespace MRM.Controllers
             masterCampaign.IsActive = false;
             _masterCampaignServices.Update(masterCampaign);
             return Json(GetMasterCampaignList(), JsonRequestBehavior.AllowGet);
+        }
+       
+        public string ReturnInheritStatus(int Id)
+        {
+
+            List<ChildCampaign> childList = _masterCampaignServices.GetChildCampaignByMasterId(Id).ToList();
+            var Inheritanceflag = 1;
+            string InheritanceStatus = string.Empty;
+            foreach (var itemChildList in childList)
+            {
+                List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByMasterId(itemChildList.Id).ToList();
+
+                foreach (var itemTCList in tacticList)
+                {
+                    Inheritanceflag = (itemTCList.InheritStatus == "Complete" ? 0 : 1);
+                }
+                if (tacticList.Count == 0 || Inheritanceflag == 1)
+                {
+                    InheritanceStatus = "Active";
+                }
+                else if (Inheritanceflag == 0)
+                {
+                    InheritanceStatus = "Complete";
+                }
+
+            }
+            return InheritanceStatus;
         }
     }
 }

@@ -178,6 +178,11 @@ namespace MRM.Controllers
                     if (val.Id == tacticCampaign.ChildCampaigns.Id)
                     { ChildCampaignName = val.Name; }
                 }
+
+                if (Tacticvm.EndDate < DateTime.Now)
+                {
+                    tacticCampaign.InheritStatus = "Complete";
+                }
                 //if ((tacticvm.Status == "Complete") && (tacticvm.EndDate<DateTime.Now)) { tacticvm.InheritanceStatus = "Complete"; }
                 //else { tacticvm.InheritanceStatus = "Active"; }
                 tacticvm.StatusInheritaceStamp = String.Format("{0:yy}", tacticCampaign.UpdatedDate) + "." + MasterCampaignName + "." + ChildCampaignName + " //" + (tacticCampaign.InheritStatus=="Save Draft"?"Draft": tacticCampaign.InheritStatus) +
@@ -360,8 +365,8 @@ namespace MRM.Controllers
                     model.GeographyViewModels = item.Geographys;
                     model.StartDate = item.StartDate;
                     model.EndDate = item.EndDate;
-                    model.MCStartDate = item.StartDate;
-                    model.MCEndDate = item.EndDate;
+                    //model.MCStartDate = item.StartDate;
+                    //model.MCEndDate = item.EndDate;
                 }
 
             }
@@ -379,8 +384,10 @@ namespace MRM.Controllers
                     model.GeographyViewModels = item.Geographys;
                     //model.StartDate = item.StartDate;
                     //model.EndDate = item.EndDate;
-                    //model.MCStartDate = item.StartDate;
-                    //model.MCEndDate = item.EndDate;
+                    model.MCStartDate = item.StartDate;
+                    model.MCEndDate = item.EndDate;
+                    model.SubCampaignType = item.CampaignType;
+
                 }
             }
             ManageSelectUnselect(model);
@@ -406,6 +413,8 @@ namespace MRM.Controllers
                 model.SegmentViewModels = item.Segments;
                 model.ThemeViewModels = item.Themes;
                 model.GeographyViewModels = item.Geographys;
+                model.MCStartDate = item.StartDate;
+                model.MCEndDate = item.EndDate;
             }
 
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
@@ -539,6 +548,7 @@ namespace MRM.Controllers
                                                                    {
                                                                        Id = string.Format("T{0}", campaign.Id.ToString("0000000")),
                                                                        Name = campaign.Name,
+                                                                       InheritStatus = (!string.IsNullOrEmpty(campaign.InheritStatus) ?campaign.InheritStatus:(campaign.Status == "Save Draft" ? "Draft" : "Active")),
                                                                        TacticDescription = campaign.TacticDescription,
                                                                        Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
                                                                        StartDate = String.Format("{0:MM/dd/yyyy}", campaign.StartDate),

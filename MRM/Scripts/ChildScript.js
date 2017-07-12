@@ -203,7 +203,7 @@ function ValidateChildSaveasDraft() {
 
     if ($('#MasterCampaignId').val() == null) {
 
-        $('.validmsgMastercampaign').text("Please select master campaign.").css("color", "#b94a48");
+        $('.validmsgMastercampaign').text("Please select Master Campaign.").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
         flag = false;
 
@@ -402,7 +402,7 @@ function ValidateChildForm() {
     }
 
     if ($('#CampaignDescription').val().trim() == "") {
-        $('.validmsgSubCampDesc').text("Please enter Sub Campaign Description").css("color", "#b94a48");
+        $('.validmsgSubCampDesc').text("Please enter Sub Campaign Description & Goals").css("color", "#b94a48");
         $('.validmsgSubCampDesc').show();
         flag = false;
     }

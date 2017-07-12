@@ -167,8 +167,7 @@ namespace MRM.Controllers
                         MasterCampaignName = val.Name;
                     }
                 }
-                //Childvm.StatusInheritaceStamp = String.Format("{0:yy}", Childvm.StartDate) + "."+ MasterCampaignName + "." + Childvm.Name + " //" + Childvm.InheritanceStatus +
-                //                             " // " + String.Format("{0:ddMMyy HH:MM}", Childvm.StartDate);
+               
                 Childvm.StatusInheritaceStamp = String.Format("{0:yy}", childCampaign.UpdatedDate) + "." + MasterCampaignName + "." + Childvm.Name + " //" +  (Childvm.Status=="Save Draft"?"Draft":Childvm.InheritanceStatus) +
                                                  " // " + String.Format("{0:ddMMyy HH:MM}", childCampaign.UpdatedDate);
 
@@ -434,6 +433,7 @@ namespace MRM.Controllers
                                                                   new ChildCampaignViewModelList
                                                                   {
                                                                       Id = string.Format("C{0}", campaign.Id.ToString("0000000")),
+                                                                      InheritStatus = (ReturnInheritStatus(campaign.Id))=="Complete"?"Complete":(campaign.Status == "Save Draft" ? "Draft" : "Active"),
                                                                       Name = campaign.Name,
                                                                       CampaignDescription = campaign.CampaignDescription,
                                                                       Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
@@ -451,5 +451,30 @@ namespace MRM.Controllers
             _childCampaignServices.Update(childCampaign);
             return Json(GetChildCampaignList(), JsonRequestBehavior.AllowGet);
         }
+
+        public string ReturnInheritStatus(int Id)
+        {
+            List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByChildId(Id).ToList();
+            var Inheritanceflag = 1;
+            string InheritanceStatus = string.Empty;
+            foreach (var itemtacticList in tacticList)
+            {
+                if (itemtacticList.InheritStatus == "Complete")
+                {
+                    Inheritanceflag = 0;
+                }
+                else
+                {
+                    Inheritanceflag = 1;
+                }
+                
+            }
+            if (Inheritanceflag == 0) { InheritanceStatus = "Complete"; }
+            else { InheritanceStatus = "Active"; }
+
+            return InheritanceStatus;
+        }
+
+
     }
 }

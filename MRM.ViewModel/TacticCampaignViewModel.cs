@@ -44,7 +44,8 @@ namespace MRM.ViewModel
         public int MasterCampaign_Id { get; set; }
         public Boolean IsActive { get; set; }
 
-        
+        public int SubCampaignType { get; set; }
+
         public bool ThemeSelectUnselect { get; set; }
         public bool BgSelectUnselect { get; set; }
         public bool BlSelectUnselect { get; set; }
@@ -87,5 +88,6 @@ namespace MRM.ViewModel
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public string Status { get; set; }
+        public string InheritStatus { get; set; }
     }
 }

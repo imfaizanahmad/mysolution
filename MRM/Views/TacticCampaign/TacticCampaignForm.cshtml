@@ -11,6 +11,7 @@
     @Html.HiddenFor(m => m.SegSelectUnselect, new { @Value = Model.SegSelectUnselect })
     @Html.HiddenFor(m => m.GeoSelectUnselect, new { @Value = Model.GeoSelectUnselect })
     @Html.HiddenFor(m => m.IndustrySelectUnselect, new { @Value = Model.IndustrySelectUnselect })
+@Html.HiddenFor(m => m.SubCampaignType, new { @Value = Model.SubCampaignType })
     <section class="content-header"></section>
     <section class="content">
         <!-- SELECT2 EXAMPLE -->
@@ -75,7 +76,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Tactic Description<span class="text-danger">*</span></label>
+                                    <label>Tactic Description & Goals<span class="text-danger">*</span></label>
                                     @Html.TextAreaFor(m => m.TacticDescription, (Model.Id != 0 && Model.Status == "Complete") ?
                                     (object)new { disabled = "disabled", @class = "form-control" } :
                                     (object)new { @class = "form-control", onkeypress = "return alpha(event)", @maxlength = "500" })
@@ -96,7 +97,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Markets</label><span class="text-danger">*</span><br />
+                                    <label>Markets</label><span class="text-danger"></span><br />
                                     @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                         (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
@@ -181,7 +182,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Industry</label><span class="text-danger">*</span><br />
+                                    <label>Industry</label><span class="text-danger Industrymanage-mandate">*</span><br />
                                     @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                         (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
@@ -194,7 +195,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Vendor</label><span class="text-danger">*</span><br />
+                                    <label>Vendor</label><span class="text-danger"></span><br />
                                     @Html.TextBoxFor(m => m.Vendor, (Model.Id != 0 && Model.Status == "Complete") ?
                                     (object)new { disabled = "disabled", @class = "form-control" } :
                                     (object)new { @class = "form-control", @maxlength = "50", onkeypress = "return blockSpecialChar(event)" })

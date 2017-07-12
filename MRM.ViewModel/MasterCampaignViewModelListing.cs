@@ -16,6 +16,7 @@ namespace MRM.ViewModel
         public Boolean IsActive { get; set; }
         public string CreatedDate { get; set; }
         public string StartDate { get; set; }
-        public string EndDate { get; set; }       
+        public string EndDate { get; set; }
+        public string InheritStatus { get; set; }
     }
 }

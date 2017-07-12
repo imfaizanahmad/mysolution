@@ -182,18 +182,8 @@ namespace MRM.Business.Services
             {
                 tacticCampaignEntity.InheritStatus = "Active";
             }
-            //else
-            //{
-            if (model.Status == "Save Draft")
-            {
-                tacticCampaignEntity.InheritStatus = model.Status;
-            }
-            else
-            {
-                tacticCampaignEntity.InheritStatus = "Complete";
-            }
-           
-            //}
+         
+            tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? "Draft" : "Complete";
 
             if (model.EndDate < DateTime.Now)
             {
