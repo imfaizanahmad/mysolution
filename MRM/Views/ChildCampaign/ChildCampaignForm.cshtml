@@ -191,7 +191,7 @@
                                             <label>Budget<span class="text-danger">*</span></label>
                                             @Html.TextBoxFor(m => m.Budget, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control " } :
-                                                (object)new { @class = "form-control " })
+                                                (object)new { @class = "form-control", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                             <div class="validmsgBudget"></div>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                             <label>Spend</label><br />
                                             @Html.TextBoxFor(m => m.Spend, (Model.Id != 0 && Model.Status == "Complete") ?
                                                 (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                (object)new { @class = "form-control", @maxlength = "10" })
+                                                (object)new { @class = "form-control", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                             <div class="validmsgSpend"></div>
                                         </div>
                                     </div>
