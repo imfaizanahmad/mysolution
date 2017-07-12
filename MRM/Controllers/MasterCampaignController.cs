@@ -94,7 +94,7 @@ namespace MRM.Controllers
                     mcvm.Industries_Id = masterCampaign.Industries.Select(t => t.Id).ToArray(); ;
                 }
 
-                mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id); ;
+                mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id).Where(t=>t.IsActive==true); ;
 
 
                 mcvm.Name = masterCampaign.Name;
@@ -290,8 +290,8 @@ namespace MRM.Controllers
                                                                            InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
                                                                            CampaignDescription = campaign.CampaignDescription,
                                                                            Status = campaign.Status=="Save Draft"? "Draft":"Active",
-                                                                           StartDate = String.Format("{0:MM/dd/yyyy}", campaign.StartDate),
-                                                                           EndDate = String.Format("{0:MM/dd/yyyy}", campaign.EndDate)
+                                                                           StartDate = String.Format("{0:dd/MM/yyyy}", campaign.StartDate),
+                                                                           EndDate = String.Format("{0:dd/MM/yyyy}", campaign.EndDate)
                                                                        }
 
                                                      ).ToList();

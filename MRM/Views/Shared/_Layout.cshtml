@@ -234,26 +234,33 @@
     }
 
     function DDLSelectUnselect(thisOpt) {
+        var getselectedval = $(thisOpt).closest('.form-group').find('a[data-select-all="selectunselect"]');
+        var selectallElement = getselectedval.attr('data-target-id');
+        var nextStage = getselectedval.attr('data-next-stage');
         if ($(thisOpt).val() == null)
         {
-            var getselectedval = $(thisOpt).closest('.form-group').find('a[data-select-all="selectunselect"]');
-            var selectallElement = getselectedval.attr('data-target-id');
-            var nextStage = getselectedval.attr('data-next-stage');
+           
             $('#' + selectallElement + ' option').prop('selected', false);
             getselectedval.attr('data-next-stage', "select");
             getselectedval.text("Select All");
             $('#' + selectallElement).trigger('chosen:updated');
         }
-        else if ($(thisOpt).val().length>0)
+        else if ($('#'+selectallElement).children('option').length==$(thisOpt).val().length)
         {
-            var getselectedval = $(thisOpt).closest('.form-group').find('a[data-select-all="selectunselect"]');
-            var selectallElement = getselectedval.attr('data-target-id');
-            var nextStage = getselectedval.attr('data-next-stage');
-            getselectedval.attr('data-next-stage', "select");
-            getselectedval.text("Select All");
+            getselectedval.attr('data-next-stage', "unselect");
+            getselectedval.text("Select None");
             $('#' + selectallElement).trigger('chosen:updated');
          
         }
+
+        else if ($(thisOpt).val().length < $('#' + selectallElement).children('option').length)
+        {
+            getselectedval.attr('data-next-stage', "select");
+            getselectedval.text("Select All");
+            $('#' + selectallElement).trigger('chosen:updated');
+
+        }
+
     }
 </script>
 
@@ -261,6 +268,32 @@
 <script src="~/Content/Multi-Select/docsupport/init.js"></script>
 
 <style type="text/css">
+    @@font-face {
+    font-family: "Nokia";
+    src: url("fonts/Roboto-Regular.ttf");
+    }
+    @@font-face {
+        font-family: "Nokia";
+        src: url("fonts/Roboto-Bold.ttf");
+        font-weight: bold;
+    }
+    @@font-face {
+        font-family: "Nokia";
+        src: url("fonts/Roboto-Italic.ttf");
+        font-style: italic;
+    }
+    @@font-face {
+        font-family: "Nokia";
+        src: url("fonts/Roboto-BoldItalic.ttf");
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    body, h1, h2, h3, h4, h5, h6, p, div {
+        font-family: 'Nokia';
+    }
+   
+
     /*.ui-widget-content{border:0px solid #fff !important}*/
     .dialogbg {
         background: transparent;
