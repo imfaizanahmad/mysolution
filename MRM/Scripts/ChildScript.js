@@ -207,8 +207,7 @@ function ValidateChildSaveasDraft() {
         $('.validmsgMastercampaign').show();
         flag = false;
 
-    }
-    else {
+    } else {
         $('.validmsgMastercampaign').hide();
     }
 
@@ -220,13 +219,31 @@ function ValidateChildSaveasDraft() {
     var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
     var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
-        if (startdate < MCStartdate || enddate > MCEnddate) {
 
-            var msg=
-            $('.validmsgDateMCcompare').text("Sub Campaign start and end date should be between Master Campaign date: " +DisMCStartdate+ " to " +DisMCEnddate+ "").css("color", "#b94a48");
+        if ((startdate < MCStartdate)) {
+            var msg =
+                $('.validmsgDateMCcompare')
+                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                        DisMCStartdate +
+                        " to " +
+                        DisMCEnddate +
+                        "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
-        } else {
+
+        }
+        else if (enddate > MCEnddate) {
+            var msg =
+                $('.validmsgDateMCcompare')
+                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                        DisMCStartdate +
+                        " to " +
+                        DisMCEnddate +
+                        "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
+            flag = false;
+        }
+        else {
             $('.validmsgDateMCcompare').hide();
         }
     }
@@ -369,17 +386,39 @@ function ValidateChildForm() {
 
    var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
    var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
-    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "")
-    {
-        if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Sub Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
+        //if (startdate < MCStartdate || enddate > MCEnddate) {
+        //    $('.validmsgDateMCcompare').text("Sub Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+        //    $('.validmsgDateMCcompare').show();
+        //    flag = false;
+        //}
+
+        if (startdate < MCStartdate) {
+            var msg =
+                $('.validmsgDateMCcompare')
+                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                        DisMCStartdate +
+                        " to " +
+                        DisMCEnddate +
+                        "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
-        } else {
+
+        } else if (enddate > MCEnddate) {
+            var msg =
+                $('.validmsgDateMCcompare')
+                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                        DisMCStartdate +
+                        " to " +
+                        DisMCEnddate +
+                        "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
+            flag = false;
+        }
+        else {
             $('.validmsgDateMCcompare').hide();
         }
     }
-
 
     if (startdate > enddate) {
         $('.validmsgDatecompare').text("End Date can not less than Start Date").css("color", "#b94a48");

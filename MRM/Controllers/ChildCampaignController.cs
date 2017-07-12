@@ -80,6 +80,8 @@ namespace MRM.Controllers
 
                         Childvm.BusinessLineViewModels = item.BusinessLines;
                         Childvm.IndustryViewModels = item.Industries;
+                        Childvm.MCStartDate = item.StartDate;
+                        Childvm.MCEndDate = item.EndDate;
                     }
                 }
 

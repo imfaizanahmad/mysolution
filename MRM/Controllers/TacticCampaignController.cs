@@ -87,6 +87,8 @@ namespace MRM.Controllers
                         tacticvm.BusinessLineViewModels = item.BusinessLines;
                         tacticvm.SegmentViewModels = item.Segments;
                         tacticvm.IndustryViewModels = item.Industries;
+                        tacticvm.MCStartDate = item.StartDate;
+                        tacticvm.MCEndDate = item.EndDate;
 
                     }
                 }
@@ -271,6 +273,7 @@ namespace MRM.Controllers
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
             TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = model.Id }).FirstOrDefault();
+            if (tacticCampaign!=null)
             model.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
 
             return PartialView("TacticCampaignForm", model);
@@ -342,7 +345,8 @@ namespace MRM.Controllers
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
             TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = model.Id }).FirstOrDefault();
-            model.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
+            if (tacticCampaign != null)
+                model.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
 
             return PartialView("TacticCampaignForm", model);
         }
