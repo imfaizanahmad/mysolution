@@ -135,4 +135,5 @@ a {
 }
 .chosen-container-single .chosen-single {
     color: #444 !important;
+     height: 32px !important;
 }

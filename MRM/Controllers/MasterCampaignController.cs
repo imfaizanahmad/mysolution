@@ -139,10 +139,11 @@ namespace MRM.Controllers
                 model.IndustryViewModels = lst;
             }
 
-            ManageSelectUnselect(model);
+            
 
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
+            ManageSelectUnselect(model);
             return PartialView("MasterCampaignForm", model);
         }
 
@@ -162,9 +163,10 @@ namespace MRM.Controllers
             model.Segments_Id = model.Segments_Id;
             List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
             model.IndustryViewModels = lst.Where(t=>t.IsActive==true);
-            ManageSelectUnselect(model);
+          
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
+            ManageSelectUnselect(model);
             return PartialView("MasterCampaignForm", model);
         }
 
