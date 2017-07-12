@@ -19,7 +19,7 @@ namespace MRM.Controllers
         private BusinessLineServices _businesslineService = null;
         private SegmentServices _segmentService = null;
         private GeographyServices _geographyService = null;
-        private ThemeServices _themeService = null;     
+        private ThemeServices _themeService = null;
         private TacticCampaignServices _tacticCampaignServices = null;
         private ChildCampaignServices _childCampaignServices = null;
         private MasterCampaignServices _masterCampaignServices = null;
@@ -38,7 +38,7 @@ namespace MRM.Controllers
             _geographyService = new GeographyServices();
             _themeService = new ThemeServices();
             _tacticCampaignServices = new TacticCampaignServices();
-            _childCampaignServices = new ChildCampaignServices();      
+            _childCampaignServices = new ChildCampaignServices();
             _masterCampaignServices = new MasterCampaignServices();
 
             _metricReachServices = new MetricReachServices();
@@ -72,10 +72,10 @@ namespace MRM.Controllers
             {
                 tacticvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
                 tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign().Where(t => t.Status == "Complete");
-                tacticvm.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();            
+                tacticvm.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
 
                 TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = Id }).First();
-                
+
                 if (tacticCampaign.ChildCampaigns.Id != 0)
                 {
                     List<ChildCampaign> childCampaign = _childCampaignServices.GetDDLValuesByChildId(tacticCampaign.ChildCampaigns.Id);
@@ -150,7 +150,7 @@ namespace MRM.Controllers
                 }
 
                 //tacticvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(tacticvm.Segments_Id);
-                                
+
                 if (tacticCampaign.TacticTypes != null && tacticCampaign.TacticTypes.Count > 0)
                 {
                     tacticvm.TacticType_Id = tacticCampaign.TacticTypes.Select(t => t.Id).ToArray(); ;
@@ -166,14 +166,14 @@ namespace MRM.Controllers
                 tacticvm.Year = tacticCampaign.Year;
                 tacticvm.Status = tacticCampaign.Status;
                 tacticvm.MasterCampaign_Id = tacticCampaign.MasterCampaign_Id;
-               
+
 
                 var MasterCampaignName = string.Empty;
                 var ChildCampaignName = string.Empty;
                 foreach (var val in tacticvm.MasterViewModels)
                 {
                     if (val.Id == tacticCampaign.MasterCampaign_Id)
-                    {MasterCampaignName = val.Name;}
+                    { MasterCampaignName = val.Name; }
                 }
                 foreach (var val in tacticvm.ChildCampaignViewModels)
                 {
@@ -187,13 +187,13 @@ namespace MRM.Controllers
                 }
                 //if ((tacticvm.Status == "Complete") && (tacticvm.EndDate<DateTime.Now)) { tacticvm.InheritanceStatus = "Complete"; }
                 //else { tacticvm.InheritanceStatus = "Active"; }
-                tacticvm.StatusInheritaceStamp = String.Format("{0:yy}", tacticCampaign.UpdatedDate) + "." + MasterCampaignName + "." + ChildCampaignName + " //" + (tacticCampaign.InheritStatus=="Save Draft"?"Draft": tacticCampaign.InheritStatus) +
+                tacticvm.StatusInheritaceStamp = String.Format("{0:yy}", tacticCampaign.UpdatedDate) + "." + MasterCampaignName + "." + ChildCampaignName + " //" + (tacticCampaign.InheritStatus == "Save Draft" ? "Draft" : tacticCampaign.InheritStatus) +
                                                 " // " + String.Format("{0:ddMMyy HH:MM}", tacticCampaign.UpdatedDate);
 
 
                 tacticvm.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
                 tacticvm.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
-                tacticvm.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();                
+                tacticvm.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
             }
             return View(tacticvm);
         }
@@ -273,8 +273,8 @@ namespace MRM.Controllers
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
             TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = model.Id }).FirstOrDefault();
-            if (tacticCampaign!=null)
-            model.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
+            if (tacticCampaign != null)
+                model.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
 
             return PartialView("TacticCampaignForm", model);
         }
@@ -294,7 +294,7 @@ namespace MRM.Controllers
             model.SegmentViewModels = _segmentService.GetSegment();
             model.Segments_Id = model.Segments_Id;
             List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
-            model.IndustryViewModels = lst.Where(t=>t.IsActive==true);
+            model.IndustryViewModels = lst.Where(t => t.IsActive == true);
 
             //If sub campaign is not defined for corressponding master campaign
             List<MasterCampaign> mastercampaignvalues = _masterCampaignServices.GetMasterCampaignById(model.MasterCampaign_Id);
@@ -341,7 +341,7 @@ namespace MRM.Controllers
             ManageSelectUnselect(model);
 
             model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
-          
+
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
             TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = model.Id }).FirstOrDefault();
@@ -401,7 +401,7 @@ namespace MRM.Controllers
 
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
             model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
-           
+
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
 
@@ -426,7 +426,7 @@ namespace MRM.Controllers
 
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
             model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
-           
+
             model.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign().Where(t => t.Status == "Complete");
             ManageSelectUnselect(model);
 
@@ -525,7 +525,7 @@ namespace MRM.Controllers
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.Name == "") errorCounter++;
                 if (model.TacticDescription == "") errorCounter++;
-           
+
                 if (model.StartDate == null) errorCounter++;
                 if (model.EndDate == null) errorCounter++;
                 if (model.StartDate != null && model.EndDate != null)
@@ -555,7 +555,7 @@ namespace MRM.Controllers
                                                                    {
                                                                        Id = string.Format("T{0}", campaign.Id.ToString("0000000")),
                                                                        Name = campaign.Name,
-                                                                       InheritStatus = (!string.IsNullOrEmpty(campaign.InheritStatus) ?campaign.InheritStatus:(campaign.Status == "Save Draft" ? "Draft" : "Active")),
+                                                                       InheritStatus = (!string.IsNullOrEmpty(campaign.InheritStatus) ? campaign.InheritStatus : (campaign.Status == "Save Draft" ? "Draft" : "Active")),
                                                                        TacticDescription = campaign.TacticDescription,
                                                                        Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
                                                                        StartDate = String.Format("{0:dd/MM/yyyy}", campaign.StartDate),

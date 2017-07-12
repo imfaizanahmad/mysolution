@@ -184,13 +184,14 @@
     });
 
     $(document).on('click', '#btnAddReachRow', function () {
-        var $options = $('#tblBenchmark tbody tr.trReach').find('.ddlMetricReach').html();      
+        var $options = $('#tblBenchmark tbody tr.trReach').find('.ddlMetricReach').html();
         var reachTblRow = $('<tr><td><label><input value="Reach" name="MetricType" type="hidden" /><input value="0" class="hdnMetric" type="hidden" /></label></td>\
                            <td><select id="MetricReach_Id" class="form-control ddlMetricReach chosen-single">' + $options + '</select></td>\
                            <td><input type="text" class="form-control goal" maxlength="50" name="ReachGoal" onkeypress="numericvalidate(event)" value="" /></td>\
                            <td><input type="text" class="form-control low" maxlength="50" name="ReachLow" onkeypress="numericvalidate(event)" value="" /></td>\
                            <td><input type="text" class="form-control high" maxlength="50" name="ReachHigh" onkeypress="numericvalidate(event)" value="" /></td>\
-                           <td><input type="button" Id="btnRemoveReachRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" /></td>\
+                           <td><input type="button" Id="btnRemoveReachRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" />\
+                           <span class="validmsgReachMetric"></span></td>\
                        </tr>');
 
         $('#tblBenchmark tbody tr.trResponse').before(reachTblRow);
@@ -200,7 +201,7 @@
             $('#tblBenchmark tbody #btnAddReachRow').prop('disabled', true);
         }
 
-        DisableOptionBasedOnSelection('ddlMetricReach');
+        // DisableOptionBasedOnSelection('ddlMetricReach');
     });
 
     $(document).on('click', '#btnResponseRow', function () {
@@ -211,7 +212,8 @@
                            <td><input type="text" class="form-control goal" maxlength="50" name="ResponseGoal" onkeypress="numericvalidate(event)" value="" /></td>\
                            <td><input type="text" class="form-control low" maxlength="50" name="ResponseLow" onkeypress="numericvalidate(event)" value="" /></td>\
                            <td><input type="text" class="form-control high" maxlength="50" name="ResponseHigh" onkeypress="numericvalidate(event)" value="" /></td>\
-                           <td><input type="button" Id="btnRemoveResponseRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" /></td>\
+                           <td><input type="button" Id="btnRemoveResponseRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" />\
+                            <span class="validmsgResponseMetric"></span></td>\
                        </tr>');
 
         $('#tblBenchmark tbody tr:last').after(responseTblRow);
@@ -221,7 +223,7 @@
             $('#tblBenchmark tbody #btnResponseRow').prop('disabled', true);
         }
 
-        DisableOptionBasedOnSelection('ddlMetricResponse');
+        // DisableOptionBasedOnSelection('ddlMetricResponse');
 
     });
 
@@ -246,10 +248,12 @@
     // BindMetricResponseList($(this));
 
     $('#tblBenchmark tbody').on('change', 'select.ddlMetricReach', function () {
+        $('#tblBenchmark tbody').find('.validmsgReachMetric').text('');
         DisableOptionBasedOnSelection('ddlMetricReach');
     });
 
     $('#tblBenchmark tbody').on('change', 'select.ddlMetricResponse', function () {
+        $('#tblBenchmark tbody').find('.validmsgResponseMetric').text('');
         DisableOptionBasedOnSelection('ddlMetricResponse');
     });
 
@@ -286,7 +290,9 @@ function funcLoadBusinessLine() {
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
                 PreventSpecialChar();
-                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
+                $('.mrminttostring').each(function () {
+                    if ($(this).val().indexOf('0') >= 0) { $(this).val(''); }
+                });
             }
         });
     }
@@ -301,7 +307,9 @@ function funcLoadIndustry() {
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
                 PreventSpecialChar();
-                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
+                $('.mrminttostring').each(function () {
+                    if ($(this).val().indexOf('0') >= 0) { $(this).val(''); }
+                });
             }
         });
     }
@@ -368,6 +376,22 @@ function ValidateTacticSaveasDraft() {
             $('.validmsgDateMCcompare').hide();
         }
     }
+
+    $('#frmTacticCampaign').find('#tblBenchmark tbody tr select.ddlMetricReach').each(function () {
+        if ($('#tblBenchmark tbody tr select.ddlMetricReach').find('option[value="' + $(this).val() + '"]:selected').length > 1) {
+            $(this).closest('tr').find('.validmsgReachMetric').text("Reach Metric selection should be different.").css("color", "#b94a48");
+            flag = false;
+            return flag;
+        }
+    });
+
+    $('#frmTacticCampaign').find('#tblBenchmark tbody tr select.ddlMetricResponse').each(function () {
+        if ($('#tblBenchmark tbody tr select.ddlMetricResponse').find('option[value="' + $(this).val() + '"]:selected').length > 1) {
+            $(this).closest('tr').find('.validmsgResponseMetric').text("Response Metric selection should be different.").css("color", "#b94a48");
+            flag = false;
+            return flag;
+        }
+    });
 
     //var trReach = $('#frmTacticCampaign').find('#tblBenchmark tbody tr.trReach');
     //var rachGoal = trReach.find('.goal').val();
@@ -590,6 +614,22 @@ function ValidateSubmitTacticForm() {
         $('.validmsgyear').hide();
     }
 
+    $('#frmTacticCampaign').find('#tblBenchmark tbody tr select.ddlMetricReach').each(function () {
+        if ($('#tblBenchmark tbody tr select.ddlMetricReach').find('option[value="' + $(this).val() + '"]:selected').length > 1) {
+            $(this).closest('tr').find('.validmsgReachMetric').text("Reach Metric selection should be different.").css("color", "#b94a48");
+            flag = false;
+            return flag;
+        }
+    });
+
+    $('#frmTacticCampaign').find('#tblBenchmark tbody tr select.ddlMetricResponse').each(function () {
+        if ($('#tblBenchmark tbody tr select.ddlMetricResponse').find('option[value="' + $(this).val() + '"]:selected').length > 1) {
+            $(this).closest('tr').find('.validmsgResponseMetric').text("Response Metric selection should be different.").css("color", "#b94a48");
+            flag = false;
+            return flag;
+        }
+    });
+
     var trReach = $('#frmTacticCampaign').find('#tblBenchmark tbody tr.trReach');
     var rachGoal = trReach.find('.goal').val();
     var rachLow = trReach.find('.low').val();
@@ -635,7 +675,8 @@ function alpha(e) {
 }
 
 function BindMetricReachList(panel) {
-    var sdata = {};
+    var sdata = {
+    };
 
     $.ajax({
         type: 'get',
@@ -660,7 +701,8 @@ function BindMetricReachList(panel) {
 }
 
 function BindMetricResponseList(panel) {
-    var sdata = {};
+    var sdata = {
+    };
 
     $.ajax({
         type: 'get',
@@ -685,7 +727,8 @@ function BindMetricResponseList(panel) {
 }
 
 function CollectTacticFormData() {
-    var data = {};
+    var data = {
+    };
     data.Id = $('#frmTacticCampaign').find('input[name="Id"]').val()
     data.MasterCampaign_Id = $('#frmTacticCampaign').find('#MasterCampaign_Id option:selected').val();
     data.ChildCampaign_Id = $('#frmTacticCampaign').find('#ChildCampaign_Id option:selected').val();
@@ -732,11 +775,11 @@ function CollectTacticFormData() {
     data.Vendor = $('#frmTacticCampaign').find('#Vendor').val();
 
     data.TacticCampaignReachResponseViewModels = [];
-    $('#frmTacticCampaign').find('#tblBenchmark tbody tr').each(function () {      
+    $('#frmTacticCampaign').find('#tblBenchmark tbody tr').each(function () {
         data.TacticCampaignReachResponseViewModels.push({
             Id: $(this).find('input[class="hdnMetric"]').val(),
             MetricType: $(this).find('input[type="hidden"]').val(),
-            MetricId: $(this).find('.ddlMetricReach option:selected').val(),
+            MetricId: $(this).find('.form-control option:selected').val(),
             Goal: $(this).find('.goal').val() == "" ? 0 : $(this).find('.goal').val(),
             Low: $(this).find('.low').val() == "" ? 0 : $(this).find('.low').val(),
             High: $(this).find('.high').val() == "" ? 0 : $(this).find('.high').val()
