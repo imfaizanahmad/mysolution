@@ -437,8 +437,8 @@ namespace MRM.Controllers
                                                                       Name = campaign.Name,
                                                                       CampaignDescription = campaign.CampaignDescription,
                                                                       Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
-                                                                      StartDate = String.Format("{0:MM/dd/yyyy}", campaign.StartDate),
-                                                                      EndDate = String.Format("{0:MM/dd/yyyy}", campaign.EndDate)
+                                                                      StartDate = String.Format("{0:dd/MM/yyyy}", campaign.StartDate),
+                                                                      EndDate = String.Format("{0:dd/MM/yyyy}", campaign.EndDate)
                                                                   }
                                                                  ).ToList();
             return Json(childCampaignList, JsonRequestBehavior.AllowGet);
