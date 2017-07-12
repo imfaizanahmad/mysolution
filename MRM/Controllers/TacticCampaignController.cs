@@ -270,6 +270,8 @@ namespace MRM.Controllers
 
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
+            TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = model.Id }).FirstOrDefault();
+            model.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
 
             return PartialView("TacticCampaignForm", model);
         }
@@ -339,7 +341,8 @@ namespace MRM.Controllers
           
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
-
+            TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = model.Id }).FirstOrDefault();
+            model.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
 
             return PartialView("TacticCampaignForm", model);
         }
