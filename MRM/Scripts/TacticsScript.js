@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
-    $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
-
+    RemoveZeroFromMetric();
+    
     //if ($("#SubCampaignType").val == 1) {
     //    $('.Industrymanage-mandate').show();
     //} else {
@@ -93,7 +93,7 @@
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
-                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
+                RemoveZeroFromMetric();
             }
         });
     });
@@ -107,7 +107,7 @@
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
-                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
+                RemoveZeroFromMetric();
             }
         });
     });
@@ -121,7 +121,7 @@
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
-                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
+                RemoveZeroFromMetric();
             }
         });
     });
@@ -135,7 +135,7 @@
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
-                $('.mrminttostring').each(function () { if ($(this).val().indexOf('0') >= 0) { $(this).val(''); } });
+                RemoveZeroFromMetric();
             }
         });
     });
@@ -290,9 +290,7 @@ function funcLoadBusinessLine() {
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
                 PreventSpecialChar();
-                $('.mrminttostring').each(function () {
-                    if ($(this).val().indexOf('0') >= 0) { $(this).val(''); }
-                });
+                RemoveZeroFromMetric();
             }
         });
     }
@@ -307,9 +305,7 @@ function funcLoadIndustry() {
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
                 PreventSpecialChar();
-                $('.mrminttostring').each(function () {
-                    if ($(this).val().indexOf('0') >= 0) { $(this).val(''); }
-                });
+                RemoveZeroFromMetric();
             }
         });
     }
@@ -814,4 +810,8 @@ function PreventSpecialChar() {
         });
 
     });
+}
+
+function RemoveZeroFromMetric() {
+    $('.mrminttostring').each(function () { if ($(this).val() == 0) { $(this).val(''); } });
 }
