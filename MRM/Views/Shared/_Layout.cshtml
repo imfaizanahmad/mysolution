@@ -94,10 +94,10 @@
 
         //    $.ajax(settingsmrm);
         //};
-      //  $(".chosen-single").data("placeholder", "None selected.").chosen();
+        //  $(".chosen-single").data("placeholder", "None selected.").chosen();
+
         $(document).on('focus', '#BusinessLines_Id_chosen', function () {
             if ($('#BusinessGroups_Id').val() == null) {
-                //ConfigurationModel.AlertDialog("Business Group", "Please select Business group");
                 $('.validmsgbusinesLine').text("Please select Business group first").css("color", "#b94a48");
                 $('.validmsgbusinesLine').show();
                 $('#BusinessLines_Id').text('');
@@ -144,10 +144,7 @@
             }
         });
         $(".end-date-cal").datepicker({
-            dateFormat: 'dd/mm/yy',
-            onSelect: function (selected) {
-                // $(".start-date-cal").datepicker("option", "maxDate", selected)
-            }
+            dateFormat: 'dd/mm/yy'
         });
     }
 
@@ -210,17 +207,6 @@
 
     var commonUiInitialization = function () {
         $('select.chosen-single').chosen();
-        $('.mrm-cal').datepicker({
-            format: 'mm/dd/yyyy'
-
-        });
-        $('.mrm-cal').each(function () { if ($(this).val().indexOf('1/1/0001') >= 0) { $(this).val(''); } });
-
-        manageStartEndDate();
-        HighlightSelectedDate();
-        $(document).on('change', '#StartDate', function () {
-            manageStartEndDate();
-        });
     };
 
     function DDLSelectUnselect(thisOpt) {
@@ -242,14 +228,8 @@
             getselectedval.attr('data-next-stage', "select");
             getselectedval.text("Select All");
             $('#' + selectallElement).trigger('chosen:updated');
-
         }
-
     }
-
-
-
-
 
  </script>
 
