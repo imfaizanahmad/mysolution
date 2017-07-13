@@ -144,10 +144,7 @@
             }
         });
         $(".end-date-cal").datepicker({
-            dateFormat: 'dd/mm/yy',
-            onSelect: function (selected) {
-                // $(".start-date-cal").datepicker("option", "maxDate", selected)
-            }
+            dateFormat: 'dd/mm/yy'
         });
     }
 
@@ -210,17 +207,6 @@
 
     var commonUiInitialization = function () {
         $('select.chosen-single').chosen();
-        //$('.mrm-cal').datepicker({
-        //    format: 'mm/dd/yyyy'
-
-        //});
-        //$('.mrm-cal').each(function () { if ($(this).val().indexOf('1/1/0001') >= 0) { $(this).val(''); } });
-
-        //manageStartEndDate();
-        //HighlightSelectedDate();
-        //$(document).on('change', '#StartDate', function () {
-        //    manageStartEndDate();
-        //});
     };
 
     function DDLSelectUnselect(thisOpt) {
