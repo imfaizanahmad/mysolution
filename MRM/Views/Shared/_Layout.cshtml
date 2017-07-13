@@ -9,8 +9,9 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 
-    <link href="~/Content/datepicker3.css" rel="stylesheet" />
-    <script src="~/Content/bootstrap-datepicker.js"></script>
+    @*<link href="~/Content/datepicker3.css" rel="stylesheet" />*@
+    @* <script src="~/Content/bootstrap-datepicker.js"></script>*@
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @*@Scripts.Render("~/bundles/jquery")*@
@@ -100,7 +101,26 @@
             GetBGandSegmentSingleDDl();
             chosenclear();
         });
+
+        BindDatePickerCalender();
     });
+
+    function BindDatePickerCalender() {
+        $(".end-date-cal").prop('disabled', true);
+        $(".start-date-cal").datepicker({
+            dateFormat: 'dd/mm/yy',
+            onSelect: function (selected) {
+                $(".end-date-cal").datepicker("option", "minDate", selected)
+                $(".end-date-cal").prop('disabled', false);
+            }
+        });
+        $(".end-date-cal").datepicker({
+            dateFormat: 'dd/mm/yy',
+            onSelect: function (selected) {
+                // $(".start-date-cal").datepicker("option", "maxDate", selected)
+            }
+        });
+    }
 
     function GetBGandSegmentSingleDDl() {
         var $select = $('#BusinessGroups_Id');
@@ -118,7 +138,7 @@
             $('a[data-target-id="Segments_Id"]').show();
             $('.validmsgbusinesIndustry').hide();
             $('.manage-mandate').hide();
-           
+
         }
         else if ($('#CampaignTypes').val() == 1) {
             $selectSegment.chosen('destroy');
@@ -160,101 +180,29 @@
 
     }
 
-    var manageStartEndDate = function () {
-        var sDate = new Date($('#StartDate').val());
-        var dDate = new Date($('#EndDate').val());
-        if (sDate > dDate) {
-            $("#EndDate").val("");
-        }
-
-        if ($('#StartDate').val() === "") {
-            $("#dvEndDate").datepicker().attr('readonly', 'readonly');
-            $("#dvEndDate").datepicker('remove');
-            $("#EndDate").datepicker().attr('readonly', 'readonly');
-            $("#EndDate").datepicker('remove');
-            $("#EndDate").val("");
-        } else {
-            $("#dvEndDate").datepicker().removeAttr('readonly');
-            $("#dvEndDate").datepicker('remove');
-            $("#EndDate").datepicker().removeAttr('readonly');
-            $("#EndDate").datepicker('remove');
-            $("#dvEndDate").datepicker({
-                format: 'mm/dd/yyyy',
-                startDate: new Date($('#StartDate').val()),
-                formatDate: 'mm/dd/yyyy'
-            });
-        }
-
-
-        if ($("#EndDate").val() != undefined) {
-
-            if ($("#EndDate").val().length > 0) {
-                if ($("#EndDate").val().indexOf(" ") > 0)
-                    $("#EndDate").val($("#EndDate").val().substr(0, $("#EndDate").val().indexOf(" ")));
-            }
-
-            if ($("#StartDate").val().length > 0) {
-                if ($("#StartDate").val().indexOf(" ") > 0)
-                    $("#StartDate").val($("#StartDate").val().substr(0, $("#StartDate").val().indexOf(" ")));
-            }
-        }
-
-        //Date selected value highlighted
-        var selectedenddate = $("#EndDate").val();
-        if ($("#EndDate").val() !== "") {
-            $('#dvEndDate').datepicker('update', selectedenddate);
-            $('#EndDate').datepicker('update', selectedenddate);
-        }
-    };
-
-
     var commonUiInitialization = function () {
-
         $('select.chosen-single').chosen();
-        $('.mrm-cal').datepicker({
-            format: 'mm/dd/yyyy'
-
-        });
-        $('.mrm-cal').each(function () { if ($(this).val().indexOf('1/1/0001') >= 0) { $(this).val(''); } });
-
-        manageStartEndDate();
-        HighlightSelectedDate();
-        $(document).on('change', '#StartDate', function () {
-            manageStartEndDate();
-        });
     };
-
-    //Date selected value highlighted
-    function HighlightSelectedDate() {
-        var selectedstartdate = $("#StartDate").val();
-        if ($("#StartDate").val() !== "") {
-            $('#dvStartDate').datepicker('update', selectedstartdate);
-            $('#StartDate').datepicker('update', selectedstartdate);
-        }
-    }
 
     function DDLSelectUnselect(thisOpt) {
         var getselectedval = $(thisOpt).closest('.form-group').find('a[data-select-all="selectunselect"]');
         var selectallElement = getselectedval.attr('data-target-id');
         var nextStage = getselectedval.attr('data-next-stage');
-        if ($(thisOpt).val() == null)
-        {
-           
+        if ($(thisOpt).val() == null) {
+
             $('#' + selectallElement + ' option').prop('selected', false);
             getselectedval.attr('data-next-stage', "select");
             getselectedval.text("Select All");
             $('#' + selectallElement).trigger('chosen:updated');
         }
-        else if ($('#'+selectallElement).children('option').length==$(thisOpt).val().length)
-        {
+        else if ($('#' + selectallElement).children('option').length == $(thisOpt).val().length) {
             getselectedval.attr('data-next-stage', "unselect");
             getselectedval.text("Select None");
             $('#' + selectallElement).trigger('chosen:updated');
-         
+
         }
 
-        else if ($(thisOpt).val().length < $('#' + selectallElement).children('option').length)
-        {
+        else if ($(thisOpt).val().length < $('#' + selectallElement).children('option').length) {
             getselectedval.attr('data-next-stage', "select");
             getselectedval.text("Select All");
             $('#' + selectallElement).trigger('chosen:updated');
@@ -269,19 +217,22 @@
 
 <style type="text/css">
     @@font-face {
-    font-family: "Nokia";
-    src: url("../../fonts/Roboto-Regular.ttf");
+        font-family: "Nokia";
+        src: url("../../fonts/Roboto-Regular.ttf");
     }
+
     @@font-face {
         font-family: "Nokia";
         src: url("../../fonts/Roboto-Bold.ttf");
         font-weight: bold;
     }
+
     @@font-face {
         font-family: "Nokia";
         src: url("../../fonts/Roboto-Italic.ttf");
         font-style: italic;
     }
+
     @@font-face {
         font-family: "Nokia";
         src: url("../../fonts/Roboto-BoldItalic.ttf");
@@ -292,7 +243,7 @@
     body, h1, h2, h3, h4, h5, h6, p, div {
         font-family: 'Nokia';
     }
-   
+
 
     /*.ui-widget-content{border:0px solid #fff !important}*/
     .dialogbg {
