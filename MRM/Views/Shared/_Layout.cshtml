@@ -111,7 +111,7 @@
 
         $(document).on('focus', '#Industries_Id_chosen', function () {
             if ($('#Segments_Id').val() == null) {
-                $('.validmsgbusinesIndustry').text("Please select Industry first").css("color", "#b94a48");
+                $('.validmsgbusinesIndustry').text("Please select Segment first").css("color", "#b94a48");
                 $('.validmsgbusinesIndustry').show();
                 $('#Industries_Id').text('');
                 return false;
@@ -139,13 +139,19 @@
         $(".start-date-cal").datepicker({
             dateFormat: 'dd/mm/yy',
             onSelect: function (selected) {
-                $(".end-date-cal").datepicker("option", "minDate", selected)
+                $(".end-date-cal").datepicker("option", "minDate", selected);
                 $(".end-date-cal").prop('disabled', false);
             }
         });
         $(".end-date-cal").datepicker({
             dateFormat: 'dd/mm/yy'
         });
+
+ 
+        if ($('#Status').val() != "Complete" && $(".end-date-cal").val()!="") 
+          {
+            $(".end-date-cal").prop('disabled', false);
+         }
     }
 
     function GetBGandSegmentSingleDDl() {
