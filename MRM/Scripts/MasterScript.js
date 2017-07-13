@@ -263,8 +263,8 @@ function ValidateMasterForm() {
         $('.validmsgEdate').hide();
     }
 
-    var startdate = new Date($("#StartDate").find("input").val());
-    var enddate = new Date($("#EndDate").find("input").val());
+    var startdate = new Date($("#StartDate").datepicker("getDate"));
+    var enddate = new Date($("#EndDate").datepicker("getDate"));
 
     if (startdate > enddate) {
         $('.validmsgDatecompare').text("End Date can not less than Start Date").css("color", "#b94a48");

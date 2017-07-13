@@ -212,13 +212,13 @@ function ValidateChildSaveasDraft() {
         $('.validmsgMastercampaign').hide();
     }
 
-    var startdate = new Date($("#StartDate").val());
-    var enddate = new Date($("#EndDate").val());
+    var startdate = new Date($("#StartDate").datepicker("getDate"));
+    var enddate = new Date($("#EndDate").datepicker("getDate"));
     var MCStartdate = new Date($("#MCStartDate").val());
     var MCEnddate = new Date($("#MCEndDate").val());
 
-    var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
-    var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    var DisMCStartdate = (MCStartdate.getDate() + '/' + (MCStartdate.getMonth() + 1) + '/' + MCStartdate.getFullYear());
+    var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
 
         if ((startdate < MCStartdate)) {
@@ -376,8 +376,8 @@ function ValidateChildForm() {
     //var startdate = new Date($("#StartDate").find("input").val());
     //var enddate = new Date($("#EndDate").find("input").val());
 
-    var startdate =new Date($("#StartDate").val());
-    var enddate =new Date($("#EndDate").val());
+    var startdate = new Date($("#StartDate").datepicker("getDate"));
+    var enddate = new Date($("#EndDate").datepicker("getDate"));
 
     var MCStartdate =new Date($("#MCStartDate").val());
     var MCEnddate =new Date($("#MCEndDate").val());
@@ -385,8 +385,8 @@ function ValidateChildForm() {
     
     
 
-   var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
-   var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    var DisMCStartdate = (MCStartdate.getDate() + '/' + (MCStartdate.getMonth() + 1) + '/' + MCStartdate.getFullYear());
+    var DisMCEnddate =   (MCEnddate.getDate() + '/' +(MCEnddate.getMonth() + 1) + '/' +  MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         //if (startdate < MCStartdate || enddate > MCEnddate) {
         //    $('.validmsgDateMCcompare').text("Sub Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");

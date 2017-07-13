@@ -355,8 +355,8 @@ function ValidateTacticSaveasDraft() {
         $('.validmsgSubcampaign').hide();
     }
 
-    var startdate = new Date($("#StartDate").val());
-    var enddate = new Date($("#EndDate").val());
+    var startdate = new Date($("#StartDate").datepicker("getDate"));
+    var enddate = new Date($("#EndDate").datepicker("getDate"));
 
     var MCStartdate = new Date($("#MCStartDate").val());
     var MCEnddate = new Date($("#MCEndDate").val());
@@ -556,8 +556,8 @@ function ValidateSubmitTacticForm() {
     //var startdate = new Date($("#StartDate").find("input").val());
     //var enddate = new Date($("#EndDate").find("input").val());
 
-    var startdate = new Date($("#StartDate").val());
-    var enddate = new Date($("#EndDate").val());
+    var startdate = new Date($("#StartDate").datepicker("getDate"));
+    var enddate = new Date($("#EndDate").datepicker("getDate"));
 
     var MCStartdate = new Date($("#MCStartDate").val());
     var MCEnddate = new Date($("#MCEndDate").val());
@@ -745,8 +745,11 @@ function CollectTacticFormData() {
         data.Geographys_Id.push($('#frmTacticCampaign').find('#Geographys_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
     });
 
-    data.StartDate = $('#frmTacticCampaign').find('#StartDate').val();
-    data.EndDate = $('#frmTacticCampaign').find('#EndDate').val();
+
+
+    
+    data.StartDate = $('#frmTacticCampaign').find("#StartDate").datepicker("getDate");
+    data.EndDate = $('#frmTacticCampaign').find("#EndDate").datepicker("getDate");
 
     data.BusinessGroups_Id = [];
     $('#frmTacticCampaign').find('#BusinessGroups_Id').closest('.form-group').find('ul li.search-choice').each(function () {
