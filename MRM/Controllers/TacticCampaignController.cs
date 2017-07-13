@@ -458,18 +458,20 @@ namespace MRM.Controllers
         {
             // Deserializing json model to object 
             TacticCampaignViewModel model = new JavaScriptSerializer().Deserialize<TacticCampaignViewModel>(jsonModel);
-            if (button == "Save Draft")
-            {
-                if (model.Id == 0)// insert new record as draft
+
+                if (button == "Draft")
                 {
+                    if (model.Id == 0) // insert new record as draft
+                    {
+                        model.Status = "Save Draft";
+                        _tacticCampaignServices.InsertTacticCampaign(model);
+                        return true;
+                    }
                     model.Status = "Save Draft";
-                    _tacticCampaignServices.InsertTacticCampaign(model);
+                    _tacticCampaignServices.Update(model);
                     return true;
                 }
-                model.Status = "Save Draft";
-                _tacticCampaignServices.Update(model);
-                return true;
-            }
+       
             if (isValid(model))
             {
                 if (model.Id == 0)
@@ -495,6 +497,8 @@ namespace MRM.Controllers
             TacticCampaignReachResponse tacticResponseModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Response").FirstOrDefault();
             if (model.Id != 0)
             {
+                if (model.MasterCampaign_Id == 0) errorCounter++;
+                if (model.ChildCampaign_Id == 0) errorCounter++;
 
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.TacticDescription == "") errorCounter++;

@@ -44,7 +44,7 @@
                 //url: '/TacticCampaign/save?button=' + "Save Draft",
                 //data: $("#frmTacticCampaign").serialize(), //$("#frmTacticCampaign").serialize(), // serializes the form's elements.
                 url: '/TacticCampaign/save',
-                data: { "jsonModel": JSON.stringify(sdata), "button": "Save Draft" },
+                data: { "jsonModel": JSON.stringify(sdata), "button": "Draft" },
                 success: function (data) {
                     if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
                 }
@@ -334,7 +334,7 @@ function numericvalidate(evt) {
 
 function ValidateTacticSaveasDraft() {
     var flag = true;
-    if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
+    if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0 || $('#MasterCampaign_Id').val() == "") {
 
         $('.validmsgMastercampaign').text("Please select Master Campaign.").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
@@ -345,7 +345,7 @@ function ValidateTacticSaveasDraft() {
         $('.validmsgMastercampaign').hide();
     }
 
-    if ($('#ChildCampaign_Id').val() == null || $('#ChildCampaign_Id').val() == 0) {
+    if ($('#ChildCampaign_Id').val() == null || $('#ChildCampaign_Id').val() == 0 || $('#ChildCampaign_Id').val() == "") {
 
         $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
         $('.validmsgSubcampaign').show();
@@ -421,7 +421,7 @@ function ValidateTacticSaveasDraft() {
 
 function ValidateSubmitTacticForm() {
     var flag = true;
-    if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0) {
+    if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0 || $('#MasterCampaign_Id').val() == "") {
 
         $('.validmsgMastercampaign').text("Please select Master Campaign.").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
@@ -432,7 +432,7 @@ function ValidateSubmitTacticForm() {
         $('.validmsgMastercampaign').hide();
     }
 
-    if ($('#ChildCampaign_Id').val() == null || $('#ChildCampaign_Id').val() == 0) {
+    if ($('#ChildCampaign_Id').val() == null || $('#ChildCampaign_Id').val() == 0 || $('#ChildCampaign_Id').val() == "") {
 
         $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
         $('.validmsgSubcampaign').show();

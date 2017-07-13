@@ -30,7 +30,7 @@
                                 <div class="form-group">
                                     <label>Master Campaign</label><span class="text-danger">*</span><br />
                                     @Html.DropDownListFor(m => m.MasterCampaign_Id, new SelectList(Model.MasterViewModels, "Id", "Name",
-                                    Model.MasterCampaign_Id),
+                                    Model.MasterCampaign_Id),"None selected.",
                                     Model.Id != 0 && Model.Status == "Complete" ?
                                     (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
                                     (object)new { @class = "chosen-single form-control" })
@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label>Sub Campaign</label><span class="text-danger">*</span><br />
                                     @Html.DropDownListFor(m => m.ChildCampaign_Id, new SelectList(Model.ChildCampaignViewModels, "Id", "Name",
-                                    Model.ChildCampaign_Id),
+                                    Model.ChildCampaign_Id),"None selected.",
                                     Model.Id != 0 && Model.Status == "Complete" ?
                                     (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
                                     (object)new { @class = "chosen-single form-control" })
@@ -214,7 +214,7 @@
                                 <label class="pull-right">Benchmark</label>
                             </div>
                             <div class="col-md-6">
-
+                                <span class="text-danger">(At least one Reach and Response row is mandatory on submit)*</span>
                             </div>
                         </div>
                         <div class="row">
@@ -371,7 +371,7 @@
                                     @if (Model.Status != "Complete")
                                     {
                                         <div class="col-md-3">
-                                            <input type="button" Id="btnSaveDrafttactic" name="button" value="Save Draft" class="btn btn-primary col-sm-12" />
+                                            <input type="button" Id="btnSaveDrafttactic" name="button" value="Draft" class="btn btn-primary col-sm-12" />
                                         </div>
                                         <div class="col-md-3">
                                             <input type="button" Id="btnSubmitTactic" name="button" value="Submit" class="btn btn-primary col-sm-12" />

@@ -23,16 +23,16 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#btnSaveDraft', function () {
-
-        $.ajax({
-            type: "POST",
-            url: '/MasterCampaign/save?button=' + "Save Draft",
-            data: $("#frmMasterCampaign").serialize(), // serializes the form's elements.
-            success: function (data) {
-                if (data === "True") window.location = "/MasterCampaign/CampaignList";
-            }
-        });
-
+        if (ValidateSaveMasterForm() === true) {
+            $.ajax({
+                type: "POST",
+                url: '/MasterCampaign/save?button=' + "Draft",
+                data: $("#frmMasterCampaign").serialize(), // serializes the form's elements.
+                success: function(data) {
+                    if (data === "True") window.location = "/MasterCampaign/CampaignList";
+                }
+            });
+        }
     });
 
 
@@ -169,6 +169,19 @@ function funcLoadIndustry() {
             }
         });
     }
+}
+
+function ValidateSaveMasterForm() {
+    var flag = true;
+    if ($('#Name').val().trim() == "") {
+        $('.validmsgMaster').text("Please enter Master Campaign Name").css("color", "#b94a48");
+        $('.validmsgMaster').show();
+        flag = false;
+    }
+    else {
+        $('.validmsgMaster').hide();
+    }
+    return flag;
 }
 
 function ValidateMasterForm() {

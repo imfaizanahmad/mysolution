@@ -114,7 +114,7 @@
                                     (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) 
                                 @*<a data-next-stage="select" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
                                 <a data-next-stage="@(Model.BlSelectUnselect==false?"select":"unselect")" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.BlSelectUnselect == false ? "Select All" : "Select None")</a> 
-                                 <div class="validmsgbusinesLine"></div>
+                                <div class="validmsgbusinesLine"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -203,7 +203,7 @@
                             @if (Model.Status != "Complete")
                             {
                                 <div class="col-md-3">
-                                    <input type="button" Id="btnSaveDraft" name="button" value="Save Draft" class="btn btn-primary col-sm-12" />
+                                    <input type="button" Id="btnSaveDraft" name="button" value="Draft" class="btn btn-primary col-sm-12" />
                                 </div>
                                 <div class="col-md-3">
                                     <input type="button" Id="btnSubmit" name="button" value="Submit" class="btn btn-primary col-sm-12" />

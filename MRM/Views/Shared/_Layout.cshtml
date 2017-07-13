@@ -42,7 +42,7 @@
     </div>
     <div id="maindiv" class="container body-content">
         @RenderBody()
-        <hr />
+
         <footer>
             <p class="footer-color">&copy; @DateTime.Now.Year Nokia</p>
         </footer>
@@ -54,16 +54,17 @@
 </body>
 </html>
 <script type="text/javascript">
-    $(document).ajaxStart(function () {
-        $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>").dialog({ height: 400, width: 400, modal: true, dialogClass: 'dialogbg' }).show();
+    $(document).ajaxStart(function() {
+        $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>")
+            .dialog({ height: 400, width: 400, modal: true, dialogClass: 'dialogbg' }).show();
         $(".ui-dialog-titlebar").hide();
     });
 
-    $(document).ajaxComplete(function () {
+    $(document).ajaxComplete(function() {
         customCode();
     });
 
-    var customCode = function () {
+    var customCode = function() {
         var config = {
             '.chosen-select': {},
             '.chosen-select-deselect': { allow_single_deselect: true },
@@ -81,7 +82,7 @@
         GetBGandSegmentSingleDDl();
     };
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         //$.fn.ajaxMRM = function (options) {
         //    var settingsmrm = $.extend(true, {}, options,{
         //        success: function (data) {
@@ -92,14 +93,44 @@
 
         //    $.ajax(settingsmrm);
         //};
+      //  $(".chosen-single").data("placeholder", "None selected.").chosen();
+        $(document).on('focus', '#BusinessLines_Id_chosen', function () {
+            if ($('#BusinessGroups_Id').val() == null) {
+                //ConfigurationModel.AlertDialog("Business Group", "Please select Business group");
+                $('.validmsgbusinesLine').text("Please select Business group first").css("color", "#b94a48");
+                $('.validmsgbusinesLine').show();
+                $('#BusinessLines_Id').text('');
+                return false;
+            }
+            else {
 
+                $('.validmsgbusinesLine').hide();
+            }
+        });
+
+        $(document).on('focus', '#Industries_Id_chosen', function () {
+            if ($('#Segments_Id').val() == null) {
+                $('.validmsgbusinesIndustry').text("Please select Industry first").css("color", "#b94a48");
+                $('.validmsgbusinesIndustry').show();
+                $('#Industries_Id').text('');
+                return false;
+            } else {
+                
+                $('.validmsgbusinesIndustry').hide();
+            }
+
+        });
+
+    
         commonUiInitialization();
         GetBGandSegmentSingleDDl();
 
-        $(document).on("change", "#CampaignTypes", function () {
-            GetBGandSegmentSingleDDl();
-            chosenclear();
-        });
+        $(document).on("change",
+            "#CampaignTypes",
+            function() {
+                GetBGandSegmentSingleDDl();
+                chosenclear();
+            });
     });
 
     function GetBGandSegmentSingleDDl() {
@@ -118,9 +149,8 @@
             $('a[data-target-id="Segments_Id"]').show();
             $('.validmsgbusinesIndustry').hide();
             $('.manage-mandate').hide();
-           
-        }
-        else if ($('#CampaignTypes').val() == 1) {
+
+        } else if ($('#CampaignTypes').val() == 1) {
             $selectSegment.chosen('destroy');
             $selectSegment.removeAttr('multiple');
             $selectSegment.chosen();
@@ -151,8 +181,7 @@
             $selectSegment.val('');
             $selectSegment.trigger('chosen:updated');
 
-        }
-        else if ($('#CampaignTypes').val() == 1) {
+        } else if ($('#CampaignTypes').val() == 1) {
             $select.prop('selected', false);
             $select.val('');
             $select.trigger('chosen:updated');
@@ -160,7 +189,7 @@
 
     }
 
-    var manageStartEndDate = function () {
+    var manageStartEndDate = function() {
         var sDate = new Date($('#StartDate').val());
         var dDate = new Date($('#EndDate').val());
         if (sDate > dDate) {
@@ -208,20 +237,26 @@
     };
 
 
-    var commonUiInitialization = function () {
+    var commonUiInitialization = function() {
 
         $('select.chosen-single').chosen();
         $('.mrm-cal').datepicker({
             format: 'mm/dd/yyyy'
 
         });
-        $('.mrm-cal').each(function () { if ($(this).val().indexOf('1/1/0001') >= 0) { $(this).val(''); } });
+        $('.mrm-cal').each(function() {
+            if ($(this).val().indexOf('1/1/0001') >= 0) {
+                $(this).val('');
+            }
+        });
 
         manageStartEndDate();
         HighlightSelectedDate();
-        $(document).on('change', '#StartDate', function () {
-            manageStartEndDate();
-        });
+        $(document).on('change',
+            '#StartDate',
+            function() {
+                manageStartEndDate();
+            });
     };
 
     //Date selected value highlighted
@@ -237,24 +272,18 @@
         var getselectedval = $(thisOpt).closest('.form-group').find('a[data-select-all="selectunselect"]');
         var selectallElement = getselectedval.attr('data-target-id');
         var nextStage = getselectedval.attr('data-next-stage');
-        if ($(thisOpt).val() == null)
-        {
-           
+        if ($(thisOpt).val() == null) {
+
             $('#' + selectallElement + ' option').prop('selected', false);
             getselectedval.attr('data-next-stage', "select");
             getselectedval.text("Select All");
             $('#' + selectallElement).trigger('chosen:updated');
-        }
-        else if ($('#'+selectallElement).children('option').length==$(thisOpt).val().length)
-        {
+        } else if ($('#' + selectallElement).children('option').length == $(thisOpt).val().length) {
             getselectedval.attr('data-next-stage', "unselect");
             getselectedval.text("Select None");
             $('#' + selectallElement).trigger('chosen:updated');
-         
-        }
 
-        else if ($(thisOpt).val().length < $('#' + selectallElement).children('option').length)
-        {
+        } else if ($(thisOpt).val().length < $('#' + selectallElement).children('option').length) {
             getselectedval.attr('data-next-stage', "select");
             getselectedval.text("Select All");
             $('#' + selectallElement).trigger('chosen:updated');
@@ -262,7 +291,12 @@
         }
 
     }
-</script>
+
+
+
+
+
+ </script>
 
 <script src="~/Content/Multi-Select/chosen.jquery.js" type="text/javascript"></script>
 <script src="~/Content/Multi-Select/docsupport/init.js"></script>

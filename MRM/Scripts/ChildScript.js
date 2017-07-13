@@ -31,7 +31,7 @@
         if (ValidateChildSaveasDraft() === true){
             $.ajax({
                 type: "POST",
-                url: '/ChildCampaign/save?button=' + "Save Draft",
+                url: '/ChildCampaign/save?button=' + "Draft",
                 data: $("#frmChildCampaign").serialize(), // serializes the form's elements.
                 success: function(data) {
                     if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
@@ -201,7 +201,7 @@ function numericvalidate(evt) {
 function ValidateChildSaveasDraft() {
     var flag = true;
 
-    if ($('#MasterCampaignId').val() == null) {
+    if ($('#MasterCampaignId').val() == null || $('#MasterCampaignId').val() == "") {
 
         $('.validmsgMastercampaign').text("Please select Master Campaign.").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
@@ -254,7 +254,7 @@ function ValidateChildSaveasDraft() {
 function ValidateChildForm() {
     var flag = true;
 
-    if ($('#MasterCampaignId').val() == null) {
+    if ($('#MasterCampaignId').val() == null || $('#MasterCampaignId').val() == "") {
 
         $('.validmsgMastercampaign').text("Please select Master Campaign").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();

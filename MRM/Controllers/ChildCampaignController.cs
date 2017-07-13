@@ -324,7 +324,7 @@ namespace MRM.Controllers
             try
             {
                 //todo:
-                if (button == "Save Draft")
+                if (button == "Draft")
                 {
                     if (model.Id == 0)// insert new record as draft
                     {
@@ -366,6 +366,7 @@ namespace MRM.Controllers
 
             if (model.Id != 0)
             {
+                if (model.MasterCampaignId == 0) errorCounter++;
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.CampaignDescription == "") errorCounter++;
                 if (model.StartDate == null) errorCounter++;

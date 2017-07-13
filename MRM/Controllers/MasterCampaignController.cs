@@ -195,7 +195,7 @@ namespace MRM.Controllers
             try
             {
                 //todo:
-                if (button == "Save Draft")
+                if (button == "Draft")
                 {
                     if (model.Id == 0)// insert new record as draft
                     {

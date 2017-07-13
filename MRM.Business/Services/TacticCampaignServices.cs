@@ -174,20 +174,23 @@ namespace MRM.Business.Services
             tacticCampaignEntity.TacticTypes = lstTacticType;            
             tacticCampaignEntity.TacticCampaignReachResponses = model.TacticCampaignReachResponseViewModels.ToList();
 
-            TacticCampaignReachResponse tacticReachModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Reach").FirstOrDefault();
-            TacticCampaignReachResponse tacticResponseModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Response").FirstOrDefault();
-            if (((tacticReachModel.Goal != 0 && tacticReachModel.Low != 0 && tacticReachModel.High != 0) &&
-                (tacticResponseModel.Goal != 0 && tacticResponseModel.Low != 0 &&
-                 tacticResponseModel.High != 0)))
-            {
-                tacticCampaignEntity.InheritStatus = "Active";
-            }
+            //TacticCampaignReachResponse tacticReachModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Reach").FirstOrDefault();
+            //TacticCampaignReachResponse tacticResponseModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Response").FirstOrDefault();
+            //if (((tacticReachModel.Goal != 0 && tacticReachModel.Low != 0 && tacticReachModel.High != 0) &&
+            //    (tacticResponseModel.Goal != 0 && tacticResponseModel.Low != 0 &&
+            //     tacticResponseModel.High != 0)))
+            //{
+            //    tacticCampaignEntity.InheritStatus = "Active";
+            //}
          
-            tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? "Draft" : "Complete";
+            tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? "Draft" : "Active";
 
-            if (model.EndDate < DateTime.Now)
+            if (model.Id != 0 && model.Status== "Complete")
             {
-                tacticCampaignEntity.InheritStatus = "Complete";
+                if (model.EndDate < DateTime.Now)
+                {
+                    tacticCampaignEntity.InheritStatus = "Complete";
+                }
             }
 
         }
