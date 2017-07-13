@@ -19,8 +19,12 @@
     <link href="~/Content/Multi-Select/chosen.css" rel="stylesheet" />
     <link href="~/Content/MasterStyle.css" rel="stylesheet" />
 
+
+
     <link href="~/Content/jquery-ui-1.12.1/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
     <script src="~/Scripts/Configuration.js"></script>
+
+
 
 </head>
 <body>
@@ -112,7 +116,7 @@
 
         $(document).on('focus', '#Industries_Id_chosen', function () {
             if ($('#Segments_Id').val() == null) {
-                $('.validmsgbusinesIndustry').text("Please select Industry first").css("color", "#b94a48");
+                $('.validmsgbusinesIndustry').text("Please select Segment first").css("color", "#b94a48");
                 $('.validmsgbusinesIndustry').show();
                 $('#Industries_Id').text('');
                 return false;
@@ -191,7 +195,7 @@
         }
 
     }
-
+     
     function chosenclear() {
         var $select = $('#BusinessGroups_Id');
         var $selectSegment = $('#Segments_Id');

@@ -80,6 +80,7 @@ $(document).on('click', 'a[data-select-all="selectunselect"]', function () {
                 success: function (data) {
                 $("#dvFormChildCampaign").html(data);
                 PreventSpecialChar();
+                BindDatePickerCalender();
             }
         });
     });
@@ -92,6 +93,7 @@ $(document).on("change", "#Segments_Id", function () {
                 success: function (data) {
                 $("#dvFormChildCampaign").html(data);
                 PreventSpecialChar();
+                    BindDatePickerCalender();
             }
         });
     });
@@ -104,6 +106,7 @@ $(document).on("change", "#MasterCampaignId", function () {
                 success: function (data) {
                 $("#dvFormChildCampaign").html(data);
                 PreventSpecialChar();
+                    BindDatePickerCalender();
             }
         });
     });
@@ -165,6 +168,7 @@ function funcLoadBusinessLine() {
             success: function (data) {
                 $("#dvFormChildCampaign").html(data);
                 PreventSpecialChar();
+                BindDatePickerCalender();
             }
         });
     }
@@ -179,6 +183,7 @@ function funcLoadIndustry() {
             success: function (data) {
                 $("#dvFormChildCampaign").html(data);
                 PreventSpecialChar();
+                BindDatePickerCalender();
             }
         });
     }
@@ -496,4 +501,23 @@ function PreventSpecialChar() {
         });
 
     });
+}
+
+function BindDatePickerCalender() {
+    $(".end-date-cal").prop('disabled', true);
+    $(".start-date-cal").datepicker({
+        dateFormat: 'dd/mm/yy',
+        onSelect: function (selected) {
+            $(".end-date-cal").datepicker("option", "minDate", selected);
+            $(".end-date-cal").prop('disabled', false);
+        }
+    });
+    $(".end-date-cal").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+
+
+    if ($('#Status').val() != "Complete" && $(".end-date-cal").val() != "") {
+        $(".end-date-cal").prop('disabled', false);
+    }
 }
