@@ -140,8 +140,8 @@
     function BindDatePickerCalender() {     
         $(".start-date-cal").datepicker({
             dateFormat: 'dd/mm/yy',
-            onSelect: function (selected) {               
-                $(".end-date-cal").datepicker("option", "minDate", selected)
+            onSelect: function (selected) {
+                $(".end-date-cal").datepicker("option", "minDate", selected);
                 $(".end-date-cal").prop('disabled', false);
             }
         });
@@ -153,16 +153,16 @@
             $(".end-date-cal").prop('disabled', true);
         }
 
-        if ($('#MCStartDate').val() != '' && $('#MCEndDate').val() != '') {
-            $('.start-date-cal').datepicker('option', {
-                minDate: new Date($('#MCStartDate').val()),
-                maxDate: new Date($('#MCEndDate').val())
-            });
-            $('.end-date-cal').datepicker('option', {
-                minDate: new Date($('#MCStartDate').val()),
-                maxDate: new Date($('#MCEndDate').val())
-            });
-        }
+        //if ($('#MCStartDate').val() != '' && $('#MCEndDate').val() != '') {
+        //    $('.start-date-cal').datepicker('option', {
+        //        minDate: new Date($('#MCStartDate').val()),
+        //        maxDate: new Date($('#MCEndDate').val())
+        //    });
+        //    $('.end-date-cal').datepicker('option', {
+        //        minDate: new Date($('#MCStartDate').val()),
+        //        maxDate: new Date($('#MCEndDate').val())
+        //    });
+        //}
     }
 
     function GetBGandSegmentSingleDDl() {

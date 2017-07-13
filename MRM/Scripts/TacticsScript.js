@@ -361,8 +361,8 @@ function ValidateTacticSaveasDraft() {
     var MCStartdate = new Date($("#MCStartDate").val());
     var MCEnddate = new Date($("#MCEndDate").val());
 
-    var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
-    var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    var DisMCStartdate = (MCStartdate.getDate() + '/'+ (MCStartdate.getMonth() + 1) + '/' + MCStartdate.getFullYear());
+    var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate || enddate > MCEnddate) {
             $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Sub Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
@@ -514,14 +514,14 @@ function ValidateSubmitTacticForm() {
         }
     }
 
-    if ($('#Geographys_Id').val() == null) {
-        $('.validmsggeography').text("Please select Markets").css("color", "#b94a48");
-        $('.validmsggeography').show();
-        flag = false;
+    //if ($('#Geographys_Id').val() == null) {
+    //    $('.validmsggeography').text("Please select Markets").css("color", "#b94a48");
+    //    $('.validmsggeography').show();
+    //    flag = false;
 
-    } else {
-        $('.validmsggeography').hide();
-    }
+    //} else {
+    //    $('.validmsggeography').hide();
+    //}
 
     if ($('#subcampaigntype').val() == "") {
 
@@ -562,8 +562,8 @@ function ValidateSubmitTacticForm() {
     var MCStartdate = new Date($("#MCStartDate").val());
     var MCEnddate = new Date($("#MCEndDate").val());
 
-    var DisMCStartdate = ((MCStartdate.getMonth() + 1) + '/' + MCStartdate.getDate() + '/' + MCStartdate.getFullYear());
-    var DisMCEnddate = ((MCEnddate.getMonth() + 1) + '/' + MCEnddate.getDate() + '/' + MCEnddate.getFullYear());
+    var DisMCStartdate = (MCStartdate.getDate() + '/' + (MCStartdate.getMonth() + 1) + '/' + MCStartdate.getFullYear());
+    var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate || enddate > MCEnddate) {
             $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Sub Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
