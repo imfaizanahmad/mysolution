@@ -1,6 +1,6 @@
 ﻿@model MRM.ViewModel.MasterCampaignViewModel
 
-    
+
 
 <form id="frmMasterCampaign">
     @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
@@ -11,7 +11,7 @@
     @Html.HiddenFor(m => m.SegSelectUnselect, new { @Value = Model.SegSelectUnselect })
     @Html.HiddenFor(m => m.GeoSelectUnselect, new { @Value = Model.GeoSelectUnselect })
     @Html.HiddenFor(m => m.IndustrySelectUnselect, new { @Value = Model.IndustrySelectUnselect })
-<section class="content-header"></section>
+    <section class="content-header"></section>
     <section class="content">
         <!-- SELECT2 EXAMPLE -->
         <div class="box box-default">
@@ -54,9 +54,9 @@
                                 <label>Theme</label>  <br />
                                 @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name", Model.Themes_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                    (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) 
-                               <a data-next-stage="@(Model.ThemeSelectUnselect==false?"select":"unselect")"  data-target-id="Themes_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.ThemeSelectUnselect==false? "Select All" : "Select None")</a> 
-                            
+                                    (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
+                                <a data-next-stage="@(Model.ThemeSelectUnselect==false?"select":"unselect")" data-target-id="Themes_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.ThemeSelectUnselect == false ? "Select All" : "Select None")</a>
+
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -64,10 +64,10 @@
                                 <label>Markets</label><span class="text-danger">*</span><br />
                                 @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                    (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) 
+                                    (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
                                 @*<a data-next-stage="select" data-target-id="Geographys_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
 
-                                <a data-next-stage="@(Model.GeoSelectUnselect==false?"select":"unselect")"  data-target-id="Geographys_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.GeoSelectUnselect==false? "Select All" : "Select None")</a> 
+                                <a data-next-stage="@(Model.GeoSelectUnselect==false?"select":"unselect")" data-target-id="Geographys_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.GeoSelectUnselect == false ? "Select All" : "Select None")</a>
                                 <div class="validmsgbusinesGeography"></div>
                             </div>
                         </div>
@@ -81,9 +81,9 @@
                                 @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                     (object)new { @class = "chosen-select form-control" })
-                                
-                                <a data-next-stage="@(Model.BgSelectUnselect==false?"bgselect":"bgunselect")"  data-target-id="BusinessGroups_Id" data-select-all="BGselectunselect" href="javascript:void(0);"> @(Model.BgSelectUnselect==false? "Select All" : "Select None")</a> 
-                                
+
+                                <a data-next-stage="@(Model.BgSelectUnselect==false?"bgselect":"bgunselect")" data-target-id="BusinessGroups_Id" data-select-all="BGselectunselect" href="javascript:void(0);"> @(Model.BgSelectUnselect == false ? "Select All" : "Select None")</a>
+
                                 <div class="validmsgbusinesGp"></div>
                             </div>
                         </div>
@@ -93,11 +93,11 @@
                                 @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                     (object)new { @class = "chosen-select form-control" })
-                               
-                                    <a data-next-stage="@(Model.SegSelectUnselect==false?"Segselect":"Segunselect")"  data-target-id="Segments_Id" data-select-all="Segselectunselect" href="javascript:void(0);"> @(Model.SegSelectUnselect==false? "Select All" : "Select None")</a> 
 
-                                @*  <a data-next-stage="Segselect" data-target-id="Segments_Id" data-select-all="Segselectunselect" href="javascript:void(0);">Select All</a>*@ 
-                                 @*<a data-next-stage="select" data-trigger-ev="change"  data-target-id="Segments_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
+                                <a data-next-stage="@(Model.SegSelectUnselect==false?"Segselect":"Segunselect")" data-target-id="Segments_Id" data-select-all="Segselectunselect" href="javascript:void(0);"> @(Model.SegSelectUnselect == false ? "Select All" : "Select None")</a>
+
+                                @*  <a data-next-stage="Segselect" data-target-id="Segments_Id" data-select-all="Segselectunselect" href="javascript:void(0);">Select All</a>*@
+                                @*<a data-next-stage="select" data-trigger-ev="change"  data-target-id="Segments_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
                                 <div class="validmsgbusinesSegment"></div>
                             </div>
                         </div>
@@ -111,9 +111,9 @@
                                 <label>Business Line<span class="text-danger">*</span></label><br />
                                 @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                    (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) 
+                                    (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
                                 @*<a data-next-stage="select" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
-                                <a data-next-stage="@(Model.BlSelectUnselect==false?"select":"unselect")" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.BlSelectUnselect == false ? "Select All" : "Select None")</a> 
+                                <a data-next-stage="@(Model.BlSelectUnselect==false?"select":"unselect")" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.BlSelectUnselect == false ? "Select All" : "Select None")</a>
                                 <div class="validmsgbusinesLine"></div>
                             </div>
                         </div>
@@ -124,10 +124,10 @@
                                 <label>Industry<span class="text-danger">*</span></label><br />
                                 @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                    (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) 
+                                    (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
                                 @*<a data-next-stage="select" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
-                                <a data-next-stage="@(Model.IndustrySelectUnselect==false?"select":"unselect")" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.IndustrySelectUnselect == false ? "Select All" : "Select None")</a> 
-                                 <div class="validmsgbusinesIndustry"></div>
+                                <a data-next-stage="@(Model.IndustrySelectUnselect==false?"select":"unselect")" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.IndustrySelectUnselect == false ? "Select All" : "Select None")</a>
+                                <div class="validmsgbusinesIndustry"></div>
                             </div>
                         </div>
                     </div>
@@ -139,8 +139,8 @@
                                 <div id="dvStartDate" class="col-md-6 date datealign">
                                     <div class="input-group input-append date">
                                         @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
-                                            (object)new { @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
+                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd/MM/yyyy") : ""), disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
+                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd/MM/yyyy") : ""), @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                     <div class="validmsgSdate"></div>
@@ -154,8 +154,8 @@
                                 <div id="dvEndDate" class="col-md-6 form-group date datealign">
                                     <div class="input-group input-append date">
                                         @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
-                                            (object)new { @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
+                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd/MM/yyyy") : ""), disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
+                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd/MM/yyyy") : ""), @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                     <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
@@ -170,7 +170,7 @@
 
                         </div>
                         <div class="col-md-6" style="text-align: right">
-                           @Model.StatusInheritaceStamp
+                            @Model.StatusInheritaceStamp
                         </div>
                     </div>
 
@@ -185,7 +185,7 @@
                     <div class="row " style="padding-top: 10px">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                              
+
                             @if (Model.Id == 0)
                             {
                                 <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'" /></div>
@@ -216,4 +216,3 @@
         </div>
     </section>
 </form>
-

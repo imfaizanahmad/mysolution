@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MRM.Database.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace MRM.ViewModel
 {
@@ -28,7 +29,10 @@ namespace MRM.ViewModel
         public string Status { get; set; }
         public Boolean IsActive { get; set; }
         public string CreatedDate { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime? StartDate { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
         public IEnumerable<Industry> IndustryViewModels { get; set; }

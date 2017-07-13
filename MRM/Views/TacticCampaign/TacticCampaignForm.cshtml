@@ -11,7 +11,7 @@
     @Html.HiddenFor(m => m.SegSelectUnselect, new { @Value = Model.SegSelectUnselect })
     @Html.HiddenFor(m => m.GeoSelectUnselect, new { @Value = Model.GeoSelectUnselect })
     @Html.HiddenFor(m => m.IndustrySelectUnselect, new { @Value = Model.IndustrySelectUnselect })
-@Html.HiddenFor(m => m.SubCampaignType, new { @Value = Model.SubCampaignType })
+    @Html.HiddenFor(m => m.SubCampaignType, new { @Value = Model.SubCampaignType })
     <section class="content-header"></section>
     <section class="content">
         <!-- SELECT2 EXAMPLE -->
@@ -30,7 +30,7 @@
                                 <div class="form-group">
                                     <label>Master Campaign</label><span class="text-danger">*</span><br />
                                     @Html.DropDownListFor(m => m.MasterCampaign_Id, new SelectList(Model.MasterViewModels, "Id", "Name",
-                                    Model.MasterCampaign_Id),"None selected.",
+                                    Model.MasterCampaign_Id), "None selected.",
                                     Model.Id != 0 && Model.Status == "Complete" ?
                                     (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
                                     (object)new { @class = "chosen-single form-control" })
@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label>Sub Campaign</label><span class="text-danger">*</span><br />
                                     @Html.DropDownListFor(m => m.ChildCampaign_Id, new SelectList(Model.ChildCampaignViewModels, "Id", "Name",
-                                    Model.ChildCampaign_Id),"None selected.",
+                                    Model.ChildCampaign_Id), "None selected.",
                                     Model.Id != 0 && Model.Status == "Complete" ?
                                     (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
                                     (object)new { @class = "chosen-single form-control" })
@@ -116,8 +116,8 @@
                                     <div id="dvStartDate" class="col-md-6 date datealign">
                                         <div class="input-group input-append date">
                                             @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
-                                            (object)new { @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
+                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd/MM/yyyy") : ""), disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
+                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd/MM/yyyy") : ""), @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
                                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                         <div class="validmsgSdate"></div>
@@ -131,8 +131,8 @@
                                     <div id="dvEndDate" class="col-md-6 form-group date datealign">
                                         <div class="input-group input-append date">
                                             @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
-                                            (object)new { @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
+                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd/MM/yyyy") : ""), disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
+                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd/MM/yyyy") : ""), @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
                                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                         <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
@@ -337,16 +337,16 @@
                                 </table>
                             </div>
                         </div>
-                        
-                    <div class="row">
-                        <div class="col-md-6">
-                          
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                            </div>
+                            <div class="col-md-6" style="text-align: right">
+                                @Model.StatusInheritaceStamp
+                            </div>
                         </div>
-                        <div class="col-md-6" style="text-align: right">
-                            @Model.StatusInheritaceStamp
-                        </div>
-                    </div>
-                   
+
                     </fieldset>
                     <fieldset>
                         <div class="form-group">
