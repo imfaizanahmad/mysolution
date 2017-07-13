@@ -82,8 +82,6 @@
 
         $('#' + selectallElement).trigger('chosen:updated');
 
-
-        BindDatePickerCalender();
     });
 
     $(document).on("change", "#BusinessGroups_Id", function () {
@@ -96,7 +94,6 @@
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
                 RemoveZeroFromMetric();
-                BindDatePickerCalender();
             }
         });
     });
@@ -111,7 +108,6 @@
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
                 RemoveZeroFromMetric();
-                BindDatePickerCalender();
             }
         });
     });
@@ -126,7 +122,6 @@
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
                 RemoveZeroFromMetric();
-                BindDatePickerCalender();
             }
         });
     });
@@ -141,7 +136,6 @@
                 $('#TacticType_Id').removeAttr('multiple');
                 PreventSpecialChar();
                 RemoveZeroFromMetric();
-                BindDatePickerCalender();
             }
         });
     });
@@ -297,7 +291,6 @@ function funcLoadBusinessLine() {
                 $("#dvFormTacticCampaign").html(data);
                 PreventSpecialChar();
                 RemoveZeroFromMetric();
-                BindDatePickerCalender();
             }
         });
     }
@@ -313,7 +306,6 @@ function funcLoadIndustry() {
                 $("#dvFormTacticCampaign").html(data);
                 PreventSpecialChar();
                 RemoveZeroFromMetric();
-                BindDatePickerCalender();
             }
         });
     }
@@ -824,21 +816,3 @@ function RemoveZeroFromMetric() {
     $('.mrminttostring').each(function () { if ($(this).val() == 0) { $(this).val(''); } });
 }
 
-function BindDatePickerCalender() {
-    $(".end-date-cal").prop('disabled', true);
-    $(".start-date-cal").datepicker({
-        dateFormat: 'dd/mm/yy',
-        onSelect: function (selected) {
-            $(".end-date-cal").datepicker("option", "minDate", selected);
-            $(".end-date-cal").prop('disabled', false);
-        }
-    });
-    $(".end-date-cal").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-
-
-    if ($('#Status').val() != "Complete" && $(".end-date-cal").val() != "") {
-        $(".end-date-cal").prop('disabled', false);
-    }
-}
