@@ -216,3 +216,20 @@
         </div>
     </section>
 </form>
+
+@*<script>
+    function funcLoadBusinessLine() {
+        if ($("#BusinessGroups_Id").val() != null) {
+            $.ajax({
+                type: "POST",
+                url: '/MasterCampaign/LoadBusinessLine',
+                data: $("#frmMasterCampaign").serialize(),
+                success: function (data) {
+                    $("#dvFormMasterCampaign").html(data);
+                    PreventSpecialChar();
+                    BindDatePickerCalender();
+                }
+            });
+        }
+    }
+</script>*@

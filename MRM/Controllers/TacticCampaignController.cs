@@ -370,8 +370,9 @@ namespace MRM.Controllers
                     model.SegmentViewModels = item.Segments;
                     model.ThemeViewModels = item.Themes;
                     model.GeographyViewModels = item.Geographys;
-                    model.StartDate = item.StartDate;
-                    model.EndDate = item.EndDate;
+                    //model.StartDate = item.StartDate;
+                    //model.EndDate = item.EndDate;
+
                     //model.MCStartDate = item.StartDate;
                     //model.MCEndDate = item.EndDate;
                 }
