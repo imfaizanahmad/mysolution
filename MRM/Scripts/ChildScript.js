@@ -104,6 +104,7 @@ $(document).on("change", "#MasterCampaignId", function () {
                 success: function (data) {
                 $("#dvFormChildCampaign").html(data);
                 PreventSpecialChar();
+
             }
         });
     });
