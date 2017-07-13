@@ -57,17 +57,18 @@
 </body>
 </html>
 <script type="text/javascript">
-    $(document).ajaxStart(function() {
+    $(document).ajaxStart(function () {
         $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>")
             .dialog({ height: 400, width: 400, modal: true, dialogClass: 'dialogbg' }).show();
         $(".ui-dialog-titlebar").hide();
     });
 
-    $(document).ajaxComplete(function() {
+    $(document).ajaxComplete(function () {
         customCode();
+        BindDatePickerCalender();
     });
 
-    var customCode = function() {
+    var customCode = function () {
         var config = {
             '.chosen-select': {},
             '.chosen-select-deselect': { allow_single_deselect: true },
@@ -85,7 +86,7 @@
         GetBGandSegmentSingleDDl();
     };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         //$.fn.ajaxMRM = function (options) {
         //    var settingsmrm = $.extend(true, {}, options,{
         //        success: function (data) {
@@ -118,13 +119,13 @@
                 $('#Industries_Id').text('');
                 return false;
             } else {
-                
+
                 $('.validmsgbusinesIndustry').hide();
             }
 
         });
 
-    
+
         commonUiInitialization();
         GetBGandSegmentSingleDDl();
 
@@ -136,12 +137,11 @@
         BindDatePickerCalender();
     });
 
-    function BindDatePickerCalender() {
-        $(".end-date-cal").prop('disabled', true);
+    function BindDatePickerCalender() {     
         $(".start-date-cal").datepicker({
             dateFormat: 'dd/mm/yy',
-            onSelect: function (selected) {
-                $(".end-date-cal").datepicker("option", "minDate", selected);
+            onSelect: function (selected) {               
+                $(".end-date-cal").datepicker("option", "minDate", selected)
                 $(".end-date-cal").prop('disabled', false);
             }
         });
@@ -149,11 +149,9 @@
             dateFormat: 'dd/mm/yy'
         });
 
- 
-        if ($('#Status').val() != "Complete" && $(".end-date-cal").val()!="") 
-          {
-            $(".end-date-cal").prop('disabled', false);
-         }
+        if ($(".start-date-cal").val() == '') {
+            $(".end-date-cal").prop('disabled', true);
+        }
     }
 
     function GetBGandSegmentSingleDDl() {
@@ -239,7 +237,7 @@
         }
     }
 
- </script>
+</script>
 
 <script src="~/Content/Multi-Select/chosen.jquery.js" type="text/javascript"></script>
 <script src="~/Content/Multi-Select/docsupport/init.js"></script>
