@@ -152,7 +152,6 @@ function funcLoadBusinessLine() {
             success: function (data) {
                 $("#dvFormMasterCampaign").html(data);
                 PreventSpecialChar();
-                BindDatePickerCalender();
             }
         });
     }
@@ -167,7 +166,6 @@ function funcLoadIndustry() {
             success: function (data) {
                 $("#dvFormMasterCampaign").html(data);
                 PreventSpecialChar();
-                BindDatePickerCalender();
             }
         });
     }
@@ -322,24 +320,4 @@ function PreventSpecialChar() {
         });
 
     });
-}
-
-
-function BindDatePickerCalender() {
-    $(".end-date-cal").prop('disabled', true);
-    $(".start-date-cal").datepicker({
-        dateFormat: 'dd/mm/yy',
-        onSelect: function (selected) {
-            $(".end-date-cal").datepicker("option", "minDate", selected);
-            $(".end-date-cal").prop('disabled', false);
-        }
-    });
-    $(".end-date-cal").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-
-
-    if ($('#Status').val() != "Complete" && $(".end-date-cal").val() != "") {
-        $(".end-date-cal").prop('disabled', false);
-    }
 }
