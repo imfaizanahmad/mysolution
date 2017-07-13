@@ -364,11 +364,29 @@ function ValidateTacticSaveasDraft() {
     var DisMCStartdate = (MCStartdate.getDate() + '/'+ (MCStartdate.getMonth() + 1) + '/' + MCStartdate.getFullYear());
     var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
-        if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Sub Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+        if (startdate < MCStartdate) {
+            var msg =
+                $('.validmsgDateMCcompare')
+                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                        DisMCStartdate +
+                        " to " +
+                        DisMCEnddate +
+                        "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
-        } else {
+
+        } else if (enddate > MCEnddate) {
+            var msg =
+                $('.validmsgDateMCcompare')
+                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                        DisMCStartdate +
+                        " to " +
+                        DisMCEnddate +
+                        "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
+            flag = false;
+        }
+        else {
             $('.validmsgDateMCcompare').hide();
         }
     }
@@ -565,11 +583,29 @@ function ValidateSubmitTacticForm() {
     var DisMCStartdate = (MCStartdate.getDate() + '/' + (MCStartdate.getMonth() + 1) + '/' + MCStartdate.getFullYear());
     var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
-        if (startdate < MCStartdate || enddate > MCEnddate) {
-            $('.validmsgDateMCcompare').text("Tactic Campaign start and end date should be between Sub Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
+        if (startdate < MCStartdate) {
+            var msg =
+                $('.validmsgDateMCcompare')
+                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                        DisMCStartdate +
+                        " to " +
+                        DisMCEnddate +
+                        "").css("color", "#b94a48");
             $('.validmsgDateMCcompare').show();
             flag = false;
-        } else {
+
+        } else if (enddate > MCEnddate) {
+            var msg =
+                $('.validmsgDateMCcompare')
+                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                        DisMCStartdate +
+                        " to " +
+                        DisMCEnddate +
+                        "").css("color", "#b94a48");
+            $('.validmsgDateMCcompare').show();
+            flag = false;
+        }
+        else {
             $('.validmsgDateMCcompare').hide();
         }
     }
