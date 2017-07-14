@@ -53,7 +53,7 @@
     });
 
     $(document).on('click', '#btnDeleteTactic', function () {
-        ConfigurationModel.ConfirmationDialog('Confirmation !', 'Are you sure you want to delete?', function () {
+        ConfigurationModel.ConfirmationDialog('Confirmation', 'Are you sure you want to delete?', function () {
             $.ajax({
                 type: "POST",
                 url: '/TacticCampaign/Delete?tacticId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),
@@ -367,7 +367,7 @@ function ValidateTacticSaveasDraft() {
         if (startdate < MCStartdate) {
             var msg =
                 $('.validmsgDateMCcompare')
-                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                    .text("Sub Campaign start and end date should be between Sub Campaign date: " +
                         DisMCStartdate +
                         " to " +
                         DisMCEnddate +
@@ -378,7 +378,7 @@ function ValidateTacticSaveasDraft() {
         } else if (enddate > MCEnddate) {
             var msg =
                 $('.validmsgDateMCcompare')
-                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                    .text("Sub Campaign start and end date should be between Sub Campaign date: " +
                         DisMCStartdate +
                         " to " +
                         DisMCEnddate +
@@ -586,7 +586,7 @@ function ValidateSubmitTacticForm() {
         if (startdate < MCStartdate) {
             var msg =
                 $('.validmsgDateMCcompare')
-                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                    .text("Sub Campaign start and end date should be between Sub Campaign date: " +
                         DisMCStartdate +
                         " to " +
                         DisMCEnddate +
@@ -597,7 +597,7 @@ function ValidateSubmitTacticForm() {
         } else if (enddate > MCEnddate) {
             var msg =
                 $('.validmsgDateMCcompare')
-                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                    .text("Sub Campaign start and end date should be between Sub Campaign date: " +
                         DisMCStartdate +
                         " to " +
                         DisMCEnddate +

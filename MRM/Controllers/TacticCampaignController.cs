@@ -255,6 +255,8 @@ namespace MRM.Controllers
                     model.BusinessLineViewModels = item.BusinessLines;
                     model.SegmentViewModels = item.Segments;
                     model.IndustryViewModels = item.Industries;
+                    model.MCStartDate = item.StartDate;
+                    model.MCEndDate = item.EndDate;
                 }
                 model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
                 model.MasterCampaign_Id = model.MasterCampaign_Id;
@@ -322,6 +324,8 @@ namespace MRM.Controllers
                     model.BusinessGroupViewModels = item.BusinessGroups;
                     model.BusinessLineViewModels = item.BusinessLines;
                     model.SegmentViewModels = item.Segments;
+                    model.MCStartDate = item.StartDate;
+                    model.MCEndDate = item.EndDate;
                 }
                 model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
                 model.MasterCampaign_Id = model.MasterCampaign_Id;

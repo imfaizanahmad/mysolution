@@ -6,10 +6,9 @@
 <div class="jumbotron">
     <h2 class="header-color">Welcome Nokia Campaign</h2>
 
-    <fieldset>
-        <span style="font-family:'Times New Roman', Times, serif;font-size:medium;">MRM description.<br />
+    <fieldset style="padding-top: 16px;">
+        <span style="font-family:'Times New Roman', Times, serif;font-size:medium;">MRM description<br />
                 </span>
-        
     </fieldset>
     <fieldset>
         @*@if (TempData["mastercount"].ToString() != "")
@@ -18,7 +17,7 @@
                 <strong>Danger!</strong> @TempData["mastercount"].ToString()
             </div>
         }*@
-        <div class="row">
+        <div class="row" style="padding-top: 20px;">
             <div class="col-md-3"><label class="header-color">Master Campaign</label></div>
             <div class="col-md-2"><input type="button" class="btn btn-block btn-primary btn-sm" value="Create" onclick="location.href='@Url.Action("MasterCampaign", "MasterCampaign")'" /></div>
             @*<div class="col-md-2 btnpadding"><input type="button" class="btn btn-block btn-primary btn-sm" value="Edit" onclick="location.href='@Url.Action("Index", "MasterCampaign")'" /></div>*@

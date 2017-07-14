@@ -41,7 +41,7 @@
     });
 
     $(document).on('click', '#btnDeleteChild', function () {
-        ConfigurationModel.ConfirmationDialog('Confirmation !', 'Are you sure you want to delete?', function () {
+        ConfigurationModel.ConfirmationDialog('Confirmation', 'Are you sure you want to delete?', function () {
             $.ajax({
                 type: "POST",
                 url: '/ChildCampaign/Delete?childId=' + $('#Id').val() + '&_=' + (new Date()).getTime(),

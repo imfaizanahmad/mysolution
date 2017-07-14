@@ -56,7 +56,7 @@ function MasterCampaignBindGrid(panel) {
                 var actionUrl = "";
                 if (action === "Delete") {
                     actionUrl = "/MasterCampaign/DeleteCampaign";
-                    ConfigurationModel.ConfirmationDialog('Confirmation !', 'Are you sure you want to delete?', function () {
+                    ConfigurationModel.ConfirmationDialog('Confirmation', 'Are you sure you want to delete?', function () {
                         $.ajax({
                             type: 'post',
                             contentType: "application/json",

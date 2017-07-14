@@ -218,6 +218,8 @@ namespace MRM.Controllers
                     model.ThemeViewModels = item.Themes;
                     model.IndustryViewModels = item.Industries;
                     model.BusinessLineViewModels = item.BusinessLines;
+                    model.MCStartDate = item.StartDate;
+                    model.MCEndDate = item.EndDate;
                 }
             }
 
@@ -261,6 +263,8 @@ namespace MRM.Controllers
                     model.ThemeViewModels = item.Themes;
                     model.IndustryViewModels = item.Industries;
                     model.BusinessLineViewModels = item.BusinessLines;
+                    model.MCStartDate = item.StartDate;
+                    model.MCEndDate = item.EndDate;
                 }
             }
             
