@@ -74,10 +74,6 @@
     <Compile Include="Migrations\201705311147380_LocalFisrt_310517.Designer.cs">
       <DependentUpon>201705311147380_LocalFisrt_310517.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707140514243_14julyForDemo.cs" />
-    <Compile Include="Migrations\201707140514243_14julyForDemo.Designer.cs">
-      <DependentUpon>201707140514243_14julyForDemo.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
     <Compile Include="Model\BusinessLine.cs" />
@@ -107,11 +103,7 @@
     <EmbeddedResource Include="Migrations\201705311147380_LocalFisrt_310517.resx">
       <DependentUpon>201705311147380_LocalFisrt_310517.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707140514243_14julyForDemo.resx">
-      <DependentUpon>201707140514243_14julyForDemo.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
