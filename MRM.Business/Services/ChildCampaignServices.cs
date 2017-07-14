@@ -74,6 +74,8 @@ namespace MRM.Business.Services
             childCampaignEntity.MGOGoal = model.MGOGoal;
             childCampaignEntity.MGOLow = model.MGOLow;
             childCampaignEntity.MGOHigh = model.MGOHigh;
+            childCampaignEntity.CampaignType = (model.CampaignTypes == CampaignType.BG_Led ? 0 : 1);
+           
 
             List<BusinessLine> lstBline = null;
             List<BusinessGroup> lstBGroup = null;

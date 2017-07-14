@@ -43,10 +43,10 @@ namespace MRM.Controllers
 
 
             Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
-            Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-            Childvm.SegmentViewModels = _segmentService.GetSegment();
-            Childvm.ThemeViewModels = _themeService.GetTheme();
-            Childvm.GeographyViewModels = _geographyService.GetGeography();
+            //Childvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+            //Childvm.SegmentViewModels = _segmentService.GetSegment();
+            //Childvm.ThemeViewModels = _themeService.GetTheme();
+            //Childvm.GeographyViewModels = _geographyService.GetGeography();
 
             if (Id != 0)
             {
@@ -57,7 +57,8 @@ namespace MRM.Controllers
                 var Inheritanceflag=0;
                 foreach (var itemtacticList in tacticList)
                 {
-                    if (itemtacticList.InheritStatus != "Complete")
+                   // if (itemtacticList.InheritStatus != "Complete")
+                   if (itemtacticList.Status != "Complete" && (itemtacticList.EndDate>DateTime.Now))
                         Inheritanceflag = 1;
                 }
                 if (tacticList.Count == 0)
@@ -152,11 +153,8 @@ namespace MRM.Controllers
                 Childvm.MGOGoal = childCampaign.MGOGoal;
                 Childvm.MGOLow = childCampaign.MGOLow;
                 Childvm.MGOHigh = childCampaign.MGOHigh;
-
-
-
-
-                
+                Childvm.CampaignTypes = (childCampaign.CampaignType == 0 ? CampaignType.BG_Led : CampaignType.GEPS);
+               // Childvm.CampaignTypes = (CampaignType)Enum.Parse(typeof(CampaignType), Childvm.CampaignTypes);
 
                 //if(Childvm.MasterViewModels.Any(x => x..Contains(childCampaign.MasterCampaigns.Id)))
 
@@ -466,7 +464,8 @@ namespace MRM.Controllers
             string InheritanceStatus = string.Empty;
             foreach (var itemtacticList in tacticList)
             {
-                if (itemtacticList.InheritStatus == "Complete")
+               // if (itemtacticList.InheritStatus == "Complete")
+               if (itemtacticList.Status == "Complete" && (itemtacticList.EndDate<DateTime.Now))
                 {
                     Inheritanceflag = 0;
                 }

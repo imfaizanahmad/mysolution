@@ -45,11 +45,14 @@
                 //data: $("#frmTacticCampaign").serialize(), //$("#frmTacticCampaign").serialize(), // serializes the form's elements.
                 url: '/TacticCampaign/save',
                 data: { "jsonModel": JSON.stringify(sdata), "button": "Draft" },
-                success: function (data) {
+                success: function(data) {
                     if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
                 }
             });
         }
+        //else {
+        //    $("html, body").animate({ scrollTop: 0 }, "slow");
+        //}
     });
 
     $(document).on('click', '#btnDeleteTactic', function () {
@@ -367,7 +370,7 @@ function ValidateTacticSaveasDraft() {
         if (startdate < MCStartdate) {
             var msg =
                 $('.validmsgDateMCcompare')
-                    .text("Sub Campaign start and end date should be between Sub Campaign date: " +
+                    .text("Tactic start and end date should be between Sub Campaign date: " +
                         DisMCStartdate +
                         " to " +
                         DisMCEnddate +
@@ -378,7 +381,7 @@ function ValidateTacticSaveasDraft() {
         } else if (enddate > MCEnddate) {
             var msg =
                 $('.validmsgDateMCcompare')
-                    .text("Sub Campaign start and end date should be between Sub Campaign date: " +
+                    .text("Tactic start and end date should be between Sub Campaign date: " +
                         DisMCStartdate +
                         " to " +
                         DisMCEnddate +
@@ -480,15 +483,6 @@ function ValidateSubmitTacticForm() {
         $('.validmsgTactictype').hide();
     }
 
-    if ($('#ChildCampaign_Id').val() == null) {
-
-        $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
-        $('.validmsgSubcampaign').show();
-        flag = false;
-
-    } else {
-        $('.validmsgSubcampaign').hide();
-    }
 
     if ($('#BusinessGroups_Id').val() == null) {
 
@@ -541,17 +535,6 @@ function ValidateSubmitTacticForm() {
     //    $('.validmsggeography').hide();
     //}
 
-    if ($('#subcampaigntype').val() == "") {
-
-        $('.validmsgsubcampaigntype').text("Please select Type (Sub Campaign)").css("color", "#b94a48");
-        $('.validmsgsubcampaigntype').show();
-        flag = false;
-
-    } else {
-        $('.validmsgsubcampaigntype').hide();
-    }
-
-
     if ($("#StartDate").val() == "") {
         $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
         $('.validmsgSdate').show();
@@ -584,9 +567,9 @@ function ValidateSubmitTacticForm() {
     var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
     if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
         if (startdate < MCStartdate) {
-            var msg =
+            
                 $('.validmsgDateMCcompare')
-                    .text("Sub Campaign start and end date should be between Sub Campaign date: " +
+                    .text("Tactic start and end date should be between Sub Campaign date: " +
                         DisMCStartdate +
                         " to " +
                         DisMCEnddate +
@@ -595,9 +578,9 @@ function ValidateSubmitTacticForm() {
             flag = false;
 
         } else if (enddate > MCEnddate) {
-            var msg =
+            
                 $('.validmsgDateMCcompare')
-                    .text("Sub Campaign start and end date should be between Sub Campaign date: " +
+                    .text("Tactic start and end date should be between Sub Campaign date: " +
                         DisMCStartdate +
                         " to " +
                         DisMCEnddate +
@@ -633,8 +616,7 @@ function ValidateSubmitTacticForm() {
         $('.validmsgtacticdesc').show();
         flag = false;
     } else {
-
-        $('.validmsgSubCampDesc').hide();
+        $('.validmsgtacticdesc').hide();
     }
 
     if ($('#Year').val() == "") {

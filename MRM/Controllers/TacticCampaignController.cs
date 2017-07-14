@@ -55,12 +55,12 @@ namespace MRM.Controllers
                 tacticvm.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
                 tacticvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
                 tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign().Where(t => t.Status == "Complete");
-                tacticvm.IndustryViewModels = _industryService.GetIndustry();
-                tacticvm.BusinessGroupViewModels = _businessgroupService.GetBG();
-                tacticvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
-                tacticvm.SegmentViewModels = _segmentService.GetSegment();
-                tacticvm.ThemeViewModels = _themeService.GetTheme();
-                tacticvm.GeographyViewModels = _geographyService.GetGeography();
+                //tacticvm.IndustryViewModels = _industryService.GetIndustry();
+                //tacticvm.BusinessGroupViewModels = _businessgroupService.GetBG();
+                //tacticvm.BusinessLineViewModels = _businesslineService.GetBusinessLine();
+                //tacticvm.SegmentViewModels = _segmentService.GetSegment();
+                //tacticvm.ThemeViewModels = _themeService.GetTheme();
+                //tacticvm.GeographyViewModels = _geographyService.GetGeography();
 
                 tacticvm.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
                 tacticvm.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
@@ -185,9 +185,10 @@ namespace MRM.Controllers
                 {
                     tacticCampaign.InheritStatus = "Complete";
                 }
-                //if ((tacticvm.Status == "Complete") && (tacticvm.EndDate<DateTime.Now)) { tacticvm.InheritanceStatus = "Complete"; }
-                //else { tacticvm.InheritanceStatus = "Active"; }
-                tacticvm.StatusInheritaceStamp = String.Format("{0:yy}", tacticCampaign.UpdatedDate) + "." + MasterCampaignName + "." + ChildCampaignName + " //" + (tacticCampaign.InheritStatus == "Save Draft" ? "Draft" : tacticCampaign.InheritStatus) +
+
+               // (tacticCampaign.InheritStatus == "Save Draft" ? "Draft" : tacticCampaign.InheritStatus)
+
+                tacticvm.StatusInheritaceStamp = String.Format("{0:yy}", tacticCampaign.UpdatedDate) + "." + MasterCampaignName + "." + ChildCampaignName + " //" + ((tacticvm.Status == "Complete" && (tacticvm.EndDate < DateTime.Now)) ? "Complete" : (tacticvm.Status == "Save Draft" ? "Draft" : "Active")) +
                                                 " // " + String.Format("{0:ddMMyy HH:MM}", tacticCampaign.UpdatedDate);
 
 
@@ -230,19 +231,19 @@ namespace MRM.Controllers
 
             //If sub campaign is not defined for corressponding master campaign
             List<MasterCampaign> mastercampaignvalues = _masterCampaignServices.GetMasterCampaignById(model.MasterCampaign_Id);
-            if (mastercampaignvalues.Count > 0)
-            {
-                foreach (var item in mastercampaignvalues)
-                {
-                    model.IndustryViewModels = item.Industries;
-                    model.BusinessGroupViewModels = item.BusinessGroups;
-                    model.BusinessLineViewModels = item.BusinessLines;
-                    model.SegmentViewModels = item.Segments;
-                    model.ThemeViewModels = item.Themes;
-                    model.GeographyViewModels = item.Geographys;
-                }
+            //if (mastercampaignvalues.Count > 0)
+            //{
+            //    foreach (var item in mastercampaignvalues)
+            //    {
+            //        model.IndustryViewModels = item.Industries;
+            //        model.BusinessGroupViewModels = item.BusinessGroups;
+            //        model.BusinessLineViewModels = item.BusinessLines;
+            //        model.SegmentViewModels = item.Segments;
+            //        model.ThemeViewModels = item.Themes;
+            //        model.GeographyViewModels = item.Geographys;
+            //    }
 
-            }
+            //}
 
             if (model.ChildCampaign_Id != 0)
             {
@@ -300,19 +301,19 @@ namespace MRM.Controllers
 
             //If sub campaign is not defined for corressponding master campaign
             List<MasterCampaign> mastercampaignvalues = _masterCampaignServices.GetMasterCampaignById(model.MasterCampaign_Id);
-            if (mastercampaignvalues.Count > 0)
-            {
-                foreach (var item in mastercampaignvalues)
-                {
-                    model.IndustryViewModels = item.Industries;
-                    model.BusinessGroupViewModels = item.BusinessGroups;
-                    model.BusinessLineViewModels = item.BusinessLines;
-                    model.SegmentViewModels = item.Segments;
-                    model.ThemeViewModels = item.Themes;
-                    model.GeographyViewModels = item.Geographys;
-                }
+            //if (mastercampaignvalues.Count > 0)
+            //{
+            //    foreach (var item in mastercampaignvalues)
+            //    {
+            //        model.IndustryViewModels = item.Industries;
+            //        model.BusinessGroupViewModels = item.BusinessGroups;
+            //        model.BusinessLineViewModels = item.BusinessLines;
+            //        model.SegmentViewModels = item.Segments;
+            //        model.ThemeViewModels = item.Themes;
+            //        model.GeographyViewModels = item.Geographys;
+            //    }
 
-            }
+            //}
             if (model.ChildCampaign_Id != 0)
             {
                 List<ChildCampaign> childCampaign = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = model.ChildCampaign_Id });
@@ -364,38 +365,36 @@ namespace MRM.Controllers
             //If sub campaign is defined for corressponding master campaign
             List<ChildCampaign> masterChild = _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaign_Id).Where(t => t.Status == "Complete").ToList();
 
-            if (mastercampaignvalues.Count > 0)
-            {
-                foreach (var item in mastercampaignvalues)
-                {
-                    model.IndustryViewModels = item.Industries;
-                    model.BusinessGroupViewModels = item.BusinessGroups;
-                    model.BusinessLineViewModels = item.BusinessLines;
-                    model.SegmentViewModels = item.Segments;
-                    model.ThemeViewModels = item.Themes;
-                    model.GeographyViewModels = item.Geographys;
-                    //model.StartDate = item.StartDate;
-                    //model.EndDate = item.EndDate;
+            //if (mastercampaignvalues.Count > 0)
+            //{
+            //    foreach (var item in mastercampaignvalues)
+            //    {
+            //        model.IndustryViewModels = item.Industries;
+            //        model.BusinessGroupViewModels = item.BusinessGroups;
+            //        model.BusinessLineViewModels = item.BusinessLines;
+            //        model.SegmentViewModels = item.Segments;
+            //        model.ThemeViewModels = item.Themes;
+            //        model.GeographyViewModels = item.Geographys;
+            //        //model.StartDate = item.StartDate;
+            //        //model.EndDate = item.EndDate;
 
-                    //model.MCStartDate = item.StartDate;
-                    //model.MCEndDate = item.EndDate;
-                }
+            //        //model.MCStartDate = item.StartDate;
+            //        //model.MCEndDate = item.EndDate;
+            //    }
 
-            }
+            //}
 
             if (masterChild.Count > 0)
             {
                 model.ChildCampaignViewModels = masterChild;
                 foreach (var item in masterChild)
                 {
-                    model.IndustryViewModels = item.Industries;
-                    model.BusinessGroupViewModels = item.BusinessGroups;
-                    model.BusinessLineViewModels = item.BusinessLines;
-                    model.SegmentViewModels = item.Segments;
-                    model.ThemeViewModels = item.Themes;
-                    model.GeographyViewModels = item.Geographys;
-                    //model.StartDate = item.StartDate;
-                    //model.EndDate = item.EndDate;
+                    //model.IndustryViewModels = item.Industries;
+                    //model.BusinessGroupViewModels = item.BusinessGroups;
+                    //model.BusinessLineViewModels = item.BusinessLines;
+                    //model.SegmentViewModels = item.Segments;
+                    //model.ThemeViewModels = item.Themes;
+                    //model.GeographyViewModels = item.Geographys;
                     model.MCStartDate = item.StartDate;
                     model.MCEndDate = item.EndDate;
                     model.SubCampaignType = item.CampaignType;
@@ -427,6 +426,7 @@ namespace MRM.Controllers
                 model.GeographyViewModels = item.Geographys;
                 model.MCStartDate = item.StartDate;
                 model.MCEndDate = item.EndDate;
+                model.SubCampaignType = item.CampaignType;
             }
 
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
@@ -564,7 +564,8 @@ namespace MRM.Controllers
                                                                    {
                                                                        Id = string.Format("T{0}", campaign.Id.ToString("0000000")),
                                                                        Name = campaign.Name,
-                                                                       InheritStatus = (!string.IsNullOrEmpty(campaign.InheritStatus) ? campaign.InheritStatus : (campaign.Status == "Save Draft" ? "Draft" : "Active")),
+                                                                       // InheritStatus = (!string.IsNullOrEmpty(campaign.InheritStatus) ? campaign.InheritStatus : (campaign.Status == "Save Draft" ? "Draft" : "Active")),
+                                                                          InheritStatus = ((campaign.Status=="Complete" && (campaign.EndDate<DateTime.Now))?"Complete": (campaign.Status == "Save Draft" ? "Draft" : "Active")),
                                                                        TacticDescription = campaign.TacticDescription,
                                                                        Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
                                                                        StartDate = String.Format("{0:dd/MM/yyyy}", campaign.StartDate),

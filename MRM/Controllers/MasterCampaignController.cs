@@ -321,11 +321,12 @@ namespace MRM.Controllers
 
             foreach (var itemChildList in childList)
             {
-                List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByMasterId(itemChildList.Id).ToList();
+                List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByChildId(itemChildList.Id).ToList();
 
                 foreach (var itemTCList in tacticList)
                 {
-                    Inheritanceflag = (itemTCList.InheritStatus == "Complete" ? 0 : 1);
+                 //   Inheritanceflag = (itemTCList.InheritStatus == "Complete" ? 0 : 1);
+                   Inheritanceflag = ((itemTCList.Status == "Complete" && (itemTCList.EndDate < DateTime.Now)) ? 0 : 1);
                 }
                 if (tacticList.Count == 0 || Inheritanceflag == 1)
                 {
