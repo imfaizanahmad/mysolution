@@ -365,49 +365,55 @@ function ValidateTacticSaveasDraft() {
     if ($("#StartDate").val() != "") { $('.validmsgSdate').hide(); }
     if ($("#EndDate").val() != "") { $('.validmsgEdate').hide(); }
 
-    var startdate = new Date($("#StartDate").datepicker("getDate"));
-    var enddate = new Date($("#EndDate").datepicker("getDate"));
-    if (startdate > enddate) {
-        $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
-        $('.validmsgDatecompare').show();
-        flag = false;
-    }
-    else {
-        $('.validmsgDatecompare').hide();
-    }
 
-    var MCStartdate = new Date($("#MCStartDate").val());
-    var MCEnddate = new Date($("#MCEndDate").val());
-
-    var DisMCStartdate = (MCStartdate.getDate() + '/'+ (MCStartdate.getMonth() + 1) + '/' + MCStartdate.getFullYear());
-    var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
-    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
-        if (startdate < MCStartdate) {
-            var msg =
-                $('.validmsgDateMCcompare')
-                    .text("Tactic start and end date should be between Sub Campaign date: " +
-                        DisMCStartdate +
-                        " to " +
-                        DisMCEnddate +
-                        "").css("color", "#b94a48");
-            $('.validmsgDateMCcompare').show();
+    if ($("#StartDate").val() != "" && $("#EndDate").val() != "") {
+        var startdate = new Date($("#StartDate").datepicker("getDate"));
+        var enddate = new Date($("#EndDate").datepicker("getDate"));
+        if (startdate > enddate) {
+            $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
+            $('.validmsgDatecompare').show();
             flag = false;
-
-        } else if (enddate > MCEnddate) {
-            var msg =
-                $('.validmsgDateMCcompare')
-                    .text("Tactic start and end date should be between Sub Campaign date: " +
-                        DisMCStartdate +
-                        " to " +
-                        DisMCEnddate +
-                        "").css("color", "#b94a48");
-            $('.validmsgDateMCcompare').show();
-            flag = false;
+        } else {
+            $('.validmsgDatecompare').hide();
         }
-        else {
-            $('.validmsgDateMCcompare').hide();
+
+        var MCStartdate = new Date($("#MCStartDate").val());
+        var MCEnddate = new Date($("#MCEndDate").val());
+
+        var DisMCStartdate = (MCStartdate.getDate() +
+            '/' +
+            (MCStartdate.getMonth() + 1) +
+            '/' +
+            MCStartdate.getFullYear());
+        var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
+            if (startdate < MCStartdate) {
+                var msg =
+                    $('.validmsgDateMCcompare')
+                        .text("Tactic start and end date should be between Sub Campaign date: " +
+                            DisMCStartdate +
+                            " to " +
+                            DisMCEnddate +
+                            "").css("color", "#b94a48");
+                $('.validmsgDateMCcompare').show();
+                flag = false;
+
+            } else if (enddate > MCEnddate) {
+                var msg =
+                    $('.validmsgDateMCcompare')
+                        .text("Tactic start and end date should be between Sub Campaign date: " +
+                            DisMCStartdate +
+                            " to " +
+                            DisMCEnddate +
+                            "").css("color", "#b94a48");
+                $('.validmsgDateMCcompare').show();
+                flag = false;
+            } else {
+                $('.validmsgDateMCcompare').hide();
+            }
         }
     }
+
 
     $('#frmTacticCampaign').find('#tblBenchmark tbody tr select.ddlMetricReach').each(function () {
         if ($('#tblBenchmark tbody tr select.ddlMetricReach').find('option[value="' + $(this).val() + '"]:selected').length > 1) {
@@ -430,6 +436,16 @@ function ValidateTacticSaveasDraft() {
     return flag;
 }
 
+function goToByScroll(id) {
+    // Scroll
+    $("html, body").delay(2000).animate({
+        scrollTop: $("#" + id).offset().top
+    }, 2000);
+   // $('html,body').animate({scrollTop: $("#" + id).offset().top},'slow');
+}
+
+
+
 function ValidateSubmitTacticForm() {
     var flag = true;
     if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0 || $('#MasterCampaign_Id').val() == "") {
@@ -438,6 +454,8 @@ function ValidateSubmitTacticForm() {
         $('.validmsgMastercampaign').show();
         flag = false;
 
+      //  goToByScroll(MasterCampaign_Id);
+       
     }
     else {
         $('.validmsgMastercampaign').hide();
@@ -448,6 +466,9 @@ function ValidateSubmitTacticForm() {
         $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
         $('.validmsgSubcampaign').show();
         flag = false;
+
+      //  goToByScroll(ChildCampaign_Id);
+  
 
     } else {
         $('.validmsgSubcampaign').hide();
@@ -509,7 +530,8 @@ function ValidateSubmitTacticForm() {
         $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
         $('.validmsgbusinesSegment').show();
         flag = false;
-
+      //  goToByScroll(Segments_Id);
+    
     } else {
         $('.validmsgbusinesSegment').hide();
     }

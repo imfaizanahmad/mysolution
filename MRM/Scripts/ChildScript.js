@@ -235,52 +235,55 @@ function ValidateChildSaveasDraft() {
     if ($("#StartDate").val() != "") { $('.validmsgSdate').hide();}
     if ($("#EndDate").val() != "") { $('.validmsgEdate').hide(); }
 
-    var startdate = new Date($("#StartDate").datepicker("getDate"));
-    var enddate = new Date($("#EndDate").datepicker("getDate"));
-    if (startdate > enddate) {
-        $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
-        $('.validmsgDatecompare').show();
-        flag = false;
-    }
-    else {
-        $('.validmsgDatecompare').hide();
-    }
-   
-    var MCStartdate = new Date($("#MCStartDate").val());
-    var MCEnddate = new Date($("#MCEndDate").val());
+    if ($("#StartDate").val() != "" && $("#EndDate").val() != "") {
 
-    var DisMCStartdate = (MCStartdate.getDate() + '/' + (MCStartdate.getMonth() + 1) + '/' + MCStartdate.getFullYear());
-    var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
-    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
-
-        if ((startdate < MCStartdate)) {
-            var msg =
-                $('.validmsgDateMCcompare')
-                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
-                        DisMCStartdate +
-                        " to " +
-                        DisMCEnddate +
-                        "").css("color", "#b94a48");
-            $('.validmsgDateMCcompare').show();
+        var startdate = new Date($("#StartDate").datepicker("getDate"));
+        var enddate = new Date($("#EndDate").datepicker("getDate"));
+        if (startdate > enddate) {
+            $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
+            $('.validmsgDatecompare').show();
             flag = false;
+        } else {
+            $('.validmsgDatecompare').hide();
+        }
 
-        }
-        else if (enddate > MCEnddate) {
-            var msg =
-                $('.validmsgDateMCcompare')
-                    .text("Sub Campaign start and end date should be between Master Campaign date: " +
-                        DisMCStartdate +
-                        " to " +
-                        DisMCEnddate +
-                        "").css("color", "#b94a48");
-            $('.validmsgDateMCcompare').show();
-            flag = false;
-        }
-        else {
-            $('.validmsgDateMCcompare').hide();
+        var MCStartdate = new Date($("#MCStartDate").val());
+        var MCEnddate = new Date($("#MCEndDate").val());
+
+        var DisMCStartdate = (MCStartdate.getDate() +
+            '/' +
+            (MCStartdate.getMonth() + 1) +
+            '/' +
+            MCStartdate.getFullYear());
+        var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
+
+            if ((startdate < MCStartdate)) {
+                var msg =
+                    $('.validmsgDateMCcompare')
+                        .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                            DisMCStartdate +
+                            " to " +
+                            DisMCEnddate +
+                            "").css("color", "#b94a48");
+                $('.validmsgDateMCcompare').show();
+                flag = false;
+
+            } else if (enddate > MCEnddate) {
+                var msg =
+                    $('.validmsgDateMCcompare')
+                        .text("Sub Campaign start and end date should be between Master Campaign date: " +
+                            DisMCStartdate +
+                            " to " +
+                            DisMCEnddate +
+                            "").css("color", "#b94a48");
+                $('.validmsgDateMCcompare').show();
+                flag = false;
+            } else {
+                $('.validmsgDateMCcompare').hide();
+            }
         }
     }
-
     //Hide valid messages
     $('.HideOnsave').hide();
     CheckMasterAvailable();

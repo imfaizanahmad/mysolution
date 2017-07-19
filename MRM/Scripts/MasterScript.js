@@ -191,18 +191,18 @@ function ValidateSaveMasterForm() {
     if ($("#StartDate").val() != "") { $('.validmsgSdate').hide(); }
     if ($("#EndDate").val() != "") { $('.validmsgEdate').hide(); }
 
-    var startdate = new Date($("#StartDate").datepicker("getDate"));
-    var enddate = new Date($("#EndDate").datepicker("getDate"));
+    if ($("#StartDate").val() != "" && $("#EndDate").val() != "") {
+        var startdate = new Date($("#StartDate").datepicker("getDate"));
+        var enddate = new Date($("#EndDate").datepicker("getDate"));
 
-    if (startdate > enddate) {
-        $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
-        $('.validmsgDatecompare').show();
-        flag = false;
+        if (startdate > enddate) {
+            $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
+            $('.validmsgDatecompare').show();
+            flag = false;
+        } else {
+            $('.validmsgDatecompare').hide();
+        }
     }
-    else {
-        $('.validmsgDatecompare').hide();
-    }
-    
     //Hide valid messages
     $('.HideOnsave').hide();
 
