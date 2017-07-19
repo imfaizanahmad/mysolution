@@ -21,7 +21,7 @@ namespace MRM.Business.Services
 
         public IEnumerable<ChildCampaign> GetChildCampaign()
         {
-            IEnumerable<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAll().ToList();
+            IEnumerable<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAll().OrderByDescending(t => t.UpdatedDate).ToList();
             return childCampaign;
         }
 
@@ -201,11 +201,29 @@ namespace MRM.Business.Services
             return childCampaignCamp;
         }
 
-                public bool DeleteSubCampaign(int Id)
+        public bool DeleteSubCampaign(int Id)
         {
             guow.GenericRepository<ChildCampaign>().Delete(Id);
             return true;
 
+        }
+
+        //Deleted last visited
+        public void DeleteLastyearVisited()
+        {
+            var ChildList = GetChildCampaign()
+                .Where(s => s.Status == "Save Draft" && (s.VisitedDate <= DateTime.Now.AddYears(-1))).ToList();
+            if (ChildList.Count > 0)
+            {
+                foreach (var item in ChildList)
+                {
+                    var childCampaign = GetChildCampaignById(new ChildCampaignViewModel() {Id = item.Id})
+                        .FirstOrDefault();
+                    childCampaign.IsActive = false;
+                    Update(childCampaign);
+
+                }
+            }
         }
 
     }

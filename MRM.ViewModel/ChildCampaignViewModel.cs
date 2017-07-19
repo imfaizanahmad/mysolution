@@ -13,8 +13,8 @@ namespace MRM.ViewModel
     {
         public ChildCampaignViewModel()
         {
-            BusinessGroupViewModels = new[] { new BusinessGroup() };
-            SegmentViewModels = (new[] { new Segment() });
+            BusinessGroupViewModels = new[] { new BusinessGroup {Id = -1, Name = "None selected."} };
+            SegmentViewModels = (new[] { new Segment { Id = -1, Name = "None selected." } });
             BusinessLineViewModels = (new[] { new BusinessLine() });
             ThemeViewModels = (new[] { new Theme() });
             GeographyViewModels = (new[] { new Geography() });

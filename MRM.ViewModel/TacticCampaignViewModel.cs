@@ -12,15 +12,16 @@ namespace MRM.ViewModel
     {
         public TacticCampaignViewModel()
         {
-            BusinessGroupViewModels = new[] { new BusinessGroup() };
-            SegmentViewModels = (new[] { new Segment() });
+            BusinessGroupViewModels = (new[] { new BusinessGroup { Id = -1, Name = "None selected." } });
+            SegmentViewModels = (new[] { new Segment { Id = -1, Name = "None selected." } });
             BusinessLineViewModels = (new[] { new BusinessLine() });
             ThemeViewModels = (new[] { new Theme() });
             GeographyViewModels = (new[] { new Geography() });
             IndustryViewModels = (new[] { new Industry() });
             ChildCampaignViewModels = (new[] { new ChildCampaign() });
             VendorViewModels = (new[] { new Vendor() });
-             
+            TacticTypeViewModels = (new[] { new TacticType { Id = -1, Name = "None selected." } });
+
             TacticCampaignReachResponseViewModels = (new[] {
                 new TacticCampaignReachResponse {MetricType="Reach",MetricId=default(int),Goal=default(int),Low=default(int),High=default(int) },
                 new TacticCampaignReachResponse { MetricType="Response",MetricId=default(int),Goal=default(int),Low=default(int),High=default(int)}
@@ -54,7 +55,9 @@ namespace MRM.ViewModel
         public bool IndustrySelectUnselect { get; set; }
         public string StatusInheritaceStamp { get; set; }
         public string InheritanceStatus { get; set; }
+        //public JourneyStage JourneyStages { get; set; }
 
+        public IEnumerable<JourneyStage> JourneyStageViewModels { get; set; }
         public IEnumerable<Industry> IndustryViewModels { get; set; }
         public IEnumerable<Geography> GeographyViewModels { get; set; }
         public IEnumerable<Theme> ThemeViewModels { get; set; }
@@ -74,7 +77,9 @@ namespace MRM.ViewModel
         public int[] Vendor_Id { get; set; }
         public int[] Tactic_Id { get; set; }
         public int[] TacticType_Id { get; set; }
-      
+        public int? TacticType { get; set; }
+        public int JournetStage_Id { get; set; }
+
         public IEnumerable<MetricReach> MetricReachViewModels { get; set; }     
         public IEnumerable<MetricResponse> MetricResponseViewModels { get; set; }
         public IEnumerable<TacticCampaignReachResponse> TacticCampaignReachResponseViewModels { get; set; }

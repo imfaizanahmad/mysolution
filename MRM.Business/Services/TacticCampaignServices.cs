@@ -69,6 +69,8 @@ namespace MRM.Business.Services
             tacticCampaignEntity.Status = model.Status;
             tacticCampaignEntity.Vendor = model.Vendor;
             tacticCampaignEntity.MasterCampaign_Id = model.MasterCampaign_Id;
+            tacticCampaignEntity.JourneyStage_Id = model.JournetStage_Id;
+            tacticCampaignEntity.TacticType = model.TacticType;
             
             //tacticCampaignEntity.TacticTypes = model.TacticType_Id;
 
@@ -164,6 +166,7 @@ namespace MRM.Business.Services
 
             }
 
+
             tacticCampaignEntity.BusinessGroups = lstBGroup;
             tacticCampaignEntity.Themes = lsttheme;
             tacticCampaignEntity.BusinessLines = lstBline;
@@ -247,6 +250,25 @@ namespace MRM.Business.Services
             guow.GenericRepository<TacticCampaign>().Delete(Id);
             return true;
 
+        }
+
+        //Deleted last visited
+        public void DeleteLastyearVisited()
+        {
+            var TacticList = GetTacticCampaign()
+                .Where(s => s.Status == "Save Draft" && (s.VisitedDate <= DateTime.Now.AddDays(-2))).ToList();
+               // .Where(s => s.Status == "Save Draft" && (s.VisitedDate <= DateTime.Now.AddYears(-1))).ToList();
+            if (TacticList.Count > 0)
+            {
+                foreach (var item in TacticList)
+                {
+                    var tacticCampaign = GetTacticCampaignById(new TacticCampaignViewModel() {Id = item.Id})
+                        .FirstOrDefault();
+                    tacticCampaign.IsActive = false;
+                    Update(tacticCampaign);
+
+                }
+            }
         }
     }
 }

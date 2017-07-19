@@ -15,7 +15,7 @@ namespace MRM.Database.Model
         public string Status { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-
+        public DateTime? VisitedDate { get; set; }
         public virtual ICollection<BusinessGroup> BusinessGroups { get; set; }
         public virtual ICollection<BusinessLine> BusinessLines { get; set; }
         public virtual ICollection<Segment> Segments { get; set; }

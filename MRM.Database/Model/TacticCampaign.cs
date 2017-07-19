@@ -15,13 +15,16 @@ namespace MRM.Database.Model
         public string Year { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public DateTime? VisitedDate { get; set; }
         public string Status { get; set; }
         public int MasterCampaign_Id { get; set; }
-        public string TacticType { get; set; }
+        public int? TacticType { get; set; }
         public string Vendor { get; set; }
 
         public string InheritStatus { get; set; }
 
+        public int JourneyStage_Id { get; set; }
+       
         public virtual ICollection<BusinessGroup> BusinessGroups { get; set; }
         public virtual ICollection<BusinessLine> BusinessLines { get; set; }
         public virtual ICollection<Segment> Segments { get; set; }

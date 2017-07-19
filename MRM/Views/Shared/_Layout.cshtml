@@ -66,6 +66,7 @@
     $(document).ajaxComplete(function () {
         customCode();
         BindDatePickerCalender();
+        DatePickeronCalIcon();
     });
 
     var customCode = function () {
@@ -84,6 +85,7 @@
         commonUiInitialization();
         $('#globalLoader').remove();
         GetBGandSegmentSingleDDl();
+
     };
 
     $(document).ready(function () {
@@ -100,7 +102,7 @@
         //  $(".chosen-single").data("placeholder", "None selected.").chosen();
         
         $(document).on('focus', '#BusinessLines_Id_chosen', function () {
-            if ($('#BusinessGroups_Id').val() == null) {
+            if ($('#BusinessGroups_Id').val() == null || $('#BusinessGroups_Id').val() == "-1") {
                 $('.validmsgbusinesLine').text("Please select Business group first").css("color", "#b94a48");
                 $('.validmsgbusinesLine').show();
                 $('#BusinessLines_Id').text('');
@@ -113,7 +115,7 @@
         });
 
         $(document).on('focus', '#Industries_Id_chosen', function () {
-            if ($('#Segments_Id').val() == null) {
+            if ($('#Segments_Id').val() == null || $('#Segments_Id').val() == "-1") {
                 $('.validmsgbusinesIndustry').text("Please select Segment first").css("color", "#b94a48");
                 $('.validmsgbusinesIndustry').show();
                 $('#Industries_Id').text('');
@@ -125,10 +127,19 @@
 
         });
 
+        $(document).on('change', '.start-date-cal', function () {
+            if ($(".start-date-cal").val() == '') {
+                $(".end-date-cal").prop('disabled', true);
+                $(".end-date-cal").val('');
+            } else {
+                $(".end-date-cal").prop('disabled', false);
+            }
+        });
+
 
         commonUiInitialization();
         GetBGandSegmentSingleDDl();
-
+        DatePickeronCalIcon();
         $(document).on("change", "#CampaignTypes", function () {
             GetBGandSegmentSingleDDl();
             chosenclear();
@@ -151,6 +162,7 @@
 
         if ($(".start-date-cal").val() == '') {
             $(".end-date-cal").prop('disabled', true);
+            $(".end-date-cal").val('');
         }
 
         //if ($('#MCStartDate').val() != '' && $('#MCEndDate').val() != '') {
@@ -166,13 +178,14 @@
     }
 
     function GetBGandSegmentSingleDDl() {
+
         var $select = $('#BusinessGroups_Id');
         var $selectSegment = $('#Segments_Id');
         if ($('#CampaignTypes').val() == 0) {
             $select.chosen('destroy');
             $select.removeAttr('multiple');
             $select.chosen();
-
+        
             $selectSegment.chosen('destroy');
             $selectSegment.attr('multiple', 'multiple');
             $selectSegment.chosen();
@@ -187,7 +200,8 @@
             $selectSegment.chosen('destroy');
             $selectSegment.removeAttr('multiple');
             $selectSegment.chosen();
-
+           
+          
             $select.chosen('destroy');
             $select.attr('multiple', 'multiple');
             $select.chosen();
@@ -196,6 +210,17 @@
             $('a[data-target-id="Segments_Id"]').hide();
             $('.manage-mandate').show();
         }
+
+        if ($("#MasterCampaignId").val() == "") {
+            $('.validmsgsubcampaigntype').text("Please select Master Campaign first").css("color", "#b94a48");
+            $('.validmsgsubcampaigntype').show();
+            $('#CampaignTypes').attr("disabled", true).trigger("chosen:updated");
+            return false;
+        } else {
+            $('.validmsgsubcampaigntype').hide();
+            $('#CampaignTypes').attr("disabled", false).trigger("chosen:updated");
+        }
+
 
         if ($('#Status').val() == "Complete") {
             $('a[data-select-all="selectunselect"]').hide();
@@ -246,6 +271,23 @@
             getselectedval.text("Select All");
             $('#' + selectallElement).trigger('chosen:updated');
         }
+    }
+
+
+    function DatePickeronCalIcon() {
+        $('.add-on.startcal').click(function (event) {
+            if ($(this).closest('div').find('input[type="text"]').attr('disabled') == undefined) {
+                event.preventDefault();
+                $(".start-date-cal").datepicker('show');
+            }
+        });
+
+        $('.add-on.endcal').click(function (event) {
+            if ($(this).closest('div').find('input[type="text"]').attr('disabled') == undefined) {
+                event.preventDefault();
+                $(".end-date-cal").datepicker('show');
+            }
+        });
     }
 
 </script>

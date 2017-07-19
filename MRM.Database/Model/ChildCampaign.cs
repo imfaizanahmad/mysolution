@@ -21,7 +21,7 @@ namespace MRM.Database.Model
         public string Status { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-
+        public DateTime? VisitedDate { get; set; }
         public int CampaignType { get; set; }
         public string MILGoal { get; set; }
         public string MILLow { get; set; }

@@ -12,6 +12,7 @@
 
     //To make tactic type list single selection
     $('#TacticType_Id').removeAttr('multiple');
+    
 
     if ($('#Status').val() == "Complete") {
         $('a[data-select-all="selectunselect"]').hide();
@@ -34,6 +35,9 @@
                 }
             });
         }
+        else {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
     });
 
     $(document).on('click', '#btnSaveDrafttactic', function () {
@@ -50,9 +54,9 @@
                 }
             });
         }
-        //else {
-        //    $("html, body").animate({ scrollTop: 0 }, "slow");
-        //}
+        else {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
     });
 
     $(document).on('click', '#btnDeleteTactic', function () {
@@ -358,8 +362,19 @@ function ValidateTacticSaveasDraft() {
         $('.validmsgSubcampaign').hide();
     }
 
+    if ($("#StartDate").val() != "") { $('.validmsgSdate').hide(); }
+    if ($("#EndDate").val() != "") { $('.validmsgEdate').hide(); }
+
     var startdate = new Date($("#StartDate").datepicker("getDate"));
     var enddate = new Date($("#EndDate").datepicker("getDate"));
+    if (startdate > enddate) {
+        $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
+        $('.validmsgDatecompare').show();
+        flag = false;
+    }
+    else {
+        $('.validmsgDatecompare').hide();
+    }
 
     var MCStartdate = new Date($("#MCStartDate").val());
     var MCEnddate = new Date($("#MCEndDate").val());
@@ -410,33 +425,8 @@ function ValidateTacticSaveasDraft() {
         }
     });
 
-    //var trReach = $('#frmTacticCampaign').find('#tblBenchmark tbody tr.trReach');
-    //var rachGoal = trReach.find('.goal').val();
-    //var rachLow = trReach.find('.low').val();
-    //var rachHigh = trReach.find('.high').val();
-
-    //var trResponse = $('#frmTacticCampaign').find('#tblBenchmark tbody tr.trResponse');
-    //var responseGoal = trResponse.find('.goal').val();
-    //var responseLow = trResponse.find('.low').val();
-    //var responseHigh = trResponse.find('.high').val();
-
-    //if (rachGoal == 0 || rachLow == 0 || rachHigh == 0) {
-    //    $('.validmsgReachMetric').text("Please fill atleast one Reach Metric").css("color", "#b94a48");
-    //    $('.validmsgReachMetric').show();
-    //    flag = false;
-    //}
-    //else {
-    //    $('.validmsgReachMetric').hide();
-    //}
-
-    //if (responseGoal == 0 || responseLow == 0 || responseHigh == 0) {
-    //    $('.validmsgResponseMetric').text("Please fill atleast one Response Metric").css("color", "#b94a48");
-    //    $('.validmsgResponseMetric').show();
-    //    flag = false;
-    //}
-    //else {
-    //    $('.validmsgResponseMetric').hide();
-    //}
+    //Hide valid messages
+    $('.HideOnsave').hide();
     return flag;
 }
 
@@ -473,7 +463,7 @@ function ValidateSubmitTacticForm() {
     //    $('.validmsgvendor').hide();
     //}
 
-    if ($('#TacticType_Id').val() == null) {
+    if ($('#TacticType_Id').val() == null  || $('#TacticType_Id').val() == "-1") {
 
         $('.validmsgTactictype').text("Please select Tactic Type").css("color", "#b94a48");
         $('.validmsgTactictype').show();
@@ -483,8 +473,18 @@ function ValidateSubmitTacticForm() {
         $('.validmsgTactictype').hide();
     }
 
+    if ($('#JournetStage_Id').val() == "") {
 
-    if ($('#BusinessGroups_Id').val() == null) {
+        $('.validmsgJourneyStage').text("Please select Journey Stage").css("color", "#b94a48");
+        $('.validmsgJourneyStage').show();
+        flag = false;
+
+    } else {
+        $('.validmsgJourneyStage').hide();
+    }
+
+
+    if ($('#BusinessGroups_Id').val() == null || $('#BusinessGroups_Id').val() == "-1") {
 
         $('.validmsgbusinesGp').text("Please select Business Group").css("color", "#b94a48");
         $('.validmsgbusinesGp').show();
@@ -504,7 +504,7 @@ function ValidateSubmitTacticForm() {
         $('.validmsgbusinesLine').hide();
     }
 
-    if ($('#Segments_Id').val() == null) {
+    if ($('#Segments_Id').val() == null || $('#Segments_Id').val() == "-1") {
 
         $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
         $('.validmsgbusinesSegment').show();
@@ -594,7 +594,7 @@ function ValidateSubmitTacticForm() {
     }
 
     if (startdate > enddate) {
-        $('.validmsgDatecompare').text("End date can not less than start date").css("color", "#b94a48");
+        $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
         $('.validmsgDatecompare').show();
         flag = false;
     } else {
@@ -743,12 +743,23 @@ function BindMetricResponseList(panel) {
 function CollectTacticFormData() {
     var data = {
     };
-    data.Id = $('#frmTacticCampaign').find('input[name="Id"]').val()
+    data.Id = $('#frmTacticCampaign').find('input[name="Id"]').val();
+    if ($('#frmTacticCampaign').find('#JournetStage_Id option:selected').val() == "") {
+        data.JournetStage_Id = 0;
+    } else {
+        data.JournetStage_Id = $('#frmTacticCampaign').find('#JournetStage_Id option:selected').val();
+    }
     data.MasterCampaign_Id = $('#frmTacticCampaign').find('#MasterCampaign_Id option:selected').val();
     data.ChildCampaign_Id = $('#frmTacticCampaign').find('#ChildCampaign_Id option:selected').val();
 
-    data.TacticType_Id = [];
-    data.TacticType_Id.push(parseInt($('#frmTacticCampaign').find('#TacticType_Id option:selected').val()));
+    //data.TacticType_Id = [];
+    //data.TacticType_Id.push(parseInt($('#frmTacticCampaign').find('#TacticType_Id option:selected').val()));
+
+    if ($('#TacticType_Id option:selected').val() == "") {
+        data.TacticType = 0;
+    } else {
+        data.TacticType = $('#TacticType_Id option:selected').val();
+    }
 
     data.Name = $('#frmTacticCampaign').find('#Name').val();
     data.TacticDescription = $('#frmTacticCampaign').find('#TacticDescription').val();
@@ -763,11 +774,10 @@ function CollectTacticFormData() {
         data.Geographys_Id.push($('#frmTacticCampaign').find('#Geographys_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
     });
 
-
-
     
-    data.StartDate = $('#frmTacticCampaign').find("#StartDate").datepicker("getDate");
-    data.EndDate = $('#frmTacticCampaign').find("#EndDate").datepicker("getDate");
+    data.StartDate = $.datepicker.formatDate('mm/dd/yy', $("#StartDate").datepicker("getDate"));
+    data.EndDate = $.datepicker.formatDate('mm/dd/yy', $("#EndDate").datepicker("getDate"));
+  
 
     data.BusinessGroups_Id = [];
     $('#frmTacticCampaign').find('#BusinessGroups_Id').closest('.form-group').find('ul li.search-choice').each(function () {

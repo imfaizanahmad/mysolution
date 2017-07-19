@@ -20,7 +20,7 @@ namespace MRM.Business.Services
 
         public IEnumerable<MasterCampaign> GetMasterCampaign()
         {
-            IEnumerable<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAll();
+            IEnumerable<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAll().OrderByDescending(t=>t.UpdatedDate);
             return masterCampaign;
         }
 
@@ -189,6 +189,23 @@ namespace MRM.Business.Services
             guow.GenericRepository<MasterCampaign>().Delete(Id);
             return true;
 
+        }
+
+        //Deleted last visited
+        public void DeleteLastyearVisited()
+        {
+            var MasterList = GetMasterCampaign()
+                .Where(s => s.Status == "Save Draft" && (s.VisitedDate <= DateTime.Now.AddYears(-1))).ToList();
+            if (MasterList.Count > 0)
+            {
+                foreach (var item in MasterList)
+                {
+                    var masterCampaign = GetMasterCampaignById(new MasterCampaignViewModel() {Id = item.Id})
+                        .FirstOrDefault();
+                    masterCampaign.IsActive = false;
+                    Update(masterCampaign);
+                }
+            }
         }
     }
 }

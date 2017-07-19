@@ -20,6 +20,9 @@ $(document).ready(function () {
                 }
             });
         }
+        else {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
     });
 
     $(document).on('click', '#btnSaveDraft', function () {
@@ -32,6 +35,9 @@ $(document).ready(function () {
                     if (data === "True") window.location = "/MasterCampaign/CampaignList";
                 }
             });
+        }
+        else {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         }
     });
 
@@ -181,6 +187,25 @@ function ValidateSaveMasterForm() {
     else {
         $('.validmsgMaster').hide();
     }
+
+    if ($("#StartDate").val() != "") { $('.validmsgSdate').hide(); }
+    if ($("#EndDate").val() != "") { $('.validmsgEdate').hide(); }
+
+    var startdate = new Date($("#StartDate").datepicker("getDate"));
+    var enddate = new Date($("#EndDate").datepicker("getDate"));
+
+    if (startdate > enddate) {
+        $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
+        $('.validmsgDatecompare').show();
+        flag = false;
+    }
+    else {
+        $('.validmsgDatecompare').hide();
+    }
+    
+    //Hide valid messages
+    $('.HideOnsave').hide();
+
     return flag;
 }
 
@@ -267,7 +292,7 @@ function ValidateMasterForm() {
     var enddate = new Date($("#EndDate").datepicker("getDate"));
 
     if (startdate > enddate) {
-        $('.validmsgDatecompare').text("End Date can not less than Start Date").css("color", "#b94a48");
+        $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
         $('.validmsgDatecompare').show();
         flag = false;
     }
@@ -294,6 +319,8 @@ function ValidateMasterForm() {
     }
     return flag;
 }
+
+
 //Prevent to user enter special character in Description Area.
 function alpha(e) {
 

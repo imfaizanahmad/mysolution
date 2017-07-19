@@ -17,7 +17,5 @@ namespace MRM.Business.Interfaces
 
         List<TacticCampaign> GetTacticCampaignByMasterId(int id);
         List<TacticCampaign> GetTacticCampaignByChildId(int id);
-
-
     }
 }

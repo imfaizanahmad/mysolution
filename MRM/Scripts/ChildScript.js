@@ -25,6 +25,9 @@
                 }
             });
         }
+        else {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
     });
 
     $(document).on('click', '#btnSaveDraftChild', function() {
@@ -37,7 +40,10 @@
                     if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
                 }
             });
-    }
+        }
+        else {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
     });
 
     $(document).on('click', '#btnDeleteChild', function () {
@@ -105,6 +111,20 @@ $(document).on("change", "#MasterCampaignId", function () {
                 $("#dvFormChildCampaign").html(data);
                 PreventSpecialChar();
 
+            }
+        });
+});
+
+
+
+$(document).on("change", "#CampaignTypes", function () {
+        $.ajax({
+            type: "POST",
+            url: "/ChildCampaign/OnChangeCampaignTypes",
+            data: $("#frmChildCampaign").serialize(),
+            success: function (data) {
+                $("#dvFormChildCampaign").html(data);
+                PreventSpecialChar();
             }
         });
     });
@@ -212,8 +232,20 @@ function ValidateChildSaveasDraft() {
         $('.validmsgMastercampaign').hide();
     }
 
+    if ($("#StartDate").val() != "") { $('.validmsgSdate').hide();}
+    if ($("#EndDate").val() != "") { $('.validmsgEdate').hide(); }
+
     var startdate = new Date($("#StartDate").datepicker("getDate"));
     var enddate = new Date($("#EndDate").datepicker("getDate"));
+    if (startdate > enddate) {
+        $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
+        $('.validmsgDatecompare').show();
+        flag = false;
+    }
+    else {
+        $('.validmsgDatecompare').hide();
+    }
+   
     var MCStartdate = new Date($("#MCStartDate").val());
     var MCEnddate = new Date($("#MCEndDate").val());
 
@@ -249,6 +281,9 @@ function ValidateChildSaveasDraft() {
         }
     }
 
+    //Hide valid messages
+    $('.HideOnsave').hide();
+    CheckMasterAvailable();
     return flag;
 }
 
@@ -260,13 +295,12 @@ function ValidateChildForm() {
         $('.validmsgMastercampaign').text("Please select Master Campaign").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
         flag = false;
-
     }
     else {
         $('.validmsgMastercampaign').hide();
     }
 
-    if ($('#BusinessGroups_Id').val() == null) {
+    if ($('#BusinessGroups_Id').val() == null || $('#BusinessGroups_Id').val()=="-1") {
 
         $('.validmsgbusinesGp').text("Please select Business Group").css("color", "#b94a48");
         $('.validmsgbusinesGp').show();
@@ -300,7 +334,7 @@ function ValidateChildForm() {
         $('.validmsgbusinesLine').hide();
     }
 
-    if ($('#Segments_Id').val() == null) {
+    if ($('#Segments_Id').val() == null || $('#Segments_Id').val()=="-1") {
 
         $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
         $('.validmsgbusinesSegment').show();
@@ -422,7 +456,7 @@ function ValidateChildForm() {
     }
 
     if (startdate > enddate) {
-        $('.validmsgDatecompare').text("End Date can not less than Start Date").css("color", "#b94a48");
+        $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
         $('.validmsgDatecompare').show();
         flag = false;
     }
@@ -470,8 +504,25 @@ function ValidateChildForm() {
 
     //    $('.validmsgSpend').hide();
     //}
+    CheckMasterAvailable();
     return flag;
 }
+
+
+//Check master availability
+function CheckMasterAvailable()
+{
+    if ($("#MasterCampaignId").val() == "") {
+        $('.validmsgsubcampaigntype').text("Please select Master Campaign first").css("color", "#b94a48");
+        $('.validmsgsubcampaigntype').show();
+        $('#CampaignTypes').attr("disabled", true).trigger("chosen:updated");
+        return false;
+    } else {
+        $('.validmsgsubcampaigntype').hide();
+        $('#CampaignTypes').attr("disabled", false).trigger("chosen:updated");
+    }
+}
+
 
 //Prevent to user enter special character in Description Area.
 function alpha(e) {

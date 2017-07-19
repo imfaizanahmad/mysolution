@@ -110,6 +110,13 @@ namespace MRM.Controllers
 
 
                 ManageSelectUnselect(mcvm);
+
+                //Update visited date
+                if (mcvm.Status == "Save Draft")
+                {
+                     masterCampaign.VisitedDate = DateTime.Now;
+                    _masterCampaignServices.Update(masterCampaign);
+                }
             }
 
             return View(mcvm);
@@ -282,6 +289,9 @@ namespace MRM.Controllers
         [HttpGet]
         public JsonResult GetMasterCampaignList()
         {
+
+            _masterCampaignServices.DeleteLastyearVisited();
+
             List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetMasterCampaign()
                                                                        where campaign.IsActive == true
                                                                        select
@@ -325,9 +335,9 @@ namespace MRM.Controllers
 
                 foreach (var itemTCList in tacticList)
                 {
-                 //   Inheritanceflag = (itemTCList.InheritStatus == "Complete" ? 0 : 1);
                    Inheritanceflag = ((itemTCList.Status == "Complete" && (itemTCList.EndDate < DateTime.Now)) ? 0 : 1);
                 }
+
                 if (tacticList.Count == 0 || Inheritanceflag == 1)
                 {
                     InheritanceStatus = "Active";
@@ -340,5 +350,6 @@ namespace MRM.Controllers
             }
             return InheritanceStatus;
         }
+
     }
 }

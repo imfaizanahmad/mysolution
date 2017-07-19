@@ -43,7 +43,7 @@
                                 @Html.TextAreaFor(m => m.CampaignDescription, (Model.Id != 0 && Model.Status == "Complete") ?
                                     (object)new { disabled = "disabled", @class = "form-control" } :
                                     (object)new { @class = "form-control", @maxlength = "500", onkeypress = "return alpha(event)" })
-                                <div class="validmsgMasterDesc"></div>
+                                <div class="validmsgMasterDesc HideOnsave"></div>
                             </div>
 
                         </div>
@@ -70,7 +70,7 @@
                                 @*<a data-next-stage="select" data-target-id="Geographys_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
 
                                 <a data-next-stage="@(Model.GeoSelectUnselect==false?"select":"unselect")" data-target-id="Geographys_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.GeoSelectUnselect == false ? "Select All" : "Select None")</a>
-                                <div class="validmsgbusinesGeography"></div>
+                                <div class="validmsgbusinesGeography HideOnsave"></div>
                             </div>
                         </div>
 
@@ -86,7 +86,7 @@
 
                                 <a data-next-stage="@(Model.BgSelectUnselect==false?"bgselect":"bgunselect")" data-target-id="BusinessGroups_Id" data-select-all="BGselectunselect" href="javascript:void(0);"> @(Model.BgSelectUnselect == false ? "Select All" : "Select None")</a>
 
-                                <div class="validmsgbusinesGp"></div>
+                                <div class="validmsgbusinesGp HideOnsave"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -100,7 +100,7 @@
 
                                 @*  <a data-next-stage="Segselect" data-target-id="Segments_Id" data-select-all="Segselectunselect" href="javascript:void(0);">Select All</a>*@
                                 @*<a data-next-stage="select" data-trigger-ev="change"  data-target-id="Segments_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
-                                <div class="validmsgbusinesSegment"></div>
+                                <div class="validmsgbusinesSegment HideOnsave"></div>
                             </div>
                         </div>
 
@@ -116,7 +116,7 @@
                                     (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
                                 @*<a data-next-stage="select" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
                                 <a data-next-stage="@(Model.BlSelectUnselect==false?"select":"unselect")" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.BlSelectUnselect == false ? "Select All" : "Select None")</a>
-                                <div class="validmsgbusinesLine"></div>
+                                <div class="validmsgbusinesLine HideOnsave"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -129,7 +129,7 @@
                                     (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
                                 @*<a data-next-stage="select" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
                                 <a data-next-stage="@(Model.IndustrySelectUnselect==false?"select":"unselect")" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.IndustrySelectUnselect == false ? "Select All" : "Select None")</a>
-                                <div class="validmsgbusinesIndustry"></div>
+                                <div class="validmsgbusinesIndustry HideOnsave"></div>
                             </div>
                         </div>
                     </div>
@@ -143,9 +143,9 @@
                                         @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd/MM/yyyy") : ""), disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
                                             (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd/MM/yyyy") : ""), @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
-                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on startcal"></span></span>
                                     </div>
-                                    <div class="validmsgSdate"></div>
+                                    <div class="validmsgSdate HideOnsave"></div>
                                 </div>
 
                             </div>
@@ -158,9 +158,9 @@
                                         @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd/MM/yyyy") : ""), disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
                                             (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd/MM/yyyy") : ""), @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
-                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on endcal"></span></span>
                                     </div>
-                                    <div class="validmsgEdate"></div><div class="validmsgDatecompare"></div>
+                                    <div class="validmsgEdate HideOnsave"></div><div class="validmsgDatecompare"></div>
                                 </div>
                             </div>
 

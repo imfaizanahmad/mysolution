@@ -26,8 +26,10 @@ namespace MRM.Controllers
 
         private MetricReachServices _metricReachServices = null;
         private MetricResponseServices _metricResponseServices = null;
+        private  JourneyStageServices  _journeyStageServices=null;
 
         TacticCampaignViewModel Tacticvm = new TacticCampaignViewModel();
+
 
         public TacticCampaignController()
         {
@@ -43,16 +45,21 @@ namespace MRM.Controllers
 
             _metricReachServices = new MetricReachServices();
             _metricResponseServices = new MetricResponseServices();
+            _journeyStageServices =new JourneyStageServices();
         }
 
         public ActionResult TacticCampaign(int Id = 0)
         {
             TacticCampaignViewModel tacticvm = new TacticCampaignViewModel();
+            tacticvm.JourneyStageViewModels = _journeyStageServices.GetJourneyStage();
+            var TTList = _tacticCampaignServices.GetTacticType();
+            tacticvm.TacticTypeViewModels = tacticvm.TacticTypeViewModels.Concat(TTList);
 
             if (Id == 0)
             {
                 //tacticvm.VendorViewModels = _vendorService.GetVendor();
-                tacticvm.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
+             //   tacticvm.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
+
                 tacticvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
                 tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign().Where(t => t.Status == "Complete");
                 //tacticvm.IndustryViewModels = _industryService.GetIndustry();
@@ -72,7 +79,7 @@ namespace MRM.Controllers
             {
                 tacticvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
                 tacticvm.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign().Where(t => t.Status == "Complete");
-                tacticvm.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
+               // tacticvm.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
 
                 TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = Id }).First();
 
@@ -156,6 +163,13 @@ namespace MRM.Controllers
                     tacticvm.TacticType_Id = tacticCampaign.TacticTypes.Select(t => t.Id).ToArray(); ;
                 }
 
+                tacticvm.TacticType = tacticCampaign.TacticType;
+                tacticvm.JournetStage_Id = tacticCampaign.JourneyStage_Id;
+
+                //if(tacticCampaign.JourneyStage>0)
+                //tacticvm.JourneyStages = (tacticCampaign.JourneyStage == 1 ? JourneyStage.Awareness : (tacticCampaign.JourneyStage==2?JourneyStage.Consideration : JourneyStage.Action));
+
+
                 tacticvm.Id = tacticCampaign.Id;
                 tacticvm.Name = tacticCampaign.Name;
                 tacticvm.TacticDescription = tacticCampaign.TacticDescription;
@@ -195,6 +209,14 @@ namespace MRM.Controllers
                 tacticvm.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
                 tacticvm.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
                 tacticvm.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
+
+                //Update visited date
+                if (tacticvm.Status == "Save Draft")
+                {
+                     tacticCampaign.VisitedDate=DateTime.Now;
+                    _tacticCampaignServices.Update(tacticCampaign);
+                }
+
             }
             return View(tacticvm);
         }
@@ -216,9 +238,15 @@ namespace MRM.Controllers
             model.BusinessGroups_Id = model.BusinessGroups_Id;
             model.BusinessLineViewModels = businesslist;
             model.SegmentViewModels = _segmentService.GetSegment();
-            model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
+           // model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
+
+            var ttList = _tacticCampaignServices.GetTacticType();
+            model.TacticTypeViewModels = model.TacticTypeViewModels.Concat(ttList);
+
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
+            model.JourneyStageViewModels = _journeyStageServices.GetJourneyStage();
+            //   model.JourneyStageViewModels = _journeyStageServices.GetJourneyStage();
             //model.VendorViewModels = _vendorService.GetVendor();
 
             if (model.Segments_Id == null)
@@ -250,11 +278,21 @@ namespace MRM.Controllers
                 List<ChildCampaign> childCampaign = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = model.ChildCampaign_Id });
                 foreach (var item in childCampaign)
                 {
+                    if (model.SubCampaignType == 0)
+                    {
+                        model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups);
+                        model.SegmentViewModels = item.Segments;
+                    }
+                    else
+                    {
+                        model.BusinessGroupViewModels = item.BusinessGroups;
+                        model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments);
+                    }
                     model.ThemeViewModels = item.Themes;
                     model.GeographyViewModels = item.Geographys;
-                    model.BusinessGroupViewModels = item.BusinessGroups;
+                  //  model.BusinessGroupViewModels = item.BusinessGroups;
                     model.BusinessLineViewModels = item.BusinessLines;
-                    model.SegmentViewModels = item.Segments;
+                  //  model.SegmentViewModels = item.Segments;
                     model.IndustryViewModels = item.Industries;
                     model.MCStartDate = item.StartDate;
                     model.MCEndDate = item.EndDate;
@@ -285,6 +323,7 @@ namespace MRM.Controllers
         {
 
             model.BusinessGroupViewModels = _businessgroupService.GetBG();
+            model.JourneyStageViewModels = _journeyStageServices.GetJourneyStage();
 
             if (model.BusinessGroups_Id == null)
                 model.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
@@ -319,12 +358,23 @@ namespace MRM.Controllers
                 List<ChildCampaign> childCampaign = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = model.ChildCampaign_Id });
                 foreach (var item in childCampaign)
                 {
+                    if (model.SubCampaignType == 0)
+                    {
+                        model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups);
+                        model.SegmentViewModels = item.Segments;
+                    }
+                    else
+                    {
+                        model.BusinessGroupViewModels = item.BusinessGroups;
+                        model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments);
+                    }
+
                     model.ThemeViewModels = item.Themes;
                     model.GeographyViewModels = item.Geographys;
                     model.IndustryViewModels = item.Industries;
-                    model.BusinessGroupViewModels = item.BusinessGroups;
+                   // model.BusinessGroupViewModels = item.BusinessGroups;
                     model.BusinessLineViewModels = item.BusinessLines;
-                    model.SegmentViewModels = item.Segments;
+                  //  model.SegmentViewModels = item.Segments;
                     model.MCStartDate = item.StartDate;
                     model.MCEndDate = item.EndDate;
                 }
@@ -345,7 +395,9 @@ namespace MRM.Controllers
 
             ManageSelectUnselect(model);
 
-            model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
+            // model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
+            var ttList = _tacticCampaignServices.GetTacticType();
+            model.TacticTypeViewModels = model.TacticTypeViewModels.Concat(ttList);
 
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
@@ -361,6 +413,7 @@ namespace MRM.Controllers
 
             //If sub campaign is not defined for corressponding master campaign
             List<MasterCampaign> mastercampaignvalues = _masterCampaignServices.GetMasterCampaignById(model.MasterCampaign_Id);
+            model.JourneyStageViewModels = _journeyStageServices.GetJourneyStage();
 
             //If sub campaign is defined for corressponding master campaign
             List<ChildCampaign> masterChild = _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaign_Id).Where(t => t.Status == "Complete").ToList();
@@ -404,8 +457,9 @@ namespace MRM.Controllers
             ManageSelectUnselect(model);
 
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
-            model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
-
+            // model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
+            var ttList = _tacticCampaignServices.GetTacticType();
+            model.TacticTypeViewModels = model.TacticTypeViewModels.Concat(ttList);
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach();
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse();
 
@@ -418,10 +472,20 @@ namespace MRM.Controllers
             List<ChildCampaign> valueChild = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = model.ChildCampaign_Id });
             foreach (var item in valueChild)
             {
+                if (model.SubCampaignType == 0)
+                {
+                    model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups);
+                    model.SegmentViewModels = item.Segments;
+                }
+                else
+                {
+                    model.BusinessGroupViewModels = item.BusinessGroups;
+                    model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments);
+                }
                 model.IndustryViewModels = item.Industries;
-                model.BusinessGroupViewModels = item.BusinessGroups;
+               // model.BusinessGroupViewModels = item.BusinessGroups;
                 model.BusinessLineViewModels = item.BusinessLines;
-                model.SegmentViewModels = item.Segments;
+              //  model.SegmentViewModels = item.Segments;
                 model.ThemeViewModels = item.Themes;
                 model.GeographyViewModels = item.Geographys;
                 model.MCStartDate = item.StartDate;
@@ -429,8 +493,11 @@ namespace MRM.Controllers
                 model.SubCampaignType = item.CampaignType;
             }
 
+            model.JourneyStageViewModels = _journeyStageServices.GetJourneyStage();
             model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
-            model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
+            // model.TacticTypeViewModels = _tacticCampaignServices.GetTacticType();
+            var ttList = _tacticCampaignServices.GetTacticType();
+            model.TacticTypeViewModels = model.TacticTypeViewModels.Concat(ttList);
 
             model.ChildCampaignViewModels = _childCampaignServices.GetChildCampaign().Where(t => t.Status == "Complete");
             ManageSelectUnselect(model);
@@ -557,6 +624,7 @@ namespace MRM.Controllers
         [HttpGet]
         public JsonResult GetTacticCampaignList()
         {
+            _tacticCampaignServices.DeleteLastyearVisited();
             List<TacticCampaignViewModelList> childCampaignList = (from campaign in _tacticCampaignServices.GetTacticCampaign()
                                                                    where campaign.IsActive == true
                                                                    select
