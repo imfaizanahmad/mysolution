@@ -528,15 +528,23 @@ function CheckMasterAvailable()
 
 
 //Prevent to user enter special character in Description Area.
-function alpha(e) {
-    if (document.getElementById("CampaignDescription").value.length < 500) {
-        var k;
-        document.all ? k = e.keyCode : k = e.which;
-        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+function alpha(e, type) {
+    var k;
+    document.all ? k = e.keyCode : k = e.which;
+    if (type.name == "CampaignDescription") {
+        if (document.getElementById("CampaignDescription").value.length < 500) {
+            return ((k != 44) && (k != 59) && (k != 47) && (k != 34) && (k != 38))
+        }
+        else {
+            alert("You can't enter more then 500 character in description field!")
+            return false;
+        }
     }
+
     else {
-        alert("You can't enter more then 500 character in description field!")
+        return ((k != 44) && (k != 59) && (k != 47) && (k != 34) && (k != 38))
         return false;
+
     }
 }
 function PreventSpecialChar() {

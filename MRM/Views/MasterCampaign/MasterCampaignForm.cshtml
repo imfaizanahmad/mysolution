@@ -33,7 +33,7 @@
                                 <label>Master Campaign Name<span class="text-danger">*</span></label>
                                 @Html.TextBoxFor(m => m.Name, (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "form-control" } :
-                                            (object)new { @class = "form-control", @maxlength = "50" })
+                                            (object)new { @class = "form-control", @maxlength = "30", onkeypress = "return alpha(event,Name)" })
                                 <div class="validmsgMaster"></div>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                                 <label>Master Campaign Description & Goals<span class="text-danger">*</span></label>
                                 @Html.TextAreaFor(m => m.CampaignDescription, (Model.Id != 0 && Model.Status == "Complete") ?
                                     (object)new { disabled = "disabled", @class = "form-control" } :
-                                    (object)new { @class = "form-control", @maxlength = "500", onkeypress = "return alpha(event)" })
+                                    (object)new { @class = "form-control", @maxlength = "500", onkeypress = "return alpha(event,CampaignDescription)" })
                                 <div class="validmsgMasterDesc HideOnsave"></div>
                             </div>
 

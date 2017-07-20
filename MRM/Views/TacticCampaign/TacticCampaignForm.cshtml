@@ -82,7 +82,7 @@
                                     <label>Tactic Name</label><span class="text-danger">*</span>
                                     @Html.TextBoxFor(m => m.Name, (Model.Id != 0 && Model.Status == "Complete") ?
                                     (object)new { disabled = "disabled", @class = "form-control" } :
-                                    (object)new { @class = "form-control" })
+                                    (object)new { @class = "form-control", @maxlength = "80", onkeypress = "return alpha(event,Name)" })
                                     <div class="validmsgtacticname HideOnsave"></div>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                     <label>Tactic Description & Goals<span class="text-danger">*</span></label>
                                     @Html.TextAreaFor(m => m.TacticDescription, (Model.Id != 0 && Model.Status == "Complete") ?
                                     (object)new { disabled = "disabled", @class = "form-control" } :
-                                    (object)new { @class = "form-control", onkeypress = "return alpha(event)", @maxlength = "500" })
+                                    (object)new { @class = "form-control", onkeypress = "return alpha(event,TacticDescription)", @maxlength = "500" })
                                     <div class="validmsgtacticdesc HideOnsave"></div>
                                 </div>
                             </div>
