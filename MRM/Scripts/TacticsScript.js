@@ -328,7 +328,7 @@ function funcLoadIndustry() {
 function blockSpecialChar(e) {
     var k;
     document.all ? k = e.keyCode : k = e.which;
-    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+    return ((k != 44) && (k != 59) && (k != 47) && (k != 34) && (k != 38) && !(k>= 48 && k <= 57))
 }
 
 //Numeric validation
@@ -846,17 +846,27 @@ function CollectTacticFormData() {
 }
 
 //Prevent to user enter special character in Description Area.
-function alpha(e) {
-    if (document.getElementById("TacticDescription").value.length < 500) {
-        var k;
-        document.all ? k = e.keyCode : k = e.which;
-        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+function alpha(e, type) {
+    debugger;
+    var k;
+    document.all ? k = e.keyCode : k = e.which;
+    if (type.name == "TacticDescription") {
+        if (document.getElementById("TacticDescription").value.length < 500) {
+            return ((k != 44) && (k != 59) && (k != 47) && (k != 34) && (k != 38))
+        }
+        else {
+            alert("You can't enter more then 500 character in description field!")
+            return false;
+        }
     }
+
     else {
-        alert("You can't enter more then 500 character in description field!")
+        return ((k != 44) && (k != 59) && (k != 47) && (k != 34) && (k != 38))
         return false;
+
     }
 }
+
 
 function PreventSpecialChar() {
     $("#TacticDescription").bind('paste', function () {
@@ -864,13 +874,38 @@ function PreventSpecialChar() {
             //get the value of the input text
             var data = $('#TacticDescription').val();
             //replace the special characters to '' 
-            var dataFull = data.replace(/[^\w\s]/gi, '');
+            //var dataFull = data.replace(/[^\w\s]/gi, '');
+            var dataFull = data.replace(/[&/,";]/g, '');
             //set the new value of the input text without special characters
             $('#TacticDescription').val(dataFull);
         });
 
     });
+
+    $("#Name").bind('paste', function () {
+        setTimeout(function () {
+            var data = $('#Name').val();
+            var dataFull = data.replace(/[&/,";]/g, '');
+            $('#Name').val(dataFull);
+        });
+
+    });
+
+    $("#Vendor").bind('paste', function () {
+        setTimeout(function () {
+            var data = $('#Vendor').val();
+            var dataFull = data.replace(/[&/,";]/g, '');
+            $('#Vendor').val(dataFull);
+        });
+
+    });
+
 }
+
+
+
+
+
 
 function RemoveZeroFromMetric() {
     $('.mrminttostring').each(function () { if ($(this).val() == 0) { $(this).val(''); } });
