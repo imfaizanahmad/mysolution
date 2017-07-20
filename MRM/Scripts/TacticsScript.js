@@ -860,19 +860,45 @@ function alpha(e, type) {
     }
 }
 
+
 function PreventSpecialChar() {
     $("#TacticDescription").bind('paste', function () {
         setTimeout(function () {
             //get the value of the input text
             var data = $('#TacticDescription').val();
             //replace the special characters to '' 
-            var dataFull = data.replace(/[^\w\s]/gi, '');
+            //var dataFull = data.replace(/[^\w\s]/gi, '');
+            var dataFull = data.replace(/[&/,";]/g, '');
             //set the new value of the input text without special characters
             $('#TacticDescription').val(dataFull);
         });
 
     });
+
+    $("#Name").bind('paste', function () {
+        setTimeout(function () {
+            var data = $('#Name').val();
+            var dataFull = data.replace(/[&/,";]/g, '');
+            $('#Name').val(dataFull);
+        });
+
+    });
+
+    $("#Vendor").bind('paste', function () {
+        setTimeout(function () {
+            var data = $('#Vendor').val();
+            var dataFull = data.replace(/[&/,";]/g, '');
+            $('#Vendor').val(dataFull);
+        });
+
+    });
+
 }
+
+
+
+
+
 
 function RemoveZeroFromMetric() {
     $('.mrminttostring').each(function () { if ($(this).val() == 0) { $(this).val(''); } });
