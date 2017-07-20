@@ -56,6 +56,10 @@
         }
         else {
             $("html, body").animate({ scrollTop: 0 }, "slow");
+           
+            //$('html, body').animate({
+            //    scrollTop: $("#MC").offset().top
+            //}, "slow");
         }
     });
 
@@ -438,10 +442,13 @@ function ValidateTacticSaveasDraft() {
 
 function goToByScroll(id) {
     // Scroll
-    $("html, body").delay(2000).animate({
+    //$("html, body").delay(2000).animate({
+    //    scrollTop: $("#" + id).offset().top
+    //}, 2000);
+
+    $('html, body').animate({
         scrollTop: $("#" + id).offset().top
-    }, 2000);
-   // $('html,body').animate({scrollTop: $("#" + id).offset().top},'slow');
+    }, "slow");
 }
 
 
@@ -505,7 +512,7 @@ function ValidateSubmitTacticForm() {
     }
 
 
-    if ($('#BusinessGroups_Id').val() == null || $('#BusinessGroups_Id').val() == "-1") {
+    if ($('#BusinessGroups_Id').val() == null || $('#BusinessGroups_Id').val() == "-1" || $('#BusinessGroups_Id').val() == 0) {
 
         $('.validmsgbusinesGp').text("Please select Business Group").css("color", "#b94a48");
         $('.validmsgbusinesGp').show();
@@ -525,7 +532,7 @@ function ValidateSubmitTacticForm() {
         $('.validmsgbusinesLine').hide();
     }
 
-    if ($('#Segments_Id').val() == null || $('#Segments_Id').val() == "-1") {
+    if ($('#Segments_Id').val() == null || $('#Segments_Id').val() == "-1" || $('#Segments_Id').val() == 0) {
 
         $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
         $('.validmsgbusinesSegment').show();
@@ -536,7 +543,7 @@ function ValidateSubmitTacticForm() {
         $('.validmsgbusinesSegment').hide();
     }
 
-    if ($("#SubCampaignType").val == 1) {
+    if ($("#SubCampaignType").val() == 1) {
         if ($('#Industries_Id').val() == null) {
 
             $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");

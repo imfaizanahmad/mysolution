@@ -74,8 +74,19 @@ namespace MRM.Controllers
                         _masterCampaignServices.GetMasterCampaignById(childCampaign.MasterCampaigns.Id);
                     foreach (var item in masterChild)
                     {
-                        Childvm.BusinessGroupViewModels = item.BusinessGroups;
-                        Childvm.SegmentViewModels = item.Segments;
+                        // Childvm.BusinessGroupViewModels = item.BusinessGroups;
+                        //Childvm.SegmentViewModels = item.Segments;
+                        if (Childvm.CampaignTypes == 0)
+                        {
+                            Childvm.BusinessGroupViewModels = Childvm.BusinessGroupViewModels.Concat(item.BusinessGroups);
+                            Childvm.SegmentViewModels = item.Segments;
+                        }
+                        else
+                        {
+                            Childvm.BusinessGroupViewModels = item.BusinessGroups;
+                            Childvm.SegmentViewModels = Childvm.SegmentViewModels.Concat(item.Segments);
+                        }
+                        
                         Childvm.GeographyViewModels = item.Geographys;
                         Childvm.ThemeViewModels = item.Themes;
 
@@ -233,11 +244,13 @@ namespace MRM.Controllers
                     model.ThemeViewModels = item.Themes;
                     if (model.Segments_Id != null)
                     {
-                        model.IndustryViewModels = item.Industries;
+                        if (model.Segments_Id[0] != 0 && model.Segments_Id[0] != -1)
+                            model.IndustryViewModels = item.Industries;
                     }
                     if (model.BusinessGroups_Id != null)
                     {
-                        model.BusinessLineViewModels = item.BusinessLines;
+                        if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
+                            model.BusinessLineViewModels = item.BusinessLines;
                     }
                     model.MCStartDate = item.StartDate;
                     model.MCEndDate = item.EndDate;
@@ -296,11 +309,13 @@ namespace MRM.Controllers
                     model.ThemeViewModels = item.Themes;
                     if (model.Segments_Id != null)
                     {
-                        model.IndustryViewModels = item.Industries;
+                        if (model.Segments_Id[0] != 0 && model.Segments_Id[0] != -1)
+                            model.IndustryViewModels = item.Industries;
                     }
                     if (model.BusinessGroups_Id != null)
                     {
-                        model.BusinessLineViewModels = item.BusinessLines;
+                        if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
+                            model.BusinessLineViewModels = item.BusinessLines;
                     }
                     model.MCStartDate = item.StartDate;
                     model.MCEndDate = item.EndDate;
@@ -314,8 +329,8 @@ namespace MRM.Controllers
         }
         public ActionResult LoadMasterCampaign(ChildCampaignViewModel model)
         {
-
-
+            model.Industries_Id = null;
+            model.BusinessLines_Id = null;
             //List<ChildCampaign> masterChild = _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaignId);
 
             if (model.MasterCampaignId != 0)
@@ -335,7 +350,18 @@ namespace MRM.Controllers
                         model.BusinessGroupViewModels = item.BusinessGroups;
                         model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments);
                     }
-                    model.BusinessLineViewModels = item.BusinessLines;
+
+                    if (model.Segments_Id != null)
+                    {
+                        if (model.Segments_Id[0] != 0 && model.Segments_Id[0] != -1)
+                            model.IndustryViewModels = item.Industries;
+                    }
+                    if (model.BusinessGroups_Id != null)
+                    {
+                        if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
+                            model.BusinessLineViewModels = item.BusinessLines;
+                    }
+                    
                     model.ThemeViewModels = item.Themes;
                     model.GeographyViewModels = item.Geographys;
                     //model.StartDate = item.StartDate;
