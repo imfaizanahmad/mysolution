@@ -196,6 +196,10 @@ namespace MRM.Business.Services
                 }
             }
 
+            if (model.Id == 0)
+            {
+                tacticCampaignEntity.VisitedDate = DateTime.Now;
+            }
         }
 
         public bool InsertTacticCampaign(TacticCampaignViewModel model)
