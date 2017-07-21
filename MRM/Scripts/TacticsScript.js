@@ -838,15 +838,29 @@ function CollectTacticFormData() {
     data.EndDate = $.datepicker.formatDate('mm/dd/yy', $("#EndDate").datepicker("getDate"));
   
 
+
+
+
+
     data.BusinessGroups_Id = [];
-    $('#frmTacticCampaign').find('#BusinessGroups_Id').closest('.form-group').find('ul li.search-choice').each(function () {
-        data.BusinessGroups_Id.push($('#frmTacticCampaign').find('#BusinessGroups_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
-    });
+    if ($('#SubCampaignType').val() == 0) {
+        data.BusinessGroups_Id.push($('#frmTacticCampaign').find('#BusinessGroups_Id option:selected').val());
+    } else {
+        $('#frmTacticCampaign').find('#BusinessGroups_Id').closest('.form-group').find('ul li.search-choice').each(function () {
+            data.BusinessGroups_Id.push($('#frmTacticCampaign').find('#BusinessGroups_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
+        });
+    }
 
     data.Segments_Id = [];
-    $('#frmTacticCampaign').find('#Segments_Id').closest('.form-group').find('ul li.search-choice').each(function () {
-        data.Segments_Id.push($('#frmTacticCampaign').find('#Segments_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
-    });
+    if ($('#SubCampaignType').val() == 0) {
+        $('#frmTacticCampaign').find('#Segments_Id').closest('.form-group').find('ul li.search-choice').each(
+            function() {
+                data.Segments_Id.push($('#frmTacticCampaign').find('#Segments_Id option')
+                    .eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
+            });
+    } else {
+        data.Segments_Id.push($('#frmTacticCampaign').find('#Segments_Id option:selected').val());
+    }
 
     data.BusinessLines_Id = [];
     $('#frmTacticCampaign').find('#BusinessLines_Id').closest('.form-group').find('ul li.search-choice').each(function () {
@@ -905,7 +919,7 @@ function PreventSpecialChar() {
             var data = $('#TacticDescription').val();
             //replace the special characters to '' 
             //var dataFull = data.replace(/[^\w\s]/gi, '');
-            var dataFull = data.replace(/[&/,";]/g, '');
+            var dataFull = data.replace(/[&/,";“”]/g, '');
             //set the new value of the input text without special characters
             $('#TacticDescription').val(dataFull);
         });
@@ -915,7 +929,7 @@ function PreventSpecialChar() {
     $("#Name").bind('paste', function () {
         setTimeout(function () {
             var data = $('#Name').val();
-            var dataFull = data.replace(/[&/,";]/g, '');
+            var dataFull = data.replace(/[&/,";“”]/g, '');
             $('#Name').val(dataFull);
         });
 
@@ -924,17 +938,13 @@ function PreventSpecialChar() {
     $("#Vendor").bind('paste', function () {
         setTimeout(function () {
             var data = $('#Vendor').val();
-            var dataFull = data.replace(/[&/,";]/g, '');
+            var dataFull = data.replace(/[&/,";“”]/g, '');
             $('#Vendor').val(dataFull);
         });
 
     });
 
 }
-
-
-
-
 
 
 function RemoveZeroFromMetric() {

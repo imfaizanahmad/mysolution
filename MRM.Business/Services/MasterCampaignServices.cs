@@ -132,6 +132,11 @@ namespace MRM.Business.Services
             masterCampaignEntity.Segments = lstsegment;
             masterCampaignEntity.Industries = lstindustry;
             masterCampaignEntity.Geographys = lstgeography;
+            if (model.Id == 0)
+            {
+                masterCampaignEntity.VisitedDate = DateTime.Now;
+            }
+
             return;
         }
 
