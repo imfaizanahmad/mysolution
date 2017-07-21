@@ -85,7 +85,7 @@
         commonUiInitialization();
         $('#globalLoader').remove();
         GetBGandSegmentSingleDDl();
-
+        GetSubCampaignType();
     };
 
     $(document).ready(function () {
@@ -139,6 +139,7 @@
 
         commonUiInitialization();
         GetBGandSegmentSingleDDl();
+        GetSubCampaignType();
         DatePickeronCalIcon();
         $(document).on("change", "#CampaignTypes", function () {
             GetBGandSegmentSingleDDl();
@@ -229,7 +230,48 @@
         }
 
     }
-     
+
+
+  function  GetSubCampaignType()
+    {
+      if ($('#ChildCampaign_Id').val() == 0 || $('#ChildCampaign_Id').val() == "-1") {
+          $('.validmsgbusinesIndustry').hide();
+          $('.Industrymanage-mandate').hide();
+      }
+
+            var $select = $('#BusinessGroups_Id');
+            var $selectSegment = $('#Segments_Id');
+            if ($('#SubCampaignType').val() == 0) {
+                $select.chosen('destroy');
+                $select.removeAttr('multiple');
+                $select.chosen();
+        
+                $selectSegment.chosen('destroy');
+                $selectSegment.attr('multiple', 'multiple');
+                $selectSegment.chosen();
+
+                $('a[data-target-id="BusinessGroups_Id"]').hide();
+                $('a[data-target-id="Segments_Id"]').show();
+                $('.validmsgbusinesIndustry').hide();
+                $('.Industrymanage-mandate').hide();
+
+            }
+            else if ($('#SubCampaignType').val() == 1) {
+                $selectSegment.chosen('destroy');
+                $selectSegment.removeAttr('multiple');
+                $selectSegment.chosen();
+          
+                $select.chosen('destroy');
+                $select.attr('multiple', 'multiple');
+                $select.chosen();
+
+                $('a[data-target-id="BusinessGroups_Id"]').show();
+                $('a[data-target-id="Segments_Id"]').hide();
+                $('.manage-mandate').show();
+            }
+    }
+
+    
     function chosenclear() {
         var $select = $('#BusinessGroups_Id');
         var $selectSegment = $('#Segments_Id');

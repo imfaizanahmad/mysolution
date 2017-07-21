@@ -28,7 +28,7 @@
                     <div class="legend2 text-danger">Note: Mandatory fields is marked with red aestric (*)</div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="MC">
                                 <div class="form-group">
                                     <label>Master Campaign</label><span class="text-danger">*</span><br />
                                     @Html.DropDownListFor(m => m.MasterCampaign_Id, new SelectList(Model.MasterViewModels, "Id", "Name",
