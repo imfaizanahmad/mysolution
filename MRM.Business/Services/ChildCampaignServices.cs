@@ -153,6 +153,11 @@ namespace MRM.Business.Services
             childCampaignEntity.Segments = lstsegment;
             childCampaignEntity.Industries = lstindustry;
             childCampaignEntity.Geographys = lstgeography;
+            if (model.Id == 0)
+            {
+                childCampaignEntity.VisitedDate = DateTime.Now;
+            }
+
         }
 
         public void Update(ChildCampaignViewModel model)
