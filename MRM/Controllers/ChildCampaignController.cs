@@ -142,6 +142,7 @@ namespace MRM.Controllers
 
                 Childvm.Name = childCampaign.Name;
                 Childvm.CampaignDescription = childCampaign.CampaignDescription;
+                Childvm.CampaignManager = childCampaign.CampaignManager;
                 Childvm.MarketingInfluenceLeads = childCampaign.MarketingInfluenceLeads;
                 Childvm.MarketingGeneratedLeads = childCampaign.MarketingGeneratedLeads;
                 Childvm.Budget = childCampaign.Budget;
@@ -546,6 +547,7 @@ namespace MRM.Controllers
                                                                       InheritStatus = (ReturnInheritStatus(campaign.Id))=="Complete"?"Complete":(campaign.Status == "Save Draft" ? "Draft" : "Active"),
                                                                       Name = campaign.Name,
                                                                       CampaignDescription = campaign.CampaignDescription,
+                                                                      CampaignManager=campaign.CampaignManager,
                                                                       Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
                                                                       StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
                                                                       EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)

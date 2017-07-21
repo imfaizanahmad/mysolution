@@ -29,14 +29,16 @@ function MasterCampaignBindGrid(panel) {
                     { title: "Campaign Id", data: "Id" },
                     { title: "Name", data: "Name" },
                     { title: "Master Campaign Description & Goals", data: "CampaignDescription" },
+                    { title: "Campaign Manager", data: "CampaignManager" },
                     { title: "Status", data: "InheritStatus" },
                     { title: "Start date", data: "StartDate" },
                     { title: "End date", data: "EndDate" },
+                    { title: "Created By", data: "CreatedBy" },
                     { title: "Action" },
                 ],
                 columnDefs: [
                         {
-                            "targets": 6, //Action
+                            "targets": 8, //Action
                             "data": null,
                             "render": function (data, type, full, meta) {
                                 if (data.Status && data.Status.toLowerCase() === 'active')

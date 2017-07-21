@@ -86,6 +86,14 @@
         AddUpdateDetailsPopUp(dialog);
     };   
 
+    var emailvalidate = function (text) {
+        ///^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+        var checkmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!checkmail.test(text))
+            return false;
+        else
+            return true;
+    };
     return {
         ConfirmationDialog: function (title, message, callback) {
             ConfirmationDialog(title, message, callback);
@@ -95,7 +103,10 @@
         },       
         OpenPopUp: function (response) {
             OpenPopUp(response);
-        },       
+        },
+        emailvalidate: function (text) {
+            return emailvalidate(text);
+        },
         CachedAsCookies: CachedAsCookies
     };
 

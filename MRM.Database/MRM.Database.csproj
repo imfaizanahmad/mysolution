@@ -70,9 +70,9 @@
     <Compile Include="GenericRepository\GenericRepository.cs" />
     <Compile Include="GenericRepository\IGenericRepository.cs" />
     <Compile Include="GenericUnitOfWork\GenericUnitOfWork .cs" />
-    <Compile Include="Migrations\201707190848569_OnDemo19072017.cs" />
-    <Compile Include="Migrations\201707190848569_OnDemo19072017.Designer.cs">
-      <DependentUpon>201707190848569_OnDemo19072017.cs</DependentUpon>
+    <Compile Include="Migrations\201707210736599_third.cs" />
+    <Compile Include="Migrations\201707210736599_third.Designer.cs">
+      <DependentUpon>201707210736599_third.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
@@ -101,8 +101,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707190848569_OnDemo19072017.resx">
-      <DependentUpon>201707190848569_OnDemo19072017.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707210736599_third.resx">
+      <DependentUpon>201707210736599_third.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

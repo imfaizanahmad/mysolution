@@ -358,6 +358,7 @@
     <Content Include="Views\MasterCampaign\CampaignList.cshtml" />
     <Content Include="Views\ChildCampaign\ChildCampaignList.cshtml" />
     <Content Include="Views\TacticCampaign\TacticCampaignList.cshtml" />
+    <Content Include="Views\TacticCampaign\tacticdigital.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

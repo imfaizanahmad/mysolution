@@ -99,6 +99,7 @@ namespace MRM.Controllers
 
                 mcvm.Name = masterCampaign.Name;
                 mcvm.CampaignDescription = masterCampaign.CampaignDescription;
+                mcvm.CampaignManager = masterCampaign.CampaignManager;
                 if (masterCampaign.StartDate != null) mcvm.StartDate = masterCampaign.StartDate.Value;
                 if (masterCampaign.EndDate != null) mcvm.EndDate = masterCampaign.EndDate.Value;
                 mcvm.Id = Id;
