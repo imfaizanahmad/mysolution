@@ -41,7 +41,7 @@
                                 <label>Master Campaign Manager<span class="text-danger">*</span></label>
                                 @Html.TextBoxFor(m => m.CampaignManager, (Model.Id != 0 && Model.Status == "Complete") ?
                                     (object)new { disabled = "disabled", @class = "form-control" } :
-                                    (object)new { @class = "form-control", @maxlength = "200" })
+                                    (object)new { @class = "form-control", @maxlength = "200",@placeholder="user@nokia.com" })
                                 <div class="validmsgMastermanager"></div>
                             </div>
                         </div>
