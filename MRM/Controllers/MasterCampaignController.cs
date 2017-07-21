@@ -300,6 +300,8 @@ namespace MRM.Controllers
                                                                        {
                                                                            Id = string.Format("M{0}", campaign.Id.ToString("0000000")),
                                                                            Name = campaign.Name,
+                                                                           CampaignManager = campaign.CampaignManager,
+                                                                           CreatedBy = campaign.CreatedBy,
                                                                            InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
                                                                            CampaignDescription = campaign.CampaignDescription,
                                                                            Status = campaign.Status=="Save Draft"? "Draft":"Active",

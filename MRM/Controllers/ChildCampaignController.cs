@@ -548,6 +548,7 @@ namespace MRM.Controllers
                                                                       Name = campaign.Name,
                                                                       CampaignDescription = campaign.CampaignDescription,
                                                                       CampaignManager=campaign.CampaignManager,
+                                                                      CreatedBy = campaign.CreatedBy,
                                                                       Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
                                                                       StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
                                                                       EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
