@@ -619,3 +619,12 @@ function PreventSpecialChar() {
 
 }
 
+        // this example uses the id selector & no options passed    
+        jQuery(function ($) {
+            $('#Budget').autoNumeric('init');
+            $('#Spend').autoNumeric('init');
+        });
+
+
+
+
