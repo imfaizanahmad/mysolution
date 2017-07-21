@@ -905,7 +905,7 @@ function PreventSpecialChar() {
             var data = $('#TacticDescription').val();
             //replace the special characters to '' 
             //var dataFull = data.replace(/[^\w\s]/gi, '');
-            var dataFull = data.replace(/[&/,";]/g, '');
+            var dataFull = data.replace(/[&/,";“”]/g, '');
             //set the new value of the input text without special characters
             $('#TacticDescription').val(dataFull);
         });
@@ -915,7 +915,7 @@ function PreventSpecialChar() {
     $("#Name").bind('paste', function () {
         setTimeout(function () {
             var data = $('#Name').val();
-            var dataFull = data.replace(/[&/,";]/g, '');
+            var dataFull = data.replace(/[&/,";“”]/g, '');
             $('#Name').val(dataFull);
         });
 
@@ -924,17 +924,13 @@ function PreventSpecialChar() {
     $("#Vendor").bind('paste', function () {
         setTimeout(function () {
             var data = $('#Vendor').val();
-            var dataFull = data.replace(/[&/,";]/g, '');
+            var dataFull = data.replace(/[&/,";“”]/g, '');
             $('#Vendor').val(dataFull);
         });
 
     });
 
 }
-
-
-
-
 
 
 function RemoveZeroFromMetric() {
