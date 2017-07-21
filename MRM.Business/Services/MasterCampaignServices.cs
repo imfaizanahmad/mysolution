@@ -47,6 +47,7 @@ namespace MRM.Business.Services
             
             masterCampaignEntity.Name = model.Name;
             masterCampaignEntity.CampaignDescription = model.CampaignDescription;
+            masterCampaignEntity.CampaignManager = model.CampaignManager;
             masterCampaignEntity.StartDate = model.StartDate;
             masterCampaignEntity.EndDate = model.EndDate;
             masterCampaignEntity.Status = model.Status;

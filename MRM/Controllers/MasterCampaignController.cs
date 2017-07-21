@@ -99,6 +99,7 @@ namespace MRM.Controllers
 
                 mcvm.Name = masterCampaign.Name;
                 mcvm.CampaignDescription = masterCampaign.CampaignDescription;
+                mcvm.CampaignManager = masterCampaign.CampaignManager;
                 if (masterCampaign.StartDate != null) mcvm.StartDate = masterCampaign.StartDate.Value;
                 if (masterCampaign.EndDate != null) mcvm.EndDate = masterCampaign.EndDate.Value;
                 mcvm.Id = Id;
@@ -301,7 +302,9 @@ namespace MRM.Controllers
                                                                            Name = campaign.Name,
                                                                            InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
                                                                            CampaignDescription = campaign.CampaignDescription,
-                                                                           Status = campaign.Status=="Save Draft"? "Draft":"Active",
+                                                                           CampaignManager = campaign.CampaignManager,
+                                                                           CreatedBy = campaign.CreatedBy,
+                                                                           Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
                                                                            StartDate = String.Format("{0:dd/MM/yyyy}", campaign.StartDate),
                                                                            EndDate = String.Format("{0:dd/MM/yyyy}", campaign.EndDate)
                                                                        }

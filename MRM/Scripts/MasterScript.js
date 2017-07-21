@@ -236,6 +236,24 @@ function ValidateMasterForm() {
         $('.validmsgMaster').hide();
     }
 
+    if ($('#CampaignManager').val().trim() == "") {
+        $('.validmsgMastermanager').text("Please enter Master Campaign Manager").css("color", "#b94a48");
+        $('.validmsgMastermanager').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#MCN"; validationFocusFlag = 1; }
+        flag = false;
+    }
+    else {
+        if (ConfigurationModel.emailvalidate($('#CampaignManager').val())) {
+            $('.validmsgMastermanager').hide();
+        }
+        else {
+            $('.validmsgMastermanager').text("Please enter valid Master Campaign Manager").css("color", "#b94a48");
+            $('.validmsgMastermanager').show();
+            if (validationFocusFlag == 0) { validationFocusId = "#MCN"; validationFocusFlag = 1; }
+            flag = false;
+        }
+    }
+
     if ($('#CampaignDescription').val().trim() === "") {
         $('.validmsgMasterDesc').text("Please enter Master Campaign Description & Goals").css("color", "#b94a48");
         $('.validmsgMasterDesc').show();
