@@ -26,6 +26,7 @@ namespace MRM.ViewModel
         public int Id { get; set; }
         public string Name { get; set; }
         public string CampaignDescription { get; set; }
+        public string CampaignManager { get; set; }
         public string Status { get; set; }
         public Boolean IsActive { get; set; }
         public string CreatedDate { get; set; }

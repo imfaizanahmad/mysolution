@@ -12,6 +12,7 @@ namespace MRM.Database.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string CampaignDescription { get; set; }
+        public string CampaignManager { get; set; }
         public string Budget { get; set; }
         public string Spend { get; set; }
         public string MarketingInfluenceLeads { get; set; }

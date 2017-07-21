@@ -23,7 +23,8 @@
 
                 <fieldset>
 
-                    <legend class="header-color">Master Campaign
+                    <legend class="header-color">
+                        Master Campaign
                         @*<span class="text-danger" style="float:right;font-size:x-small">Note: Mandatory fields is marked with red aestric (*)</span>*@
                     </legend>
                     <div class="legend2 text-danger">Note: Mandatory fields is marked with red aestric (*)</div>
@@ -36,6 +37,13 @@
                                             (object)new { @class = "form-control", @maxlength = "30", onkeypress = "return alpha(event,Name)" })
                                 <div class="validmsgMaster"></div>
                             </div>
+                            <div class="form-group">
+                                <label>Master Campaign Manager<span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.CampaignManager, (Model.Id != 0 && Model.Status == "Complete") ?
+                                    (object)new { disabled = "disabled", @class = "form-control" } :
+                                    (object)new { @class = "form-control", @maxlength = "200",@placeholder="user@nokia.com" })
+                                <div class="validmsgMastermanager"></div>
+                            </div>
                         </div>
                         <div class="col-md-6" id="MCD">
                             <div class="form-group">
@@ -45,7 +53,6 @@
                                     (object)new { @class = "form-control", @maxlength = "500", onkeypress = "return alpha(event,CampaignDescription)" })
                                 <div class="validmsgMasterDesc HideOnsave"></div>
                             </div>
-
                         </div>
                     </div>
 
@@ -218,18 +225,18 @@
 </form>
 
 @*<script>
-    function funcLoadBusinessLine() {
-        if ($("#BusinessGroups_Id").val() != null) {
-            $.ajax({
-                type: "POST",
-                url: '/MasterCampaign/LoadBusinessLine',
-                data: $("#frmMasterCampaign").serialize(),
-                success: function (data) {
-                    $("#dvFormMasterCampaign").html(data);
-                    PreventSpecialChar();
-                    BindDatePickerCalender();
-                }
-            });
+        function funcLoadBusinessLine() {
+            if ($("#BusinessGroups_Id").val() != null) {
+                $.ajax({
+                    type: "POST",
+                    url: '/MasterCampaign/LoadBusinessLine',
+                    data: $("#frmMasterCampaign").serialize(),
+                    success: function (data) {
+                        $("#dvFormMasterCampaign").html(data);
+                        PreventSpecialChar();
+                        BindDatePickerCalender();
+                    }
+                });
+            }
         }
-    }
-</script>*@
+    </script>*@

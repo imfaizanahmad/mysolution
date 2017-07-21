@@ -52,6 +52,7 @@ namespace MRM.Business.Services
                 .GetByID(model.MasterCampaignId);
             childCampaignEntity.Name = model.Name;
             childCampaignEntity.CampaignDescription = model.CampaignDescription;
+            childCampaignEntity.CampaignManager = model.CampaignManager;
             childCampaignEntity.StartDate = model.StartDate;
             childCampaignEntity.EndDate = model.EndDate;
             childCampaignEntity.Status = model.Status;
