@@ -26,7 +26,7 @@
                     </legend>
                     <div class="legend2 text-danger">Note: Mandatory fields is marked with red aestric (*)</div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="MC">
                                 <div class="form-group">
                                     <label>Master Campaign</label><span class="text-danger">*</span><br />
                                     @Html.DropDownListFor(m => m.MasterCampaignId, new SelectList(Model.MasterViewModels, "Id", "Name",
@@ -39,7 +39,7 @@
                             </div>                    
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="SCN">
                                 <div class="form-group">
                                     <label>Sub Campaign Name</label><span class="text-danger">*</span>
                                     @Html.TextBoxFor(m => m.Name,
@@ -50,7 +50,7 @@
                                     <div class="validmsgSubCamp HideOnsave"></div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="SDC">
                                 <div class="form-group">
                                     <label>Sub Campaign Description & Goals<span class="text-danger">*</span></label>
                                     @Html.TextAreaFor(m => m.CampaignDescription, (Model.Id != 0 && Model.Status == "Complete") ?
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="Thm">
                                 <div class="form-group">
                                     <label>Theme</label>  <br />
                                     @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name", Model.Themes_Id), (Model.Id != 0 && Model.Status == "Complete") ?
@@ -72,7 +72,7 @@
                                  </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group" id="Mrk">
                                     <label>Markets</label><span class="text-danger"></span><br />
                                     @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
@@ -85,7 +85,7 @@
                         </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="SD">
                             <label>Start Date</label><span class="text-danger lb-sm"> (DD/MM/YYYY)*</span>
                             <div class="form-group">
                                 <div id="dvStartDate" class="col-md-6 date datealign">
@@ -101,7 +101,7 @@
                       
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="ED">
                             <label>End Date</label><span class="text-danger lb-sm"> (DD/MM/YYYY)*</span>
                             <div class="form-group">
                                 <div id="dvEndDate" class="col-md-6 form-group date datealign">
@@ -123,7 +123,7 @@
                     </div>
                           
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="CL">
                                 <div class="form-group">
                                     <label>Campaign Lead<span class="text-danger">*</span></label><br />
                                     @Html.EnumDropDownListFor(m=>m.CampaignTypes,(Model.Id != 0 && Model.Status == "Complete") ?
@@ -137,7 +137,7 @@
                             </div>
                         </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="BG">
                                         <div class="form-group">
                                             <label>Business Group</label><span class="text-danger">*</span><br />
                                             @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), (Model.Id != 0 && Model.Status == "Complete") ?
@@ -149,7 +149,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="Seg">
                                         <div class="form-group">
                                             <label>Segment</label><span class="text-danger">*</span><br />
                                             @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), (Model.Id != 0 && Model.Status == "Complete") ?
@@ -163,7 +163,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="BL">
                                         <div class="form-group">
                                             <label>Business Line</label><span class="text-danger">*</span><br />
                                             @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id), (Model.Id != 0 && Model.Status == "Complete") ?
@@ -174,7 +174,7 @@
                                             <div class="validmsgbusinesLine HideOnsave"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="Ind">
                                         <div class="form-group">
                                             <label>Industry</label><span class="text-danger manage-mandate">*</span><br />
                                             @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), (Model.Id != 0 && Model.Status == "Complete") ?
@@ -188,7 +188,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="Bud">
                                         <div class="form-group">
                                             <label>Budget<span class="text-danger">*</span></label>
                                             @Html.TextBoxFor(m => m.Budget, (Model.Id != 0 && Model.Status == "Complete") ?
@@ -197,7 +197,7 @@
                                             <div class="validmsgBudget HideOnsave"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="SP">
                                         <div class="form-group">
                                             <label>Spend</label><br />
                                             @Html.TextBoxFor(m => m.Spend, (Model.Id != 0 && Model.Status == "Complete") ?
@@ -216,7 +216,7 @@
                         </div>
                     </div>
                         <div class="row">
-                            <div class="col-md-9" style="margin-left: 130px;margin-right: 150px">
+                            <div class="col-md-9" style="margin-left: 130px;margin-right: 150px" id="Met">
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>

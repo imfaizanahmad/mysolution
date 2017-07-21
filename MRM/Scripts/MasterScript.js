@@ -21,7 +21,9 @@ $(document).ready(function () {
             });
         }
         else {
-            $("html, body").animate({ scrollTop: 0 }, "slow");
+            var pos = $(validationFocusId).offset().top;
+            // animated top scrolling
+            $('body, html').animate({ scrollTop: pos - 70 });
         }
     });
 
@@ -37,7 +39,9 @@ $(document).ready(function () {
             });
         }
         else {
-            $("html, body").animate({ scrollTop: 0 }, "slow");
+            var pos = $(validationFocusId).offset().top;
+            // animated top scrolling
+            $('body, html').animate({ scrollTop: pos - 70 });
         }
     });
 
@@ -177,11 +181,18 @@ function funcLoadIndustry() {
     }
 }
 
+var validationFocusId = null;
+var validationFocusFlag = 0;
+
 function ValidateSaveMasterForm() {
     var flag = true;
+    validationFocusId = null;
+    validationFocusFlag = 0;
+
     if ($('#Name').val().trim() == "") {
         $('.validmsgMaster').text("Please enter Master Campaign Name").css("color", "#b94a48");
         $('.validmsgMaster').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#MC"; validationFocusFlag = 1; }
         flag = false;
     }
     else {
@@ -198,6 +209,7 @@ function ValidateSaveMasterForm() {
         if (startdate > enddate) {
             $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
             $('.validmsgDatecompare').show();
+            if (validationFocusFlag == 0) { validationFocusId = "#SD"; validationFocusFlag = 1; }
             flag = false;
         } else {
             $('.validmsgDatecompare').hide();
@@ -211,56 +223,33 @@ function ValidateSaveMasterForm() {
 
 function ValidateMasterForm() {
     var flag = true;
+    validationFocusId = null;
+    validationFocusFlag = 0;
 
-    if ($('#BusinessGroups_Id').val() == null) {
-
-        $('.validmsgbusinesGp').text("Please select Business Group.").css("color", "#b94a48");
-        $('.validmsgbusinesGp').show();
+    if ($('#Name').val().trim() == "") {
+        $('.validmsgMaster').text("Please enter Master Campaign Name").css("color", "#b94a48");
+        $('.validmsgMaster').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#MCN"; validationFocusFlag = 1; }
         flag = false;
-
     }
     else {
-        $('.validmsgbusinesGp').hide();
+        $('.validmsgMaster').hide();
     }
 
-    if ($('#BusinessLines_Id').val() == null) {
-
-        $('.validmsgbusinesLine').text("Please select Business Line").css("color", "#b94a48");
-        $('.validmsgbusinesLine').show();
+    if ($('#CampaignDescription').val().trim() === "") {
+        $('.validmsgMasterDesc').text("Please enter Master Campaign Description & Goals").css("color", "#b94a48");
+        $('.validmsgMasterDesc').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#MCD"; validationFocusFlag = 1; }
         flag = false;
-
     }
     else {
-        $('.validmsgbusinesLine').hide();
+        $('.validmsgMasterDesc').hide();
     }
-
-    if ($('#Segments_Id').val() == null) {
-
-        $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
-        $('.validmsgbusinesSegment').show();
-        flag = false;
-
-    }
-    else {
-        $('.validmsgbusinesSegment').hide();
-    }
-
-    if ($('#Industries_Id').val() == null) {
-
-        $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");
-        $('.validmsgbusinesIndustry').show();
-        flag = false;
-
-    }
-    else {
-        $('.validmsgbusinesIndustry').hide();
-    }
-
-
     if ($('#Geographys_Id').val() === null) {
 
         $('.validmsgbusinesGeography').text("Please select Markets").css("color", "#b94a48");
         $('.validmsgbusinesGeography').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#Mrk"; validationFocusFlag = 1; }
         flag = false;
 
     }
@@ -268,10 +257,60 @@ function ValidateMasterForm() {
         $('.validmsgbusinesGeography').hide();
     }
 
+    if ($('#BusinessGroups_Id').val() == null) {
+
+        $('.validmsgbusinesGp').text("Please select Business Group.").css("color", "#b94a48");
+        $('.validmsgbusinesGp').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#BG"; validationFocusFlag = 1; }
+        flag = false;
+
+    }
+    else {
+        $('.validmsgbusinesGp').hide();
+    }
+
+
+    if ($('#Segments_Id').val() == null) {
+
+        $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
+        $('.validmsgbusinesSegment').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#Seg"; validationFocusFlag = 1; }
+        flag = false;
+
+    }
+    else {
+        $('.validmsgbusinesSegment').hide();
+    }
+
+    if ($('#BusinessLines_Id').val() == null) {
+
+        $('.validmsgbusinesLine').text("Please select Business Line").css("color", "#b94a48");
+        $('.validmsgbusinesLine').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#BL"; validationFocusFlag = 1; }
+        flag = false;
+
+    }
+    else {
+        $('.validmsgbusinesLine').hide();
+    }
+
+
+    if ($('#Industries_Id').val() == null) {
+
+        $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");
+        $('.validmsgbusinesIndustry').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#Ind"; validationFocusFlag = 1; }
+        flag = false;
+
+    }
+    else {
+        $('.validmsgbusinesIndustry').hide();
+    }
 
     if ($("#StartDate").val() == "") {
         $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
         $('.validmsgSdate').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#SD"; validationFocusFlag = 1; }
         flag = false;
 
     }
@@ -282,6 +321,7 @@ function ValidateMasterForm() {
     if ($("#EndDate").val() == "") {
         $('.validmsgEdate').text("Please select End Date").css("color", "#b94a48");
         $('.validmsgEdate').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#ED"; validationFocusFlag = 1; }
         flag = false;
     }
     else {
@@ -294,29 +334,14 @@ function ValidateMasterForm() {
     if (startdate > enddate) {
         $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
         $('.validmsgDatecompare').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#ED"; validationFocusFlag = 1; }
         flag = false;
     }
     else {
         $('.validmsgDatecompare').hide();
     }
 
-    if ($('#Name').val().trim() == "") {
-        $('.validmsgMaster').text("Please enter Master Campaign Name").css("color", "#b94a48");
-        $('.validmsgMaster').show();
-        flag = false;
-    }
-    else {
-        $('.validmsgMaster').hide();
-    }
-
-    if ($('#CampaignDescription').val().trim() === "") {
-        $('.validmsgMasterDesc').text("Please enter Master Campaign Description & Goals").css("color", "#b94a48");
-        $('.validmsgMasterDesc').show();
-        flag = false;
-    }
-    else {
-        $('.validmsgMasterDesc').hide();
-    }
+  
     return flag;
 }
 
