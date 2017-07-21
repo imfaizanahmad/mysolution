@@ -56,7 +56,7 @@ namespace MRM.Controllers
             tacticvm.TacticTypeViewModels = tacticvm.TacticTypeViewModels.Concat(ttList);
             tacticvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
 
-          //  MasterList();
+          // MasterList();
             if (Id == 0)
             {
                 //tacticvm.VendorViewModels = _vendorService.GetVendor();

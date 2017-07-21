@@ -36,7 +36,9 @@
             });
         }
         else {
-            $("html, body").animate({ scrollTop: 0 }, "slow");
+            var pos = $(validationFocusId).offset().top;
+            // animated top scrolling
+            $('body, html').animate({ scrollTop: pos - 70 });
         }
     });
 
@@ -55,11 +57,10 @@
             });
         }
         else {
-            $("html, body").animate({ scrollTop: 0 }, "slow");
-           
-            //$('html, body').animate({
-            //    scrollTop: $("#MC").offset().top
-            //}, "slow");
+
+            var pos = $(validationFocusId).offset().top;
+            // animated top scrolling
+            $('body, html').animate({ scrollTop: pos -70});
         }
     });
 
@@ -274,6 +275,9 @@
 
 });
 
+var validationFocusId = null;
+var validationFocusFlag = 0;
+
 function DisableOptionBasedOnSelection(ddlType) {
     if (ddlType == 'ddlMetricReach') {
         var ddlMetricReach = $('#tblBenchmark tbody select.ddlMetricReach');
@@ -322,8 +326,6 @@ function funcLoadIndustry() {
     }
 }
 
-
-
 //Special character not allowed
 function blockSpecialChar(e) {
     var k;
@@ -345,10 +347,18 @@ function numericvalidate(evt) {
 
 function ValidateTacticSaveasDraft() {
     var flag = true;
+    validationFocusId = null;
+    validationFocusFlag = 0;
+
     if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0 || $('#MasterCampaign_Id').val() == "") {
 
         $('.validmsgMastercampaign').text("Please select Master Campaign.").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
+        if (validationFocusFlag == 0) {
+            validationFocusId = "#MC";
+            validationFocusFlag = 1;
+        }
+        
         flag = false;
 
     }
@@ -360,6 +370,7 @@ function ValidateTacticSaveasDraft() {
 
         $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
         $('.validmsgSubcampaign').show();
+        if (validationFocusFlag == 0) {validationFocusId = "#SC";validationFocusFlag = 1;}
         flag = false;
 
     } else {
@@ -376,6 +387,7 @@ function ValidateTacticSaveasDraft() {
         if (startdate > enddate) {
             $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
             $('.validmsgDatecompare').show();
+            if (validationFocusFlag == 0) { validationFocusId = "#ED"; validationFocusFlag = 1; }
             flag = false;
         } else {
             $('.validmsgDatecompare').hide();
@@ -400,6 +412,7 @@ function ValidateTacticSaveasDraft() {
                             DisMCEnddate +
                             "").css("color", "#b94a48");
                 $('.validmsgDateMCcompare').show();
+                if (validationFocusFlag == 0) { validationFocusId = "#ED"; validationFocusFlag = 1; }
                 flag = false;
 
             } else if (enddate > MCEnddate) {
@@ -411,6 +424,7 @@ function ValidateTacticSaveasDraft() {
                             DisMCEnddate +
                             "").css("color", "#b94a48");
                 $('.validmsgDateMCcompare').show();
+                if (validationFocusFlag == 0) { validationFocusId = "#ED"; validationFocusFlag = 1; }
                 flag = false;
             } else {
                 $('.validmsgDateMCcompare').hide();
@@ -440,29 +454,19 @@ function ValidateTacticSaveasDraft() {
     return flag;
 }
 
-function goToByScroll(id) {
-    // Scroll
-    //$("html, body").delay(2000).animate({
-    //    scrollTop: $("#" + id).offset().top
-    //}, 2000);
-
-    $('html, body').animate({
-        scrollTop: $("#" + id).offset().top
-    }, "slow");
-}
-
-
-
 function ValidateSubmitTacticForm() {
     var flag = true;
+    validationFocusId = null;
+    validationFocusFlag = 0;
+
     if ($('#MasterCampaign_Id').val() == null || $('#MasterCampaign_Id').val() == 0 || $('#MasterCampaign_Id').val() == "") {
 
         $('.validmsgMastercampaign').text("Please select Master Campaign.").css("color", "#b94a48");
         $('.validmsgMastercampaign').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#MC"; validationFocusFlag = 1; }
         flag = false;
 
-      //  goToByScroll(MasterCampaign_Id);
-       
+     
     }
     else {
         $('.validmsgMastercampaign').hide();
@@ -472,10 +476,8 @@ function ValidateSubmitTacticForm() {
 
         $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
         $('.validmsgSubcampaign').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#SC"; validationFocusFlag = 1; }
         flag = false;
-
-      //  goToByScroll(ChildCampaign_Id);
-  
 
     } else {
         $('.validmsgSubcampaign').hide();
@@ -495,6 +497,7 @@ function ValidateSubmitTacticForm() {
 
         $('.validmsgTactictype').text("Please select Tactic Type").css("color", "#b94a48");
         $('.validmsgTactictype').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#TT"; validationFocusFlag = 1; }
         flag = false;
 
     } else {
@@ -505,42 +508,147 @@ function ValidateSubmitTacticForm() {
 
         $('.validmsgJourneyStage').text("Please select Journey Stage").css("color", "#b94a48");
         $('.validmsgJourneyStage').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#JS"; validationFocusFlag = 1; }
         flag = false;
 
     } else {
         $('.validmsgJourneyStage').hide();
     }
+    if ($('#Name').val().trim() == "") {
+        $('.validmsgtacticname').text("Please enter Tactic Name").css("color", "#b94a48");
+        $('.validmsgtacticname').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#TN"; validationFocusFlag = 1; }
+        flag = false;
 
+    } else {
 
+        $('.validmsgtacticname').hide();
+    }
+
+    if ($('#TacticDescription').val().trim() == "") {
+        $('.validmsgtacticdesc').text("Please enter Tactic Description & Goals").css("color", "#b94a48");
+        $('.validmsgtacticdesc').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#TDC"; validationFocusFlag = 1; }
+        flag = false;
+    } else {
+        $('.validmsgtacticdesc').hide();
+    }
+
+    if ($("#StartDate").val() == "") {
+        $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
+        $('.validmsgSdate').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#SD"; validationFocusFlag = 1; }
+        flag = false;
+
+    }
+    else {
+        $('.validmsgSdate').hide();
+    }
+
+    if ($("#EndDate").val() == "") {
+        $('.validmsgEdate').text("Please select End Date").css("color", "#b94a48");
+        $('.validmsgEdate').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#ED"; validationFocusFlag = 1; }
+        flag = false;
+    }
+    else {
+        $('.validmsgEdate').hide();
+    }
+
+    //var startdate = new Date($("#StartDate").find("input").val());
+    //var enddate = new Date($("#EndDate").find("input").val());
+    if ($("#StartDate").val() != "" && $("#EndDate").val() != "") {
+        var startdate = new Date($("#StartDate").datepicker("getDate"));
+        var enddate = new Date($("#EndDate").datepicker("getDate"));
+
+        var MCStartdate = new Date($("#MCStartDate").val());
+        var MCEnddate = new Date($("#MCEndDate").val());
+
+        var DisMCStartdate = (MCStartdate.getDate() +
+            '/' +
+            (MCStartdate.getMonth() + 1) +
+            '/' +
+            MCStartdate.getFullYear());
+        var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
+            if (startdate < MCStartdate) {
+
+                $('.validmsgDateMCcompare')
+                    .text("Tactic start and end date should be between Sub Campaign date: " +
+                        DisMCStartdate +
+                        " to " +
+                        DisMCEnddate +
+                        "").css("color", "#b94a48");
+                $('.validmsgDateMCcompare').show();
+                if (validationFocusFlag == 0) {
+                    validationFocusId = "#ED";
+                    validationFocusFlag = 1;
+                }
+                flag = false;
+
+            } else if (enddate > MCEnddate) {
+
+                $('.validmsgDateMCcompare')
+                    .text("Tactic start and end date should be between Sub Campaign date: " +
+                        DisMCStartdate +
+                        " to " +
+                        DisMCEnddate +
+                        "").css("color", "#b94a48");
+                $('.validmsgDateMCcompare').show();
+                if (validationFocusFlag == 0) {
+                    validationFocusId = "#ED";
+                    validationFocusFlag = 1;
+                }
+                flag = false;
+            } else {
+                $('.validmsgDateMCcompare').hide();
+            }
+        }
+
+        if (startdate > enddate) {
+            $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
+            $('.validmsgDatecompare').show();
+            if (validationFocusFlag == 0) {
+                validationFocusId = "#ED";
+                validationFocusFlag = 1;
+            }
+            flag = false;
+        } else {
+            $('.validmsgDatecompare').hide();
+        }
+    }
     if ($('#BusinessGroups_Id').val() == null || $('#BusinessGroups_Id').val() == "-1" || $('#BusinessGroups_Id').val() == 0) {
 
         $('.validmsgbusinesGp').text("Please select Business Group").css("color", "#b94a48");
         $('.validmsgbusinesGp').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#BG"; validationFocusFlag = 1; }
         flag = false;
 
     } else {
         $('.validmsgbusinesGp').hide();
     }
 
-    if ($('#BusinessLines_Id').val() == null) {
-
-        $('.validmsgbusinesLine').text("Please select Business Line").css("color", "#b94a48");
-        $('.validmsgbusinesLine').show();
-        flag = false;
-
-    } else {
-        $('.validmsgbusinesLine').hide();
-    }
-
     if ($('#Segments_Id').val() == null || $('#Segments_Id').val() == "-1" || $('#Segments_Id').val() == 0) {
 
         $('.validmsgbusinesSegment').text("Please select Segment").css("color", "#b94a48");
         $('.validmsgbusinesSegment').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#SG"; validationFocusFlag = 1; }
         flag = false;
-      //  goToByScroll(Segments_Id);
-    
+        
+
     } else {
         $('.validmsgbusinesSegment').hide();
+    }
+
+    if ($('#BusinessLines_Id').val() == null) {
+
+        $('.validmsgbusinesLine').text("Please select Business Line").css("color", "#b94a48");
+        $('.validmsgbusinesLine').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#BL"; validationFocusFlag = 1; }
+        flag = false;
+
+    } else {
+        $('.validmsgbusinesLine').hide();
     }
 
     if ($("#SubCampaignType").val() == 1) {
@@ -548,6 +656,7 @@ function ValidateSubmitTacticForm() {
 
             $('.validmsgbusinesIndustry').text("Please select Industry").css("color", "#b94a48");
             $('.validmsgbusinesIndustry').show();
+            if (validationFocusFlag == 0) { validationFocusId = "#Ind"; validationFocusFlag = 1; }
             flag = false;
 
         } else {
@@ -563,90 +672,7 @@ function ValidateSubmitTacticForm() {
     //} else {
     //    $('.validmsggeography').hide();
     //}
-
-    if ($("#StartDate").val() == "") {
-        $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");
-        $('.validmsgSdate').show();
-        flag = false;
-
-    }
-    else {
-        $('.validmsgSdate').hide();
-    }
-
-    if ($("#EndDate").val() == "") {
-        $('.validmsgEdate').text("Please select End Date").css("color", "#b94a48");
-        $('.validmsgEdate').show();
-        flag = false;
-    }
-    else {
-        $('.validmsgEdate').hide();
-    }
-
-    //var startdate = new Date($("#StartDate").find("input").val());
-    //var enddate = new Date($("#EndDate").find("input").val());
-
-    var startdate = new Date($("#StartDate").datepicker("getDate"));
-    var enddate = new Date($("#EndDate").datepicker("getDate"));
-
-    var MCStartdate = new Date($("#MCStartDate").val());
-    var MCEnddate = new Date($("#MCEndDate").val());
-
-    var DisMCStartdate = (MCStartdate.getDate() + '/' + (MCStartdate.getMonth() + 1) + '/' + MCStartdate.getFullYear());
-    var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
-    if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
-        if (startdate < MCStartdate) {
-            
-                $('.validmsgDateMCcompare')
-                    .text("Tactic start and end date should be between Sub Campaign date: " +
-                        DisMCStartdate +
-                        " to " +
-                        DisMCEnddate +
-                        "").css("color", "#b94a48");
-            $('.validmsgDateMCcompare').show();
-            flag = false;
-
-        } else if (enddate > MCEnddate) {
-            
-                $('.validmsgDateMCcompare')
-                    .text("Tactic start and end date should be between Sub Campaign date: " +
-                        DisMCStartdate +
-                        " to " +
-                        DisMCEnddate +
-                        "").css("color", "#b94a48");
-            $('.validmsgDateMCcompare').show();
-            flag = false;
-        }
-        else {
-            $('.validmsgDateMCcompare').hide();
-        }
-    }
-
-    if (startdate > enddate) {
-        $('.validmsgDatecompare').text("End Date cannot be less than Start Date").css("color", "#b94a48");
-        $('.validmsgDatecompare').show();
-        flag = false;
-    } else {
-        $('.validmsgDatecompare').hide();
-    }
-
-    if ($('#Name').val().trim() == "") {
-        $('.validmsgtacticname').text("Please enter Tactic Name").css("color", "#b94a48");
-        $('.validmsgtacticname').show();
-        flag = false;
-
-    } else {
-
-        $('.validmsgtacticname').hide();
-    }
-
-    if ($('#TacticDescription').val().trim() == "") {
-        $('.validmsgtacticdesc').text("Please enter Tactic Description & Goals").css("color", "#b94a48");
-        $('.validmsgtacticdesc').show();
-        flag = false;
-    } else {
-        $('.validmsgtacticdesc').hide();
-    }
+ 
 
     if ($('#Year').val() == "") {
         $('.validmsgyear').text("Please enter Year").css("color", "#b94a48");
@@ -661,6 +687,7 @@ function ValidateSubmitTacticForm() {
         if ($('#tblBenchmark tbody tr select.ddlMetricReach').find('option[value="' + $(this).val() + '"]:selected').length > 1) {
             $(this).closest('tr').find('.validmsgReachMetric').text("Reach Metric selection should be different.").css("color", "#b94a48");
             flag = false;
+            if (validationFocusFlag == 0) { validationFocusId = "#Met"; validationFocusFlag = 1; }
             return flag;
         }
     });
@@ -669,6 +696,7 @@ function ValidateSubmitTacticForm() {
         if ($('#tblBenchmark tbody tr select.ddlMetricResponse').find('option[value="' + $(this).val() + '"]:selected').length > 1) {
             $(this).closest('tr').find('.validmsgResponseMetric').text("Response Metric selection should be different.").css("color", "#b94a48");
             flag = false;
+            if (validationFocusFlag == 0) { validationFocusId = "#Met"; validationFocusFlag = 1; }
             return flag;
         }
     });
@@ -686,6 +714,7 @@ function ValidateSubmitTacticForm() {
     if (rachGoal == "" || rachLow == "" || rachHigh == "") {
         $('.validmsgReachMetric').text("Please fill atleast one Reach Metric").css("color", "#b94a48");
         $('.validmsgReachMetric').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#Met"; validationFocusFlag = 1; }
         flag = false;
     }
     else {
@@ -695,6 +724,7 @@ function ValidateSubmitTacticForm() {
     if (responseGoal == "" || responseLow == "" || responseHigh == "") {
         $('.validmsgResponseMetric').text("Please fill atleast one Response Metric").css("color", "#b94a48");
         $('.validmsgResponseMetric').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#Met"; validationFocusFlag = 1; }
         flag = false;
     }
     else {
