@@ -54,9 +54,9 @@ namespace MRM.Controllers
             tacticvm.JourneyStageViewModels = _journeyStageServices.GetJourneyStage();
             var ttList = _tacticCampaignServices.GetTacticType();
             tacticvm.TacticTypeViewModels = tacticvm.TacticTypeViewModels.Concat(ttList);
-            tacticvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+            tacticvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete" && t.ChildCampaigns.Where(r => r.Status != "Save Draft").ToList().Count != 0);
 
-          //  MasterList();
+            //  MasterList();
             if (Id == 0)
             {
                 //tacticvm.VendorViewModels = _vendorService.GetVendor();
@@ -332,7 +332,7 @@ namespace MRM.Controllers
                     model.MCEndDate = item.EndDate;
                     model.SubCampaignType = item.CampaignType;
                 }
-                model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+                model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete" && t.ChildCampaigns.Where(r => r.Status != "Save Draft").ToList().Count != 0);
                 model.MasterCampaign_Id = model.MasterCampaign_Id;
                 model.ChildCampaignViewModels =
                     _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaign_Id);
@@ -340,7 +340,7 @@ namespace MRM.Controllers
             }
             else
             {
-                model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+                model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete" && t.ChildCampaigns.Where(r => r.Status != "Save Draft").ToList().Count != 0);
                 model.MasterCampaign_Id = model.MasterCampaign_Id;
                 //  model.ChildCampaignViewModels = model.MasterCampaign_Id != 0 ? _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaign_Id).Where(t => t.Status == "Complete") : _childCampaignServices.GetChildCampaign().Where(t => t.Status == "Complete");
                 if (model.MasterCampaign_Id != 0)
@@ -437,7 +437,7 @@ namespace MRM.Controllers
                     model.SubCampaignType = item.CampaignType;
                 }
                 
-                model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+                model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete" && t.ChildCampaigns.Where(r => r.Status != "Save Draft").ToList().Count != 0);
                 model.MasterCampaign_Id = model.MasterCampaign_Id;
                 model.ChildCampaignViewModels = _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaign_Id)
                         .Where(t => t.Status == "Complete");
@@ -447,7 +447,7 @@ namespace MRM.Controllers
             {
                 //  model.GeographyViewModels = _geographyService.GetGeography();
                 //  model.ThemeViewModels = _themeService.GetTheme();
-                model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+                model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete" && t.ChildCampaigns.Where(r => r.Status != "Save Draft").ToList().Count != 0);
                 model.MasterCampaign_Id = model.MasterCampaign_Id;
                 // model.ChildCampaignViewModels = model.MasterCampaign_Id != 0 ? _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaign_Id).Where(t => t.Status == "Complete") : _childCampaignServices.GetChildCampaign().Where(t => t.Status == "Complete");
                 if (model.MasterCampaign_Id != 0)
@@ -530,7 +530,7 @@ namespace MRM.Controllers
 
             ManageSelectUnselect(model);
 
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete" && t.ChildCampaigns.Where(r => r.Status != "Save Draft").ToList().Count != 0);
             //model.BusinessGroupViewModels = (new[] { new BusinessGroup() });
             //model.SegmentViewModels = (new[] { new Segment() });
 
@@ -601,7 +601,7 @@ namespace MRM.Controllers
                 model.SegmentViewModels = (new[] { new Segment() });
             }
             model.JourneyStageViewModels = _journeyStageServices.GetJourneyStage();
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete" && t.ChildCampaigns.Where(r => r.Status != "Save Draft").ToList().Count != 0);
 
             if (model.MasterCampaign_Id != 0)
             {
