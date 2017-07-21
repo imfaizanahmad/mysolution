@@ -81,6 +81,7 @@
     <Compile Include="Model\CommonEntity.cs" />
     <Compile Include="Model\Geography.cs" />
     <Compile Include="Model\Industry.cs" />
+    <Compile Include="Model\JourneyStage.cs" />
     <Compile Include="Model\MasterCampaign.cs" />
     <Compile Include="Model\MetricReach.cs" />
     <Compile Include="Model\MetricResponse.cs" />
