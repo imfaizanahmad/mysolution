@@ -601,7 +601,7 @@ function PreventSpecialChar() {
             var data = $('#CampaignDescription').val();
             //replace the special characters to '' 
             //var dataFull = data.replace(/[^\w\s]/gi, '');
-            var dataFull = data.replace(/[&/,";]/g, '');
+            var dataFull = data.replace(/[&/,";“”]/g, '');
             //set the new value of the input text without special characters
             $('#CampaignDescription').val(dataFull);
         });
@@ -611,7 +611,7 @@ function PreventSpecialChar() {
     $("#Name").bind('paste', function () {
         setTimeout(function () {
             var data = $('#Name').val();
-            var dataFull = data.replace(/[&/,";]/g, '');
+            var dataFull = data.replace(/[&/,";“”]/g, '');
             $('#Name').val(dataFull);
         });
 
