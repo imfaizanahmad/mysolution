@@ -772,8 +772,8 @@ namespace MRM.Controllers
                                                                        InheritStatus = ((campaign.Status == "Complete" && (campaign.EndDate < DateTime.Now)) ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active")),
                                                                        TacticDescription = campaign.TacticDescription,
                                                                        Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
-                                                                       StartDate = String.Format("{0:dd/MM/yyyy}", campaign.StartDate),
-                                                                       EndDate = String.Format("{0:dd/MM/yyyy}", campaign.EndDate)
+                                                                       StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
+                                                                       EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
                                                                    }
                                                                  ).ToList();
             return Json(childCampaignList, JsonRequestBehavior.AllowGet);

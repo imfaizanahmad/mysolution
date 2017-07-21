@@ -396,12 +396,11 @@ function ValidateTacticSaveasDraft() {
         var MCStartdate = new Date($("#MCStartDate").val());
         var MCEnddate = new Date($("#MCEndDate").val());
 
-        var DisMCStartdate = (MCStartdate.getDate() +
-            '/' +
-            (MCStartdate.getMonth() + 1) +
-            '/' +
-            MCStartdate.getFullYear());
-        var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        //var DisMCStartdate = (MCStartdate.getDate() +'/' +(MCStartdate.getMonth() + 1) +'/' +MCStartdate.getFullYear());
+        //var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        var DisMCStartdate = DateAsNokiaFormat(MCStartdate);
+        var DisMCEnddate = DateAsNokiaFormat(MCEnddate);
+
         if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
             if (startdate < MCStartdate) {
                 var msg =
@@ -564,12 +563,11 @@ function ValidateSubmitTacticForm() {
         var MCStartdate = new Date($("#MCStartDate").val());
         var MCEnddate = new Date($("#MCEndDate").val());
 
-        var DisMCStartdate = (MCStartdate.getDate() +
-            '/' +
-            (MCStartdate.getMonth() + 1) +
-            '/' +
-            MCStartdate.getFullYear());
-        var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        //var DisMCStartdate = (MCStartdate.getDate() +'/' +(MCStartdate.getMonth() + 1) +'/' +MCStartdate.getFullYear());
+        //var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        var DisMCStartdate = DateAsNokiaFormat(MCStartdate);
+        var DisMCEnddate = DateAsNokiaFormat(MCEnddate);
+
         if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
             if (startdate < MCStartdate) {
 
@@ -951,3 +949,11 @@ function RemoveZeroFromMetric() {
     $('.mrminttostring').each(function () { if ($(this).val() == 0) { $(this).val(''); } });
 }
 
+//Date Format
+function DateAsNokiaFormat(date) {
+    var strArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var d = date.getDate();
+    var m = strArray[date.getMonth()];
+    var y = date.getFullYear();
+    return '' + (d <= 9 ? '0' + d : d) + ' ' + m + ' ' + y;
+}
