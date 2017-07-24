@@ -196,6 +196,7 @@
     });
 
     $(document).on('click', '#btnAddReachRow', function () {
+        debugger;
         var $options = $('#tblBenchmark tbody tr.trReach').find('.ddlMetricReach').html();
         var reachTblRow = $('<tr><td><label><input value="Reach" name="MetricType" type="hidden" /><input value="0" class="hdnMetric" type="hidden" /></label></td>\
                            <td><select id="MetricReach_Id" class="form-control ddlMetricReach chosen-single">' + $options + '</select></td>\
@@ -239,7 +240,9 @@
 
     });
 
-    $('#tblBenchmark tbody').on("click", ".removeRow", function () {
+    
+    $(document).on('click', "#tblBenchmark tbody .removeRow", function () {
+       // debugger;
         $(this).closest("tr").remove();
 
         if ($('#tblBenchmark tbody tr.trReach select.ddlMetricReach > option').length >= $('#tblBenchmark tbody tr .ddlMetricReach').length) {
