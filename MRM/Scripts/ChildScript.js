@@ -332,24 +332,6 @@ function ValidateChildForm() {
         $('.validmsgSubCamp').hide();
     }
 
-    if ($('#CampaignManager').val().trim() == "") {
-        $('.validmsgSubCampmanager').text("Please enter Sub Campaign Manager").css("color", "#b94a48");
-        $('.validmsgSubCampmanager').show();
-        if (validationFocusFlag == 0) { validationFocusId = "#MCN"; validationFocusFlag = 1; }
-        flag = false;
-    }
-    else {
-        if (ConfigurationModel.emailvalidate($('#CampaignManager').val())) {
-            $('.validmsgSubCampmanager').hide();
-        }
-        else {
-            $('.validmsgSubCampmanager').text("Please enter valid Sub Campaign Manager").css("color", "#b94a48");
-            $('.validmsgSubCampmanager').show();
-            if (validationFocusFlag == 0) { validationFocusId = "#MCN"; validationFocusFlag = 1; }
-            flag = false;
-        }
-    }
-
     if ($('#CampaignDescription').val().trim() == "") {
         $('.validmsgSubCampDesc').text("Please enter Sub Campaign Description & Goals").css("color", "#b94a48");
         $('.validmsgSubCampDesc').show();
@@ -361,7 +343,23 @@ function ValidateChildForm() {
         $('.validmsgSubCampDesc').hide();
     }
 
-
+    if ($('#CampaignManager').val().trim() == "") {
+        $('.validmsgSubCampmanager').text("Please enter Sub Campaign Manager").css("color", "#b94a48");
+        $('.validmsgSubCampmanager').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#MCM"; validationFocusFlag = 1; }
+        flag = false;
+    }
+    else {
+        if (ConfigurationModel.emailvalidate($('#CampaignManager').val())) {
+            $('.validmsgSubCampmanager').hide();
+        }
+        else {
+            $('.validmsgSubCampmanager').text("Please enter valid Sub Campaign Manager").css("color", "#b94a48");
+            $('.validmsgSubCampmanager').show();
+            if (validationFocusFlag == 0) { validationFocusId = "#MCM"; validationFocusFlag = 1; }
+            flag = false;
+        }
+    }
 
     if ($("#StartDate").val() == "") {
         $('.validmsgSdate').text("Please select Start Date").css("color", "#b94a48");

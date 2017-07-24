@@ -711,10 +711,10 @@ namespace MRM.Controllers
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.TacticDescription == "") errorCounter++;
 
-                if (tacticReachModel.Goal == default(int) || tacticReachModel.Low == default(int) || tacticReachModel.High == default(int))
-                    errorCounter++;
-                if (tacticResponseModel.Goal == default(int) || tacticResponseModel.Low == default(int) || tacticResponseModel.High == default(int))
-                    errorCounter++;
+                //if (tacticReachModel.Goal == default(int) || tacticReachModel.Low == default(int) || tacticReachModel.High == default(int))
+                //    errorCounter++;
+                //if (tacticResponseModel.Goal == default(int) || tacticResponseModel.Low == default(int) || tacticResponseModel.High == default(int))
+                //    errorCounter++;
 
                 if (model.StartDate == null) errorCounter++;
                 if (model.EndDate == null) errorCounter++;

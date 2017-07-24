@@ -457,6 +457,7 @@ namespace MRM.Controllers
                         _childCampaignServices.Update(model);
                         return true;
                     }
+                    
                 }
 
                 return false;
@@ -473,7 +474,6 @@ namespace MRM.Controllers
 
             if (model.Id != 0)
             {
-                if (model.MasterCampaignId == 0) errorCounter++;
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.CampaignDescription == "") errorCounter++;
                 if (model.StartDate == null) errorCounter++;

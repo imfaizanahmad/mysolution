@@ -220,7 +220,7 @@ namespace MRM.Controllers
                 }
                 else // submission 
                 {
-                    if (isValid(model))
+                    if (isValid(model, button))
                     {
                         if (model.Id == 0)// insert new record as draft
                         {
@@ -245,23 +245,25 @@ namespace MRM.Controllers
             }
         }
 
-        private bool isValid(MasterCampaignViewModel model)
+        private bool isValid(MasterCampaignViewModel model,string button)
         {
             int errorCounter = 0;
 
             if (model.Id != 0)
             {
-                if (model.BusinessGroups_Id == null) errorCounter++;
-                if (model.BusinessLines_Id == null) errorCounter++;
-                if (model.Segments_Id == null) errorCounter++;
-                if (model.Industries_Id == null) errorCounter++;
-                if (model.Geographys_Id == null) errorCounter++;
-                if (model.StartDate == null) errorCounter++;
-                if (model.EndDate == null) errorCounter++;
-                if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
-                if (model.Name == "") errorCounter++;
-                if (model.CampaignDescription == "") errorCounter++;
-
+                if (button != "Update")
+                {
+                    if (model.BusinessGroups_Id == null) errorCounter++;
+                    if (model.BusinessLines_Id == null) errorCounter++;
+                    if (model.Segments_Id == null) errorCounter++;
+                    if (model.Industries_Id == null) errorCounter++;
+                    if (model.Geographys_Id == null) errorCounter++;
+                    if (model.StartDate == null) errorCounter++;
+                    if (model.EndDate == null) errorCounter++;
+                    if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
+                    if (model.Name == "") errorCounter++;
+                    if (model.CampaignDescription == "") errorCounter++;
+                }
             }
             else
             {

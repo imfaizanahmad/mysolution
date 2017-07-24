@@ -57,149 +57,147 @@ namespace MRM.Business.Services
 
         private void ModelToEntity(TacticCampaignViewModel model, TacticCampaign tacticCampaignEntity)
         {
-            tacticCampaignEntity.ChildCampaigns = guow.GenericRepository<ChildCampaign>().GetByID(model.ChildCampaign_Id);
-            tacticCampaignEntity.ChildCampaigns.MasterCampaigns = guow.GenericRepository<MasterCampaign>().GetByID(model.MasterCampaign_Id);
-            tacticCampaignEntity.Name = model.Name;
-            tacticCampaignEntity.TacticDescription = model.TacticDescription;
-            tacticCampaignEntity.StartDate = model.StartDate;
-            tacticCampaignEntity.EndDate = model.EndDate;
-            tacticCampaignEntity.Status = model.Status;
-            tacticCampaignEntity.CreatedBy = "user";
-            tacticCampaignEntity.Year = model.Year;
-            tacticCampaignEntity.Status = model.Status;
-            tacticCampaignEntity.Vendor = model.Vendor;
-            tacticCampaignEntity.MasterCampaign_Id = model.MasterCampaign_Id;
-            tacticCampaignEntity.JourneyStage_Id = model.JournetStage_Id;
-            tacticCampaignEntity.TacticType = model.TacticType;
             
-            //tacticCampaignEntity.TacticTypes = model.TacticType_Id;
-
-            List<BusinessLine> lstBline = null;
-            List<BusinessGroup> lstBGroup = null;
-            if (model.BusinessGroups_Id != null)
+            if (model.Id != 0)
             {
-                lstBGroup = new List<BusinessGroup>();
-                foreach (var item in model.BusinessGroups_Id)
+                tacticCampaignEntity.ChildCampaigns = guow.GenericRepository<ChildCampaign>()
+                    .GetByID(model.ChildCampaign_Id);
+                tacticCampaignEntity.ChildCampaigns.MasterCampaigns = guow.GenericRepository<MasterCampaign>()
+                    .GetByID(model.MasterCampaign_Id);
+                tacticCampaignEntity.Name = model.Name;
+                
+                tacticCampaignEntity.CreatedBy = "user";
+                tacticCampaignEntity.Year = model.Year;
+                tacticCampaignEntity.MasterCampaign_Id = model.MasterCampaign_Id;
+                tacticCampaignEntity.JourneyStage_Id = model.JournetStage_Id;
+                tacticCampaignEntity.TacticType = model.TacticType;
+
+
+                List<TacticType> lstTacticType = null;
+                if (model.TacticType_Id != null)
                 {
-                    var Bgroups = guow.GenericRepository<BusinessGroup>().GetByID(item);
-                    lstBGroup.Add(Bgroups);
-                }
-                lstBline = new List<BusinessLine>();
-                if (model.BusinessLines_Id != null)
-                {
-                    foreach (var item in model.BusinessLines_Id)
+                    lstTacticType = new List<TacticType>();
+                    foreach (var item in model.TacticType_Id)
                     {
-                        var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
-                        lstBline.Add(Bline);
+                        var tacticType = guow.GenericRepository<TacticType>().GetByID(item);
+                        lstTacticType.Add(tacticType);
+                    }
+
+                }
+                tacticCampaignEntity.TacticTypes = lstTacticType;
+                tacticCampaignEntity.TacticCampaignReachResponses =
+                    model.TacticCampaignReachResponseViewModels.ToList();
+
+                tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? "Draft" : "Active";
+
+                if (model.Id != 0 && model.Status == "Complete")
+                {
+                    if (model.EndDate < DateTime.Now)
+                    {
+                        tacticCampaignEntity.InheritStatus = "Complete";
                     }
                 }
-            }
 
-            List<Theme> lsttheme = null;
-            if (model.Themes_Id != null)
-            {
-                lsttheme = new List<Theme>();
-                foreach (var item in model.Themes_Id)
+                if (model.Id == 0)
                 {
-                    var theme = guow.GenericRepository<Theme>().GetByID(item);
-                    lsttheme.Add(theme);
+                    tacticCampaignEntity.VisitedDate = DateTime.Now;
                 }
-
             }
+                tacticCampaignEntity.Status = model.Status;
+                tacticCampaignEntity.TacticDescription = model.TacticDescription;
+                tacticCampaignEntity.StartDate = model.StartDate;
+                tacticCampaignEntity.EndDate = model.EndDate;
+                tacticCampaignEntity.Vendor = model.Vendor;
 
-            List<Industry> lstindustry = null;
-            List<Segment> lstsegment = null;
+                //tacticCampaignEntity.TacticTypes = model.TacticType_Id;
 
-            if (model.Segments_Id != null)
-            {
-                lstsegment = new List<Segment>();
-                foreach (var item in model.Segments_Id)
+                List<BusinessLine> lstBline = null;
+                List<BusinessGroup> lstBGroup = null;
+                if (model.BusinessGroups_Id != null)
                 {
-                    var segment = guow.GenericRepository<Segment>().GetByID(item);
-                    lstsegment.Add(segment);
-                }
-                lstindustry = new List<Industry>();
-
-                if (model.Industries_Id != null)
-                {
-                    foreach (var item in model.Industries_Id)
+                    lstBGroup = new List<BusinessGroup>();
+                    foreach (var item in model.BusinessGroups_Id)
                     {
-                        var industry = guow.GenericRepository<Industry>().GetByID(item);
-                        lstindustry.Add(industry);
+                        var Bgroups = guow.GenericRepository<BusinessGroup>().GetByID(item);
+                        lstBGroup.Add(Bgroups);
+                    }
+                    lstBline = new List<BusinessLine>();
+                    if (model.BusinessLines_Id != null)
+                    {
+                        foreach (var item in model.BusinessLines_Id)
+                        {
+                            var Bline = guow.GenericRepository<BusinessLine>().GetByID(item);
+                            lstBline.Add(Bline);
+                        }
                     }
                 }
-            }
 
-            List<Geography> lstgeography = null;
-            if (model.Geographys_Id != null)
-            {
-                lstgeography = new List<Geography>();
-                foreach (var item in model.Geographys_Id)
+                List<Theme> lsttheme = null;
+                if (model.Themes_Id != null)
                 {
-                    var geography = guow.GenericRepository<Geography>().GetByID(item);
-                    lstgeography.Add(geography);
+                    lsttheme = new List<Theme>();
+                    foreach (var item in model.Themes_Id)
+                    {
+                        var theme = guow.GenericRepository<Theme>().GetByID(item);
+                        lsttheme.Add(theme);
+                    }
+
                 }
 
-            }
+                List<Industry> lstindustry = null;
+                List<Segment> lstsegment = null;
 
-            List<Vendor> lstvendor = null;
-            if (model.Vendor_Id != null)
-            {
-                lstvendor = new List<Vendor>();
-                foreach (var item in model.Vendor_Id)
+                if (model.Segments_Id != null)
                 {
-                    var vendor = guow.GenericRepository<Vendor>().GetByID(item);
-                    lstvendor.Add(vendor);
+                    lstsegment = new List<Segment>();
+                    foreach (var item in model.Segments_Id)
+                    {
+                        var segment = guow.GenericRepository<Segment>().GetByID(item);
+                        lstsegment.Add(segment);
+                    }
+                    lstindustry = new List<Industry>();
+
+                    if (model.Industries_Id != null)
+                    {
+                        foreach (var item in model.Industries_Id)
+                        {
+                            var industry = guow.GenericRepository<Industry>().GetByID(item);
+                            lstindustry.Add(industry);
+                        }
+                    }
                 }
 
-            }
-
-            List<TacticType> lstTacticType = null;
-            if (model.TacticType_Id != null)
-            {
-                lstTacticType = new List<TacticType>();
-                foreach (var item in model.TacticType_Id)
+                List<Geography> lstgeography = null;
+                if (model.Geographys_Id != null)
                 {
-                    var tacticType = guow.GenericRepository<TacticType>().GetByID(item);
-                    lstTacticType.Add(tacticType);
+                    lstgeography = new List<Geography>();
+                    foreach (var item in model.Geographys_Id)
+                    {
+                        var geography = guow.GenericRepository<Geography>().GetByID(item);
+                        lstgeography.Add(geography);
+                    }
+
                 }
 
-            }
-
-
-            tacticCampaignEntity.BusinessGroups = lstBGroup;
-            tacticCampaignEntity.Themes = lsttheme;
-            tacticCampaignEntity.BusinessLines = lstBline;
-            tacticCampaignEntity.Segments = lstsegment;
-            tacticCampaignEntity.Industries = lstindustry;
-            tacticCampaignEntity.Geographys = lstgeography;
-            //tacticCampaignEntity.Vendors = lstvendor;
-            tacticCampaignEntity.TacticTypes = lstTacticType;            
-            tacticCampaignEntity.TacticCampaignReachResponses = model.TacticCampaignReachResponseViewModels.ToList();
-
-            //TacticCampaignReachResponse tacticReachModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Reach").FirstOrDefault();
-            //TacticCampaignReachResponse tacticResponseModel = model.TacticCampaignReachResponseViewModels.Where(x => x.MetricType == "Response").FirstOrDefault();
-            //if (((tacticReachModel.Goal != 0 && tacticReachModel.Low != 0 && tacticReachModel.High != 0) &&
-            //    (tacticResponseModel.Goal != 0 && tacticResponseModel.Low != 0 &&
-            //     tacticResponseModel.High != 0)))
-            //{
-            //    tacticCampaignEntity.InheritStatus = "Active";
-            //}
-         
-            tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? "Draft" : "Active";
-
-            if (model.Id != 0 && model.Status== "Complete")
-            {
-                if (model.EndDate < DateTime.Now)
+                List<Vendor> lstvendor = null;
+                if (model.Vendor_Id != null)
                 {
-                    tacticCampaignEntity.InheritStatus = "Complete";
-                }
-            }
+                    lstvendor = new List<Vendor>();
+                    foreach (var item in model.Vendor_Id)
+                    {
+                        var vendor = guow.GenericRepository<Vendor>().GetByID(item);
+                        lstvendor.Add(vendor);
+                    }
 
-            if (model.Id == 0)
-            {
-                tacticCampaignEntity.VisitedDate = DateTime.Now;
-            }
+                }
+
+                tacticCampaignEntity.BusinessGroups = lstBGroup;
+                tacticCampaignEntity.Themes = lsttheme;
+                tacticCampaignEntity.BusinessLines = lstBline;
+                tacticCampaignEntity.Segments = lstsegment;
+                tacticCampaignEntity.Industries = lstindustry;
+                tacticCampaignEntity.Geographys = lstgeography;
+              
         }
 
         public bool InsertTacticCampaign(TacticCampaignViewModel model)

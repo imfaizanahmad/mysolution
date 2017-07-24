@@ -37,7 +37,7 @@
                                             (object)new { @class = "form-control", @maxlength = "30", onkeypress = "return alpha(event,Name)" })
                                 <div class="validmsgMaster"></div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="MCM">
                                 <label>Master Campaign Manager<span class="text-danger">*</span></label>
                                 @Html.TextBoxFor(m => m.CampaignManager, (Model.Id != 0 && Model.Status == "Complete") ?
                                     (object)new { disabled = "disabled", @class = "form-control" } :
@@ -48,8 +48,9 @@
                         <div class="col-md-6" id="MCD">
                             <div class="form-group">
                                 <label>Master Campaign Description & Goals<span class="text-danger">*</span></label>
-                                @Html.TextAreaFor(m => m.CampaignDescription, (Model.Id != 0 && Model.Status == "Complete") ?
-                                    (object)new { disabled = "disabled", @class = "form-control" } :
+                                @Html.TextAreaFor(m => m.CampaignDescription,
+                                    //(Model.Id != 0 && Model.Status == "Complete") ?
+                                    //     (object)new { disabled = "disabled", @class = "form-control" } :
                                     (object)new { @class = "form-control", @maxlength = "500", onkeypress = "return alpha(event,CampaignDescription)" })
                                 <div class="validmsgMasterDesc HideOnsave"></div>
                             </div>
@@ -141,13 +142,14 @@
 
                     <div class="row">
                         <div class="col-md-6" id="SD">
-                            <label>Start Date<span class="text-danger lb-sm"> (DD/MM/YYYY)*</span></label>
+                            <label>Start Date<span class="text-danger lb-sm"> (DD 3letter month YYYY)*</span></label>
                             <div class="form-group">
                                 <div id="dvStartDate" class="col-md-6 date datealign">
                                     <div class="input-group input-append date">
-                                        @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd/MM/yyyy") : ""), disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
-                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd/MM/yyyy") : ""), @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
+                                        @Html.TextBoxFor(m => m.StartDate,
+                                            //(Model.Id != 0 && Model.Status == "Complete") ?
+                                            //     (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd MMM yyyy") : ""), disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" } :
+                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd MMM yyyy") : ""), @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on startcal"></span></span>
                                     </div>
                                     <div class="validmsgSdate HideOnsave"></div>
@@ -156,13 +158,14 @@
                             </div>
                         </div>
                         <div class="col-md-6" id="ED">
-                            <label>End Date<span class="text-danger lb-sm"> (DD/MM/YYYY)*</span></label>
+                            <label>End Date<span class="text-danger lb-sm"> (DD 3letter month YYYY)*</span></label>
                             <div class="form-group">
                                 <div id="dvEndDate" class="col-md-6 form-group date datealign">
                                     <div class="input-group input-append date">
-                                        @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd/MM/yyyy") : ""), disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
-                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd/MM/yyyy") : ""), @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
+                                        @Html.TextBoxFor(m => m.EndDate,
+                                            //(Model.Id != 0 && Model.Status == "Complete") ?
+                                            //     (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd MMM yyyy") : ""), disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" } :
+                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd MMM yyyy") : ""), @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on endcal"></span></span>
                                     </div>
                                     <div class="validmsgEdate HideOnsave"></div><div class="validmsgDatecompare"></div>
@@ -210,12 +213,20 @@
                             @if (Model.Status != "Complete")
                             {
                                 <div class="col-md-3">
-                                    <input type="button" Id="btnSaveDraft" name="button" value="Draft" class="btn btn-primary col-sm-12" />
+                                    <input type="button" Id="btnSaveDraft" name="button" value="Draft" class="btn btn-primary col-sm-12"/>
                                 </div>
                                 <div class="col-md-3">
                                     <input type="button" Id="btnSubmit" name="button" value="Submit" class="btn btn-primary col-sm-12" />
                                 </div>
                             }
+                            else
+                            {
+                                <div class="col-md-3">
+                                    <input type="button" Id="btnSubmit" name="button" value="Update" class="btn btn-primary col-sm-12" />
+                                </div>
+                            }
+                                
+                            
                         </div>
                     </div>
                 </div>
