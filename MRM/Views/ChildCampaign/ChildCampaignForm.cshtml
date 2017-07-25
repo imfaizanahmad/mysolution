@@ -1,6 +1,6 @@
 ﻿@model MRM.ViewModel.ChildCampaignViewModel
 <div>
-    <script src="~/Scripts/autoNumeric.js"></script>
+    
 <form id="frmChildCampaign">
 @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
 @Html.HiddenFor(m => m.Status, new { @Value = Model.Status })
@@ -202,8 +202,8 @@
                                             <label>Budget<span class="text-danger">*</span></label>
                                             <span class="input-group-addon" style="width: 0px;height: 31.5px !important;">€</span>
                                                  @Html.TextBoxFor(m => m.Budget, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                (object)new { disabled = "disabled", @class = "form-control currency" } :
-                                                (object)new { @class = "form-control currency", @maxlength = "10", onkeypress = "numericvalidate(event)"})
+                                                (object)new { disabled = "disabled", @class = "form-control currency numeric" } :
+                                                (object)new { @class = "form-control currency numeric", @maxlength = "10", onkeypress = "numericvalidate(event)"})
                                                 <div class="validmsgBudget HideOnsave"></div>
                                               
 </div>
@@ -213,8 +213,8 @@
                                             <label>Spend</label><br />
                                             <span class="input-group-addon" style="width: 0px;height: 31.5px !important;">€</span>
                                             @Html.TextBoxFor(m => m.Spend, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                (object)new { disabled = "disabled", @class = "form-control currency", @maxlength = "10" } :
-                                                (object)new { @class = "form-control currency", @maxlength = "10", onkeypress = "numericvalidate(event)" })
+                                                (object)new { disabled = "disabled", @class = "form-control currency numeric", @maxlength = "10" } :
+                                                (object)new { @class = "form-control currency numeric", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                             <div class="validmsgSpend"></div>
                                         </div>
                                     </div>

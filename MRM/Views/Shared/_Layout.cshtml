@@ -56,6 +56,7 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<script src="~/Scripts/autoNumeric.js"></script>
 <script type="text/javascript">
     $(document).ajaxStart(function () {
         $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>")
@@ -67,6 +68,7 @@
         customCode();
         BindDatePickerCalender();
         DatePickeronCalIcon();
+        $('.numeric').autoNumeric('init');
     });
 
     var customCode = function () {
@@ -89,6 +91,7 @@
     };
 
     $(document).ready(function () {
+        $('.numeric').autoNumeric('init');
         //$.fn.ajaxMRM = function (options) {
         //    var settingsmrm = $.extend(true, {}, options,{
         //        success: function (data) {

@@ -1,4 +1,5 @@
 (function webpackUniversalModuleDefinition(root, factory) {
+    //numeric css class put on control
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("jquery"));
 	else if(typeof define === 'function' && define.amd)

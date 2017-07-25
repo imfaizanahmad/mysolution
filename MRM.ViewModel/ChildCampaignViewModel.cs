@@ -25,6 +25,7 @@ namespace MRM.ViewModel
         public string Name { get; set; }
         public string CampaignDescription { get; set; }
         public string CampaignManager { get; set; }
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "${0:#,0}")]
         public decimal? Budget { get; set; }
         public decimal? Spend { get; set; }
         public string MarketingInfluenceLeads { get; set; }
