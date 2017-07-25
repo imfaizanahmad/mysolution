@@ -10,6 +10,6 @@ namespace MRM.Business.Interfaces
     public interface IJourneyStageServices
     {
 
-        IEnumerable<JourneyStage> GetJourneyStage();
+        IList<JourneyStage> GetJourneyStage();
     }
 }

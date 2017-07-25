@@ -10,7 +10,7 @@ namespace MRM.Business.Interfaces
    public interface ISegmentServices
     {
 
-        IEnumerable<Segment> GetSegment();
+        IList<Segment> GetSegment();
         bool CreateMCSegment(MasterCampaign MC);
     }
 }

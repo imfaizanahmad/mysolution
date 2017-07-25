@@ -18,9 +18,9 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public IEnumerable<Industry> GetIndustry()
+        public IList<Industry> GetIndustry()
         {
-            IEnumerable<Industry> industry = guow.GenericRepository<Industry>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
+            IList<Industry> industry = guow.GenericRepository<Industry>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return industry;
         }
        
@@ -35,18 +35,12 @@ namespace MRM.Business.Services
 
         public List<Industry> GetIndustryBySegmentId(int [] SegmentId)
         {
-
             List<Industry> lstIndustry = new List<Industry>();
-            if (SegmentId !=null)
+            if (SegmentId != null)
             {
-                foreach (var item in SegmentId)
-                {
-                    Segment bg = guow.GenericRepository<Segment>().GetByID(Convert.ToInt32(item));
-                    lstIndustry.AddRange(bg.Industries);
-                    //var Bline = guow.GenericRepository<BusinessLine>().Get( x => x.BusinessGroups.BusinessGroupId == item);
-                }
+                var businessLines = guow.GenericRepository<Industry>().Table.Where(t => SegmentId.Contains(t.Segments.Id)).ToList();
+                lstIndustry.AddRange(businessLines);
             }
-
             return lstIndustry;
         }
     }

@@ -18,9 +18,9 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public IEnumerable<MetricResponse> GetAllMetricResponse()
+        public IList<MetricResponse> GetAllMetricResponse()
         {
-            IEnumerable<MetricResponse> metricResponseList = guow.GenericRepository<MetricResponse>().GetAll().ToList();
+            IList<MetricResponse> metricResponseList = guow.GenericRepository<MetricResponse>().GetAll().ToList();
             return metricResponseList;
         }
     }

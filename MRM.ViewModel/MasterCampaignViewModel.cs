@@ -36,12 +36,12 @@ namespace MRM.ViewModel
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
-        public IEnumerable<Industry> IndustryViewModels { get; set; }
-        public IEnumerable<Geography> GeographyViewModels { get; set; }
-        public IEnumerable<Theme> ThemeViewModels { get; set; }
-        public IEnumerable<Segment> SegmentViewModels { get; set; }
-        public IEnumerable<BusinessGroup> BusinessGroupViewModels { get; set; }
-        public IEnumerable<BusinessLine> BusinessLineViewModels { get; set; }
+        public IList<Industry> IndustryViewModels { get; set; }
+        public IList<Geography> GeographyViewModels { get; set; }
+        public IList<Theme> ThemeViewModels { get; set; }
+        public IList<Segment> SegmentViewModels { get; set; }
+        public IList<BusinessGroup> BusinessGroupViewModels { get; set; }
+        public IList<BusinessLine> BusinessLineViewModels { get; set; }
 
         public string StatusInheritaceStamp { get; set; }
         public string InheritanceStatus { get; set; }

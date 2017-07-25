@@ -9,7 +9,7 @@ namespace MRM.Business.Interfaces
 {
    public interface IMasterCampaignServices
     {
-        IEnumerable<MasterCampaign> GetMasterCampaign();
+        //IList<MasterCampaign> GetMasterCampaign();
         bool InsertMasterCampaign(MasterCampaignViewModel campaign);
         List<MasterCampaign> GetMasterCampaignById(MasterCampaignViewModel model);
         MasterCampaign Update(MasterCampaign masterCampaign);

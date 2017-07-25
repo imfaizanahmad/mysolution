@@ -94,7 +94,7 @@ namespace MRM.Controllers
                     mcvm.Industries_Id = masterCampaign.Industries.Select(t => t.Id).ToArray(); ;
                 }
 
-                mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id).Where(t=>t.IsActive==true); ;
+                mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id).Where(t=>t.IsActive==true).ToList();
 
 
                 mcvm.Name = masterCampaign.Name;
@@ -170,7 +170,7 @@ namespace MRM.Controllers
 
             model.Segments_Id = model.Segments_Id;
             List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
-            model.IndustryViewModels = lst.Where(t=>t.IsActive==true);
+            model.IndustryViewModels = lst.Where(t=>t.IsActive==true).ToList();
           
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
@@ -220,7 +220,7 @@ namespace MRM.Controllers
                 }
                 else // submission 
                 {
-                    if (isValid(model))
+                    if (isValid(model, button))
                     {
                         if (model.Id == 0)// insert new record as draft
                         {
@@ -245,23 +245,25 @@ namespace MRM.Controllers
             }
         }
 
-        private bool isValid(MasterCampaignViewModel model)
+        private bool isValid(MasterCampaignViewModel model,string button)
         {
             int errorCounter = 0;
 
             if (model.Id != 0)
             {
-                if (model.BusinessGroups_Id == null) errorCounter++;
-                if (model.BusinessLines_Id == null) errorCounter++;
-                if (model.Segments_Id == null) errorCounter++;
-                if (model.Industries_Id == null) errorCounter++;
-                if (model.Geographys_Id == null) errorCounter++;
-                if (model.StartDate == null) errorCounter++;
-                if (model.EndDate == null) errorCounter++;
-                if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
-                if (model.Name == "") errorCounter++;
-                if (model.CampaignDescription == "") errorCounter++;
-
+                if (button != "Update")
+                {
+                    if (model.BusinessGroups_Id == null) errorCounter++;
+                    if (model.BusinessLines_Id == null) errorCounter++;
+                    if (model.Segments_Id == null) errorCounter++;
+                    if (model.Industries_Id == null) errorCounter++;
+                    if (model.Geographys_Id == null) errorCounter++;
+                    if (model.StartDate == null) errorCounter++;
+                    if (model.EndDate == null) errorCounter++;
+                    if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
+                    if (model.Name == "") errorCounter++;
+                    if (model.CampaignDescription == "") errorCounter++;
+                }
             }
             else
             {

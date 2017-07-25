@@ -18,9 +18,9 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public IEnumerable<Theme> GetTheme()
+        public IList<Theme> GetTheme()
         {
-            IEnumerable<Theme> thmval = guow.GenericRepository<Theme>().GetAll().Where(t=>!string.IsNullOrEmpty(t.Name)) .ToList();
+            IList<Theme> thmval = guow.GenericRepository<Theme>().GetAll().Where(t=>!string.IsNullOrEmpty(t.Name)) .ToList();
             
             return thmval;
         }

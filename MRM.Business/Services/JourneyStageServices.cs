@@ -18,9 +18,9 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public IEnumerable<JourneyStage> GetJourneyStage()
+        public IList<JourneyStage> GetJourneyStage()
         {
-            IEnumerable<JourneyStage> Jorneystageval = guow.GenericRepository<JourneyStage>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name) && t.IsActive).ToList();
+            IList<JourneyStage> Jorneystageval = guow.GenericRepository<JourneyStage>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name) && t.IsActive).ToList();
             return Jorneystageval;
         }
        

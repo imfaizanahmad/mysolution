@@ -10,7 +10,7 @@ namespace MRM.Business.Interfaces
    public interface IThemeServices
     {
 
-        IEnumerable<Theme> GetTheme();
+        IList<Theme> GetTheme();
        //bool CreateMCTheme(ThemeMasterCampaign MC);
     }
 }

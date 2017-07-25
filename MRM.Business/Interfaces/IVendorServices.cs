@@ -9,6 +9,6 @@ namespace MRM.Business.Interfaces
 {
     public  interface IVendorServices
     {
-        IEnumerable<Vendor> GetBusinessLine();
+        IList<Vendor> GetBusinessLine();
     }
 }

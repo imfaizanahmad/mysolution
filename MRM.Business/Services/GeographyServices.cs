@@ -18,9 +18,9 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public IEnumerable<Geography> GetGeography()
+        public IList<Geography> GetGeography()
         {
-            IEnumerable<Geography> grphy = guow.GenericRepository<Geography>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
+            IList<Geography> grphy = guow.GenericRepository<Geography>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return grphy;
         }
 

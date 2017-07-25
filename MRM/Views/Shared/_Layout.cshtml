@@ -26,41 +26,42 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @*<h1 style="color:#fff"><a href="/MasterCampaign/Index" style="color:#fff; text-decoration:none";>MRM</a></h1>*@
-                <a href="/MasterCampaign/Index"> <img id="logo" src="~/Content/Image/nokia_white_logo.png" alt="Nokia logo" /></a>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @*<h1 style="color:#fff"><a href="/MasterCampaign/Index" style="color:#fff; text-decoration:none";>MRM</a></h1>*@
+            <a href="/MasterCampaign/Index"> <img id="logo" src="~/Content/Image/nokia_white_logo.png" alt="Nokia logo" /></a>
 
-            </div>
-            <div class="navbar-collapse collapse">
-                @Html.Partial("_LoginPartial")
-            </div>
+        </div>
+        <div class="navbar-collapse collapse">
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
-    <div id="maindiv" class="container body-content">
-        @RenderBody()
+</div>
+<div id="maindiv" class="container body-content">
+    @*<div id="mydiv"><div class="loader"></div></div>*@
+    @RenderBody()
 
-        <footer>
-            <p class="footer-color">&copy; @DateTime.Now.Year Nokia</p>
-        </footer>
-    </div>
+    <footer>
+        <p class="footer-color">&copy; @DateTime.Now.Year Nokia</p>
+    </footer>
+</div>
 
 
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>
 <script src="~/Scripts/autoNumeric.js"></script>
 <script type="text/javascript">
     $(document).ajaxStart(function () {
-        $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>")
-            .dialog({ height: 400, width: 400, modal: true, dialogClass: 'dialogbg' }).show();
+       $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>")
+             .dialog({ height: 400, width: 400, modal: true, dialogClass: 'dialogbg' }).show();
         $(".ui-dialog-titlebar").hide();
     });
 
@@ -86,6 +87,7 @@
 
         commonUiInitialization();
         $('#globalLoader').remove();
+       
         GetBGandSegmentSingleDDl();
         GetSubCampaignType();
     };
@@ -150,18 +152,19 @@
         });
 
         BindDatePickerCalender();
+
     });
 
     function BindDatePickerCalender() {     
         $(".start-date-cal").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'dd M yy',
             onSelect: function (selected) {
                 $(".end-date-cal").datepicker("option", "minDate", selected);
                 $(".end-date-cal").prop('disabled', false);
             }
         });
         $(".end-date-cal").datepicker({
-            dateFormat: 'dd/mm/yy'
+            dateFormat: 'dd M yy'
         });
 
         if ($(".start-date-cal").val() == '') {
@@ -220,13 +223,14 @@
             $('.validmsgsubcampaigntype').show();
             $('#CampaignTypes').attr("disabled", true).trigger("chosen:updated");
             return false;
-        } else {
+        } else if ($('#Status').val() != "Complete") {
             $('.validmsgsubcampaigntype').hide();
             $('#CampaignTypes').attr("disabled", false).trigger("chosen:updated");
         }
 
-
-        if ($('#Status').val() == "Complete") {
+       
+        var pathname = window.location.pathname; // Returns path only
+        if ($('#Status').val() == "Complete" && pathname.indexOf("ChildCampaign")>0) {
             $('a[data-select-all="selectunselect"]').hide();
             $('a[data-target-id="BusinessGroups_Id"]').hide();
             $('a[data-target-id="Segments_Id"]').hide();

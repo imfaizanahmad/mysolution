@@ -49,7 +49,7 @@
                                    )
                                     <div class="validmsgSubCamp HideOnsave"></div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="MCM">
                                     <label>Sub Campaign Manager</label><span class="text-danger">*</span>
                                     @Html.TextBoxFor(m => m.CampaignManager,
                                   (Model.Id != 0 && Model.Status == "Complete") ?
@@ -62,8 +62,9 @@
                             <div class="col-md-6" id="SDC">
                                 <div class="form-group">
                                     <label>Sub Campaign Description & Goals<span class="text-danger">*</span></label>
-                                    @Html.TextAreaFor(m => m.CampaignDescription, (Model.Id != 0 && Model.Status == "Complete") ?
-                                        (object)new { disabled = "disabled", @class = "form-control" } :
+                                    @Html.TextAreaFor(m => m.CampaignDescription,
+                                        //(Model.Id != 0 && Model.Status == "Complete") ?
+                                        //     (object)new { disabled = "disabled", @class = "form-control" } :
                                         (object)new { @class = "form-control", maxlength = 500, onkeypress = "return alpha(event,CampaignDescription)" })
                                     <div class="validmsgSubCampDesc HideOnsave"></div>
                                 </div>
@@ -95,13 +96,14 @@
 
                     <div class="row">
                         <div class="col-md-6" id="SD">
-                            <label>Start Date</label><span class="text-danger lb-sm"> (DD/MM/YYYY)*</span>
+                            <label>Start Date</label><span class="text-danger lb-sm"> (DD 3letter month YYYY)*</span>
                             <div class="form-group">
                                 <div id="dvStartDate" class="col-md-6 date datealign">
                                     <div class="input-group input-append date">
-                                        @Html.TextBoxFor(m => m.StartDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd/MM/yyyy") : ""), disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
-                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd/MM/yyyy") : ""), @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
+                                        @Html.TextBoxFor(m => m.StartDate,
+                                            //(Model.Id != 0 && Model.Status == "Complete") ?
+                                            //     (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd MMM yyyy") : ""), disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" } :
+                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd MMM yyyy") : ""), @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on startcal"></span></span>
                                     </div>
                                     <div class="validmsgSdate HideOnsave"></div>
@@ -111,13 +113,14 @@
                             </div>
                         </div>
                         <div class="col-md-6" id="ED">
-                            <label>End Date</label><span class="text-danger lb-sm"> (DD/MM/YYYY)*</span>
+                            <label>End Date</label><span class="text-danger lb-sm"> (DD 3letter month YYYY)*</span>
                             <div class="form-group">
                                 <div id="dvEndDate" class="col-md-6 form-group date datealign">
                                     <div class="input-group input-append date">
-                                        @Html.TextBoxFor(m => m.EndDate, (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd/MM/yyyy") : ""), disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" } :
-                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd/MM/yyyy") : ""), @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD/MM/YYYY" })
+                                        @Html.TextBoxFor(m => m.EndDate,
+                                            //(Model.Id != 0 && Model.Status == "Complete") ?
+                                            //     (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd MMM yyyy") : ""), disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" } :
+                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd MMM yyyy") : ""), @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on endcal"></span></span>
                                     </div>
                                     <div class="validmsgEdate HideOnsave"></div><div class="validmsgDatecompare"></div>
@@ -201,9 +204,10 @@
                                         <div class="form-group">
                                             <label>Budget<span class="text-danger">*</span></label>
                                             <span class="input-group-addon" style="width: 0px;height: 31.5px !important;">€</span>
-                                                 @Html.TextBoxFor(m => m.Budget, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                (object)new { disabled = "disabled", @class = "form-control currency numeric" } :
-                                                (object)new { @class = "form-control currency numeric", @maxlength = "10", onkeypress = "numericvalidate(event)"})
+                                                 @Html.TextBoxFor(m => m.Budget,
+                                                //(Model.Id != 0 && Model.Status == "Complete") ?
+                                                //(object)new { disabled = "disabled", @class = "form-control " } :
+                                                (object)new { @class = "form-control currency numeric", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                                 <div class="validmsgBudget HideOnsave"></div>
                                               
 </div>
@@ -212,8 +216,9 @@
                                         <div class="form-group">
                                             <label>Spend</label><br />
                                             <span class="input-group-addon" style="width: 0px;height: 31.5px !important;">€</span>
-                                            @Html.TextBoxFor(m => m.Spend, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                (object)new { disabled = "disabled", @class = "form-control currency numeric", @maxlength = "10" } :
+                                            @Html.TextBoxFor(m => m.Spend,
+                                                //(Model.Id != 0 && Model.Status == "Complete") ?
+                                                //     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
                                                 (object)new { @class = "form-control currency numeric", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                             <div class="validmsgSpend"></div>
                                         </div>
@@ -246,12 +251,10 @@
                                             @Html.TextBoxFor(m => m.MILGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
                                                     (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
-                                            <td>
-                                            @Html.TextBoxFor(m => m.MILLow, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            <td>@Html.TextBoxFor(m => m.MILLow, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
                                                     (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
-                                            <td>
-                                            @Html.TextBoxFor(m => m.MILHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            <td>@Html.TextBoxFor(m => m.MILHigh, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
                                                     (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
                                         </tr>
@@ -261,44 +264,48 @@
                                             @Html.TextBoxFor(m => m.MGLGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
                                                     (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
-                                            <td>
-                                            @Html.TextBoxFor(m => m.MGLLow, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            <td>@Html.TextBoxFor(m => m.MGLLow, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
                                                     (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" }) </td>
-                                            <td>
-                                            @Html.TextBoxFor(m => m.MGLHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            <td>@Html.TextBoxFor(m => m.MGLHigh, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
                                                     (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
                                         </tr>
                                         <tr>
                                             <td><label>MIO</label></td>
                                             <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                            @Html.TextBoxFor(m => m.MIOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                                @Html.TextBoxFor(m => m.MIOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                         (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
+                                                         (object) new {@class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)"})
+                                            </td>
                                             <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                            @Html.TextBoxFor(m => m.MIOLow, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" }) </td>
+                                                @Html.TextBoxFor(m => m.MIOLow, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                         (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
+                                                         (object) new {@class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)"})
+                                            </td>
                                             <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                            @Html.TextBoxFor(m => m.MIOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                                @Html.TextBoxFor(m => m.MIOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                         (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
+                                                         (object) new {@class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)"})
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><label>MGO</label></td>
                                             <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                            @Html.TextBoxFor(m => m.MGOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                                @Html.TextBoxFor(m => m.MGOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                         (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
+                                                         (object) new {@class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)"})
+                                            </td>
                                             <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                            @Html.TextBoxFor(m => m.MGOLow, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                                @Html.TextBoxFor(m => m.MGOLow, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                         (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
+                                                         (object) new {@class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)"})
+                                            </td>
                                             <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                            @Html.TextBoxFor(m => m.MGOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                                @Html.TextBoxFor(m => m.MGOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                         (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
+                                                         (object) new {@class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)"})
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -338,12 +345,18 @@
                                 @if (Model.Status != "Complete")
                                 {
                                     <div class="col-md-3">
-                                        <input type="button" Id="btnSaveDraftChild" name="button" value="Draft" class="btn btn-primary col-sm-12" />
+                                        <input type="button" Id="btnSaveDraftChild" name="button" value="Draft" class="btn btn-primary col-sm-12"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="button" Id="btnSubmitChild" name="button" value="Submit" class="btn btn-primary col-sm-12" />
+                                        <input type="button" Id="btnSubmitChild" name="button" value="Submit" class="btn btn-primary col-sm-12"/>
                                     </div>
-                                }                                                            
+                                }
+                                else
+                                {
+                                    <div class="col-md-3">
+                                        <input type="button" Id="btnSubmitChild" name="button" value="Update" class="btn btn-primary col-sm-12"/>
+                                    </div>
+                                }                                                   
                             </div>
                         </div>
                     </div>

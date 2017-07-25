@@ -10,7 +10,7 @@ namespace MRM.Business.Interfaces
    public interface IGeographyServices
     {
 
-        IEnumerable<Geography> GetGeography();
+        IList<Geography> GetGeography();
         bool CreateMCGeography(MasterCampaign MC);
     }
 }

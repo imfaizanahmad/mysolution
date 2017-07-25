@@ -9,7 +9,7 @@ namespace MRM.Business.Interfaces
 {
    public interface IBusinessGroupServices
     {
-        IEnumerable<BusinessGroup> GetBG();
+        IList<BusinessGroup> GetBG();
         bool CreateMCBusinessGroup(BusinessGroup MCBG);
     }
 }

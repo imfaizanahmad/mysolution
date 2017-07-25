@@ -14,11 +14,11 @@
     $('#TacticType_Id').removeAttr('multiple');
     
 
-    if ($('#Status').val() == "Complete") {
-        $('a[data-select-all="selectunselect"]').hide();
-        $('a[data-target-id="BusinessGroups_Id"]').hide();
-        $('a[data-target-id="Segments_Id"]').hide();
-    }
+    //if ($('#Status').val() == "Complete") {
+    //    $('a[data-select-all="selectunselect"]').hide();
+    //    $('a[data-target-id="BusinessGroups_Id"]').hide();
+    //    $('a[data-target-id="Segments_Id"]').hide();
+    //}
 
     PreventSpecialChar();
 
@@ -118,8 +118,8 @@
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
-                PreventSpecialChar();
-                RemoveZeroFromMetric();
+               // PreventSpecialChar();
+               // RemoveZeroFromMetric();
             }
         });
     });
@@ -196,7 +196,6 @@
     });
 
     $(document).on('click', '#btnAddReachRow', function () {
-        debugger;
         var $options = $('#tblBenchmark tbody tr.trReach').find('.ddlMetricReach').html();
         var reachTblRow = $('<tr><td><label><input value="Reach" name="MetricType" type="hidden" /><input value="0" class="hdnMetric" type="hidden" /></label></td>\
                            <td><select id="MetricReach_Id" class="form-control ddlMetricReach chosen-single">' + $options + '</select></td>\
@@ -240,9 +239,9 @@
 
     });
 
-    
+
+
     $(document).on('click', "#tblBenchmark tbody .removeRow", function () {
-       // debugger;
         $(this).closest("tr").remove();
 
         if ($('#tblBenchmark tbody tr.trReach select.ddlMetricReach > option').length >= $('#tblBenchmark tbody tr .ddlMetricReach').length) {
@@ -743,7 +742,7 @@ function alpha(e) {
         return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
     }
     else {
-        alert("You can't enter more then 500 character in description field!")
+        alert("You can't enter more then 500 character in description field!");
         return false;
     }
 }
@@ -838,10 +837,6 @@ function CollectTacticFormData() {
     data.StartDate = $.datepicker.formatDate('mm/dd/yy', $("#StartDate").datepicker("getDate"));
     data.EndDate = $.datepicker.formatDate('mm/dd/yy', $("#EndDate").datepicker("getDate"));
   
-
-
-
-
 
     data.BusinessGroups_Id = [];
     if ($('#SubCampaignType').val() == 0) {

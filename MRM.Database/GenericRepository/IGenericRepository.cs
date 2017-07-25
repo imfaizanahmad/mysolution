@@ -10,6 +10,7 @@ namespace MRM.Database.GenericRepository
 {
    public interface IGenericRepository<TEntity> where TEntity : class
     {
+        DbSet<TEntity> Table { get; set; }
         IEnumerable<TEntity> Get();
         TEntity GetByID(object id);
         void Insert(TEntity entity);
