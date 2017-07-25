@@ -9,6 +9,6 @@ namespace MRM.Business.Interfaces
 {
     public interface IMetricReachServices
     {
-        IEnumerable<MetricReach> GetAllMetricReach();
+        IList<MetricReach> GetAllMetricReach();
     }
 }

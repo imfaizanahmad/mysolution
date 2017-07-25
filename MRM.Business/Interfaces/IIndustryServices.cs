@@ -10,7 +10,7 @@ namespace MRM.Business.Interfaces
    public interface IIndustryServices
     {
 
-        IEnumerable<Industry> GetIndustry();
+        IList<Industry> GetIndustry();
         List<Industry> GetIndustryBySegmentId(int [] SegmentId);
         bool CreateMCIndustry(MasterCampaign MC);
     }

@@ -10,7 +10,7 @@ namespace MRM.Business.Interfaces
 {
    public interface IChildCampaignServices
     {
-        IEnumerable<ChildCampaign> GetChildCampaign();
+        IList<ChildCampaign> GetChildCampaign();
         List<ChildCampaign> GetChildCampaignById(ChildCampaignViewModel model);
         List<ChildCampaign> GetChildCampaignByMasterId(int masterId);
         bool InsertChildCampaign(ChildCampaignViewModel model);

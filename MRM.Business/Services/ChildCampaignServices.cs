@@ -19,9 +19,9 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public IEnumerable<ChildCampaign> GetChildCampaign()
+        public IList<ChildCampaign> GetChildCampaign()
         {
-            IEnumerable<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAll().OrderByDescending(t => t.UpdatedDate).ToList();
+            IList<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAll().OrderByDescending(t => t.UpdatedDate).ToList();
             return childCampaign;
         }
 

@@ -55,7 +55,7 @@ namespace MRM.Controllers
         {
             MasterCampaignServices obj = new MasterCampaignServices();
             int maxRows = 10;
-            int totalCount = obj.GetMasterCampaign().Where(x => x.IsActive).Count();
+            int totalCount = obj.GetOrderedMasterCampaign().Where(x => x.IsActive).Count();
             //MasterCampaign MasterCampaignObj = new MasterCampaign();
 
             //MasterCampaignObj.MasterCampaigns = (from Mastercampaign in obj.GetMasterCampaign().Where(x=>x.IsActive).ToList()
@@ -66,7 +66,7 @@ namespace MRM.Controllers
             //                .OrderByDescending(Mastercampaign => Mastercampaign.CreatedDate)
             //                .Skip((currentPage - 1) * maxRows)
             //                .Take(maxRows).ToList();
-            double pageCount = (double)((decimal)obj.GetMasterCampaign().Where(x => x.IsActive).Count() / Convert.ToDecimal(maxRows));
+            double pageCount = (double)((decimal)obj.GetOrderedMasterCampaign().Where(x => x.IsActive).Count() / Convert.ToDecimal(maxRows));
             MasterCampaignObj.PageCount = (int)Math.Ceiling(pageCount);
             MasterCampaignObj.CurrentPageIndex = currentPage;
             return MasterCampaignObj;

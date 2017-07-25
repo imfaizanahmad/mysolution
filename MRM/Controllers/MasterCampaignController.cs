@@ -94,7 +94,7 @@ namespace MRM.Controllers
                     mcvm.Industries_Id = masterCampaign.Industries.Select(t => t.Id).ToArray(); ;
                 }
 
-                mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id).Where(t=>t.IsActive==true); ;
+                mcvm.IndustryViewModels = _industryService.GetIndustryBySegmentId(mcvm.Segments_Id).Where(t=>t.IsActive==true).ToList();
 
 
                 mcvm.Name = masterCampaign.Name;
@@ -170,7 +170,7 @@ namespace MRM.Controllers
 
             model.Segments_Id = model.Segments_Id;
             List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
-            model.IndustryViewModels = lst.Where(t=>t.IsActive==true);
+            model.IndustryViewModels = lst.Where(t=>t.IsActive==true).ToList();
           
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();

@@ -10,7 +10,7 @@ namespace MRM.Business.Interfaces
 {
    public interface IBusinessLineServices
     {
-        IEnumerable<BusinessLine> GetBusinessLine();
+        IList<BusinessLine> GetBusinessLine();
         List<BusinessLine> GetBusinessLineByBGId(int [] BGId);
         bool CreateMCBusinessLine(MasterCampaign MC);
     }

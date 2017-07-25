@@ -18,9 +18,9 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public IEnumerable<BusinessGroup> GetBG()
+        public IList<BusinessGroup> GetBG()
         {
-            IEnumerable<BusinessGroup> bg = guow.GenericRepository<BusinessGroup>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
+            IList<BusinessGroup> bg = guow.GenericRepository<BusinessGroup>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return bg;
         }
 

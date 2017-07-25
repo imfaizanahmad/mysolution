@@ -18,9 +18,9 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public IEnumerable<Segment> GetSegment()
+        public IList<Segment> GetSegment()
         {
-            IEnumerable<Segment> seg = guow.GenericRepository<Segment>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
+            IList<Segment> seg = guow.GenericRepository<Segment>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name)).ToList();
             return seg;
         }
 

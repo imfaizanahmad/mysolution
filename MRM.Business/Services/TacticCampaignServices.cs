@@ -20,9 +20,9 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public IEnumerable<TacticCampaign> GetTacticCampaign()
+        public IList<TacticCampaign> GetTacticCampaign()
         {
-            IEnumerable<TacticCampaign> tacticCampaign = guow.GenericRepository<TacticCampaign>().GetAll().ToList();
+            IList<TacticCampaign> tacticCampaign = guow.GenericRepository<TacticCampaign>().GetAll().ToList();
             return tacticCampaign;
         }
 

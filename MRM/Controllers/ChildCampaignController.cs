@@ -41,7 +41,7 @@ namespace MRM.Controllers
         {
             ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
 
-            Childvm.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+            Childvm.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
 
             if (Id != 0)
             {
@@ -70,20 +70,20 @@ namespace MRM.Controllers
                     {
                         if (Childvm.CampaignTypes == 0)
                         {
-                            Childvm.BusinessGroupViewModels = Childvm.BusinessGroupViewModels.Concat(item.BusinessGroups);
-                            Childvm.SegmentViewModels = item.Segments;
+                            Childvm.BusinessGroupViewModels = Childvm.BusinessGroupViewModels.Concat(item.BusinessGroups).ToList();
+                            Childvm.SegmentViewModels = item.Segments.ToList();
                         }
                         else
                         {
-                            Childvm.BusinessGroupViewModels = item.BusinessGroups;
-                            Childvm.SegmentViewModels = Childvm.SegmentViewModels.Concat(item.Segments);
+                            Childvm.BusinessGroupViewModels = item.BusinessGroups.ToList();
+                            Childvm.SegmentViewModels = Childvm.SegmentViewModels.Concat(item.Segments).ToList();
                         }
                         
-                        Childvm.GeographyViewModels = item.Geographys;
-                        Childvm.ThemeViewModels = item.Themes;
+                        Childvm.GeographyViewModels = item.Geographys.ToList();
+                        Childvm.ThemeViewModels = item.Themes.ToList();
 
-                        Childvm.BusinessLineViewModels = item.BusinessLines;
-                        Childvm.IndustryViewModels = item.Industries;
+                        Childvm.BusinessLineViewModels = item.BusinessLines.ToList();
+                        Childvm.IndustryViewModels = item.Industries.ToList();
                         Childvm.MCStartDate = item.StartDate;
                         Childvm.MCEndDate = item.EndDate;
                     }
@@ -201,25 +201,25 @@ namespace MRM.Controllers
                 {
                     if (model.CampaignTypes == 0)
                     {
-                        model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups);
-                        model.SegmentViewModels = item.Segments;
+                        model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups).ToList();
+                        model.SegmentViewModels = item.Segments.ToList();
                     }
                     else
                     {
-                        model.BusinessGroupViewModels = item.BusinessGroups;
-                        model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments);
+                        model.BusinessGroupViewModels = item.BusinessGroups.ToList();
+                        model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments).ToList();
                     }
-                    model.GeographyViewModels = item.Geographys;
-                    model.ThemeViewModels = item.Themes;
+                    model.GeographyViewModels = item.Geographys.ToList();
+                    model.ThemeViewModels = item.Themes.ToList();
                     if (model.Segments_Id != null)
                     {
                         if (model.Segments_Id[0] != 0 && model.Segments_Id[0] != -1)
-                            model.IndustryViewModels = item.Industries;
+                            model.IndustryViewModels = item.Industries.ToList();
                     }
                     if (model.BusinessGroups_Id != null)
                     {
                         if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
-                            model.BusinessLineViewModels = item.BusinessLines;
+                            model.BusinessLineViewModels = item.BusinessLines.ToList();
                     }
                     model.MCStartDate = item.StartDate;
                     model.MCEndDate = item.EndDate;
@@ -227,7 +227,7 @@ namespace MRM.Controllers
             }
 
             ManageSelectUnselect(model);
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
        
             return PartialView("ChildCampaignForm", model);
         }
@@ -241,26 +241,26 @@ namespace MRM.Controllers
                 {
                     if (model.CampaignTypes == 0)
                     {
-                        model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups);
-                        model.SegmentViewModels = item.Segments;
+                        model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups).ToList();
+                        model.SegmentViewModels = item.Segments.ToList();
                     }
                     else
                     {
-                        model.BusinessGroupViewModels = item.BusinessGroups;
-                        model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments);
+                        model.BusinessGroupViewModels = item.BusinessGroups.ToList();
+                        model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments).ToList();
                     }
 
-                    model.GeographyViewModels = item.Geographys;
-                    model.ThemeViewModels = item.Themes;
+                    model.GeographyViewModels = item.Geographys.ToList();
+                    model.ThemeViewModels = item.Themes.ToList();
                     if (model.Segments_Id != null)
                     {
                         if (model.Segments_Id[0] != 0 && model.Segments_Id[0] != -1)
-                            model.IndustryViewModels = item.Industries;
+                            model.IndustryViewModels = item.Industries.ToList();
                     }
                     if (model.BusinessGroups_Id != null)
                     {
                         if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
-                            model.BusinessLineViewModels = item.BusinessLines;
+                            model.BusinessLineViewModels = item.BusinessLines.ToList();
                     }
                     model.MCStartDate = item.StartDate;
                     model.MCEndDate = item.EndDate;
@@ -269,7 +269,7 @@ namespace MRM.Controllers
             
             ManageSelectUnselect(model);
 
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
             return PartialView("ChildCampaignForm", model);
         }
         public ActionResult LoadMasterCampaign(ChildCampaignViewModel model)
@@ -283,31 +283,31 @@ namespace MRM.Controllers
                     _masterCampaignServices.GetMasterCampaignById(model.MasterCampaignId);
                 foreach (var item in masterChild)
                 {
-                    model.IndustryViewModels = item.Industries;
+                    model.IndustryViewModels = item.Industries.ToList();
                     if (model.CampaignTypes == 0)
                     {
-                        model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups);
-                        model.SegmentViewModels = item.Segments;
+                        model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups).ToList();
+                        model.SegmentViewModels = item.Segments.ToList();
                     }
                     else
                     {
-                        model.BusinessGroupViewModels = item.BusinessGroups;
-                        model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments);
+                        model.BusinessGroupViewModels = item.BusinessGroups.ToList();
+                        model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments).ToList();
                     }
 
                     if (model.Segments_Id != null)
                     {
                         if (model.Segments_Id[0] != 0 && model.Segments_Id[0] != -1)
-                            model.IndustryViewModels = item.Industries;
+                            model.IndustryViewModels = item.Industries.ToList();
                     }
                     if (model.BusinessGroups_Id != null)
                     {
                         if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
-                            model.BusinessLineViewModels = item.BusinessLines;
+                            model.BusinessLineViewModels = item.BusinessLines.ToList();
                     }
                     
-                    model.ThemeViewModels = item.Themes;
-                    model.GeographyViewModels = item.Geographys;
+                    model.ThemeViewModels = item.Themes.ToList();
+                    model.GeographyViewModels = item.Geographys.ToList();
                     //model.StartDate = item.StartDate;
                     //model.EndDate = item.EndDate;
                     model.MCStartDate = item.StartDate;
@@ -317,7 +317,7 @@ namespace MRM.Controllers
 
             ManageSelectUnselect(model);
 
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
 
             return PartialView("ChildCampaignForm", model);
         }
@@ -329,20 +329,20 @@ namespace MRM.Controllers
             
             foreach (var item in masterChild)
             {
-                model.IndustryViewModels = item.Industries;
+                model.IndustryViewModels = item.Industries.ToList();
                 if (model.CampaignTypes == 0)
                 {
-                    model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups);
-                    model.SegmentViewModels = item.Segments;
+                    model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups).ToList();
+                    model.SegmentViewModels = item.Segments.ToList();
                 }
                 else
                 {
-                    model.BusinessGroupViewModels = item.BusinessGroups;
-                    model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments);
+                    model.BusinessGroupViewModels = item.BusinessGroups.ToList();
+                    model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments).ToList();
                 }
             }
             ManageSelectUnselect(model);
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
             return PartialView("ChildCampaignForm", model);
         }
 
@@ -369,7 +369,7 @@ namespace MRM.Controllers
         public bool Save(ChildCampaignViewModel model, string button)
         {
 
-            model.MasterViewModels = _masterCampaignServices.GetMasterCampaign().Where(t => t.Status == "Complete");
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
 
             try
             {

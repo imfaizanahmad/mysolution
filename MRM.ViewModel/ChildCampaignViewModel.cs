@@ -64,13 +64,13 @@ namespace MRM.ViewModel
         public int MasterCampaignId { get; set; }
 
         public Boolean IsActive { get; set; }
-        public IEnumerable<Industry> IndustryViewModels { get; set; }
-        public IEnumerable<Geography> GeographyViewModels { get; set; }
-        public IEnumerable<Theme> ThemeViewModels { get; set; }
-        public IEnumerable<Segment> SegmentViewModels { get; set; }
-        public IEnumerable<BusinessGroup> BusinessGroupViewModels { get; set; }
-        public IEnumerable<BusinessLine> BusinessLineViewModels { get; set; }
-        public IEnumerable<MasterCampaign> MasterViewModels { get; set; }
+        public IList<Industry> IndustryViewModels { get; set; }
+        public IList<Geography> GeographyViewModels { get; set; }
+        public IList<Theme> ThemeViewModels { get; set; }
+        public IList<Segment> SegmentViewModels { get; set; }
+        public IList<BusinessGroup> BusinessGroupViewModels { get; set; }
+        public IList<BusinessLine> BusinessLineViewModels { get; set; }
+        public IList<MasterCampaign> MasterViewModels { get; set; }
         public CampaignType CampaignTypes { get; set; }
         public int[] BusinessGroups_Id { get; set; }
         public int[] BusinessLines_Id { get; set; }

@@ -18,9 +18,19 @@ namespace MRM.Business.Services
             guow = new GenericUnitOfWork();
         }
 
-        public IEnumerable<MasterCampaign> GetMasterCampaign()
+        public IQueryable<MasterCampaign> MasterCampaignTable()
         {
-            IEnumerable<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAll().OrderByDescending(t=>t.UpdatedDate);
+            return guow.GenericRepository<MasterCampaign>().Table;
+        }
+
+        public IQueryable<MasterCampaign> GetOrderedMasterCampaign()
+        {
+            return guow.GenericRepository<MasterCampaign>().Table.OrderByDescending(t => t.UpdatedDate);
+        }
+
+        public IList<MasterCampaign> GetMasterCampaign()
+        {
+            IList<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAll().OrderByDescending(t => t.UpdatedDate).ToList();
             return masterCampaign;
         }
 
