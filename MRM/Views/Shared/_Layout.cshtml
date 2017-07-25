@@ -44,6 +44,7 @@
     </div>
 </div>
 <div id="maindiv" class="container body-content">
+    @*<div id="mydiv"><div class="loader"></div></div>*@
     @RenderBody()
 
     <footer>
@@ -59,8 +60,8 @@
 
 <script type="text/javascript">
     $(document).ajaxStart(function () {
-        $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>")
-            .dialog({ height: 400, width: 400, modal: true, dialogClass: 'dialogbg' }).show();
+       $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>")
+             .dialog({ height: 400, width: 400, modal: true, dialogClass: 'dialogbg' }).show();
         $(".ui-dialog-titlebar").hide();
     });
 
@@ -85,11 +86,13 @@
 
         commonUiInitialization();
         $('#globalLoader').remove();
+       
         GetBGandSegmentSingleDDl();
         GetSubCampaignType();
     };
 
     $(document).ready(function () {
+        
         //$.fn.ajaxMRM = function (options) {
         //    var settingsmrm = $.extend(true, {}, options,{
         //        success: function (data) {
@@ -148,6 +151,7 @@
         });
 
         BindDatePickerCalender();
+
     });
 
     function BindDatePickerCalender() {     
@@ -223,8 +227,9 @@
             $('#CampaignTypes').attr("disabled", false).trigger("chosen:updated");
         }
 
-
-        if ($('#Status').val() == "Complete") {
+       
+        var pathname = window.location.pathname; // Returns path only
+        if ($('#Status').val() == "Complete" && pathname.indexOf("ChildCampaign")>0) {
             $('a[data-select-all="selectunselect"]').hide();
             $('a[data-target-id="BusinessGroups_Id"]').hide();
             $('a[data-target-id="Segments_Id"]').hide();

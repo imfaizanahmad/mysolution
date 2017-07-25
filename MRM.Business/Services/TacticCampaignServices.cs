@@ -57,21 +57,18 @@ namespace MRM.Business.Services
 
         private void ModelToEntity(TacticCampaignViewModel model, TacticCampaign tacticCampaignEntity)
         {
-            
-            if (model.Id != 0)
-            {
+          if (tacticCampaignEntity.Status != "Complete")
+             {
                 tacticCampaignEntity.ChildCampaigns = guow.GenericRepository<ChildCampaign>()
                     .GetByID(model.ChildCampaign_Id);
                 tacticCampaignEntity.ChildCampaigns.MasterCampaigns = guow.GenericRepository<MasterCampaign>()
                     .GetByID(model.MasterCampaign_Id);
                 tacticCampaignEntity.Name = model.Name;
-                
                 tacticCampaignEntity.CreatedBy = "user";
                 tacticCampaignEntity.Year = model.Year;
                 tacticCampaignEntity.MasterCampaign_Id = model.MasterCampaign_Id;
                 tacticCampaignEntity.JourneyStage_Id = model.JournetStage_Id;
                 tacticCampaignEntity.TacticType = model.TacticType;
-
 
                 List<TacticType> lstTacticType = null;
                 if (model.TacticType_Id != null)
@@ -82,14 +79,12 @@ namespace MRM.Business.Services
                         var tacticType = guow.GenericRepository<TacticType>().GetByID(item);
                         lstTacticType.Add(tacticType);
                     }
-
                 }
                 tacticCampaignEntity.TacticTypes = lstTacticType;
                 tacticCampaignEntity.TacticCampaignReachResponses =
                     model.TacticCampaignReachResponseViewModels.ToList();
 
                 tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? "Draft" : "Active";
-
                 if (model.Id != 0 && model.Status == "Complete")
                 {
                     if (model.EndDate < DateTime.Now)
@@ -97,7 +92,6 @@ namespace MRM.Business.Services
                         tacticCampaignEntity.InheritStatus = "Complete";
                     }
                 }
-
                 if (model.Id == 0)
                 {
                     tacticCampaignEntity.VisitedDate = DateTime.Now;
@@ -232,8 +226,12 @@ namespace MRM.Business.Services
             tacticCampaignCamp.BusinessLines.Remove(tacticCampaignCamp.BusinessLines.FirstOrDefault<BusinessLine>());
             tacticCampaignCamp.BusinessGroups.Remove(tacticCampaignCamp.BusinessGroups.FirstOrDefault<BusinessGroup>());
             //tacticCampaignCamp.Vendors.Remove(tacticCampaignCamp.Vendors.FirstOrDefault<Vendor>());
-            tacticCampaignCamp.TacticTypes.Remove(tacticCampaignCamp.TacticTypes.FirstOrDefault<TacticType>());
-            tacticCampaignCamp.TacticCampaignReachResponses.Remove(tacticCampaignCamp.TacticCampaignReachResponses.FirstOrDefault<TacticCampaignReachResponse>());
+            if (tacticCampaignCamp.Status != "Complete")
+            {
+                tacticCampaignCamp.TacticTypes.Remove(tacticCampaignCamp.TacticTypes.FirstOrDefault<TacticType>());
+                tacticCampaignCamp.TacticCampaignReachResponses.Remove(tacticCampaignCamp.TacticCampaignReachResponses
+                    .FirstOrDefault<TacticCampaignReachResponse>());
+            }
             return tacticCampaignCamp;
         }
 

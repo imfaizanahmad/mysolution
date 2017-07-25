@@ -14,11 +14,11 @@
     $('#TacticType_Id').removeAttr('multiple');
     
 
-    if ($('#Status').val() == "Complete") {
-        $('a[data-select-all="selectunselect"]').hide();
-        $('a[data-target-id="BusinessGroups_Id"]').hide();
-        $('a[data-target-id="Segments_Id"]').hide();
-    }
+    //if ($('#Status').val() == "Complete") {
+    //    $('a[data-select-all="selectunselect"]').hide();
+    //    $('a[data-target-id="BusinessGroups_Id"]').hide();
+    //    $('a[data-target-id="Segments_Id"]').hide();
+    //}
 
     PreventSpecialChar();
 
@@ -239,7 +239,9 @@
 
     });
 
-    $('#tblBenchmark tbody').on("click", ".removeRow", function () {
+
+
+    $(document).on('click', "#tblBenchmark tbody .removeRow", function () {
         $(this).closest("tr").remove();
 
         if ($('#tblBenchmark tbody tr.trReach select.ddlMetricReach > option').length >= $('#tblBenchmark tbody tr .ddlMetricReach').length) {
@@ -835,10 +837,6 @@ function CollectTacticFormData() {
     data.StartDate = $.datepicker.formatDate('mm/dd/yy', $("#StartDate").datepicker("getDate"));
     data.EndDate = $.datepicker.formatDate('mm/dd/yy', $("#EndDate").datepicker("getDate"));
   
-
-
-
-
 
     data.BusinessGroups_Id = [];
     if ($('#SubCampaignType').val() == 0) {

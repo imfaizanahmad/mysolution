@@ -44,9 +44,9 @@ namespace MRM.Business.Services
 
         private void ModelToEntity(MasterCampaignViewModel model, MasterCampaign masterCampaignEntity)
         {
-            if (model.Status == "Complete" && model.Id != 0)
+            if (masterCampaignEntity.Status == "Complete" && model.Id != 0)
             {
-                masterCampaignEntity.CampaignManager = model.CampaignManager;
+                masterCampaignEntity.CampaignDescription = model.CampaignDescription;
                 masterCampaignEntity.StartDate = model.StartDate;
                 masterCampaignEntity.EndDate = model.EndDate;
                 masterCampaignEntity.Status = model.Status;

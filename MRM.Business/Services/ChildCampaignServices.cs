@@ -48,7 +48,7 @@ namespace MRM.Business.Services
 
         private void ModelToEntity(ChildCampaignViewModel model, ChildCampaign childCampaignEntity)
         {
-            if (model.Status == "Complete" && model.Id != 0)
+            if (childCampaignEntity.Status == "Complete" && model.Id != 0)
             {
                 childCampaignEntity.StartDate = model.StartDate;
                 childCampaignEntity.EndDate = model.EndDate;
