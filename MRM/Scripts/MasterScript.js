@@ -10,10 +10,11 @@ $(document).ready(function () {
 
     //Master camapaign post
     $(document).on('click', '#btnSubmit', function () {
+        var btnval = $("#btnSubmit").val();
         if (ValidateMasterForm() === true) {
             $.ajax({
                 type: "POST",
-                url: '/MasterCampaign/save?button=' + "Submit",
+                url: '/MasterCampaign/save?button=' + btnval,
                 data: $("#frmMasterCampaign").serialize(), // serializes the form's elements.
                 success: function (data) {
                     if (data === "True") window.location = "/MasterCampaign/CampaignList";
@@ -236,24 +237,6 @@ function ValidateMasterForm() {
         $('.validmsgMaster').hide();
     }
 
-    if ($('#CampaignManager').val().trim() == "") {
-        $('.validmsgMastermanager').text("Please enter Master Campaign Manager").css("color", "#b94a48");
-        $('.validmsgMastermanager').show();
-        if (validationFocusFlag == 0) { validationFocusId = "#MCN"; validationFocusFlag = 1; }
-        flag = false;
-    }
-    else {
-        if (ConfigurationModel.emailvalidate($('#CampaignManager').val())) {
-            $('.validmsgMastermanager').hide();
-        }
-        else {
-            $('.validmsgMastermanager').text("Please enter valid Master Campaign Manager").css("color", "#b94a48");
-            $('.validmsgMastermanager').show();
-            if (validationFocusFlag == 0) { validationFocusId = "#MCN"; validationFocusFlag = 1; }
-            flag = false;
-        }
-    }
-
     if ($('#CampaignDescription').val().trim() === "") {
         $('.validmsgMasterDesc').text("Please enter Master Campaign Description & Goals").css("color", "#b94a48");
         $('.validmsgMasterDesc').show();
@@ -263,6 +246,27 @@ function ValidateMasterForm() {
     else {
         $('.validmsgMasterDesc').hide();
     }
+
+
+    if ($('#CampaignManager').val().trim() == "") {
+        $('.validmsgMastermanager').text("Please enter Master Campaign Manager").css("color", "#b94a48");
+        $('.validmsgMastermanager').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#MCM"; validationFocusFlag = 1; }
+        flag = false;
+    }
+    else {
+        if (ConfigurationModel.emailvalidate($('#CampaignManager').val())) {
+            $('.validmsgMastermanager').hide();
+        }
+        else {
+            $('.validmsgMastermanager').text("Please enter valid Master Campaign Manager").css("color", "#b94a48");
+            $('.validmsgMastermanager').show();
+            if (validationFocusFlag == 0) { validationFocusId = "#MCM"; validationFocusFlag = 1; }
+            flag = false;
+        }
+    }
+
+
     if ($('#Geographys_Id').val() === null) {
 
         $('.validmsgbusinesGeography').text("Please select Markets").css("color", "#b94a48");
