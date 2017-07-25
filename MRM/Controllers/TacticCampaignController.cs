@@ -250,8 +250,8 @@ namespace MRM.Controllers
                         model.BusinessGroupViewModels = item.BusinessGroups.ToList();
                         model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments).ToList();
                     }
-                    model.ThemeViewModels = item.Themes;
-                    model.GeographyViewModels = item.Geographys;
+                    model.ThemeViewModels = item.Themes.ToList();
+                    model.GeographyViewModels = item.Geographys.ToList();
                     //  model.BusinessGroupViewModels = item.BusinessGroups;
                     //  model.SegmentViewModels = item.Segments;
                     if (model.Segments_Id != null)
