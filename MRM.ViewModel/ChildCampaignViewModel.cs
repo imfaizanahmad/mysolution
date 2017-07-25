@@ -25,8 +25,8 @@ namespace MRM.ViewModel
         public string Name { get; set; }
         public string CampaignDescription { get; set; }
         public string CampaignManager { get; set; }
-        public string Budget { get; set; }
-        public string Spend { get; set; }
+        public decimal? Budget { get; set; }
+        public decimal? Spend { get; set; }
         public string MarketingInfluenceLeads { get; set; }
         public string MarketingGeneratedLeads { get; set; }
         public string MarketingInfluenceOpportunity { get; set; }
@@ -38,18 +38,18 @@ namespace MRM.ViewModel
         public DateTime? MCStartDate { get; set; }
         public DateTime? MCEndDate { get; set; }
 
-        public string MILGoal { get; set; }
-        public string MILLow { get; set; }
-        public string MILHigh { get; set; }
-        public string MGLGoal { get; set; }
-        public string MGLLow { get; set; }
-        public string MGLHigh { get; set; }
-        public string MIOGoal { get; set; }
-        public string MIOLow { get; set; }
-        public string MIOHigh { get; set; }
-        public string MGOGoal { get; set; }
-        public string MGOLow { get; set; }
-        public string MGOHigh { get; set; }
+        public int? MILGoal { get; set; }
+        public int? MILLow { get; set; }
+        public int? MILHigh { get; set; }
+        public int? MGLGoal { get; set; }
+        public int? MGLLow { get; set; }
+        public int? MGLHigh { get; set; }
+        public decimal? MIOGoal { get; set; }
+        public decimal? MIOLow { get; set; }
+        public decimal? MIOHigh { get; set; }
+        public decimal? MGOGoal { get; set; }
+        public decimal? MGOLow { get; set; }
+        public decimal? MGOHigh { get; set; }
 
         public bool ThemeSelectUnselect { get; set; }
         public bool BgSelectUnselect { get; set; }

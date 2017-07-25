@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201707210736599_third.Designer.cs">
       <DependentUpon>201707210736599_third.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707250757376_datatypechng.cs" />
+    <Compile Include="Migrations\201707250757376_datatypechng.Designer.cs">
+      <DependentUpon>201707250757376_datatypechng.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
     <Compile Include="Model\BusinessLine.cs" />
@@ -103,6 +107,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707210736599_third.resx">
       <DependentUpon>201707210736599_third.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707250757376_datatypechng.resx">
+      <DependentUpon>201707250757376_datatypechng.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
