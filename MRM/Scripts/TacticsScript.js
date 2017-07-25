@@ -196,6 +196,7 @@
     });
 
     $(document).on('click', '#btnAddReachRow', function () {
+        debugger;
         var $options = $('#tblBenchmark tbody tr.trReach').find('.ddlMetricReach').html();
         var reachTblRow = $('<tr><td><label><input value="Reach" name="MetricType" type="hidden" /><input value="0" class="hdnMetric" type="hidden" /></label></td>\
                            <td><select id="MetricReach_Id" class="form-control ddlMetricReach chosen-single">' + $options + '</select></td>\
@@ -239,7 +240,9 @@
 
     });
 
-    $('#tblBenchmark tbody').on("click", ".removeRow", function () {
+    
+    $(document).on('click', "#tblBenchmark tbody .removeRow", function () {
+       // debugger;
         $(this).closest("tr").remove();
 
         if ($('#tblBenchmark tbody tr.trReach select.ddlMetricReach > option').length >= $('#tblBenchmark tbody tr .ddlMetricReach').length) {
@@ -396,12 +399,11 @@ function ValidateTacticSaveasDraft() {
         var MCStartdate = new Date($("#MCStartDate").val());
         var MCEnddate = new Date($("#MCEndDate").val());
 
-        var DisMCStartdate = (MCStartdate.getDate() +
-            '/' +
-            (MCStartdate.getMonth() + 1) +
-            '/' +
-            MCStartdate.getFullYear());
-        var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        //var DisMCStartdate = (MCStartdate.getDate() +'/' +(MCStartdate.getMonth() + 1) +'/' +MCStartdate.getFullYear());
+        //var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        var DisMCStartdate = DateAsNokiaFormat(MCStartdate);
+        var DisMCEnddate = DateAsNokiaFormat(MCEnddate);
+
         if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
             if (startdate < MCStartdate) {
                 var msg =
@@ -564,12 +566,11 @@ function ValidateSubmitTacticForm() {
         var MCStartdate = new Date($("#MCStartDate").val());
         var MCEnddate = new Date($("#MCEndDate").val());
 
-        var DisMCStartdate = (MCStartdate.getDate() +
-            '/' +
-            (MCStartdate.getMonth() + 1) +
-            '/' +
-            MCStartdate.getFullYear());
-        var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        //var DisMCStartdate = (MCStartdate.getDate() +'/' +(MCStartdate.getMonth() + 1) +'/' +MCStartdate.getFullYear());
+        //var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        var DisMCStartdate = DateAsNokiaFormat(MCStartdate);
+        var DisMCEnddate = DateAsNokiaFormat(MCEnddate);
+
         if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
             if (startdate < MCStartdate) {
 
@@ -951,3 +952,11 @@ function RemoveZeroFromMetric() {
     $('.mrminttostring').each(function () { if ($(this).val() == 0) { $(this).val(''); } });
 }
 
+//Date Format
+function DateAsNokiaFormat(date) {
+    var strArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var d = date.getDate();
+    var m = strArray[date.getMonth()];
+    var y = date.getFullYear();
+    return '' + (d <= 9 ? '0' + d : d) + ' ' + m + ' ' + y;
+}

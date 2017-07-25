@@ -300,13 +300,13 @@ namespace MRM.Controllers
                                                                        {
                                                                            Id = string.Format("M{0}", campaign.Id.ToString("0000000")),
                                                                            Name = campaign.Name,
-                                                                           InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
-                                                                           CampaignDescription = campaign.CampaignDescription,
                                                                            CampaignManager = campaign.CampaignManager,
                                                                            CreatedBy = campaign.CreatedBy,
-                                                                           Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
-                                                                           StartDate = String.Format("{0:dd/MM/yyyy}", campaign.StartDate),
-                                                                           EndDate = String.Format("{0:dd/MM/yyyy}", campaign.EndDate)
+                                                                           InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
+                                                                           CampaignDescription = campaign.CampaignDescription,
+                                                                           Status = campaign.Status=="Save Draft"? "Draft":"Active",
+                                                                           StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
+                                                                           EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
                                                                        }
 
                                                      ).ToList();
@@ -336,9 +336,9 @@ namespace MRM.Controllers
             {
                 List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByChildId(itemChildList.Id).ToList();
 
-                foreach (var itemTCList in tacticList)
+                foreach (var itemTcList in tacticList)
                 {
-                   Inheritanceflag = ((itemTCList.Status == "Complete" && (itemTCList.EndDate < DateTime.Now)) ? 0 : 1);
+                   Inheritanceflag = ((itemTcList.Status == "Complete" && (itemTcList.EndDate < DateTime.Now)) ? 0 : 1);
                 }
 
                 if (tacticList.Count == 0 || Inheritanceflag == 1)

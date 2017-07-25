@@ -70,14 +70,6 @@
     <Compile Include="GenericRepository\GenericRepository.cs" />
     <Compile Include="GenericRepository\IGenericRepository.cs" />
     <Compile Include="GenericUnitOfWork\GenericUnitOfWork .cs" />
-    <Compile Include="Migrations\201707210736599_third.cs" />
-    <Compile Include="Migrations\201707210736599_third.Designer.cs">
-      <DependentUpon>201707210736599_third.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707250757376_datatypechng.cs" />
-    <Compile Include="Migrations\201707250757376_datatypechng.Designer.cs">
-      <DependentUpon>201707250757376_datatypechng.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
     <Compile Include="Model\BusinessLine.cs" />
@@ -103,14 +95,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707210736599_third.resx">
-      <DependentUpon>201707210736599_third.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707250757376_datatypechng.resx">
-      <DependentUpon>201707250757376_datatypechng.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

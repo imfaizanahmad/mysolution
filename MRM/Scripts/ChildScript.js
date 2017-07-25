@@ -262,12 +262,12 @@ function ValidateChildSaveasDraft() {
         var MCStartdate = new Date($("#MCStartDate").val());
         var MCEnddate = new Date($("#MCEndDate").val());
 
-        var DisMCStartdate = (MCStartdate.getDate() +
-            '/' +
-            (MCStartdate.getMonth() + 1) +
-            '/' +
-            MCStartdate.getFullYear());
-        var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        //var DisMCStartdate = (MCStartdate.getDate() +'/' +(MCStartdate.getMonth() + 1) +'/' +MCStartdate.getFullYear());
+        //var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+
+        var DisMCStartdate = DateAsNokiaFormat(MCStartdate);
+        var DisMCEnddate = DateAsNokiaFormat(MCEnddate);
+
         if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
 
             if ((startdate < MCStartdate)) {
@@ -394,13 +394,13 @@ function ValidateChildForm() {
         var MCStartdate = new Date($("#MCStartDate").val());
         var MCEnddate = new Date($("#MCEndDate").val());
 
+     
 
-        var DisMCStartdate = (MCStartdate.getDate() +
-            '/' +
-            (MCStartdate.getMonth() + 1) +
-            '/' +
-            MCStartdate.getFullYear());
-        var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        //var DisMCStartdate = (MCStartdate.getDate() +'/' +(MCStartdate.getMonth() + 1) +'/' +MCStartdate.getFullYear());
+        //var DisMCEnddate = (MCEnddate.getDate() + '/' + (MCEnddate.getMonth() + 1) + '/' + MCEnddate.getFullYear());
+        var DisMCStartdate = DateAsNokiaFormat(MCStartdate);
+        var DisMCEnddate = DateAsNokiaFormat(MCEnddate);
+
         if ($("#StartDate").val() !== "" && $("#EndDate").val() !== "") {
             //if (startdate < MCStartdate || enddate > MCEnddate) {
             //    $('.validmsgDateMCcompare').text("Sub Campaign start and end date should be between Master Campaign date: " + DisMCStartdate + " to " + DisMCEnddate + "").css("color", "#b94a48");
@@ -636,4 +636,20 @@ function PreventSpecialChar() {
     });
 
 }
+
+//Date Format
+function DateAsNokiaFormat(date) {
+    var strArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var d = date.getDate();
+    var m = strArray[date.getMonth()];
+    var y = date.getFullYear();
+    return '' + (d <= 9 ? '0' + d : d) + ' ' + m + ' ' + y;
+}
+        // this example uses the id selector & no options passed    
+        jQuery(function ($) {
+            $('#Budget').autoNumeric('init');
+            $('#Spend').autoNumeric('init');
+        });
+
+
 

@@ -1,5 +1,6 @@
 ﻿@model MRM.ViewModel.ChildCampaignViewModel
 <div>
+    <script src="~/Scripts/autoNumeric.js"></script>
 <form id="frmChildCampaign">
 @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
 @Html.HiddenFor(m => m.Status, new { @Value = Model.Status })
@@ -32,7 +33,7 @@
                                    Model.MasterCampaignId), "None selected.",
                                   Model.Id != 0 && Model.Status == "Complete" ?
                                             (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
-                                            (object)new { @class = "chosen-single form-control"} )
+                                            (object)new { @class = "chosen-single form-control" } )
                                     <div class="validmsgMastercampaign"></div>
                                 </div>                               
                             </div>                    
@@ -201,8 +202,8 @@
                                             <label>Budget<span class="text-danger">*</span></label>
                                             <span class="input-group-addon" style="width: 0px;height: 31.5px !important;">€</span>
                                                  @Html.TextBoxFor(m => m.Budget, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                (object)new { disabled = "disabled", @class = "form-control " } :
-                                                (object)new { @class = "form-control currency", @maxlength = "10", onkeypress = "numericvalidate(event)" })
+                                                (object)new { disabled = "disabled", @class = "form-control currency" } :
+                                                (object)new { @class = "form-control currency", @maxlength = "10", onkeypress = "numericvalidate(event)"})
                                                 <div class="validmsgBudget HideOnsave"></div>
                                               
 </div>
@@ -212,7 +213,7 @@
                                             <label>Spend</label><br />
                                             <span class="input-group-addon" style="width: 0px;height: 31.5px !important;">€</span>
                                             @Html.TextBoxFor(m => m.Spend, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
+                                                (object)new { disabled = "disabled", @class = "form-control currency", @maxlength = "10" } :
                                                 (object)new { @class = "form-control currency", @maxlength = "10", onkeypress = "numericvalidate(event)" })
                                             <div class="validmsgSpend"></div>
                                         </div>
@@ -240,51 +241,64 @@
                                     <tbody>
                                         <tr>
                                             <td><label>MIL</label></td>
-                                            <td>@Html.TextBoxFor(m => m.MILGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            
+                                            <td>
+                                            @Html.TextBoxFor(m => m.MILGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
-                                            <td>@Html.TextBoxFor(m => m.MILLow, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
+                                            <td>
+                                            @Html.TextBoxFor(m => m.MILLow, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
-                                            <td>@Html.TextBoxFor(m => m.MILHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
+                                            <td>
+                                            @Html.TextBoxFor(m => m.MILHigh, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
                                         </tr>
                                         <tr>
                                             <td><label>MGL</label></td>
-                                            <td>@Html.TextBoxFor(m => m.MGLGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            <td>
+                                            @Html.TextBoxFor(m => m.MGLGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
-                                            <td>@Html.TextBoxFor(m => m.MGLLow, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
+                                            <td>
+                                            @Html.TextBoxFor(m => m.MGLLow, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" }) </td>
-                                            <td>@Html.TextBoxFor(m => m.MGLHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" }) </td>
+                                            <td>
+                                            @Html.TextBoxFor(m => m.MGLHigh, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
                                         </tr>
                                         <tr>
                                             <td><label>MIO</label></td>
-                                            <td>@Html.TextBoxFor(m => m.MIOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
-                                            <td>@Html.TextBoxFor(m => m.MIOLow, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" }) </td>
-                                            <td>@Html.TextBoxFor(m => m.MIOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                            @Html.TextBoxFor(m => m.MIOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
+                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                            @Html.TextBoxFor(m => m.MIOLow, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
+                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" }) </td>
+                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                            @Html.TextBoxFor(m => m.MIOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
+                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
                                         </tr>
                                         <tr>
                                             <td><label>MGO</label></td>
-                                            <td>@Html.TextBoxFor(m => m.MGOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
-                                            <td>@Html.TextBoxFor(m => m.MGOLow, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
-                                            <td>@Html.TextBoxFor(m => m.MGOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                            @Html.TextBoxFor(m => m.MGOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
+                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                            @Html.TextBoxFor(m => m.MGOLow, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
+                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
+                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                            @Html.TextBoxFor(m => m.MGOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50" } :
+                                                    (object)new { @class = "form-control benchmarkcurrency", @maxlength = "50", onkeypress = "numericvalidate(event)" })</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -299,8 +313,6 @@
                         </div>
                     </div>
                         
-                        
-                  
                     </fieldset>
 
                 <fieldset>                   

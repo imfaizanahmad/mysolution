@@ -548,10 +548,10 @@ namespace MRM.Controllers
                                                                       Name = campaign.Name,
                                                                       CampaignDescription = campaign.CampaignDescription,
                                                                       CampaignManager=campaign.CampaignManager,
+                                                                      CreatedBy = campaign.CreatedBy,
                                                                       Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
-                                                                      StartDate = String.Format("{0:dd/MM/yyyy}", campaign.StartDate),
-                                                                      EndDate = String.Format("{0:dd/MM/yyyy}", campaign.EndDate),
-                                                                      CreatedBy = campaign.CreatedBy
+                                                                      StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
+                                                                      EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
                                                                   }
                                                                  ).ToList();
             return Json(childCampaignList, JsonRequestBehavior.AllowGet);
@@ -583,9 +583,9 @@ namespace MRM.Controllers
                 }
                 
             }
-            if (Inheritanceflag == 0) { InheritanceStatus = "Complete"; }
-            else { InheritanceStatus = "Active"; }
-
+            InheritanceStatus = Inheritanceflag == 0 ? "Complete" : "Active";
+            //if (Inheritanceflag == 0) { InheritanceStatus = "Complete"; }
+            //else { InheritanceStatus = "Active"; }
             return InheritanceStatus;
         }
 
