@@ -118,8 +118,8 @@
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
-                PreventSpecialChar();
-                RemoveZeroFromMetric();
+               // PreventSpecialChar();
+               // RemoveZeroFromMetric();
             }
         });
     });

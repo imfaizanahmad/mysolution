@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MRM.Database.Model;
 using MRM.Business.Interfaces;
 using MRM.Database.GenericUnitOfWork;
@@ -36,18 +33,11 @@ namespace MRM.Business.Services
         public List<BusinessLine> GetBusinessLineByBGId(int[] BGId)
         {
             List<BusinessLine> lstBline = new List<BusinessLine>();
-            if ( BGId != null)
+            if (BGId != null)
             {
-                foreach (var item in BGId)
-                {
-                    BusinessGroup bg = guow.GenericRepository<BusinessGroup>().GetByID(item);
-                    lstBline.AddRange(bg.BusinessLines);
-                    //var Bline = guow.GenericRepository<BusinessLine>().Get( x => x.BusinessGroups.BusinessGroupId == item);
-                    //lstBline.Add(Bline);
-                }
-
+                var businessLines = guow.GenericRepository<BusinessLine>().Table.Where(t => BGId.Contains(t.BusinessGroups.Id)).ToList();
+                lstBline.AddRange(businessLines);
             }
-
             return lstBline;
         }
     }

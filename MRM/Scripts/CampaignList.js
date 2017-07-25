@@ -8,13 +8,14 @@ function MasterCampaignBindGrid(panel) {
     };
 
     $.ajax({
-        type: 'get',
+        type: 'POST',
         contentType: "application/json",
         url: "/MasterCampaign/GetMasterCampaignList",
         data: JSON.stringify(sdata),
         success: function (dataset) {
             var table = panel.find('#masterCampaignGrid').DataTable({
                 paging: true,
+                serverSide: true, // for process server side
                 responsive: true,
                 ordering: true,
                 info: false,

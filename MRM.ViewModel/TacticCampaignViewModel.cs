@@ -57,17 +57,17 @@ namespace MRM.ViewModel
         public string InheritanceStatus { get; set; }
         //public JourneyStage JourneyStages { get; set; }
 
-        public IEnumerable<JourneyStage> JourneyStageViewModels { get; set; }
-        public IEnumerable<Industry> IndustryViewModels { get; set; }
-        public IEnumerable<Geography> GeographyViewModels { get; set; }
-        public IEnumerable<Theme> ThemeViewModels { get; set; }
-        public IEnumerable<Segment> SegmentViewModels { get; set; }
-        public IEnumerable<BusinessGroup> BusinessGroupViewModels { get; set; }
-        public IEnumerable<BusinessLine> BusinessLineViewModels { get; set; }
-        public IEnumerable<MasterCampaign> MasterViewModels { get; set; }
-        public IEnumerable<ChildCampaign> ChildCampaignViewModels { get; set; }
-        public IEnumerable<Vendor> VendorViewModels { get; set; }
-        public IEnumerable<TacticType> TacticTypeViewModels { get; set; }
+        public IList<JourneyStage> JourneyStageViewModels { get; set; }
+        public IList<Industry> IndustryViewModels { get; set; }
+        public IList<Geography> GeographyViewModels { get; set; }
+        public IList<Theme> ThemeViewModels { get; set; }
+        public IList<Segment> SegmentViewModels { get; set; }
+        public IList<BusinessGroup> BusinessGroupViewModels { get; set; }
+        public IList<BusinessLine> BusinessLineViewModels { get; set; }
+        public IList<MasterCampaign> MasterViewModels { get; set; }
+        public IList<ChildCampaign> ChildCampaignViewModels { get; set; }
+        public IList<Vendor> VendorViewModels { get; set; }
+        public IList<TacticType> TacticTypeViewModels { get; set; }
         public int[] BusinessGroups_Id { get; set; }
         public int[] BusinessLines_Id { get; set; }
         public int[] Geographys_Id { get; set; }
@@ -80,9 +80,9 @@ namespace MRM.ViewModel
         public int? TacticType { get; set; }
         public int JournetStage_Id { get; set; }
 
-        public IEnumerable<MetricReach> MetricReachViewModels { get; set; }     
-        public IEnumerable<MetricResponse> MetricResponseViewModels { get; set; }
-        public IEnumerable<TacticCampaignReachResponse> TacticCampaignReachResponseViewModels { get; set; }
+        public IList<MetricReach> MetricReachViewModels { get; set; }     
+        public IList<MetricResponse> MetricResponseViewModels { get; set; }
+        public IList<TacticCampaignReachResponse> TacticCampaignReachResponseViewModels { get; set; }
     }
 
     public class TacticCampaignViewModelList
