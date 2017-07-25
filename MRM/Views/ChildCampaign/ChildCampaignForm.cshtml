@@ -1,5 +1,6 @@
 ﻿@model MRM.ViewModel.ChildCampaignViewModel
 <div>
+    <script src="~/Scripts/autoNumeric.js"></script>
 <form id="frmChildCampaign">
 @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
 @Html.HiddenFor(m => m.Status, new { @Value = Model.Status })
@@ -32,7 +33,7 @@
                                    Model.MasterCampaignId), "None selected.",
                                   Model.Id != 0 && Model.Status == "Complete" ?
                                             (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
-                                            (object)new { @class = "chosen-single form-control"} )
+                                            (object)new { @class = "chosen-single form-control" } )
                                     <div class="validmsgMastercampaign"></div>
                                 </div>                               
                             </div>                    
@@ -245,7 +246,9 @@
                                     <tbody>
                                         <tr>
                                             <td><label>MIL</label></td>
-                                            <td>@Html.TextBoxFor(m => m.MILGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            
+                                            <td>
+                                            @Html.TextBoxFor(m => m.MILGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
                                                     (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
                                             <td>@Html.TextBoxFor(m => m.MILLow, (Model.Id != 0 && Model.Status == "Complete") ?
@@ -257,7 +260,8 @@
                                         </tr>
                                         <tr>
                                             <td><label>MGL</label></td>
-                                            <td>@Html.TextBoxFor(m => m.MGLGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                            <td>
+                                            @Html.TextBoxFor(m => m.MGLGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
                                                     (object)new { @class = "form-control", @maxlength = "50", onkeypress = "numericvalidate(event)", @placeholder = "Number of leads" })</td>
                                             <td>@Html.TextBoxFor(m => m.MGLLow, (Model.Id != 0 && Model.Status == "Complete") ?
@@ -316,8 +320,6 @@
                         </div>
                     </div>
                         
-                        
-                  
                     </fieldset>
 
                 <fieldset>                   

@@ -442,7 +442,7 @@ namespace MRM.Controllers
                 if (Convert.ToDateTime(model.StartDate) > Convert.ToDateTime(model.EndDate)) errorCounter++;
                 if (model.Name == "") errorCounter++;
                 if (model.CampaignDescription == "") errorCounter++;
-                if (model.Budget == "") errorCounter++;
+                if (model.Budget == 0) errorCounter++;
                 if (model.CampaignTypes == CampaignType.BG_Led)
                 {
                     var bgArr = model.BusinessGroups_Id;

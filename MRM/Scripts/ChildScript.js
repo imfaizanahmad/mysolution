@@ -643,3 +643,11 @@ function DateAsNokiaFormat(date) {
     var y = date.getFullYear();
     return '' + (d <= 9 ? '0' + d : d) + ' ' + m + ' ' + y;
 }
+        // this example uses the id selector & no options passed    
+        jQuery(function ($) {
+            $('#Budget').autoNumeric('init');
+            $('#Spend').autoNumeric('init');
+        });
+
+
+

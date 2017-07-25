@@ -12,7 +12,7 @@ namespace MRM.Database.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string TacticDescription { get; set; }
-        public string Year { get; set; }
+        public int? Year { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public DateTime? VisitedDate { get; set; }

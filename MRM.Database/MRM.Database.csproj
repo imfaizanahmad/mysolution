@@ -70,10 +70,6 @@
     <Compile Include="GenericRepository\GenericRepository.cs" />
     <Compile Include="GenericRepository\IGenericRepository.cs" />
     <Compile Include="GenericUnitOfWork\GenericUnitOfWork .cs" />
-    <Compile Include="Migrations\201707211305351_OnTest21072017.cs" />
-    <Compile Include="Migrations\201707211305351_OnTest21072017.Designer.cs">
-      <DependentUpon>201707211305351_OnTest21072017.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
     <Compile Include="Model\BusinessLine.cs" />
@@ -99,11 +95,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707211305351_OnTest21072017.resx">
-      <DependentUpon>201707211305351_OnTest21072017.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
