@@ -185,6 +185,15 @@ $(document).on("change", "#CampaignTypes", function () {
 function fFormatCurrency() {
     $('#Budget').val($('#Budget').val().replace(/\,/g, ''));
     $('#Spend').val($('#Spend').val().replace(/\,/g, ''));
+    $('#MILGoal').val($('#MILGoal').val().replace(/\,/g, ''));
+    $('#MILLow').val($('#MILLow').val().replace(/\,/g, ''));
+    $('#MILHigh').val($('#MILHigh').val().replace(/\,/g, ''));
+    $('#MGLGoal').val($('#MGLGoal').val().replace(/\,/g, ''));
+    $('#MGLLow').val($('#MGLLow').val().replace(/\,/g, ''));
+    $('#MGLHigh').val($('#MGLHigh').val().replace(/\,/g, ''));
+    $('#MIOGoal').val($('#MIOGoal').val().replace(/\,/g, ''));
+    $('#MIOLow').val($('#MIOLow').val().replace(/\,/g, ''));
+    $('#MIOHigh').val($('#MIOHigh').val().replace(/\,/g, ''));
 }
 //Load BusinessLine 
 function funcLoadBusinessLine() {
