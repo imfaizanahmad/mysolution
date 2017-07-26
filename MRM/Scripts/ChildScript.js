@@ -298,6 +298,9 @@ function ValidateChildSaveasDraft() {
             }
         }
     }
+    LowHighSaveSubmitValid();
+
+
     //Hide valid messages
     $('.HideOnsave').hide();
     CheckMasterAvailable();
@@ -560,7 +563,9 @@ function ValidateChildForm() {
 
         $('.validmsgBudget').hide();
     }
-   
+
+    LowHighSaveSubmitValid();
+
     //if ($('#Spend').val() == "") {
     //    $('.validmsgSpend').text("Please enter spend.").css("color", "#b94a48");
     //    $('.validmsgSpend').show();
@@ -651,3 +656,61 @@ function DateAsNokiaFormat(date) {
 
 
 
+//Compare for form save/submit validation
+function LowHighSaveSubmitValid() {
+    if ($("#MILLow").val() != null && $("#MILHigh").val() != null) {
+        LowHighValidate($("#MILLow").val(), $("#MILHigh").val(),"MIL");
+    }
+    if ($("#MGLLow").val() != null && $("#MGLHigh").val() != null) {
+        LowHighValidate($("#MGLLow").val(), $("#MGLHigh").val(),"MGL");
+    }
+    if ($("#MIOLow").val() != null && $("#MIOHigh").val() != null) {
+        LowHighValidate($("#MIOLow").val(), $("#MIOHigh").val(),"MIO");
+    }
+    if ($("#MGOLow").val() != null && $("#MGOHigh").val() != null) {
+        LowHighValidate($("#MGOLow").val(), $("#MGOHigh").val(),"MGO");
+    }
+}
+
+//Low High compare validation
+function LowHighValidate(Low, High,Msg) {
+    if (Low != null && High != null)
+    {
+        if (parseInt(Low) >parseInt(High)) {
+            $('.validmsgHighLowCompare').text(Msg+" High can not be less than Low").css("color", "#b94a48");
+            $('.validmsgHighLowCompare').show();
+            if (validationFocusFlag == 0) { validationFocusId = "#Met"; validationFocusFlag = 1; }
+            flag = false;
+        } else {
+            $('.validmsgHighLowCompare').hide();
+        }
+    }
+}
+
+//Compare for on change
+function LowHighOnChange() {
+    if ($("#MILLow").val() != null && $("#MILHigh").val() != null) {
+        LowHighOnChangeValidate($("#MILLow").val(), $("#MILHigh").val(), "MIL");
+    }
+    if ($("#MGLLow").val() != null && $("#MGLHigh").val() != null) {
+        LowHighOnChangeValidate($("#MGLLow").val(), $("#MGLHigh").val(), "MGL");
+    }
+    if ($("#MIOLow").val() != null && $("#MIOHigh").val() != null) {
+        LowHighOnChangeValidate($("#MIOLow").val(), $("#MIOHigh").val(),"MIO");
+    }
+    if ($("#MGOLow").val() != null && $("#MGOHigh").val() != null) {
+        LowHighOnChangeValidate($("#MGOLow").val(), $("#MGOHigh").val(),"MGO");
+    }
+}
+//Low High compare For Onchange
+function LowHighOnChangeValidate(Low, High,Msg) {
+    if (Low != null && High != null) {
+        if (parseInt(Low) > parseInt(High)) {
+            $('.validmsgHighLowCompare').text(Msg+ " High can not be less than Low").css("color", "#b94a48");
+            $('.validmsgHighLowCompare').show();
+            return false;
+        } else {
+            $('.validmsgHighLowCompare').hide();
+        }
+    }
+}

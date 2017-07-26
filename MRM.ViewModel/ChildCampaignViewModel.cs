@@ -50,6 +50,10 @@ namespace MRM.ViewModel
         public decimal? MGOGoal { get; set; }
         public decimal? MGOLow { get; set; }
         public decimal? MGOHigh { get; set; }
+        public string MILSource { get; set; }
+        public string MGLSource { get; set; }
+        public string MIOSource { get; set; }
+        public string MGOSource { get; set; }
 
         public bool ThemeSelectUnselect { get; set; }
         public bool BgSelectUnselect { get; set; }

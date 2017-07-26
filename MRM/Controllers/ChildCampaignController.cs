@@ -131,13 +131,11 @@ namespace MRM.Controllers
                 Childvm.Name = childCampaign.Name;
                 Childvm.CampaignDescription = childCampaign.CampaignDescription;
                 Childvm.CampaignManager = childCampaign.CampaignManager;
-                Childvm.MarketingInfluenceLeads = childCampaign.MarketingInfluenceLeads;
-                Childvm.MarketingGeneratedLeads = childCampaign.MarketingGeneratedLeads;
+             
                 Childvm.Budget = childCampaign.Budget;
                 Childvm.StartDate = childCampaign.StartDate;
                 Childvm.EndDate = childCampaign.EndDate;
-                Childvm.MarketingInfluenceOpportunity = childCampaign.MarketingInfluenceOpportunity;
-                Childvm.MarketingGeneratedOpportunity = childCampaign.MarketingGeneratedOpportunity;
+               
                 Childvm.Spend = childCampaign.Spend;
                 Childvm.Id = childCampaign.Id;
                 Childvm.Status = childCampaign.Status;
@@ -153,6 +151,11 @@ namespace MRM.Controllers
                 Childvm.MGOGoal = childCampaign.MGOGoal;
                 Childvm.MGOLow = childCampaign.MGOLow;
                 Childvm.MGOHigh = childCampaign.MGOHigh;
+                Childvm.MILSource = childCampaign.MILSource;
+                Childvm.MGLSource = childCampaign.MGLSource;
+                Childvm.MIOSource = childCampaign.MIOSource;
+                Childvm.MGOSource = childCampaign.MGOSource;
+
                 Childvm.CampaignTypes = (childCampaign.CampaignType == 0 ? CampaignType.BG_Led : CampaignType.GEPS);
 
 

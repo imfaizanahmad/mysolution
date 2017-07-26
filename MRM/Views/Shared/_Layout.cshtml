@@ -44,7 +44,6 @@
     </div>
 </div>
 <div id="maindiv" class="container body-content">
-    @*<div id="mydiv"><div class="loader"></div></div>*@
     @RenderBody()
 
     <footer>
@@ -60,8 +59,8 @@
 
 <script type="text/javascript">
     $(document).ajaxStart(function () {
-       $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>")
-             .dialog({ height: 400, width: 400, modal: true, dialogClass: 'dialogbg' }).show();
+       $("<div id='globalLoader'><div class='loader'></div></div>")
+             .dialog({  modal: true, dialogClass: 'dialogbg' }).show();
         $(".ui-dialog-titlebar").hide();
     });
 
@@ -372,16 +371,27 @@
         font-family: 'Nokia';
     }
 
-
     /*.ui-widget-content{border:0px solid #fff !important}*/
     .dialogbg {
         background: transparent;
         border: 0px solid #fff !important;
         border-style: none;
+        width: 100%!important;
+        height: 100%!important;
     }
-
+    #globalLoader {
+        position: absolute;
+        top: 0px!important;
+        left: 0px!important;
+        width: 100%!important;
+        height: 180%!important;
+        z-index: 1000;
+        background-color: grey;
+        opacity: .8;
+    }
     .loader {
         border: 16px solid #f3f3f3;
+        top: 250px;
         border-radius: 50%;
         border-top: 16px solid #3498db;
         width: 120px;

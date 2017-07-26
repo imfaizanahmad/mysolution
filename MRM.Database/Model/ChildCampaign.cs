@@ -15,10 +15,6 @@ namespace MRM.Database.Model
         public string CampaignManager { get; set; }
         public decimal? Budget { get; set; }
         public decimal? Spend { get; set; }
-        public string MarketingInfluenceLeads { get; set; }
-        public string MarketingGeneratedLeads { get; set; }
-        public string MarketingInfluenceOpportunity { get; set; }
-        public string MarketingGeneratedOpportunity { get; set; }
         public string Status { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
@@ -36,8 +32,10 @@ namespace MRM.Database.Model
         public decimal? MGOLow { get; set; }
         public decimal? MGOHigh { get; set; }
         public decimal? MGOGoal { get; set; }
-
-
+        public string MILSource { get; set; }
+        public string MGLSource { get; set; }
+        public string MIOSource { get; set; }
+        public string MGOSource { get; set; }
 
         public virtual ICollection<BusinessGroup> BusinessGroups { get; set; }
         public virtual ICollection<BusinessLine> BusinessLines { get; set; }
