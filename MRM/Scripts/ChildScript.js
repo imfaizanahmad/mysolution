@@ -194,10 +194,13 @@ function fFormatCurrency() {
     $('#MIOGoal').val($('#MIOGoal').val().replace(/\,/g, ''));
     $('#MIOLow').val($('#MIOLow').val().replace(/\,/g, ''));
     $('#MIOHigh').val($('#MIOHigh').val().replace(/\,/g, ''));
+    $('#MGOGoal').val($('#MGOGoal').val().replace(/\,/g, ''));
+    $('#MGOLow').val($('#MGOLow').val().replace(/\,/g, ''));
+    $('#MGOHigh').val($('#MGOHigh').val().replace(/\,/g, ''));
 }
 //Load BusinessLine 
 function funcLoadBusinessLine() {
-    if ($("#BusinessGroups_Id").val() != null) {
+   // if ($("#BusinessGroups_Id").val() != null) {
         $.ajax({
             type: "POST",
             url: '/ChildCampaign/LoadBusinessLine',
@@ -207,11 +210,11 @@ function funcLoadBusinessLine() {
                 PreventSpecialChar();
             }
         });
-    }
+    //}
 }
 //Load Industry
 function funcLoadIndustry() {
-    if ($("#Segments_Id").val() != null) {
+   // if ($("#Segments_Id").val() != null) {
         $.ajax({
             type: "POST",
             url: '/ChildCampaign/LoadIndustry',
@@ -221,22 +224,22 @@ function funcLoadIndustry() {
                 PreventSpecialChar();
             }
         });
-    }
+    //}
 }
 
 
 
 //Numeric validation
-function numericvalidate(evt) {
-    var theEvent = evt || window.event;
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode(key);
-    var regex = /[0-9]|\./;
-    if (!regex.test(key)) {
-        theEvent.returnValue = false;
-        if(theEvent.preventDefault) theEvent.preventDefault();
-    }
-}
+//function numericvalidate(evt) {
+//    var theEvent = evt || window.event;
+//    var key = theEvent.keyCode || theEvent.which;
+//    key = String.fromCharCode(key);
+//    var regex = /[0-9]|\./;
+//    if (!regex.test(key)) {
+//        theEvent.returnValue = false;
+//        if(theEvent.preventDefault) theEvent.preventDefault();
+//    }
+//}
 
 var validationFocusId = null;
 var validationFocusFlag = 0;
@@ -313,8 +316,10 @@ function ValidateChildSaveasDraft() {
             }
         }
     }
-    LowHighSaveSubmitValid();
 
+            LowHighSaveSubmitValid();
+            if (getHighLowflag == false)
+            { flag = false; }
 
     //Hide valid messages
     $('.HideOnsave').hide();
@@ -580,6 +585,9 @@ function ValidateChildForm() {
     }
 
     LowHighSaveSubmitValid();
+    if (getHighLowflag == false)
+    { flag = false; }
+
 
     //if ($('#Spend').val() == "") {
     //    $('.validmsgSpend').text("Please enter spend.").css("color", "#b94a48");
@@ -670,62 +678,88 @@ function DateAsNokiaFormat(date) {
         //});
 
 
-
+var getHighLowflag = true;
 //Compare for form save/submit validation
 function LowHighSaveSubmitValid() {
+  
     if ($("#MILLow").val() != null && $("#MILHigh").val() != null) {
-        LowHighValidate($("#MILLow").val(), $("#MILHigh").val(),"MIL");
+        getHighLowflag = LowHighValidate($("#MILLow").val(), $("#MILHigh").val(), "MIL");
+        if (getHighLowflag == false)
+        { return; }
     }
     if ($("#MGLLow").val() != null && $("#MGLHigh").val() != null) {
-        LowHighValidate($("#MGLLow").val(), $("#MGLHigh").val(),"MGL");
+        getHighLowflag = LowHighValidate($("#MGLLow").val(), $("#MGLHigh").val(), "MGL");
+        if (getHighLowflag == false)
+        { return; }
     }
     if ($("#MIOLow").val() != null && $("#MIOHigh").val() != null) {
-        LowHighValidate($("#MIOLow").val(), $("#MIOHigh").val(),"MIO");
+        getHighLowflag = LowHighValidate($("#MIOLow").val(), $("#MIOHigh").val(), "MIO");
+        if (getHighLowflag == false)
+        { return; }
     }
     if ($("#MGOLow").val() != null && $("#MGOHigh").val() != null) {
-        LowHighValidate($("#MGOLow").val(), $("#MGOHigh").val(),"MGO");
+        getHighLowflag = LowHighValidate($("#MGOLow").val(), $("#MGOHigh").val(), "MGO");
+        if (getHighLowflag == false)
+        { return; }
     }
+    return getHighLowflag;
 }
 
 //Low High compare validation
-function LowHighValidate(Low, High,Msg) {
+function LowHighValidate(Low, High, Msg) {
+    getHighLowflag = true;
     if (Low != null && High != null)
     {
         if (parseInt(Low) >parseInt(High)) {
             $('.validmsgHighLowCompare').text(Msg+" High can not be less than Low").css("color", "#b94a48");
             $('.validmsgHighLowCompare').show();
             if (validationFocusFlag == 0) { validationFocusId = "#Met"; validationFocusFlag = 1; }
-            flag = false;
+            getHighLowflag = false;
         } else {
             $('.validmsgHighLowCompare').hide();
+            getHighLowflag = true;
         }
+        return getHighLowflag;
     }
 }
 
 //Compare for on change
+var LowHighOnChangeflag = true;
 function LowHighOnChange() {
     if ($("#MILLow").val() != null && $("#MILHigh").val() != null) {
-        LowHighOnChangeValidate($("#MILLow").val(), $("#MILHigh").val(), "MIL");
+        LowHighOnChangeflag = LowHighOnChangeValidate($("#MILLow").val(), $("#MILHigh").val(), "MIL");
+        if (LowHighOnChangeflag == false)
+        {return; }
     }
     if ($("#MGLLow").val() != null && $("#MGLHigh").val() != null) {
-        LowHighOnChangeValidate($("#MGLLow").val(), $("#MGLHigh").val(), "MGL");
+        LowHighOnChangeflag = LowHighOnChangeValidate($("#MGLLow").val(), $("#MGLHigh").val(), "MGL");
+        if (LowHighOnChangeflag == false)
+        { return; }
     }
     if ($("#MIOLow").val() != null && $("#MIOHigh").val() != null) {
-        LowHighOnChangeValidate($("#MIOLow").val(), $("#MIOHigh").val(),"MIO");
+        LowHighOnChangeflag = LowHighOnChangeValidate($("#MIOLow").val(), $("#MIOHigh").val(), "MIO");
+        if (LowHighOnChangeflag == false)
+        { return; }
     }
     if ($("#MGOLow").val() != null && $("#MGOHigh").val() != null) {
-        LowHighOnChangeValidate($("#MGOLow").val(), $("#MGOHigh").val(),"MGO");
+        LowHighOnChangeflag = LowHighOnChangeValidate($("#MGOLow").val(), $("#MGOHigh").val(), "MGO");
+        if (LowHighOnChangeflag == false)
+        { return; }
     }
 }
 //Low High compare For Onchange
-function LowHighOnChangeValidate(Low, High,Msg) {
+function LowHighOnChangeValidate(Low, High, Msg) {
+    LowHighOnChangeflag = true;
     if (Low != null && High != null) {
         if (parseInt(Low) > parseInt(High)) {
             $('.validmsgHighLowCompare').text(Msg+ " High can not be less than Low").css("color", "#b94a48");
             $('.validmsgHighLowCompare').show();
+            LowHighOnChangeflag = false;
             return false;
         } else {
             $('.validmsgHighLowCompare').hide();
+            LowHighOnChangeflag = true;
         }
     }
+    return LowHighOnChangeflag;
 }

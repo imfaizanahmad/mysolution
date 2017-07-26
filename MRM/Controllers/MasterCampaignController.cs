@@ -159,7 +159,9 @@ namespace MRM.Controllers
         {
             model.BusinessGroupViewModels = _businessgroupService.GetBG();
             if (model.BusinessGroups_Id == null)
+            {
                 model.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+            }
             else
             {
                 List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);

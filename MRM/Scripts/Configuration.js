@@ -112,6 +112,20 @@
             event.preventDefault();
     };
 
+    var numericvalidate = function numericvalidate(e) {
+        if ($.inArray(e.keyCode, [8, 9, 27, 13, 110, 190]) !== -1 ||
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+            return;
+        }
+        if ((e.shiftKey || e.keyCode === 46 || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    }; 
+ 
+
+
+
     return {
         ConfirmationDialog: function (title, message, callback) {
             ConfirmationDialog(title, message, callback);
@@ -127,6 +141,9 @@
         },
         decimalvalidate: function (event) {
             return decimalvalidate(event);
+        },
+        numericvalidate: function (event) {
+            return numericvalidate(event);
         },
         CachedAsCookies: CachedAsCookies
     };

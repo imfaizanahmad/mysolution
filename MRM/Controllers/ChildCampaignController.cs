@@ -219,10 +219,18 @@ namespace MRM.Controllers
                         if (model.Segments_Id[0] != 0 && model.Segments_Id[0] != -1)
                             model.IndustryViewModels = item.Industries.ToList();
                     }
+                    else
+                    {
+                        model.Industries_Id = null;
+                    }
                     if (model.BusinessGroups_Id != null)
                     {
                         if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
                             model.BusinessLineViewModels = item.BusinessLines.ToList();
+                    }
+                    else
+                    {
+                        model.BusinessLines_Id = null;
                     }
                     model.MCStartDate = item.StartDate;
                     model.MCEndDate = item.EndDate;
@@ -260,10 +268,18 @@ namespace MRM.Controllers
                         if (model.Segments_Id[0] != 0 && model.Segments_Id[0] != -1)
                             model.IndustryViewModels = item.Industries.ToList();
                     }
+                    else
+                    {
+                        model.Industries_Id = null;
+                    }
                     if (model.BusinessGroups_Id != null)
                     {
                         if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
                             model.BusinessLineViewModels = item.BusinessLines.ToList();
+                    }
+                    else
+                    {
+                        model.BusinessLines_Id = null;
                     }
                     model.MCStartDate = item.StartDate;
                     model.MCEndDate = item.EndDate;
@@ -303,10 +319,16 @@ namespace MRM.Controllers
                         if (model.Segments_Id[0] != 0 && model.Segments_Id[0] != -1)
                             model.IndustryViewModels = item.Industries.ToList();
                     }
+                    else {
+                        model.Industries_Id = null;
+                    }
                     if (model.BusinessGroups_Id != null)
                     {
                         if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
                             model.BusinessLineViewModels = item.BusinessLines.ToList();
+                    }
+                    else {
+                        model.BusinessLines_Id = null;
                     }
                     
                     model.ThemeViewModels = item.Themes.ToList();

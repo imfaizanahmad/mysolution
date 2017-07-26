@@ -38,7 +38,7 @@
             <a href="/MasterCampaign/Index"> <img id="logo" src="~/Content/Image/nokia_white_logo.png" alt="Nokia logo" /></a>
 
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse" id="IdLoadView">
             @Html.Partial("_LoginPartial")
         </div>
     </div>
@@ -60,7 +60,10 @@
 <script type="text/javascript">
     $(document).ajaxStart(function () {
        $("<div id='globalLoader'><div class='loader'></div></div>")
-             .dialog({  modal: true, dialogClass: 'dialogbg' }).show();
+             .dialog({ modal: true, dialogClass: 'dialogbg' }).show();
+
+       $("#IdLoadView").addClass("OnLoaderscroll");
+
         $(".ui-dialog-titlebar").hide();
     });
 
@@ -86,7 +89,7 @@
 
         commonUiInitialization();
         $('#globalLoader').remove();
-       
+        $("#IdLoadView").removeClass("OnLoaderscroll");
         GetBGandSegmentSingleDDl();
         GetSubCampaignType();
     };
@@ -379,6 +382,7 @@
         border-style: none;
         width: 100%!important;
         height: 100%!important;
+        overflow-y:hidden!important;
     }
     #globalLoader {
         position: absolute;
@@ -443,4 +447,8 @@
         line-height:1.2em;
         font-size: x-small;
     }
+    .OnLoaderscroll {
+    overflow-y:hidden!important;
+    }
+
 </style>
