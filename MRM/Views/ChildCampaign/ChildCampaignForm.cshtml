@@ -1,6 +1,6 @@
 ﻿@model MRM.ViewModel.ChildCampaignViewModel
 <div>
-    <script src="~/Scripts/autoNumeric.js"></script>
+    
 <form id="frmChildCampaign">
 @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
 @Html.HiddenFor(m => m.Status, new { @Value = Model.Status })
@@ -207,7 +207,7 @@
                                                  @Html.TextBoxFor(m => m.Budget,
                                                 //(Model.Id != 0 && Model.Status == "Complete") ?
                                                 //(object)new { disabled = "disabled", @class = "form-control " } :
-                                                (object)new { @class = "form-control currency", @maxlength = "10", onkeypress = "numericvalidate(event)" })
+                                                (object)new { @class = "form-control currency numeric", @maxlength = "10", onkeypress = "ConfigurationModel.decimalvalidate(event)" })
                                                 <div class="validmsgBudget HideOnsave"></div>
                                               
 </div>
@@ -219,7 +219,7 @@
                                             @Html.TextBoxFor(m => m.Spend,
                                                 //(Model.Id != 0 && Model.Status == "Complete") ?
                                                 //     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
-                                                (object)new { @class = "form-control currency", @maxlength = "10", onkeypress = "numericvalidate(event)" })
+                                                (object)new { @class = "form-control currency numeric", @maxlength = "10", onkeypress = "ConfigurationModel.decimalvalidate(event)" })
                                             <div class="validmsgSpend"></div>
                                         </div>
                                     </div>

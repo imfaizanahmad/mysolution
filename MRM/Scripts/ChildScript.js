@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     if ($('#Status').val() == "Complete") {
         $('a[data-select-all="selectunselect"]').hide();
         $('a[data-target-id="BusinessGroups_Id"]').hide();
@@ -15,7 +14,9 @@
 
     //child camapaign post
     $(document).on('click', '#btnSubmitChild', function () {
+
         if (ValidateChildForm() === true) {
+            fFormatCurrency();
             $.ajax({
                 type: "POST",
                 url: '/ChildCampaign/save?button=' + "Submit",
@@ -33,7 +34,8 @@
     });
 
     $(document).on('click', '#btnSaveDraftChild', function() {
-        if (ValidateChildSaveasDraft() === true){
+        if (ValidateChildSaveasDraft() === true) {
+            fFormatCurrency();
             $.ajax({
                 type: "POST",
                 url: '/ChildCampaign/save?button=' + "Draft",
@@ -179,7 +181,20 @@ $(document).on("change", "#CampaignTypes", function () {
     });
 });
 
-
+// Replace string format from currency
+function fFormatCurrency() {
+    $('#Budget').val($('#Budget').val().replace(/\,/g, ''));
+    $('#Spend').val($('#Spend').val().replace(/\,/g, ''));
+    $('#MILGoal').val($('#MILGoal').val().replace(/\,/g, ''));
+    $('#MILLow').val($('#MILLow').val().replace(/\,/g, ''));
+    $('#MILHigh').val($('#MILHigh').val().replace(/\,/g, ''));
+    $('#MGLGoal').val($('#MGLGoal').val().replace(/\,/g, ''));
+    $('#MGLLow').val($('#MGLLow').val().replace(/\,/g, ''));
+    $('#MGLHigh').val($('#MGLHigh').val().replace(/\,/g, ''));
+    $('#MIOGoal').val($('#MIOGoal').val().replace(/\,/g, ''));
+    $('#MIOLow').val($('#MIOLow').val().replace(/\,/g, ''));
+    $('#MIOHigh').val($('#MIOHigh').val().replace(/\,/g, ''));
+}
 //Load BusinessLine 
 function funcLoadBusinessLine() {
     if ($("#BusinessGroups_Id").val() != null) {
@@ -649,10 +664,10 @@ function DateAsNokiaFormat(date) {
     return '' + (d <= 9 ? '0' + d : d) + ' ' + m + ' ' + y;
 }
         // this example uses the id selector & no options passed    
-        jQuery(function ($) {
-            $('#Budget').autoNumeric('init');
-            $('#Spend').autoNumeric('init');
-        });
+        //jQuery(function ($) {
+        //    $('#Budget').autoNumeric('init');
+        //    $('#Spend').autoNumeric('init');
+        //});
 
 
 
