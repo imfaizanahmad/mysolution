@@ -330,6 +330,7 @@ namespace MRM.Controllers
 
             //var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
             List <MasterCampaignViewModelListing> masterCampaignList = (from campaign in result
+                                                                        where campaign.IsActive == true
                                                                         select
                                                                        new MasterCampaignViewModelListing
                                                                        {

@@ -8,6 +8,7 @@ using MRM.Database.Model;
 using MRM.Database.GenericRepository;
 using MRM.ViewModel;
 using System.Collections;
+using DataTables.Mvc;
 
 namespace MRM.Controllers
 {
@@ -481,7 +482,7 @@ namespace MRM.Controllers
         public JsonResult GetChildCampaignList()
         {
             _childCampaignServices.DeleteLastyearVisited();
-            List<ChildCampaignViewModelList> childCampaignList = (from campaign in _childCampaignServices.GetOrderedChildCampaign()
+            List<ChildCampaignViewModelList> childCampaignList = (from campaign in _childCampaignServices.GetChildCampaign()
                                                                   where campaign.IsActive == true
                                                                   select
                                                                   new ChildCampaignViewModelList
@@ -500,6 +501,40 @@ namespace MRM.Controllers
             return Json(childCampaignList, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult GetChildCampaignListByPage([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestmodel)
+        {
+
+            _childCampaignServices.DeleteLastyearVisited();
+
+            var chilList = _childCampaignServices.GetOrderedChildCampaign().Where(x => x.IsActive == true).ToList();
+
+            //var filteredData = masterList.Where(_item => _item.Name.Contains(requestmodel.Search.Value));
+
+            var result = chilList.Skip(requestmodel.Start).Take(requestmodel.Length);
+
+            //var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
+            List<ChildCampaignViewModelList> masterCampaignList = (from campaign in result
+                                                                   where campaign.IsActive == true
+                                                                   select
+                                                                      new ChildCampaignViewModelList
+                                                                      {
+                                                                          Id = string.Format("C{0}", campaign.Id.ToString("0000000")),
+                                                                          InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
+                                                                          Name = campaign.Name,
+                                                                          CampaignDescription = campaign.CampaignDescription,
+                                                                          CampaignManager = campaign.CampaignManager,
+                                                                          CreatedBy = campaign.CreatedBy,
+                                                                          Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
+                                                                          StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
+                                                                          EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
+                                                                      }
+
+                                                     ).ToList();
+
+            //var response = DataTablesResponse.Create(requestmodel, masterList.Count(), filteredData.Count(), masterCampaignList);
+            return Json(new DataTablesResponse(requestmodel.Draw, masterCampaignList, chilList.Count(), chilList.Count()), JsonRequestBehavior.AllowGet);
+        }
         public JsonResult DeleteChildCampaign(int id)
         {
             var childCampaign = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel() { Id = id }).FirstOrDefault();

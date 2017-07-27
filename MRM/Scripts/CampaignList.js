@@ -3,7 +3,6 @@
 });
 
 function MasterCampaignBindGrid(panel) {
-    //$('#loadingSpinner').show();
     var sdata = {
     };
 
@@ -12,6 +11,7 @@ function MasterCampaignBindGrid(panel) {
                 responsive: true,
                 serverSide: true,
                 ordering: true,
+                filter : false,
                 info: false,
                 //data: dataset,
                 "autoWidth": false,
