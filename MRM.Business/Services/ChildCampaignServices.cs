@@ -258,7 +258,13 @@ namespace MRM.Business.Services
             var Inheritanceflag = 1;
             string InheritanceStatus = string.Empty;
 
-            Inheritanceflag = tacticList.All(t => t.Status == "Complete" && t.EndDate < DateTime.Now) ? 0 : 1;
+            if (tacticList.Count == 0)
+            { Inheritanceflag = 1; }
+
+            if (tacticList.Count > 0)
+            {
+                Inheritanceflag = tacticList.All(t => t.Status == "Complete" && t.EndDate < DateTime.Now) ? 0 : 1;
+            }
             InheritanceStatus = Inheritanceflag == 0 ? "Complete" : "Active";
             return InheritanceStatus;
         }
