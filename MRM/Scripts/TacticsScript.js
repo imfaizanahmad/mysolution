@@ -50,7 +50,7 @@
                 //url: '/TacticCampaign/save?button=' + "Save Draft",
                 //data: $("#frmTacticCampaign").serialize(), //$("#frmTacticCampaign").serialize(), // serializes the form's elements.
                 url: '/TacticCampaign/save',
-                data: { "jsonModel": JSON.stringify(sdata), "button": "Draft" },
+                data: { "jsonModel": JSON.stringify(sdata), "button": "Save Draft" },
                 success: function(data) {
                     if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
                 }
@@ -299,7 +299,7 @@ function DisableOptionBasedOnSelection(ddlType) {
 
 //Load BusinessLine 
 function funcLoadBusinessLine() {
-    if ($("#BusinessGroups_Id").val() != null) {
+  //  if ($("#BusinessGroups_Id").val() != null) {
         $.ajax({
             type: "POST",
             url: '/TacticCampaign/LoadBusinessLine',
@@ -310,11 +310,11 @@ function funcLoadBusinessLine() {
                 RemoveZeroFromMetric();
             }
         });
-    }
+   // }
 }
 //Load Industry
 function funcLoadIndustry() {
-    if ($("#Segments_Id").val() != null) {
+   // if ($("#Segments_Id").val() != null) {
         $.ajax({
             type: "POST",
             url: '/TacticCampaign/LoadIndustry',
@@ -325,7 +325,7 @@ function funcLoadIndustry() {
                 RemoveZeroFromMetric();
             }
         });
-    }
+   // }
 }
 
 //Special character not allowed

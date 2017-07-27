@@ -160,7 +160,9 @@ namespace MRM.Controllers
         {
             model.BusinessGroupViewModels = _businessgroupService.GetBG();
             if (model.BusinessGroups_Id == null)
+            {
                 model.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+            }
             else
             {
                 List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
@@ -204,7 +206,7 @@ namespace MRM.Controllers
             try
             {
                 //todo:
-                if (button == "Draft")
+                if (button == "Save Draft")
                 {
                     if (model.Id == 0)// insert new record as draft
                     {
@@ -296,7 +298,7 @@ namespace MRM.Controllers
 
             _masterCampaignServices.DeleteLastyearVisited();
 
-            List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetOrderedMasterCampaign()
+            List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetMasterCampaign()
                                                                        where campaign.IsActive == true
                                                                        select
                                                                        new MasterCampaignViewModelListing

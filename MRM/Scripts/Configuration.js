@@ -94,6 +94,38 @@
         else
             return true;
     };
+    var decimalvalidate = function decimalvalidate(event) {
+        if (event.shiftKey == true) {
+            event.preventDefault();
+        }
+
+        if ((event.keyCode >= 48 && event.keyCode <= 57) ||
+            (event.keyCode >= 96 && event.keyCode <= 105) ||
+            event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 ||
+            event.keyCode == 39 || event.keyCode == 46 || event.keyCode == 190) {
+
+        } else {
+            event.preventDefault();
+        }
+
+        if ($(this).val().indexOf('.') !== -1 && event.keyCode == 190)
+            event.preventDefault();
+    };
+
+    var numericvalidate = function numericvalidate(e) {
+        if ($.inArray(e.keyCode, [8, 9, 27, 13, 110, 190]) !== -1 ||
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+            return;
+        }
+        if ((e.shiftKey || e.keyCode === 46 || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    }; 
+ 
+
+
+
     return {
         ConfirmationDialog: function (title, message, callback) {
             ConfirmationDialog(title, message, callback);
@@ -106,6 +138,12 @@
         },
         emailvalidate: function (text) {
             return emailvalidate(text);
+        },
+        decimalvalidate: function (event) {
+            return decimalvalidate(event);
+        },
+        numericvalidate: function (event) {
+            return numericvalidate(event);
         },
         CachedAsCookies: CachedAsCookies
     };

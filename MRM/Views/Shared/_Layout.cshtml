@@ -38,13 +38,12 @@
             <a href="/MasterCampaign/Index"> <img id="logo" src="~/Content/Image/nokia_white_logo.png" alt="Nokia logo" /></a>
 
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse" id="IdLoadView">
             @Html.Partial("_LoginPartial")
         </div>
     </div>
 </div>
 <div id="maindiv" class="container body-content">
-    @*<div id="mydiv"><div class="loader"></div></div>*@
     @RenderBody()
 
     <footer>
@@ -57,11 +56,14 @@
 @RenderSection("scripts", required: false)
 </body>
 </html>
-
+<script src="~/Scripts/autoNumeric.js"></script>
 <script type="text/javascript">
     $(document).ajaxStart(function () {
-       $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>")
-             .dialog({ height: 400, width: 400, modal: true, dialogClass: 'dialogbg' }).show();
+       $("<div id='globalLoader'><div class='loader'></div></div>")
+             .dialog({ modal: true, dialogClass: 'dialogbg' }).show();
+
+       $("#IdLoadView").addClass("OnLoaderscroll");
+
         $(".ui-dialog-titlebar").hide();
     });
 
@@ -69,6 +71,10 @@
         customCode();
         BindDatePickerCalender();
         DatePickeronCalIcon();
+        $('.numeric').autoNumeric('init');
+        $('.onlynumeric').autoNumeric('init', { mDec: 0 }); 
+ 
+
     });
 
     var customCode = function () {
@@ -86,13 +92,20 @@
 
         commonUiInitialization();
         $('#globalLoader').remove();
-       
+        $("#IdLoadView").removeClass("OnLoaderscroll");
         GetBGandSegmentSingleDDl();
         GetSubCampaignType();
-    };
 
+        MasterChildNotSelected();
+    };
+    var functionName = function () {
+        /* your code here */
+        var value = 4; /* example only */
+        return value;
+    };
     $(document).ready(function () {
-        
+        $('.numeric').autoNumeric('init');
+        $('.onlynumeric').autoNumeric('init', { mDec: 0 });
         //$.fn.ajaxMRM = function (options) {
         //    var settingsmrm = $.extend(true, {}, options,{
         //        success: function (data) {
@@ -104,9 +117,12 @@
         //    $.ajax(settingsmrm);
         //};
         //  $(".chosen-single").data("placeholder", "None selected.").chosen();
+
+       
+       
         
         $(document).on('focus', '#BusinessLines_Id_chosen', function () {
-            if ($('#BusinessGroups_Id').val() == null || $('#BusinessGroups_Id').val() == "-1") {
+            if ($('#BusinessGroups_Id').val() == null || $('#BusinessGroups_Id').val() == "-1" || $('#BusinessGroups_Id').val() == "0") {
                 $('.validmsgbusinesLine').text("Please select Business group first").css("color", "#b94a48");
                 $('.validmsgbusinesLine').show();
                 $('#BusinessLines_Id').text('');
@@ -119,7 +135,7 @@
         });
 
         $(document).on('focus', '#Industries_Id_chosen', function () {
-            if ($('#Segments_Id').val() == null || $('#Segments_Id').val() == "-1") {
+            if ($('#Segments_Id').val() == null || $('#Segments_Id').val() == "-1" || $('#Segments_Id').val() == "0") {
                 $('.validmsgbusinesIndustry').text("Please select Segment first").css("color", "#b94a48");
                 $('.validmsgbusinesIndustry').show();
                 $('#Industries_Id').text('');
@@ -130,6 +146,19 @@
             }
 
         });
+
+
+        $(".tab-content").find("input, textarea, select")
+
+        //////////////////
+        $(document).on('focus', '.ChkCampselection', function () {
+            ChkCampselection();
+        });
+
+        $(document).on('focus', '.chosen-choices', function () {
+            ChkCampselection();
+        });
+        //////////////////////
 
         $(document).on('change', '.start-date-cal', function () {
             if ($(".start-date-cal").val() == '') {
@@ -152,6 +181,7 @@
 
         BindDatePickerCalender();
 
+        MasterChildNotSelected();
     });
 
     function BindDatePickerCalender() {     
@@ -338,6 +368,59 @@
         });
     }
 
+    function ChkCampselection() {
+        var pathname = window.location.pathname; // Returns path only
+        var MID = null;
+        if (pathname.indexOf("ChildCampaign") > 0) {
+            MID = "#MasterCampaignId";
+        } else { MID = "#MasterCampaign_Id"; }
+        if ($(MID).val() == "") {
+            if ($(MID).val() == "") {
+                $('.validmsgMastercampaign').text("Please select Master Campaign first").css("color", "#b94a48");
+                $('.validmsgMastercampaign').show();
+                $("html, body").animate({ scrollTop: 0 }, 600);
+                return false;
+            } else {
+                $('.validmsgMastercampaign').hide();
+            }
+        }
+        else if ($("#ChildCampaign_Id").val() == "") {
+            if ($("#ChildCampaign_Id").val() == "") {
+                $('.validmsgSubcampaign').text("Please select Child Campaign first").css("color", "#b94a48");
+                $('.validmsgSubcampaign').show();
+                $("html, body").animate({ scrollTop: 0 }, 600);
+                return false;
+            } else {
+                $('.validmsgSubcampaign').hide();
+            }
+        }
+    }
+
+
+    //When master or child not slected to fill form
+ function MasterChildNotSelected()
+    {
+        var Path = window.location.pathname; // Returns path only
+        if (Path.indexOf("ChildCampaign") > 0) {
+            if ($("#MasterCampaignId").val() == "") {
+                $('a[data-select-all="selectunselect"]').hide();
+                $('a[data-target-id="BusinessGroups_Id"]').hide();
+                $('a[data-target-id="Segments_Id"]').hide();
+            }
+        }
+        else if (Path.indexOf("TacticCampaign") > 0) {
+            if ($("#MasterCampaign_Id").val() == "") {
+                $('a[data-select-all="selectunselect"]').hide();
+                $('a[data-target-id="BusinessGroups_Id"]').hide();
+                $('a[data-target-id="Segments_Id"]').hide();
+            }
+            else if ($("#ChildCampaign_Id").val() == "") {
+                $('a[data-select-all="selectunselect"]').hide();
+                $('a[data-target-id="BusinessGroups_Id"]').hide();
+                $('a[data-target-id="Segments_Id"]').hide();
+            }
+        }
+    }
 </script>
 
 <script src="~/Content/Multi-Select/chosen.jquery.js" type="text/javascript"></script>
@@ -372,16 +455,28 @@
         font-family: 'Nokia';
     }
 
-
     /*.ui-widget-content{border:0px solid #fff !important}*/
     .dialogbg {
         background: transparent;
         border: 0px solid #fff !important;
         border-style: none;
+        width: 100%!important;
+        height: 100%!important;
+        overflow-y:hidden!important;
     }
-
+    #globalLoader {
+        position: absolute;
+        top: 0px!important;
+        left: 0px!important;
+        width: 100%!important;
+        height: 180%!important;
+        z-index: 1000;
+        background-color: grey;
+        opacity: .8;
+    }
     .loader {
         border: 16px solid #f3f3f3;
+        top: 250px;
         border-radius: 50%;
         border-top: 16px solid #3498db;
         width: 120px;
@@ -432,4 +527,10 @@
         line-height:1.2em;
         font-size: x-small;
     }
+    .OnLoaderscroll {
+    overflow-y:hidden!important;
+    }
+
+   
+
 </style>
