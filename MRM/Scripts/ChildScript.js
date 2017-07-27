@@ -38,7 +38,7 @@
             fFormatCurrency();
             $.ajax({
                 type: "POST",
-                url: '/ChildCampaign/save?button=' + "Draft",
+                url: '/ChildCampaign/save?button=' + "Save Draft",
                 data: $("#frmChildCampaign").serialize(), // serializes the form's elements.
                 success: function(data) {
                     if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
@@ -477,7 +477,7 @@ function ValidateChildForm() {
     }
     if ($('#CampaignType').val() == "") {
 
-        $('.validmsgsubcampaigntype').text("Please select Campaign Lead").css("color", "#b94a48");
+        $('.validmsgsubcampaigntype').text("Please select Campaign Type").css("color", "#b94a48");
         $('.validmsgsubcampaigntype').show();
         if (validationFocusFlag == 0) { validationFocusId = "#CL"; validationFocusFlag = 1; }
         flag = false;
@@ -710,7 +710,7 @@ function LowHighValidate(Low, High, Msg) {
     getHighLowflag = true;
     if (Low != null && High != null)
     {
-        if (parseInt(Low) >parseInt(High)) {
+        if (parseInt(Low.replace(/\,/g, '')) > parseInt(High.replace(/\,/g, ''))) {
             $('.validmsgHighLowCompare').text(Msg+" High can not be less than Low").css("color", "#b94a48");
             $('.validmsgHighLowCompare').show();
             if (validationFocusFlag == 0) { validationFocusId = "#Met"; validationFocusFlag = 1; }
@@ -750,8 +750,9 @@ function LowHighOnChange() {
 //Low High compare For Onchange
 function LowHighOnChangeValidate(Low, High, Msg) {
     LowHighOnChangeflag = true;
+
     if (Low != null && High != null) {
-        if (parseInt(Low) > parseInt(High)) {
+        if (parseInt(Low.replace(/\,/g, '')) > parseInt(High.replace(/\,/g, ''))) {
             $('.validmsgHighLowCompare').text(Msg+ " High can not be less than Low").css("color", "#b94a48");
             $('.validmsgHighLowCompare').show();
             LowHighOnChangeflag = false;
