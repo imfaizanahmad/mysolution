@@ -38,13 +38,12 @@
             <a href="/MasterCampaign/Index"> <img id="logo" src="~/Content/Image/nokia_white_logo.png" alt="Nokia logo" /></a>
 
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse" id="IdLoadView">
             @Html.Partial("_LoginPartial")
         </div>
     </div>
 </div>
 <div id="maindiv" class="container body-content">
-    @*<div id="mydiv"><div class="loader"></div></div>*@
     @RenderBody()
 
     <footer>
@@ -57,11 +56,14 @@
 @RenderSection("scripts", required: false)
 </body>
 </html>
-
+<script src="~/Scripts/autoNumeric.js"></script>
 <script type="text/javascript">
     $(document).ajaxStart(function () {
-       $("<div id='globalLoader' style='width: 200px; height: 400px;'><div class='loader'></div></div>")
-             .dialog({ height: 400, width: 400, modal: true, dialogClass: 'dialogbg' }).show();
+       $("<div id='globalLoader'><div class='loader'></div></div>")
+             .dialog({ modal: true, dialogClass: 'dialogbg' }).show();
+
+       $("#IdLoadView").addClass("OnLoaderscroll");
+
         $(".ui-dialog-titlebar").hide();
     });
 
@@ -69,6 +71,7 @@
         customCode();
         BindDatePickerCalender();
         DatePickeronCalIcon();
+        $('.numeric').autoNumeric('init');
     });
 
     var customCode = function () {
@@ -86,13 +89,13 @@
 
         commonUiInitialization();
         $('#globalLoader').remove();
-       
+        $("#IdLoadView").removeClass("OnLoaderscroll");
         GetBGandSegmentSingleDDl();
         GetSubCampaignType();
     };
 
     $(document).ready(function () {
-        
+        $('.numeric').autoNumeric('init');
         //$.fn.ajaxMRM = function (options) {
         //    var settingsmrm = $.extend(true, {}, options,{
         //        success: function (data) {
@@ -372,16 +375,28 @@
         font-family: 'Nokia';
     }
 
-
     /*.ui-widget-content{border:0px solid #fff !important}*/
     .dialogbg {
         background: transparent;
         border: 0px solid #fff !important;
         border-style: none;
+        width: 100%!important;
+        height: 100%!important;
+        overflow-y:hidden!important;
     }
-
+    #globalLoader {
+        position: absolute;
+        top: 0px!important;
+        left: 0px!important;
+        width: 100%!important;
+        height: 180%!important;
+        z-index: 1000;
+        background-color: grey;
+        opacity: .8;
+    }
     .loader {
         border: 16px solid #f3f3f3;
+        top: 250px;
         border-radius: 50%;
         border-top: 16px solid #3498db;
         width: 120px;
@@ -432,4 +447,8 @@
         line-height:1.2em;
         font-size: x-small;
     }
+    .OnLoaderscroll {
+    overflow-y:hidden!important;
+    }
+
 </style>

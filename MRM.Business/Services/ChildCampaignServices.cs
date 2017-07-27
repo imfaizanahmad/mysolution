@@ -74,10 +74,6 @@ namespace MRM.Business.Services
                 childCampaignEntity.CreatedBy = "user";
                 childCampaignEntity.Budget = model.Budget;
                 childCampaignEntity.Spend = model.Spend;
-                childCampaignEntity.MarketingInfluenceLeads = model.MarketingInfluenceLeads;
-                childCampaignEntity.MarketingGeneratedLeads = model.MarketingGeneratedLeads;
-                childCampaignEntity.MarketingInfluenceOpportunity = model.MarketingInfluenceOpportunity;
-                childCampaignEntity.MarketingGeneratedOpportunity = model.MarketingGeneratedOpportunity;
                 childCampaignEntity.MILGoal = model.MILGoal;
                 childCampaignEntity.MILLow = model.MILLow;
                 childCampaignEntity.MILHigh = model.MILHigh;
@@ -90,6 +86,10 @@ namespace MRM.Business.Services
                 childCampaignEntity.MGOGoal = model.MGOGoal;
                 childCampaignEntity.MGOLow = model.MGOLow;
                 childCampaignEntity.MGOHigh = model.MGOHigh;
+                childCampaignEntity.MILSource = model.MILSource;
+                childCampaignEntity.MGLSource = model.MGLSource;
+                childCampaignEntity.MIOSource = model.MIOSource;
+                childCampaignEntity.MGOSource = model.MGOSource;
                 childCampaignEntity.CampaignType = (model.CampaignTypes == CampaignType.BG_Led ? 0 : 1);
 
 

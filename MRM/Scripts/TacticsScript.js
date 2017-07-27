@@ -299,7 +299,7 @@ function DisableOptionBasedOnSelection(ddlType) {
 
 //Load BusinessLine 
 function funcLoadBusinessLine() {
-    if ($("#BusinessGroups_Id").val() != null) {
+  //  if ($("#BusinessGroups_Id").val() != null) {
         $.ajax({
             type: "POST",
             url: '/TacticCampaign/LoadBusinessLine',
@@ -310,11 +310,11 @@ function funcLoadBusinessLine() {
                 RemoveZeroFromMetric();
             }
         });
-    }
+   // }
 }
 //Load Industry
 function funcLoadIndustry() {
-    if ($("#Segments_Id").val() != null) {
+   // if ($("#Segments_Id").val() != null) {
         $.ajax({
             type: "POST",
             url: '/TacticCampaign/LoadIndustry',
@@ -325,7 +325,7 @@ function funcLoadIndustry() {
                 RemoveZeroFromMetric();
             }
         });
-    }
+   // }
 }
 
 //Special character not allowed

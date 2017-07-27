@@ -149,7 +149,7 @@
                                         @Html.TextBoxFor(m => m.StartDate,
                                             //(Model.Id != 0 && Model.Status == "Complete") ?
                                             //     (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd MMM yyyy") : ""), disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" } :
-                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd MMM yyyy") : ""), @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" })
+                                            (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd MMM yyyy") : ""), @class = "form-control start-date-cal DateReadOnly", @maxlength = "10", @placeholder = "DD Month YYYY", @readonly = "readonly" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on startcal"></span></span>
                                     </div>
                                     <div class="validmsgSdate HideOnsave"></div>
@@ -165,7 +165,7 @@
                                         @Html.TextBoxFor(m => m.EndDate,
                                             //(Model.Id != 0 && Model.Status == "Complete") ?
                                             //     (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd MMM yyyy") : ""), disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" } :
-                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd MMM yyyy") : ""), @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" })
+                                            (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd MMM yyyy") : ""), @class = "form-control end-date-cal DateReadOnly", @maxlength = "10", @placeholder = "DD Month YYYY",@readonly="readonly" })
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on endcal"></span></span>
                                     </div>
                                     <div class="validmsgEdate HideOnsave"></div><div class="validmsgDatecompare"></div>

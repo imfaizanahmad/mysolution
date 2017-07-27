@@ -145,7 +145,16 @@ a {
 	}
 .benchmarkcurrency {
     width: 85%;
-    margin-top: -15%;
+    margin-top: -19%;
     margin-left: 32px;
     height: 34px;
+}
+
+.DateReadOnly {
+    /*pointer-events:none;*/
+    background-color:#FFF!important;
+}
+.DateReadOnly:hover
+{
+   cursor: text;
 }

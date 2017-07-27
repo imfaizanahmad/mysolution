@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     if ($('#Status').val() == "Complete") {
         $('a[data-select-all="selectunselect"]').hide();
         $('a[data-target-id="BusinessGroups_Id"]').hide();
@@ -15,7 +14,9 @@
 
     //child camapaign post
     $(document).on('click', '#btnSubmitChild', function () {
+
         if (ValidateChildForm() === true) {
+            fFormatCurrency();
             $.ajax({
                 type: "POST",
                 url: '/ChildCampaign/save?button=' + "Submit",
@@ -33,7 +34,8 @@
     });
 
     $(document).on('click', '#btnSaveDraftChild', function() {
-        if (ValidateChildSaveasDraft() === true){
+        if (ValidateChildSaveasDraft() === true) {
+            fFormatCurrency();
             $.ajax({
                 type: "POST",
                 url: '/ChildCampaign/save?button=' + "Draft",
@@ -179,10 +181,26 @@ $(document).on("change", "#CampaignTypes", function () {
     });
 });
 
-
+// Replace string format from currency
+function fFormatCurrency() {
+    $('#Budget').val($('#Budget').val().replace(/\,/g, ''));
+    $('#Spend').val($('#Spend').val().replace(/\,/g, ''));
+    $('#MILGoal').val($('#MILGoal').val().replace(/\,/g, ''));
+    $('#MILLow').val($('#MILLow').val().replace(/\,/g, ''));
+    $('#MILHigh').val($('#MILHigh').val().replace(/\,/g, ''));
+    $('#MGLGoal').val($('#MGLGoal').val().replace(/\,/g, ''));
+    $('#MGLLow').val($('#MGLLow').val().replace(/\,/g, ''));
+    $('#MGLHigh').val($('#MGLHigh').val().replace(/\,/g, ''));
+    $('#MIOGoal').val($('#MIOGoal').val().replace(/\,/g, ''));
+    $('#MIOLow').val($('#MIOLow').val().replace(/\,/g, ''));
+    $('#MIOHigh').val($('#MIOHigh').val().replace(/\,/g, ''));
+    $('#MGOGoal').val($('#MGOGoal').val().replace(/\,/g, ''));
+    $('#MGOLow').val($('#MGOLow').val().replace(/\,/g, ''));
+    $('#MGOHigh').val($('#MGOHigh').val().replace(/\,/g, ''));
+}
 //Load BusinessLine 
 function funcLoadBusinessLine() {
-    if ($("#BusinessGroups_Id").val() != null) {
+   // if ($("#BusinessGroups_Id").val() != null) {
         $.ajax({
             type: "POST",
             url: '/ChildCampaign/LoadBusinessLine',
@@ -192,11 +210,11 @@ function funcLoadBusinessLine() {
                 PreventSpecialChar();
             }
         });
-    }
+    //}
 }
 //Load Industry
 function funcLoadIndustry() {
-    if ($("#Segments_Id").val() != null) {
+   // if ($("#Segments_Id").val() != null) {
         $.ajax({
             type: "POST",
             url: '/ChildCampaign/LoadIndustry',
@@ -206,22 +224,22 @@ function funcLoadIndustry() {
                 PreventSpecialChar();
             }
         });
-    }
+    //}
 }
 
 
 
 //Numeric validation
-function numericvalidate(evt) {
-    var theEvent = evt || window.event;
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode(key);
-    var regex = /[0-9]|\./;
-    if (!regex.test(key)) {
-        theEvent.returnValue = false;
-        if(theEvent.preventDefault) theEvent.preventDefault();
-    }
-}
+//function numericvalidate(evt) {
+//    var theEvent = evt || window.event;
+//    var key = theEvent.keyCode || theEvent.which;
+//    key = String.fromCharCode(key);
+//    var regex = /[0-9]|\./;
+//    if (!regex.test(key)) {
+//        theEvent.returnValue = false;
+//        if(theEvent.preventDefault) theEvent.preventDefault();
+//    }
+//}
 
 var validationFocusId = null;
 var validationFocusFlag = 0;
@@ -298,6 +316,11 @@ function ValidateChildSaveasDraft() {
             }
         }
     }
+
+            LowHighSaveSubmitValid();
+            if (getHighLowflag == false)
+            { flag = false; }
+
     //Hide valid messages
     $('.HideOnsave').hide();
     CheckMasterAvailable();
@@ -560,7 +583,12 @@ function ValidateChildForm() {
 
         $('.validmsgBudget').hide();
     }
-   
+
+    LowHighSaveSubmitValid();
+    if (getHighLowflag == false)
+    { flag = false; }
+
+
     //if ($('#Spend').val() == "") {
     //    $('.validmsgSpend').text("Please enter spend.").css("color", "#b94a48");
     //    $('.validmsgSpend').show();
@@ -644,10 +672,94 @@ function DateAsNokiaFormat(date) {
     return '' + (d <= 9 ? '0' + d : d) + ' ' + m + ' ' + y;
 }
         // this example uses the id selector & no options passed    
-        jQuery(function ($) {
-            $('#Budget').autoNumeric('init');
-            $('#Spend').autoNumeric('init');
-        });
+        //jQuery(function ($) {
+        //    $('#Budget').autoNumeric('init');
+        //    $('#Spend').autoNumeric('init');
+        //});
 
 
+var getHighLowflag = true;
+//Compare for form save/submit validation
+function LowHighSaveSubmitValid() {
+  
+    if ($("#MILLow").val() != null && $("#MILHigh").val() != null) {
+        getHighLowflag = LowHighValidate($("#MILLow").val(), $("#MILHigh").val(), "MIL");
+        if (getHighLowflag == false)
+        { return; }
+    }
+    if ($("#MGLLow").val() != null && $("#MGLHigh").val() != null) {
+        getHighLowflag = LowHighValidate($("#MGLLow").val(), $("#MGLHigh").val(), "MGL");
+        if (getHighLowflag == false)
+        { return; }
+    }
+    if ($("#MIOLow").val() != null && $("#MIOHigh").val() != null) {
+        getHighLowflag = LowHighValidate($("#MIOLow").val(), $("#MIOHigh").val(), "MIO");
+        if (getHighLowflag == false)
+        { return; }
+    }
+    if ($("#MGOLow").val() != null && $("#MGOHigh").val() != null) {
+        getHighLowflag = LowHighValidate($("#MGOLow").val(), $("#MGOHigh").val(), "MGO");
+        if (getHighLowflag == false)
+        { return; }
+    }
+    return getHighLowflag;
+}
 
+//Low High compare validation
+function LowHighValidate(Low, High, Msg) {
+    getHighLowflag = true;
+    if (Low != null && High != null)
+    {
+        if (parseInt(Low) >parseInt(High)) {
+            $('.validmsgHighLowCompare').text(Msg+" High can not be less than Low").css("color", "#b94a48");
+            $('.validmsgHighLowCompare').show();
+            if (validationFocusFlag == 0) { validationFocusId = "#Met"; validationFocusFlag = 1; }
+            getHighLowflag = false;
+        } else {
+            $('.validmsgHighLowCompare').hide();
+            getHighLowflag = true;
+        }
+        return getHighLowflag;
+    }
+}
+
+//Compare for on change
+var LowHighOnChangeflag = true;
+function LowHighOnChange() {
+    if ($("#MILLow").val() != null && $("#MILHigh").val() != null) {
+        LowHighOnChangeflag = LowHighOnChangeValidate($("#MILLow").val(), $("#MILHigh").val(), "MIL");
+        if (LowHighOnChangeflag == false)
+        {return; }
+    }
+    if ($("#MGLLow").val() != null && $("#MGLHigh").val() != null) {
+        LowHighOnChangeflag = LowHighOnChangeValidate($("#MGLLow").val(), $("#MGLHigh").val(), "MGL");
+        if (LowHighOnChangeflag == false)
+        { return; }
+    }
+    if ($("#MIOLow").val() != null && $("#MIOHigh").val() != null) {
+        LowHighOnChangeflag = LowHighOnChangeValidate($("#MIOLow").val(), $("#MIOHigh").val(), "MIO");
+        if (LowHighOnChangeflag == false)
+        { return; }
+    }
+    if ($("#MGOLow").val() != null && $("#MGOHigh").val() != null) {
+        LowHighOnChangeflag = LowHighOnChangeValidate($("#MGOLow").val(), $("#MGOHigh").val(), "MGO");
+        if (LowHighOnChangeflag == false)
+        { return; }
+    }
+}
+//Low High compare For Onchange
+function LowHighOnChangeValidate(Low, High, Msg) {
+    LowHighOnChangeflag = true;
+    if (Low != null && High != null) {
+        if (parseInt(Low) > parseInt(High)) {
+            $('.validmsgHighLowCompare').text(Msg+ " High can not be less than Low").css("color", "#b94a48");
+            $('.validmsgHighLowCompare').show();
+            LowHighOnChangeflag = false;
+            return false;
+        } else {
+            $('.validmsgHighLowCompare').hide();
+            LowHighOnChangeflag = true;
+        }
+    }
+    return LowHighOnChangeflag;
+}
