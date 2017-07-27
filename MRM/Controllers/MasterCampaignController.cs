@@ -8,6 +8,7 @@ using MRM.Database.Model;
 using MRM.Database.GenericRepository;
 using Newtonsoft.Json;
 using MRM.ViewModel;
+using DataTables.Mvc;
 
 namespace MRM.Controllers
 {
@@ -308,7 +309,7 @@ namespace MRM.Controllers
                                                                            CreatedBy = campaign.CreatedBy,
                                                                            InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
                                                                            CampaignDescription = campaign.CampaignDescription,
-                                                                           Status = campaign.Status=="Save Draft"? "Draft":"Active",
+                                                                           Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
                                                                            StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
                                                                            EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
                                                                        }
@@ -322,39 +323,12 @@ namespace MRM.Controllers
             var masterCampaign = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = id }).FirstOrDefault();
             masterCampaign.IsActive = false;
             _masterCampaignServices.Update(masterCampaign);
-            return Json(GetMasterCampaignList(), JsonRequestBehavior.AllowGet);
+            return Json(JsonRequestBehavior.AllowGet);
         }
        
         public string ReturnInheritStatus(int Id)
         {
-
-            List<ChildCampaign> childList = _masterCampaignServices.GetChildCampaignByMasterId(Id).ToList();
-
-            var Inheritanceflag = 1;
-            string InheritanceStatus = string.Empty;
-
-            if (childList.Count == 0)
-            {InheritanceStatus = "Active";}
-
-            foreach (var itemChildList in childList)
-            {
-                List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByChildId(itemChildList.Id).ToList();
-
-                foreach (var itemTcList in tacticList)
-                {
-                   Inheritanceflag = ((itemTcList.Status == "Complete" && (itemTcList.EndDate < DateTime.Now)) ? 0 : 1);
-                }
-
-                if (tacticList.Count == 0 || Inheritanceflag == 1)
-                {
-                    InheritanceStatus = "Active";
-                }
-                else if (Inheritanceflag == 0)
-                {
-                    InheritanceStatus = "Complete";
-                }
-
-            }
+            var InheritanceStatus = _masterCampaignServices.GetInheritStatus(Id);
             return InheritanceStatus;
         }
 

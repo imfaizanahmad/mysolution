@@ -535,21 +535,7 @@ namespace MRM.Controllers
 
         public string ReturnInheritStatus(int Id)
         {
-            List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByChildId(Id).ToList();
-            var Inheritanceflag = 1;
-            string InheritanceStatus = string.Empty;
-            foreach (var itemtacticList in tacticList)
-            {
-               if (itemtacticList.Status == "Complete" && (itemtacticList.EndDate<DateTime.Now))
-                {
-                    Inheritanceflag = 0;
-                }
-                else
-                {
-                    Inheritanceflag = 1;
-                }
-            }
-            InheritanceStatus = Inheritanceflag == 0 ? "Complete" : "Active";
+            var InheritanceStatus = _childCampaignServices.GetInheritStatus(Id);
             return InheritanceStatus;
         }
 

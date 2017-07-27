@@ -235,5 +235,41 @@ namespace MRM.Business.Services
                 }
             }
         }
+
+        public string GetInheritStatus(int Id)
+        {
+            var childIds = new List<int>();
+            List<ChildCampaign> childList = this.GetChildCampaignByMasterId(Id).ToList();
+            if(childList.Count > 0)
+            {
+                childIds = new List<int> { childList.FirstOrDefault().Id };
+            }
+
+            var Inheritanceflag = 1;
+            string InheritanceStatus = string.Empty;
+
+            if (childList.Count == 0)
+            { InheritanceStatus = "Active"; }
+
+            List<TacticCampaign> tacticList = new List<TacticCampaign>();
+            if (childIds != null)
+            {
+                var tactics = guow.GenericRepository<TacticCampaign>().Table.Where(t => childIds.Contains(t.ChildCampaigns.Id)).ToList();
+                tacticList.AddRange(tactics);
+            }
+
+            Inheritanceflag = tacticList.All(t => t.Status == "Complete" && t.EndDate < DateTime.Now) ? 0 : 1;   //itemTcList.Status == "Complete" && (itemTcList.EndDate < DateTime.Now)) ? 0 : 1);
+            if (tacticList.Count == 0 || Inheritanceflag == 1)
+            {
+                InheritanceStatus = "Active";
+            }
+            else if (Inheritanceflag == 0)
+            {
+                InheritanceStatus = "Complete";
+            }
+       
+            return InheritanceStatus;
+        }
+
     }
 }
