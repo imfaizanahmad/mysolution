@@ -296,7 +296,7 @@ namespace MRM.Controllers
 
             _masterCampaignServices.DeleteLastyearVisited();
 
-            List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetOrderedMasterCampaign()
+            List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetMasterCampaign()
                                                                        where campaign.IsActive == true
                                                                        select
                                                                        new MasterCampaignViewModelListing
@@ -313,41 +313,7 @@ namespace MRM.Controllers
                                                                        }
 
                                                      ).ToList();
-            return Json("", JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult GetMasterCampaignListByPage([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestmodel)
-        {
-
-            _masterCampaignServices.DeleteLastyearVisited();
-
-            var masterList = _masterCampaignServices.GetOrderedMasterCampaign().Where(x => x.IsActive == true).ToList();
-
-            //var filteredData = masterList.Where(_item => _item.Name.Contains(requestmodel.Search.Value));
-
-            var result = masterList.Skip(requestmodel.Start).Take(requestmodel.Length);
-
-            //var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
-            List <MasterCampaignViewModelListing> masterCampaignList = (from campaign in result
-                                                                        select
-                                                                       new MasterCampaignViewModelListing
-                                                                       {
-                                                                           Id = string.Format("M{0}", campaign.Id.ToString("0000000")),
-                                                                           Name = campaign.Name,
-                                                                           CampaignManager = campaign.CampaignManager,
-                                                                           CreatedBy = campaign.CreatedBy,
-                                                                           InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
-                                                                           CampaignDescription = campaign.CampaignDescription,
-                                                                           Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
-                                                                           StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
-                                                                           EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
-                                                                       }
-
-                                                     ).ToList();
-
-            //var response = DataTablesResponse.Create(requestmodel, masterList.Count(), filteredData.Count(), masterCampaignList);
-            return Json(new DataTablesResponse(requestmodel.Draw, masterCampaignList, masterList.Count(), masterList.Count()), JsonRequestBehavior.AllowGet);
+            return Json(masterCampaignList, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DeleteCampaign(int id)

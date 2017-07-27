@@ -481,7 +481,7 @@ namespace MRM.Controllers
         public JsonResult GetChildCampaignList()
         {
             _childCampaignServices.DeleteLastyearVisited();
-            List<ChildCampaignViewModelList> childCampaignList = (from campaign in _childCampaignServices.GetOrderedChildCampaign()
+            List<ChildCampaignViewModelList> childCampaignList = (from campaign in _childCampaignServices.GetChildCampaign()
                                                                   where campaign.IsActive == true
                                                                   select
                                                                   new ChildCampaignViewModelList
