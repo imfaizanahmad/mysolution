@@ -8,6 +8,7 @@ using MRM.Database.Model;
 using MRM.Database.GenericRepository;
 using Newtonsoft.Json;
 using MRM.ViewModel;
+using DataTables.Mvc;
 
 namespace MRM.Controllers
 {
@@ -295,7 +296,7 @@ namespace MRM.Controllers
 
             _masterCampaignServices.DeleteLastyearVisited();
 
-            List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetMasterCampaign()
+            List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetOrderedMasterCampaign()
                                                                        where campaign.IsActive == true
                                                                        select
                                                                        new MasterCampaignViewModelListing
@@ -306,13 +307,47 @@ namespace MRM.Controllers
                                                                            CreatedBy = campaign.CreatedBy,
                                                                            InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
                                                                            CampaignDescription = campaign.CampaignDescription,
-                                                                           Status = campaign.Status=="Save Draft"? "Draft":"Active",
+                                                                           Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
                                                                            StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
                                                                            EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
                                                                        }
 
                                                      ).ToList();
-            return Json(masterCampaignList, JsonRequestBehavior.AllowGet);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetMasterCampaignListByPage([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestmodel)
+        {
+
+            _masterCampaignServices.DeleteLastyearVisited();
+
+            var masterList = _masterCampaignServices.GetOrderedMasterCampaign().Where(x => x.IsActive == true).ToList();
+
+            //var filteredData = masterList.Where(_item => _item.Name.Contains(requestmodel.Search.Value));
+
+            var result = masterList.Skip(requestmodel.Start).Take(requestmodel.Length);
+
+            //var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
+            List <MasterCampaignViewModelListing> masterCampaignList = (from campaign in result
+                                                                        select
+                                                                       new MasterCampaignViewModelListing
+                                                                       {
+                                                                           Id = string.Format("M{0}", campaign.Id.ToString("0000000")),
+                                                                           Name = campaign.Name,
+                                                                           CampaignManager = campaign.CampaignManager,
+                                                                           CreatedBy = campaign.CreatedBy,
+                                                                           InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
+                                                                           CampaignDescription = campaign.CampaignDescription,
+                                                                           Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
+                                                                           StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
+                                                                           EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
+                                                                       }
+
+                                                     ).ToList();
+
+            //var response = DataTablesResponse.Create(requestmodel, masterList.Count(), filteredData.Count(), masterCampaignList);
+            return Json(new DataTablesResponse(requestmodel.Draw, masterCampaignList, masterList.Count(), masterList.Count()), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DeleteCampaign(int id)
@@ -320,39 +355,12 @@ namespace MRM.Controllers
             var masterCampaign = _masterCampaignServices.GetMasterCampaignById(new MasterCampaignViewModel { Id = id }).FirstOrDefault();
             masterCampaign.IsActive = false;
             _masterCampaignServices.Update(masterCampaign);
-            return Json(GetMasterCampaignList(), JsonRequestBehavior.AllowGet);
+            return Json(JsonRequestBehavior.AllowGet);
         }
        
         public string ReturnInheritStatus(int Id)
         {
-
-            List<ChildCampaign> childList = _masterCampaignServices.GetChildCampaignByMasterId(Id).ToList();
-
-            var Inheritanceflag = 1;
-            string InheritanceStatus = string.Empty;
-
-            if (childList.Count == 0)
-            {InheritanceStatus = "Active";}
-
-            foreach (var itemChildList in childList)
-            {
-                List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByChildId(itemChildList.Id).ToList();
-
-                foreach (var itemTcList in tacticList)
-                {
-                   Inheritanceflag = ((itemTcList.Status == "Complete" && (itemTcList.EndDate < DateTime.Now)) ? 0 : 1);
-                }
-
-                if (tacticList.Count == 0 || Inheritanceflag == 1)
-                {
-                    InheritanceStatus = "Active";
-                }
-                else if (Inheritanceflag == 0)
-                {
-                    InheritanceStatus = "Complete";
-                }
-
-            }
+            var InheritanceStatus = _masterCampaignServices.GetInheritStatus(Id);
             return InheritanceStatus;
         }
 

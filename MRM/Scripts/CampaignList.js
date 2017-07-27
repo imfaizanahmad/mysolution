@@ -7,24 +7,24 @@ function MasterCampaignBindGrid(panel) {
     var sdata = {
     };
 
-    $.ajax({
-        type: 'get',
-        contentType: "application/json",
-        url: "/MasterCampaign/GetMasterCampaignList",
-        data: JSON.stringify(sdata),
-        success: function (dataset) {
-            var table = panel.find('#masterCampaignGrid').DataTable({
+             panel.find('#masterCampaignGrid').DataTable({
                 paging: true,
                 responsive: true,
+                serverSide: true,
                 ordering: true,
                 info: false,
-                data: dataset,
+                //data: dataset,
                 "autoWidth": false,
                 "lengthChange": false,
                 initComplete: function (settings, json) {
                     //$('#loadingSpinner').hide();
                 },
                 "order": [[0, "desc"]],
+                "ajax": {
+                    "url": "/MasterCampaign/GetMasterCampaignListByPage",
+                    "type": "POST",
+                    "datatype": "json"
+                },
                 columns: [
                     { title: "Campaign Id", data: "Id" },
                     { title: "Name", data: "Name" },
@@ -82,9 +82,17 @@ function MasterCampaignBindGrid(panel) {
                 //    window.location = actionUrl
                 //}
             });
-        },
-        error: function (jqxhr, textStatus, error) {
-            //panel.find('#loadingSpinner').hide();
-        }
-    });
+
+    //$.ajax({
+    //    type: 'get',
+    //    contentType: "application/json",
+    //    url: "/MasterCampaign/GetMasterCampaignList",
+    //    data: JSON.stringify(sdata),
+    //    success: function (dataset) {
+
+    //    },
+    //    error: function (jqxhr, textStatus, error) {
+    //        //panel.find('#loadingSpinner').hide();
+    //    }
+    //});
 }

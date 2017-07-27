@@ -25,6 +25,10 @@ namespace MRM.Business.Services
             return childCampaign;
         }
 
+        public IQueryable<ChildCampaign> GetOrderedChildCampaign()
+        {
+            return guow.GenericRepository<ChildCampaign>().Table.OrderByDescending(t => t.UpdatedDate);
+        }
         public List<ChildCampaign> GetChildCampaignById(ChildCampaignViewModel model)
         {
             List<ChildCampaign> childCampaign = guow.GenericRepository<ChildCampaign>().GetAllIncluding((t => t.Geographys), (m => m.Industries), (m => m.BusinessGroups), (m => m.BusinessLines), (m => m.Segments), (m => m.Themes)).Where(t => t.Id == model.Id).ToList();
@@ -246,6 +250,17 @@ namespace MRM.Business.Services
 
                 }
             }
+        }
+
+        public string GetInheritStatus(int Id)
+        {
+            List<TacticCampaign> tacticList = guow.GenericRepository<TacticCampaign>().GetAll().Where(t => t.ChildCampaigns.Id == Id).ToList();
+            var Inheritanceflag = 1;
+            string InheritanceStatus = string.Empty;
+
+            Inheritanceflag = tacticList.All(t => t.Status == "Complete" && t.EndDate < DateTime.Now) ? 0 : 1;
+            InheritanceStatus = Inheritanceflag == 0 ? "Complete" : "Active";
+            return InheritanceStatus;
         }
 
     }
