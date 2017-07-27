@@ -72,6 +72,7 @@
         BindDatePickerCalender();
         DatePickeronCalIcon();
         $('.numeric').autoNumeric('init');
+        $('.onlynumeric').autoNumeric('init', { mDec: 0 });
     });
 
     var customCode = function () {
@@ -93,9 +94,15 @@
         GetBGandSegmentSingleDDl();
         GetSubCampaignType();
     };
-
+    var functionName = function () {
+        /* your code here */
+        var value = 4; /* example only */
+        return value;
+    };
     $(document).ready(function () {
         $('.numeric').autoNumeric('init');
+        $('.onlynumeric').autoNumeric('init', { mDec: 0 });
+
         //$.fn.ajaxMRM = function (options) {
         //    var settingsmrm = $.extend(true, {}, options,{
         //        success: function (data) {
