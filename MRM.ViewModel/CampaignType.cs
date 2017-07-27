@@ -8,7 +8,7 @@ namespace MRM.ViewModel
 
         //[Display(Name = "None selected.")]
         //None_selected,
-        [Display(Name= "BG Lead")]
+        [Display(Name= "BG Led")]
         BG_Led,
         GEPS
     }

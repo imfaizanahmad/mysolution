@@ -578,7 +578,7 @@ namespace MRM.Controllers
             // Deserializing json model to object 
             TacticCampaignViewModel model = new JavaScriptSerializer().Deserialize<TacticCampaignViewModel>(jsonModel);
 
-            if (button == "Draft")
+            if (button == "Save Draft")
             {
                 if (model.Id == 0) // insert new record as draft
                 {

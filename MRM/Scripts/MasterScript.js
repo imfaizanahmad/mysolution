@@ -32,7 +32,7 @@ $(document).ready(function () {
         if (ValidateSaveMasterForm() === true) {
             $.ajax({
                 type: "POST",
-                url: '/MasterCampaign/save?button=' + "Draft",
+                url: '/MasterCampaign/save?button=' + "Save Draft",
                 data: $("#frmMasterCampaign").serialize(), // serializes the form's elements.
                 success: function(data) {
                     if (data === "True") window.location = "/MasterCampaign/CampaignList";

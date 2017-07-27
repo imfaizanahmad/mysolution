@@ -50,7 +50,7 @@
                 //url: '/TacticCampaign/save?button=' + "Save Draft",
                 //data: $("#frmTacticCampaign").serialize(), //$("#frmTacticCampaign").serialize(), // serializes the form's elements.
                 url: '/TacticCampaign/save',
-                data: { "jsonModel": JSON.stringify(sdata), "button": "Draft" },
+                data: { "jsonModel": JSON.stringify(sdata), "button": "Save Draft" },
                 success: function(data) {
                     if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
                 }
