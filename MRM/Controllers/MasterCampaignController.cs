@@ -326,12 +326,12 @@ namespace MRM.Controllers
 
             var masterList = _masterCampaignServices.GetOrderedMasterCampaign().Where(x => x.IsActive == true).ToList();
 
-            //var filteredData = masterList.Where(_item => _item.Name.Contains(requestmodel.Search.Value));
+            var filteredData = masterList.Where(_item => _item.Name.StartsWith(requestmodel.Search.Value, StringComparison.InvariantCultureIgnoreCase));
 
             var result = masterList.Skip(requestmodel.Start).Take(requestmodel.Length);
 
-            //var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
-            List <MasterCampaignViewModelListing> masterCampaignList = (from campaign in result
+            var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
+            List <MasterCampaignViewModelListing> masterCampaignList = (from campaign in data
                                                                         where campaign.IsActive == true
                                                                         select
                                                                        new MasterCampaignViewModelListing
@@ -350,7 +350,7 @@ namespace MRM.Controllers
                                                      ).ToList();
 
             //var response = DataTablesResponse.Create(requestmodel, masterList.Count(), filteredData.Count(), masterCampaignList);
-            return Json(new DataTablesResponse(requestmodel.Draw, masterCampaignList, masterList.Count(), masterList.Count()), JsonRequestBehavior.AllowGet);
+            return Json(new DataTablesResponse(requestmodel.Draw, masterCampaignList, !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : masterList.Count(), !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : masterList.Count()), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DeleteCampaign(int id)
