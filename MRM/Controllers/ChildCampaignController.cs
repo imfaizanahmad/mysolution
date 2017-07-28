@@ -530,11 +530,11 @@ namespace MRM.Controllers
         {
             var chilList = _childCampaignServices.GetOrderedChildCampaign().Where(x => x.IsActive == true);
 
-            var filteredData = chilList.Where(_item => _item.Name.ToUpper().StartsWith(requestmodel.Search.Value.ToUpper()));
+            //var filteredData =  chilList.Where(_item => _item.Name.ToLower().StartsWith(requestmodel.Search.Value.ToLower()));
 
-            var result = chilList.Skip(requestmodel.Start).Take(requestmodel.Length);
+            //var result = chilList.Skip(requestmodel.Start).Take(requestmodel.Length);
 
-            var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
+            var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? chilList.Where(_item => _item.Name.ToLower().StartsWith(requestmodel.Search.Value.ToLower())) : chilList.Skip(requestmodel.Start).Take(requestmodel.Length);
             List<ChildCampaignViewModelList> childCampaignList = (from campaign in data.ToList()
                                                                    where campaign.IsActive == true
                                                                    select
@@ -553,7 +553,7 @@ namespace MRM.Controllers
 
                                                      ).ToList();
             
-            return Json(new DataTablesResponse(requestmodel.Draw, childCampaignList, !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : chilList.Count(), !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : chilList.Count()), JsonRequestBehavior.AllowGet);
+            return Json(new DataTablesResponse(requestmodel.Draw, childCampaignList, !String.IsNullOrEmpty(requestmodel.Search.Value) ? data.Count() : chilList.Count(), !String.IsNullOrEmpty(requestmodel.Search.Value) ? data.Count() : chilList.Count()), JsonRequestBehavior.AllowGet);
         }
         public JsonResult DeleteChildCampaign(int id)
         {
