@@ -314,7 +314,7 @@ namespace MRM.Controllers
             }
 
             model.JourneyStageViewModels = _journeyStageServices.GetJourneyStage().ToList();
-            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString() && t.ChildCampaigns.Where(r => r.Status != Status.Complete.ToString()).ToList().Count != 0).ToList();
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString() && t.ChildCampaigns.Where(r => r.Status != Status.Draft.ToString()).ToList().Count != 0).ToList();
 
             if (model.ChildCampaign_Id != 0)
             {

@@ -95,7 +95,7 @@ namespace MRM.Controllers
             }
             return Json(dropDownResponse, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpGet]
         public JsonResult CompleteAfterEndDatePass()
         {
@@ -110,11 +110,26 @@ namespace MRM.Controllers
                 dropDownResponse.IsSuccess = false;
                 dropDownResponse.Message = ex.Message;
             }
-            return Json(dropDownResponse, JsonRequestBehavior.AllowGet);            
+            return Json(dropDownResponse, JsonRequestBehavior.AllowGet);
         }
-        
+
+        [HttpGet]
+        public JsonResult DeleteLastyearVisited()
+        {
+            DropDownResponse dropDownResponse = new DropDownResponse();
+            try
+            {
+                _tacticCampaignServices.DeleteLastyearVisited();
+                _childCampaignServices.DeleteLastyearVisited();
+                _masterCampaignServices.DeleteLastyearVisited();
+            }
+            catch (Exception ex)
+            {
+                dropDownResponse.IsSuccess = false;
+                dropDownResponse.Message = ex.Message;
+            }
+            return Json(dropDownResponse, JsonRequestBehavior.AllowGet);
+        }
 
     }
-
-    
 }

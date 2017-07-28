@@ -217,5 +217,21 @@ namespace MRM.Business.Services
             return true;
 
         }
+        //Deleted last visited
+        public void DeleteLastyearVisited()
+        {
+            var MasterList = GetMasterCampaign()
+                .Where(s => s.Status == Status.Draft.ToString() && (s.VisitedDate <= DateTime.Now.AddYears(-1))).ToList();
+            if (MasterList.Count > 0)
+            {
+                foreach (var item in MasterList)
+                {
+                    var masterCampaign = GetMasterCampaignById(new MasterCampaignViewModel() { Id = item.Id })
+                        .FirstOrDefault();
+                    masterCampaign.IsActive = false;
+                    Update(masterCampaign);
+                }
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model MRM.ViewModel.ChildCampaignViewModel
+@using MRM.ViewModel;
 <div>
     
 <form id="frmChildCampaign">
@@ -369,13 +370,13 @@
                                 {
                                     <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("ChildCampaignList", "ChildCampaign")'"/></div>
                                 } 
-                                @if (Model.Id != 0 && Model.Status == "Save Draft")
+                                @if (Model.Id != 0 && Model.Status == Status.Draft.ToString())
                                 {
                                     <div class="col-md-3">
                                         <input type="button" Id="btnDeleteChild" name="button" value="Delete Draft" class="btn btn-primary col-sm-12" />
                                     </div>
                                 }  
-                                @if (Model.Status != "Complete")
+                                @if (Model.Status != Status.Complete.ToString())
                                 {
                                     <div class="col-md-3">
                                         <input type="button" Id="btnSaveDraftChild" name="button" value="Save Draft" class="btn btn-primary col-sm-12"/>

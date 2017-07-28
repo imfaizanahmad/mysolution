@@ -124,6 +124,7 @@ $(document).on("change", "#MasterCampaignId", function () {
 
 
 $(document).on("change", "#CampaignTypes", function () {
+   
         $.ajax({
             type: "POST",
             url: "/ChildCampaign/OnChangeCampaignTypes",
@@ -131,6 +132,14 @@ $(document).on("change", "#CampaignTypes", function () {
             success: function (data) {
                 $("#dvFormChildCampaign").html(data);
                 PreventSpecialChar();
+               
+                    $('#BusinessGroups_Id').find('option').removeAttr('selected');
+                    $('#Segments_Id').find('option').removeAttr('selected');
+                    $('#Industries_Id').find('option').removeAttr('selected');
+                    $('#BusinessGroups_Id').trigger('chosen:updated');
+                    $('#Segments_Id').trigger('chosen:updated');
+                    $('#Industries_Id').trigger('chosen:updated');
+
             }
         });
     });

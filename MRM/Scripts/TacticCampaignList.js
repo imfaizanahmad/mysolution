@@ -60,7 +60,7 @@ function TacticCampaignBindGrid(panel) {
                     "targets": 6, //Action
                     "data": null,
                     "render": function (data, type, full, meta) {
-                        if (data.Status && data.Status.toLowerCase() === 'active')
+                        if (data.Status && (data.Status.toLowerCase() === 'active' || data.Status.toLowerCase() === 'complete'))
                             return '<a href="/TacticCampaign/TacticCampaign?id=' + parseInt(data.Id.slice(1)) + '"  title="View/Edit Campaign" class="btn-mc-action"><span class="glyphicon glyphicon-pencil"></span></a> &nbsp;&nbsp;<button type="submit" title="Delete" campaignId=' + parseInt(data.Id.slice(1)) + ' class="btn btn-danger btn-xs btn-mc-action" value="Delete" disabled ><span class="glyphicon glyphicon-trash"></span></button>';
                         else
                             return '<a href="/TacticCampaign/TacticCampaign?id=' + parseInt(data.Id.slice(1)) + '"  title="View/Edit Campaign" class="btn-mc-action"><span class="glyphicon glyphicon-pencil"></span></a> &nbsp;&nbsp;<button type="submit" title="Delete" campaignId=' + parseInt(data.Id.slice(1)) + ' class="btn btn-danger btn-xs btn-mc-action" value="Delete" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button>';

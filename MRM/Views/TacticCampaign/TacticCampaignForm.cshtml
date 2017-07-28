@@ -1,4 +1,6 @@
 ﻿@model MRM.ViewModel.TacticCampaignViewModel
+@using MRM.ViewModel;
+
 
 <form id="frmTacticCampaign">
     @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
@@ -390,13 +392,13 @@
                                     {
                                         <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("TacticCampaignList", "TacticCampaign")'" /></div>
                                     }
-                                    @if (Model.Id != 0 && Model.Status == "Save Draft")
+                                    @if (Model.Id != 0 && Model.Status == Status.Draft.ToString())
                                     {
                                         <div class="col-md-3">
                                             <input type="button" Id="btnDeleteTactic" name="button" value="Delete Draft" class="btn btn-primary col-sm-12" />
                                         </div>
                                     }
-                                    @if (Model.Status != "Complete")
+                                    @if (Model.Status != Status.Complete.ToString())
                                     {
                                         <div class="col-md-3">
                                             <input type="button" Id="btnSaveDrafttactic" name="button" value="Save Draft" class="btn btn-primary col-sm-12"/>
