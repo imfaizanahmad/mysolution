@@ -42,7 +42,7 @@ namespace MRM.Controllers
         {
             ChildCampaignViewModel Childvm = new ChildCampaignViewModel();
 
-            Childvm.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
+            Childvm.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString()).ToList();
 
             if (Id != 0)
             {
@@ -51,17 +51,16 @@ namespace MRM.Controllers
                 List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByChildId(Id).ToList();
                 var Inheritanceflag=0;
                 foreach (var itemtacticList in tacticList)
-                {
-                   // if (itemtacticList.InheritStatus != "Complete")
-                   if (itemtacticList.Status != "Complete" && (itemtacticList.EndDate>DateTime.Now))
+                {                   
+                   if (itemtacticList.Status != Status.Complete.ToString() && (itemtacticList.EndDate>DateTime.Now))
                         Inheritanceflag = 1;
                 }
                 if (tacticList.Count == 0)
                 {
-                    Childvm.InheritanceStatus = (childCampaign.Status == "Save Draft" ? "Draft" : "Active");
+                    Childvm.InheritanceStatus = childCampaign.InheritStatus;
                 }
-                else if (Inheritanceflag== 0) { Childvm.InheritanceStatus = "Complete"; }
-                else { Childvm.InheritanceStatus = "Active"; }
+                else if (Inheritanceflag== 0) { Childvm.InheritanceStatus = InheritStatus.Complete.ToString(); }
+                else { Childvm.InheritanceStatus = InheritStatus.Active.ToString(); }
 
                 if (childCampaign.MasterCampaigns.Id != 0)
                 {
@@ -169,13 +168,14 @@ namespace MRM.Controllers
                     }
                 }
                
-                Childvm.StatusInheritaceStamp = String.Format("{0:yy}", childCampaign.UpdatedDate) + "." + MasterCampaignName + "." + Childvm.Name + " //" +  (Childvm.Status=="Save Draft"?"Draft":Childvm.InheritanceStatus) +
+                Childvm.StatusInheritaceStamp = String.Format("{0:yy}", childCampaign.UpdatedDate) + "." + MasterCampaignName + "." + Childvm.Name + " //" 
+                                                +  (Childvm.Status==Status.Draft.ToString()?Status.Draft.ToString():Childvm.InheritanceStatus) +
                                                  " // " + String.Format("{0:ddMMyy HH:MM}", childCampaign.UpdatedDate);
 
                 ManageSelectUnselect(Childvm);
 
                 //Update visited date
-                if (Childvm.Status == "Save Draft")
+                if (Childvm.Status == Status.Draft.ToString())
                 {
                      childCampaign.VisitedDate = DateTime.Now;
                     _childCampaignServices.Update(childCampaign);
@@ -239,7 +239,7 @@ namespace MRM.Controllers
             }
 
             ManageSelectUnselect(model);
-            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString()).ToList();
        
             return PartialView("ChildCampaignForm", model);
         }
@@ -289,7 +289,7 @@ namespace MRM.Controllers
             
             ManageSelectUnselect(model);
 
-            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString()).ToList();
             return PartialView("ChildCampaignForm", model);
         }
         public ActionResult LoadMasterCampaign(ChildCampaignViewModel model)
@@ -343,7 +343,7 @@ namespace MRM.Controllers
 
             ManageSelectUnselect(model);
 
-            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString()).ToList();
 
             return PartialView("ChildCampaignForm", model);
         }
@@ -368,7 +368,7 @@ namespace MRM.Controllers
                 }
             }
             ManageSelectUnselect(model);
-            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString()).ToList();
             return PartialView("ChildCampaignForm", model);
         }
 
@@ -395,7 +395,7 @@ namespace MRM.Controllers
         public bool Save(ChildCampaignViewModel model, string button)
         {
 
-            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == "Complete").ToList();
+            model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString()).ToList();
 
             try
             {
@@ -404,11 +404,11 @@ namespace MRM.Controllers
                 {
                     if (model.Id == 0)// insert new record as draft
                     {
-                        model.Status = "Save Draft";
+                        model.Status = Status.Draft.ToString();
                         _childCampaignServices.InsertChildCampaign(model);
                         return true;
                     }
-                    model.Status = "Save Draft";
+                    model.Status = Status.Draft.ToString();
                     _childCampaignServices.Update(model);
                     return true;
                 }
@@ -416,13 +416,13 @@ namespace MRM.Controllers
                 {
                     if (model.Id == 0)
                     {
-                        model.Status = "Complete";
+                        model.Status = Status.Complete.ToString();
                         _childCampaignServices.InsertChildCampaign(model);
                         return true;
                     }
                     else
                     {
-                        model.Status = "Complete";
+                        model.Status = Status.Complete.ToString();
                         _childCampaignServices.Update(model);
                         return true;
                     }
@@ -506,20 +506,18 @@ namespace MRM.Controllers
         [HttpGet]
         public JsonResult GetChildCampaignList()
         {
-            _childCampaignServices.DeleteLastyearVisited();
             List<ChildCampaignViewModelList> childCampaignList = (from campaign in _childCampaignServices.GetChildCampaign()
                                                                   where campaign.IsActive == true
                                                                   select
                                                                   new ChildCampaignViewModelList
                                                                   {
-                                                                      Id = string.Format("C{0}", campaign.Id.ToString("0000000")),
-                                                                      // InheritStatus = (ReturnInheritStatus(campaign.Id))=="Complete"?"Complete":(campaign.Status == "Save Draft" ? "Draft" : "Active"),
+                                                                      Id = string.Format("C{0}", campaign.Id.ToString("0000000")),                                                                      
                                                                       InheritStatus = campaign.InheritStatus,
                                                                       Name = campaign.Name,
                                                                       CampaignDescription = campaign.CampaignDescription,
                                                                       CampaignManager=campaign.CampaignManager,
                                                                       CreatedBy = campaign.CreatedBy,
-                                                                      Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
+                                                                      Status = campaign.Status,
                                                                       StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
                                                                       EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
                                                                   }
@@ -530,9 +528,6 @@ namespace MRM.Controllers
         [HttpPost]
         public JsonResult GetChildCampaignListByPage([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestmodel)
         {
-
-            //_childCampaignServices.DeleteLastyearVisited();
-
             var chilList = _childCampaignServices.GetOrderedChildCampaign().Where(x => x.IsActive == true);
 
             var filteredData = chilList.Where(_item => _item.Name.ToUpper().StartsWith(requestmodel.Search.Value.ToUpper()));
@@ -546,13 +541,12 @@ namespace MRM.Controllers
                                                                       new ChildCampaignViewModelList
                                                                       {
                                                                           Id = string.Format("C{0}", campaign.Id.ToString("0000000")),
-                                                                          InheritStatus = campaign.InheritStatus,
-                                                                          //InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
+                                                                          InheritStatus = campaign.InheritStatus,                                                                          
                                                                           Name = campaign.Name,
                                                                           CampaignDescription = campaign.CampaignDescription,
                                                                           CampaignManager = campaign.CampaignManager,
                                                                           CreatedBy = campaign.CreatedBy,
-                                                                          Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
+                                                                          Status = campaign.Status,
                                                                           StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
                                                                           EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
                                                                       }
@@ -567,13 +561,6 @@ namespace MRM.Controllers
             childCampaign.IsActive = false;
             _childCampaignServices.Update(childCampaign);
             return Json(JsonRequestBehavior.AllowGet);
-        }
-
-        public string ReturnInheritStatus(int Id)
-        {
-            var InheritanceStatus = _childCampaignServices.GetInheritStatus(Id);
-            return InheritanceStatus;
-        }
-        
+        }        
     }
 }
