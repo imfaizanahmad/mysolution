@@ -117,7 +117,7 @@ namespace MRM.Business.Services
                 }
             }
 
-            tacticCampaignEntity.Status = model.Status;
+                tacticCampaignEntity.Status = model.Status;
                 tacticCampaignEntity.TacticDescription = model.TacticDescription;
                 tacticCampaignEntity.StartDate = model.StartDate;
                 tacticCampaignEntity.EndDate = model.EndDate;
@@ -318,6 +318,18 @@ namespace MRM.Business.Services
                     Update(tacticCampaign);
 
                 }
+            }
+        }
+
+        public void CompleteAfterEndDatePass()
+        {
+            IList<TacticCampaign> tacticCampaign = guow.GenericRepository<TacticCampaign>().GetAll().Where(t=>t.InheritStatus==InheritStatus.Active.ToString() && t.EndDate<DateTime.Now).ToList();
+         
+            foreach (var item in tacticCampaign)
+            {
+                item.InheritStatus = InheritStatus.Complete.ToString();
+                Update(item);
+                UpdateInheritStatus(item.MasterCampaign_Id, item.ChildCampaigns.Id);
             }
         }
     }

@@ -1,11 +1,15 @@
 ﻿using MRM.Business.Services;
+using MRM.Database.GenericUnitOfWork;
+using MRM.Database.Model;
 using MRM.Models;
+using MRM.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
+
 
 namespace MRM.Controllers
 {
@@ -91,6 +95,24 @@ namespace MRM.Controllers
             }
             return Json(dropDownResponse, JsonRequestBehavior.AllowGet);
         }
+        
+        [HttpGet]
+        public JsonResult CompleteAfterEndDatePass()
+        {
+            DropDownResponse dropDownResponse = new DropDownResponse();
+            try
+            {
+                _tacticCampaignServices.CompleteAfterEndDatePass();
+                dropDownResponse.IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                dropDownResponse.IsSuccess = false;
+                dropDownResponse.Message = ex.Message;
+            }
+            return Json(dropDownResponse, JsonRequestBehavior.AllowGet);            
+        }
+        
 
     }
 
