@@ -237,15 +237,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChildCampaignController.cs" />
-    <Compile Include="Controllers\ChildListController.cs" />
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\MasterCampaignController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterDataController.cs" />
-    <Compile Include="Controllers\MasterListController.cs" />
     <Compile Include="Controllers\MetricController.cs" />
     <Compile Include="Controllers\TacticCampaignController.cs" />
-    <Compile Include="Controllers\TacticListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
