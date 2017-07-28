@@ -348,8 +348,7 @@ namespace MRM.Controllers
                                                                        }
 
                                                      ).ToList();
-
-            //var response = DataTablesResponse.Create(requestmodel, masterList.Count(), filteredData.Count(), masterCampaignList);
+            
             return Json(new DataTablesResponse(requestmodel.Draw, masterCampaignList, !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : masterList.Count(), !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : masterList.Count()), JsonRequestBehavior.AllowGet);
         }
 

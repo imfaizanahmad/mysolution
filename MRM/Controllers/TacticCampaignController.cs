@@ -8,6 +8,7 @@ using MRM.Business.Services;
 using MRM.Database.Model;
 using MRM.Database.GenericRepository;
 using System.Web.Script.Serialization;
+using DataTables.Mvc;
 
 namespace MRM.Controllers
 {
@@ -690,12 +691,45 @@ namespace MRM.Controllers
             return Json(childCampaignList, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult GetTactciCampaignListByPage([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestmodel)
+        {
+
+            _tacticCampaignServices.DeleteLastyearVisited();
+
+            var tacticList = _tacticCampaignServices.GetOrderedTacticCampaign().Where(x => x.IsActive == true);
+
+            var filteredData = tacticList.Where(_item => _item.Name.ToUpper().StartsWith(requestmodel.Search.Value.ToUpper()));
+
+            var result = tacticList.Skip(requestmodel.Start).Take(requestmodel.Length);
+
+            var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
+
+            List<TacticCampaignViewModelList> tactiCampaignList = (from campaign in data.ToList()
+                                                                   where campaign.IsActive == true
+                                                                   select
+                                                                   new TacticCampaignViewModelList
+                                                                   {
+                                                                       Id = string.Format("T{0}", campaign.Id.ToString("0000000")),
+                                                                       Name = campaign.Name,
+                                                                       // InheritStatus = (!string.IsNullOrEmpty(campaign.InheritStatus) ? campaign.InheritStatus : (campaign.Status == "Save Draft" ? "Draft" : "Active")),
+                                                                       InheritStatus = ((campaign.Status == "Complete" && (campaign.EndDate < DateTime.Now)) ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active")),
+                                                                       TacticDescription = campaign.TacticDescription,
+                                                                       Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
+                                                                       StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
+                                                                       EndDate = String.Format("{0:dd MMM yyyy}", campaign.EndDate)
+                                                                   }
+                                                                ).ToList();
+
+            return Json(new DataTablesResponse(requestmodel.Draw, tactiCampaignList, !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : tacticList.Count(), !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : tacticList.Count()), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult DeleteTacticCampaign(int id)
         {
             var tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel() { Id = id }).FirstOrDefault();
             tacticCampaign.IsActive = false;
             _tacticCampaignServices.Update(tacticCampaign);
-            return Json(GetTacticCampaignList(), JsonRequestBehavior.AllowGet);
+            return Json(JsonRequestBehavior.AllowGet);
         }
     }
 }

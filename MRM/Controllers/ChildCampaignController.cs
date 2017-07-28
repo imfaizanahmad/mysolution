@@ -532,14 +532,14 @@ namespace MRM.Controllers
 
             _childCampaignServices.DeleteLastyearVisited();
 
-            var chilList = _childCampaignServices.GetOrderedChildCampaign().Where(x => x.IsActive == true).ToList();
+            var chilList = _childCampaignServices.GetOrderedChildCampaign().Where(x => x.IsActive == true);
 
-            //var filteredData = masterList.Where(_item => _item.Name.Contains(requestmodel.Search.Value));
+            var filteredData = chilList.Where(_item => _item.Name.ToUpper().StartsWith(requestmodel.Search.Value.ToUpper()));
 
             var result = chilList.Skip(requestmodel.Start).Take(requestmodel.Length);
 
-            //var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
-            List<ChildCampaignViewModelList> masterCampaignList = (from campaign in result
+            var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
+            List<ChildCampaignViewModelList> childCampaignList = (from campaign in data.ToList()
                                                                    where campaign.IsActive == true
                                                                    select
                                                                       new ChildCampaignViewModelList
@@ -556,16 +556,15 @@ namespace MRM.Controllers
                                                                       }
 
                                                      ).ToList();
-
-            //var response = DataTablesResponse.Create(requestmodel, masterList.Count(), filteredData.Count(), masterCampaignList);
-            return Json(new DataTablesResponse(requestmodel.Draw, masterCampaignList, chilList.Count(), chilList.Count()), JsonRequestBehavior.AllowGet);
+            
+            return Json(new DataTablesResponse(requestmodel.Draw, childCampaignList, !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : chilList.Count(), !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : chilList.Count()), JsonRequestBehavior.AllowGet);
         }
         public JsonResult DeleteChildCampaign(int id)
         {
             var childCampaign = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel() { Id = id }).FirstOrDefault();
             childCampaign.IsActive = false;
             _childCampaignServices.Update(childCampaign);
-            return Json(GetChildCampaignList(), JsonRequestBehavior.AllowGet);
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         public string ReturnInheritStatus(int Id)

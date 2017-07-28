@@ -100,17 +100,4 @@ function MasterCampaignBindGrid(panel) {
                     });
                 }
             });
-
-    //$.ajax({
-    //    type: 'get',
-    //    contentType: "application/json",
-    //    url: "/MasterCampaign/GetMasterCampaignList",
-    //    data: JSON.stringify(sdata),
-    //    success: function (dataset) {
-
-    //    },
-    //    error: function (jqxhr, textStatus, error) {
-    //        //panel.find('#loadingSpinner').hide();
-    //    }
-    //});
 }

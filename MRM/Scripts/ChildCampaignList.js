@@ -1,18 +1,38 @@
 ﻿$(function () {
     ChildCampaignBindGrid($(this));
+    mySearchfunction($(this));
 });
 
+function mySearchfunction(panels) {
+    panels.find(".dataTables_filter input")
+                .unbind() // Unbind previous default bindings
+                .bind("input", function (e) { // Bind our desired behavior
+                    // If the length is 3 or more characters, or the user pressed ENTER, search
+                    debugger;
+                    var dtable = panels.find('#childCampaignGrid').dataTable().api();
+                    if (this.value.length >= 3 || e.keyCode == 13) {
+                        // Call the API search function
+                        dtable.search(this.value).draw();
+                    }
+                    // Ensure we clear the search if they backspace far enough
+                    if (this.value == "") {
+                        dtable.search(this.value).draw();
+                    }
+                    return;
+                });
+
+}
+
 function ChildCampaignBindGrid(panel) {
-    //$('#loadingSpinner').show();
     var sdata = {
     };
 
-   panel.find('#childCampaignGrid').DataTable({
+    panel.find('#childCampaignGrid').DataTable({
         paging: true,
         responsive: true,
         serverSide: true,
         ordering: true,
-        filter: false,
+        filter: true,
         info: false,
         //data: dataset,
         "autoWidth": false,
@@ -78,22 +98,5 @@ function ChildCampaignBindGrid(panel) {
                 $("#btnNoConfirmYesNo").find(".modal-footer").find(".btn-default").click();
             });
         }
-        //else {
-        //    actionUrl = "/ChildCampaign/MasterCampaign?id=" + campaignId;
-        //    window.location = actionUrl
-        //}
     });
-
-    //$.ajax({
-    //    type: 'get',
-    //    contentType: "application/json",
-    //    url: "/ChildCampaign/GetChildCampaignList",
-    //    data: JSON.stringify(sdata),
-    //    success: function (dataset) {
-
-    //    },
-    //    error: function (jqxhr, textStatus, error) {
-    //        //panel.find('#loadingSpinner').hide();
-    //    }
-    //});
 }

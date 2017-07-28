@@ -46,8 +46,7 @@ namespace MRM.Database.Model
         public virtual MasterCampaign MasterCampaigns { get; set; }
         public virtual ICollection<TacticCampaign> TacticCampaigns { get; set; }
 
-        [NotMapped]
-        public List<ChildCampaign> ChildCampaigns = new List<ChildCampaign>();
+       
         [NotMapped]
         public virtual int PageCount { get; set; }
         [NotMapped]
