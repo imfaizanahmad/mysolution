@@ -279,5 +279,42 @@ namespace MRM.Business.Services
         {
             return guow.GenericRepository<TacticType>().GetAll();
         }
+        public bool DeleteTacticCampaign(int Id)
+        {
+            guow.GenericRepository<TacticCampaign>().Delete(Id);
+            return true;
+
+        }
+
+        //Deleted last visited
+        public void DeleteLastyearVisited()
+        {
+            var TacticList = GetTacticCampaign()
+                .Where(s => s.Status == "Save Draft" && (s.VisitedDate <= DateTime.Now.AddDays(-2))).ToList();
+               // .Where(s => s.Status == "Save Draft" && (s.VisitedDate <= DateTime.Now.AddYears(-1))).ToList();
+            if (TacticList.Count > 0)
+            {
+                foreach (var item in TacticList)
+                {
+                    var tacticCampaign = GetTacticCampaignById(new TacticCampaignViewModel() {Id = item.Id})
+                        .FirstOrDefault();
+                    tacticCampaign.IsActive = false;
+                    Update(tacticCampaign);
+
+                }
+            }
+        }
+
+        public void CompleteAfterEndDatePass()
+        {
+            IList<TacticCampaign> tacticCampaign = guow.GenericRepository<TacticCampaign>().GetAll().Where(t=>t.InheritStatus==InheritStatus.Active.ToString() && t.EndDate<DateTime.Now).ToList();
+         
+            foreach (var item in tacticCampaign)
+            {
+                item.InheritStatus = InheritStatus.Complete.ToString();
+                Update(item);
+                UpdateInheritStatus(item.MasterCampaign_Id, item.ChildCampaigns.Id);
+            }
+        }
     }
 }
