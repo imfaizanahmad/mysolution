@@ -26,9 +26,7 @@ namespace MRM.Database.Model
         public virtual ICollection<Theme> Themes { get; set; }
         public virtual ICollection<Geography> Geographys { get; set; }
         public virtual ICollection<ChildCampaign> ChildCampaigns { get; set; }
-
-        [NotMapped]
-        public List<MasterCampaign> MasterCampaigns = new List<MasterCampaign>();
+        
         [NotMapped]
         public int PageCount { get; set; }
         [NotMapped]

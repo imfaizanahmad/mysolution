@@ -25,6 +25,11 @@ namespace MRM.Business.Services
             return guow.GenericRepository<TacticCampaign>().Table;
         }
 
+        public IQueryable<TacticCampaign> GetOrderedTacticCampaign()
+        {
+            return guow.GenericRepository<TacticCampaign>().Table.OrderByDescending(t => t.UpdatedDate);
+        }
+
         public IList<TacticCampaign> GetTacticCampaign()
         {
             IList<TacticCampaign> tacticCampaign = guow.GenericRepository<TacticCampaign>().GetAll().ToList();
