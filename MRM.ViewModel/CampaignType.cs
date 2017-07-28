@@ -19,4 +19,10 @@ namespace MRM.ViewModel
         Active,
         Complete
     }
+
+    public enum Status
+    {        
+        Draft,
+        Complete
+    }
 }

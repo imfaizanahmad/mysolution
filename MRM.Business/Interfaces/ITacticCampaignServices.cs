@@ -12,7 +12,6 @@ namespace MRM.Business.Interfaces
     {
         IList<TacticCampaign> GetTacticCampaign();
         List<TacticCampaign> GetTacticBySubCampaignId(TacticCampaignViewModel model);
-        bool DeleteTacticCampaign(int Id);
         List<TacticCampaign> GetTacticCampaignById(TacticCampaignViewModel model);
 
         List<TacticCampaign> GetTacticCampaignByMasterId(int id);

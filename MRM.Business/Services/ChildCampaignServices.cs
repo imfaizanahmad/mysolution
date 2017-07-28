@@ -57,14 +57,13 @@ namespace MRM.Business.Services
 
         private void ModelToEntity(ChildCampaignViewModel model, ChildCampaign childCampaignEntity)
         {
-            childCampaignEntity.InheritStatus = model.Status == "Save Draft" ? InheritStatus.Draft.ToString() : InheritStatus.Active.ToString();
-            if (childCampaignEntity.Status == "Complete" && model.Id != 0)
+            childCampaignEntity.InheritStatus = model.Status == Status.Draft.ToString() ? InheritStatus.Draft.ToString() : InheritStatus.Active.ToString();
+            if (childCampaignEntity.Status == Status.Complete.ToString() && model.Id != 0)
             {
                 childCampaignEntity.StartDate = model.StartDate;
                 childCampaignEntity.EndDate = model.EndDate;
                 childCampaignEntity.Budget = model.Budget;
                 childCampaignEntity.Spend = model.Spend;
-                childCampaignEntity.Status = "Complete";
                 childCampaignEntity.CampaignDescription = model.CampaignDescription;
                 
             }
@@ -188,7 +187,7 @@ namespace MRM.Business.Services
         {
             var childCamp = LoadChilCampaignEntity(model.Id);
 
-            if (childCamp.Status!="Complete")
+            if (childCamp.Status!= Status.Complete.ToString())
             {
                 childCamp = FlushChildRecords(childCamp);
             }
@@ -236,7 +235,6 @@ namespace MRM.Business.Services
             return true;
 
         }
-
        
         private ChildCampaign FlushChildRecords(ChildCampaign childCampaignCamp)
         {
@@ -255,41 +253,6 @@ namespace MRM.Business.Services
             guow.GenericRepository<ChildCampaign>().Delete(Id);
             return true;
 
-        }
-
-        //Deleted last visited
-        public void DeleteLastyearVisited()
-        {
-            var ChildList = GetChildCampaign()
-                .Where(s => s.Status == "Save Draft" && (s.VisitedDate <= DateTime.Now.AddYears(-1))).ToList();
-            if (ChildList.Count > 0)
-            {
-                foreach (var item in ChildList)
-                {
-                    var childCampaign = GetChildCampaignById(new ChildCampaignViewModel() {Id = item.Id})
-                        .FirstOrDefault();
-                    childCampaign.IsActive = false;
-                    Update(childCampaign);
-
-                }
-            }
-        }
-
-        public string GetInheritStatus(int Id)
-        {
-            List<TacticCampaign> tacticList = guow.GenericRepository<TacticCampaign>().GetAll().Where(t => t.ChildCampaigns.Id == Id).ToList();
-            var Inheritanceflag = 1;
-            string InheritanceStatus = string.Empty;
-
-            if (tacticList.Count == 0)
-            { Inheritanceflag = 1; }
-
-            if (tacticList.Count > 0)
-            {
-                Inheritanceflag = tacticList.All(t => t.Status == "Complete" && t.EndDate < DateTime.Now) ? 0 : 1;
-            }
-            InheritanceStatus = Inheritanceflag == 0 ? "Complete" : "Active";
-            return InheritanceStatus;
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using MRM.Database.Model;
 using MRM.Business.Interfaces;
 using MRM.Database.GenericUnitOfWork;
@@ -51,7 +48,6 @@ namespace MRM.Business.Services
 
         }
 
-
         public List<TacticCampaign> GetTacticCampaignByMasterId(int id)
         {
             List<TacticCampaign> returnlist=  guow.GenericRepository<TacticCampaign>().GetAll().Where(t => t.MasterCampaign_Id == id).ToList();
@@ -67,7 +63,7 @@ namespace MRM.Business.Services
 
         private void ModelToEntity(TacticCampaignViewModel model, TacticCampaign tacticCampaignEntity)
         {
-          if (tacticCampaignEntity.Status != "Complete")
+          if (tacticCampaignEntity.Status != Status.Complete.ToString())
              {
                 tacticCampaignEntity.ChildCampaigns = guow.GenericRepository<ChildCampaign>()
                     .GetByID(model.ChildCampaign_Id);
@@ -94,22 +90,14 @@ namespace MRM.Business.Services
                 tacticCampaignEntity.TacticCampaignReachResponses =
                     model.TacticCampaignReachResponseViewModels.ToList();
 
-                //tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? "Draft" : "Active";
-                //if (model.Id != 0 && model.Status == "Complete")
-                //{
-                //    if (model.EndDate < DateTime.Now)
-                //    {
-                //        tacticCampaignEntity.InheritStatus = "Complete";
-                //    }
-                //}
                 if (model.Id == 0)
                 {
                     tacticCampaignEntity.VisitedDate = DateTime.Now;
                 }
             }
 
-            tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? InheritStatus.Draft.ToString() : InheritStatus.Active.ToString();
-            if (model.Id != 0 && model.Status == "Complete")
+            tacticCampaignEntity.InheritStatus = model.Status == Status.Draft.ToString() ? InheritStatus.Draft.ToString() : InheritStatus.Active.ToString();
+            if (model.Id != 0 && model.Status == Status.Complete.ToString())
             {
                 if (model.EndDate < DateTime.Now)
                 {
@@ -122,8 +110,6 @@ namespace MRM.Business.Services
                 tacticCampaignEntity.StartDate = model.StartDate;
                 tacticCampaignEntity.EndDate = model.EndDate;
                 tacticCampaignEntity.Vendor = model.Vendor;
-
-                //tacticCampaignEntity.TacticTypes = model.TacticType_Id;
 
                 List<BusinessLine> lstBline = null;
                 List<BusinessGroup> lstBGroup = null;
@@ -275,8 +261,7 @@ namespace MRM.Business.Services
             tacticCampaignCamp.Geographys.Remove(tacticCampaignCamp.Geographys.FirstOrDefault<Geography>());
             tacticCampaignCamp.BusinessLines.Remove(tacticCampaignCamp.BusinessLines.FirstOrDefault<BusinessLine>());
             tacticCampaignCamp.BusinessGroups.Remove(tacticCampaignCamp.BusinessGroups.FirstOrDefault<BusinessGroup>());
-            //tacticCampaignCamp.Vendors.Remove(tacticCampaignCamp.Vendors.FirstOrDefault<Vendor>());
-            if (tacticCampaignCamp.Status != "Complete")
+            if (tacticCampaignCamp.Status != Status.Complete.ToString())
             {
                 tacticCampaignCamp.TacticTypes.Remove(tacticCampaignCamp.TacticTypes.FirstOrDefault<TacticType>());
                 tacticCampaignCamp.TacticCampaignReachResponses.Remove(tacticCampaignCamp.TacticCampaignReachResponses
@@ -289,7 +274,6 @@ namespace MRM.Business.Services
         {
             return guow.GenericRepository<TacticCampaign>().GetByID(childId);
         }
-
 
         public IEnumerable<TacticType> GetTacticType()
         {
