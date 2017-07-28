@@ -302,7 +302,7 @@ namespace MRM.Controllers
                     _masterCampaignServices.GetMasterCampaignById(model.MasterCampaignId);
                 foreach (var item in masterChild)
                 {
-                    model.IndustryViewModels = item.Industries.ToList();
+                   // model.IndustryViewModels = item.Industries.ToList();
                     if (model.CampaignTypes == 0)
                     {
                         model.BusinessGroupViewModels = model.BusinessGroupViewModels.Concat(item.BusinessGroups).ToList();
@@ -512,7 +512,8 @@ namespace MRM.Controllers
                                                                   new ChildCampaignViewModelList
                                                                   {
                                                                       Id = string.Format("C{0}", campaign.Id.ToString("0000000")),
-                                                                      InheritStatus = (ReturnInheritStatus(campaign.Id))=="Complete"?"Complete":(campaign.Status == "Save Draft" ? "Draft" : "Active"),
+                                                                      // InheritStatus = (ReturnInheritStatus(campaign.Id))=="Complete"?"Complete":(campaign.Status == "Save Draft" ? "Draft" : "Active"),
+                                                                      InheritStatus = campaign.InheritStatus,
                                                                       Name = campaign.Name,
                                                                       CampaignDescription = campaign.CampaignDescription,
                                                                       CampaignManager=campaign.CampaignManager,
@@ -538,7 +539,6 @@ namespace MRM.Controllers
             var InheritanceStatus = _childCampaignServices.GetInheritStatus(Id);
             return InheritanceStatus;
         }
-
-
+        
     }
 }

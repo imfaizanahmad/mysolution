@@ -139,6 +139,15 @@
     });
 
     $(document).on("change", "#ChildCampaign_Id", function () {
+
+        if ($("#MasterCampaign_Id").val() == "" || $("#MasterCampaign_Id").val()=="0") {
+            $('.validmsgSubcampaign').text("Please select Master Campaign first").css("color", "#b94a48");
+            $('.validmsgSubcampaign').show();
+            return false;
+        } else {
+            $('.validmsgSubcampaign').hide();
+        }
+
         $.ajax({
             type: "POST",
             url: "/TacticCampaign/LoadChildCampaign",

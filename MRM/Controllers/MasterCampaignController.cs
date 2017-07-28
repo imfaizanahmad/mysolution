@@ -135,20 +135,34 @@ namespace MRM.Controllers
 
         public ActionResult LoadBusinessLine(MasterCampaignViewModel model)
         {
-            List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
+           // List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
+            // model.BusinessLineViewModels = businesslist;
+
             model.BusinessGroupViewModels = _businessgroupService.GetBG();
-            model.BusinessGroups_Id = model.BusinessGroups_Id;
-            model.BusinessLineViewModels = businesslist;
+            //model.BusinessGroups_Id = model.BusinessGroups_Id;
             model.SegmentViewModels = _segmentService.GetSegment();
             if (model.Segments_Id == null)
+            {
                 model.IndustryViewModels = (new Industry[] { new Industry() });
+                model.Industries_Id = null;
+            }
             else
             {
                 List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
                 model.IndustryViewModels = lst;
             }
 
-            
+            if (model.BusinessGroups_Id == null)
+            {
+                model.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                model.BusinessLines_Id = null;
+            }
+            else
+            {
+                model.BusinessGroups_Id = model.BusinessGroups_Id;
+                List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
+                model.BusinessLineViewModels = businesslist;
+            }
 
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
@@ -159,21 +173,37 @@ namespace MRM.Controllers
         public ActionResult LoadIndustry(MasterCampaignViewModel model)
         {
             model.BusinessGroupViewModels = _businessgroupService.GetBG();
+
+
+            model.SegmentViewModels = _segmentService.GetSegment();
             if (model.BusinessGroups_Id == null)
             {
                 model.BusinessLineViewModels = (new BusinessLine[] { new BusinessLine() });
+                model.BusinessLines_Id = null;
             }
             else
             {
                 List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
                 model.BusinessLineViewModels = businesslist;
             }
-            model.SegmentViewModels = _segmentService.GetSegment();
-           
 
-            model.Segments_Id = model.Segments_Id;
-            List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
-            model.IndustryViewModels = lst.Where(t=>t.IsActive==true).ToList();
+            if (model.Segments_Id == null)
+            {
+                model.IndustryViewModels = (new Industry[] { new Industry() });
+                model.Industries_Id = null;
+            }
+            else
+            {
+                model.Segments_Id = model.Segments_Id;
+                List<Industry> Ilst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
+                model.IndustryViewModels = Ilst;
+                model.IndustryViewModels = Ilst.Where(t => t.IsActive == true).ToList();
+            }
+
+            //model.SegmentViewModels = _segmentService.GetSegment();
+            //model.Segments_Id = model.Segments_Id;
+            //List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
+            //model.IndustryViewModels = lst.Where(t=>t.IsActive==true).ToList();
           
             model.GeographyViewModels = _geographyService.GetGeography();
             model.ThemeViewModels = _themeService.GetTheme();
@@ -307,7 +337,8 @@ namespace MRM.Controllers
                                                                            Name = campaign.Name,
                                                                            CampaignManager = campaign.CampaignManager,
                                                                            CreatedBy = campaign.CreatedBy,
-                                                                           InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
+                                                                           InheritStatus = campaign.InheritStatus,
+                                                                           //InheritStatus = (ReturnInheritStatus(campaign.Id)) == "Complete" ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active"),
                                                                            CampaignDescription = campaign.CampaignDescription,
                                                                            Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
                                                                            StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),

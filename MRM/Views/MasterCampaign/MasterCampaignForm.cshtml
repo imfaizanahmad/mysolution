@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col-md-6" id="Thm">
                             <div class="form-group">
-                                <label>Theme</label>  <br />
+                                <label>Used Case</label>  <br />
                                 @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name", Model.Themes_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                     (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
@@ -142,7 +142,7 @@
 
                     <div class="row">
                         <div class="col-md-6" id="SD">
-                            <label>Start Date<span class="text-danger lb-sm"> (DD 3letter month YYYY)*</span></label>
+                            <label>Start Date<span class="text-danger lb-sm">*</span></label>
                             <div class="form-group">
                                 <div id="dvStartDate" class="col-md-6 date datealign">
                                     <div class="input-group input-append date">
@@ -158,7 +158,7 @@
                             </div>
                         </div>
                         <div class="col-md-6" id="ED">
-                            <label>End Date<span class="text-danger lb-sm"> (DD 3letter month YYYY)*</span></label>
+                            <label>End Date<span class="text-danger lb-sm">*</span></label>
                             <div class="form-group">
                                 <div id="dvEndDate" class="col-md-6 form-group date datealign">
                                     <div class="input-group input-append date">

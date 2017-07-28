@@ -57,6 +57,7 @@ namespace MRM.Business.Services
 
         private void ModelToEntity(ChildCampaignViewModel model, ChildCampaign childCampaignEntity)
         {
+            childCampaignEntity.InheritStatus = model.Status == "Save Draft" ? InheritStatus.Draft.ToString() : InheritStatus.Active.ToString();
             if (childCampaignEntity.Status == "Complete" && model.Id != 0)
             {
                 childCampaignEntity.StartDate = model.StartDate;
@@ -65,6 +66,7 @@ namespace MRM.Business.Services
                 childCampaignEntity.Spend = model.Spend;
                 childCampaignEntity.Status = "Complete";
                 childCampaignEntity.CampaignDescription = model.CampaignDescription;
+                
             }
             else
             {
@@ -197,10 +199,26 @@ namespace MRM.Business.Services
         public bool InsertChildCampaign(ChildCampaignViewModel model)
         {
             var childCampaignEntity = new ChildCampaign();
-            ModelToEntity(model, childCampaignEntity);
+            ModelToEntity(model, childCampaignEntity);            
             guow.GenericRepository<ChildCampaign>().Insert(childCampaignEntity);
+            UpdateMasterStatus(model.MasterCampaignId);
             return childCampaignEntity.Id != 0;
         }
+
+        public void UpdateMasterStatus(int masterId)
+        {
+            string inheritStatus = InheritStatus.Draft.ToString();
+            var childInherit = guow.GenericRepository<ChildCampaign>().Table.Where(x => x.MasterCampaigns.Id == masterId && (x.InheritStatus == InheritStatus.Active.ToString() || x.InheritStatus == InheritStatus.Draft.ToString())).ToList();
+            if(childInherit.Count > 0)
+            { inheritStatus = InheritStatus.Active.ToString(); }
+            else
+            { inheritStatus = InheritStatus.Complete.ToString(); }
+            MasterCampaign mcvm = new MasterCampaign();
+            mcvm = guow.GenericRepository<MasterCampaign>().GetByID(masterId);
+            mcvm.InheritStatus = inheritStatus;
+            guow.GenericRepository<MasterCampaign>().Update(mcvm);
+        }
+
 
         private ChildCampaign LoadChilCampaignEntity(int masterCampaignId)
         {
@@ -273,6 +291,5 @@ namespace MRM.Business.Services
             InheritanceStatus = Inheritanceflag == 0 ? "Complete" : "Active";
             return InheritanceStatus;
         }
-
     }
 }

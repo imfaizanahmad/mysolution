@@ -284,8 +284,8 @@ namespace MRM.Controllers
                     model.SubCampaignType = item.CampaignType;
                 }
                 model.MasterCampaign_Id = model.MasterCampaign_Id;
-                model.ChildCampaignViewModels =
-                    _childCampaignServices.GetChildCampaignByMasterId(model.MasterCampaign_Id);
+                model.ChildCampaignViewModels = _childCampaignServices
+                    .GetChildCampaignByMasterId(model.MasterCampaign_Id).Where(t => t.Status == "Complete").ToList();
                 model.ChildCampaign_Id = model.ChildCampaign_Id;
             }
             else
@@ -588,6 +588,7 @@ namespace MRM.Controllers
                 }
                 model.Status = "Save Draft";
                 _tacticCampaignServices.Update(model);
+                //Update Inheritance
                 return true;
             }
 
@@ -680,7 +681,7 @@ namespace MRM.Controllers
                                                                        Id = string.Format("T{0}", campaign.Id.ToString("0000000")),
                                                                        Name = campaign.Name,
                                                                        // InheritStatus = (!string.IsNullOrEmpty(campaign.InheritStatus) ? campaign.InheritStatus : (campaign.Status == "Save Draft" ? "Draft" : "Active")),
-                                                                       InheritStatus = ((campaign.Status == "Complete" && (campaign.EndDate < DateTime.Now)) ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active")),
+                                                                       InheritStatus = campaign.InheritStatus, //((campaign.Status == "Complete" && (campaign.EndDate < DateTime.Now)) ? "Complete" : (campaign.Status == "Save Draft" ? "Draft" : "Active")),
                                                                        TacticDescription = campaign.TacticDescription,
                                                                        Status = campaign.Status == "Save Draft" ? "Draft" : "Active",
                                                                        StartDate = String.Format("{0:dd MMM yyyy}", campaign.StartDate),
@@ -697,5 +698,6 @@ namespace MRM.Controllers
             _tacticCampaignServices.Update(tacticCampaign);
             return Json(GetTacticCampaignList(), JsonRequestBehavior.AllowGet);
         }
+        
     }
 }

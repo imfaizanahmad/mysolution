@@ -54,6 +54,7 @@ namespace MRM.Business.Services
 
         private void ModelToEntity(MasterCampaignViewModel model, MasterCampaign masterCampaignEntity)
         {
+            masterCampaignEntity.InheritStatus = model.Status == "Save Draft" ? InheritStatus.Draft.ToString() : InheritStatus.Active.ToString();
             if (masterCampaignEntity.Status == "Complete" && model.Id != 0)
             {
                 masterCampaignEntity.CampaignDescription = model.CampaignDescription;
@@ -70,8 +71,6 @@ namespace MRM.Business.Services
                 masterCampaignEntity.EndDate = model.EndDate;
                 masterCampaignEntity.Status = model.Status;
                 masterCampaignEntity.CreatedBy = "user";
-
-
                 List<BusinessLine> lstBline = null;
                 List<BusinessGroup> lstBGroup = null;
                 if (model.BusinessGroups_Id != null)

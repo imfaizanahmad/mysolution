@@ -155,7 +155,7 @@ $(document).ready(function () {
 
 //Load BusinessLine 
 function funcLoadBusinessLine() {
-    if ($("#BusinessGroups_Id").val() != null) {
+    //if ($("#BusinessGroups_Id").val() != null) {
         $.ajax({
             type: "POST",
             url: '/MasterCampaign/LoadBusinessLine',
@@ -165,11 +165,11 @@ function funcLoadBusinessLine() {
                 PreventSpecialChar();
             }
         });
-    }
+   // }
 }
 //Load Industry
 function funcLoadIndustry() {
-    if ($("#Segments_Id").val() != null) {
+    //if ($("#Segments_Id").val() != null) {
         $.ajax({
             type: "POST",
             url: '/MasterCampaign/LoadIndustry',
@@ -179,7 +179,7 @@ function funcLoadIndustry() {
                 PreventSpecialChar();
             }
         });
-    }
+    //}
 }
 
 var validationFocusId = null;

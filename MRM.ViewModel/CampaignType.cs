@@ -12,4 +12,11 @@ namespace MRM.ViewModel
         BG_Led,
         GEPS
     }
+
+    public enum InheritStatus
+    {
+        Draft,
+        Active,
+        Complete
+    }
 }

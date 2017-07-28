@@ -36,6 +36,7 @@ namespace MRM.Database.Model
         public string MGLSource { get; set; }
         public string MIOSource { get; set; }
         public string MGOSource { get; set; }
+        public string InheritStatus { get; set; }
 
         public virtual ICollection<BusinessGroup> BusinessGroups { get; set; }
         public virtual ICollection<BusinessLine> BusinessLines { get; set; }

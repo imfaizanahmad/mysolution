@@ -89,20 +89,30 @@ namespace MRM.Business.Services
                 tacticCampaignEntity.TacticCampaignReachResponses =
                     model.TacticCampaignReachResponseViewModels.ToList();
 
-                tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? "Draft" : "Active";
-                if (model.Id != 0 && model.Status == "Complete")
-                {
-                    if (model.EndDate < DateTime.Now)
-                    {
-                        tacticCampaignEntity.InheritStatus = "Complete";
-                    }
-                }
+                //tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? "Draft" : "Active";
+                //if (model.Id != 0 && model.Status == "Complete")
+                //{
+                //    if (model.EndDate < DateTime.Now)
+                //    {
+                //        tacticCampaignEntity.InheritStatus = "Complete";
+                //    }
+                //}
                 if (model.Id == 0)
                 {
                     tacticCampaignEntity.VisitedDate = DateTime.Now;
                 }
             }
-                tacticCampaignEntity.Status = model.Status;
+
+            tacticCampaignEntity.InheritStatus = model.Status == "Save Draft" ? InheritStatus.Draft.ToString() : InheritStatus.Active.ToString();
+            if (model.Id != 0 && model.Status == "Complete")
+            {
+                if (model.EndDate < DateTime.Now)
+                {
+                    tacticCampaignEntity.InheritStatus = InheritStatus.Complete.ToString();
+                }
+            }
+
+            tacticCampaignEntity.Status = model.Status;
                 tacticCampaignEntity.TacticDescription = model.TacticDescription;
                 tacticCampaignEntity.StartDate = model.StartDate;
                 tacticCampaignEntity.EndDate = model.EndDate;
@@ -202,11 +212,40 @@ namespace MRM.Business.Services
         public bool InsertTacticCampaign(TacticCampaignViewModel model)
         {
             var tacticCampaignEntity = new TacticCampaign();
-            ModelToEntity(model, tacticCampaignEntity);
+            ModelToEntity(model, tacticCampaignEntity);            
             guow.GenericRepository<TacticCampaign>().Insert(tacticCampaignEntity);
+            UpdateInheritStatus(model.MasterCampaign_Id, model.ChildCampaign_Id);
             return tacticCampaignEntity.Id != 0;
         }
+        public void UpdateInheritStatus(int masterId,int childId)
+        {
+            string inheritStatus = InheritStatus.Draft.ToString();
+            var childInherit = guow.GenericRepository<TacticCampaign>().Table.Where(x => x.ChildCampaigns.Id == childId && (x.InheritStatus == InheritStatus.Active.ToString() || x.InheritStatus == InheritStatus.Draft.ToString())).ToList();
+            if (childInherit.Count > 0)
+            { inheritStatus = InheritStatus.Active.ToString(); }
+            else
+            { inheritStatus = InheritStatus.Complete.ToString(); }
 
+            ChildCampaign chcm = new ChildCampaign();
+            chcm = guow.GenericRepository<ChildCampaign>().GetByID(childId);
+            chcm.InheritStatus = inheritStatus;
+            guow.GenericRepository<ChildCampaign>().Update(chcm);
+
+            UpdateMasterStatus(masterId);
+        }
+        public void UpdateMasterStatus(int masterId)
+        {
+            string inheritStatus = InheritStatus.Draft.ToString();
+            var childInherit = guow.GenericRepository<ChildCampaign>().Table.Where(x => x.MasterCampaigns.Id == masterId && (x.InheritStatus == InheritStatus.Active.ToString() || x.InheritStatus == InheritStatus.Draft.ToString())).ToList();
+            if (childInherit.Count > 0)
+            { inheritStatus = InheritStatus.Active.ToString(); }
+            else
+            { inheritStatus = InheritStatus.Complete.ToString(); }
+            MasterCampaign mcvm = new MasterCampaign();
+            mcvm = guow.GenericRepository<MasterCampaign>().GetByID(masterId);
+            mcvm.InheritStatus = inheritStatus;
+            guow.GenericRepository<MasterCampaign>().Update(mcvm);
+        }
 
         public void Update(TacticCampaignViewModel model)
         {
@@ -214,6 +253,7 @@ namespace MRM.Business.Services
             tacticCamp = FlushChildRecords(tacticCamp);
             ModelToEntity(model, tacticCamp);
             guow.GenericRepository<TacticCampaign>().Update(tacticCamp);
+            UpdateInheritStatus(model.MasterCampaign_Id, model.ChildCampaign_Id);
         }
 
         public void Update(TacticCampaign entity)
