@@ -290,8 +290,8 @@ namespace MRM.Business.Services
         public void DeleteLastyearVisited()
         {
             var TacticList = GetTacticCampaign()
-                .Where(s => s.Status == Status.Draft.ToString() && (s.VisitedDate <= DateTime.Now.AddDays(-2))).ToList();
-               // .Where(s => s.Status == "Save Draft" && (s.VisitedDate <= DateTime.Now.AddYears(-1))).ToList();
+                .Where(s => s.Status == Status.Draft.ToString() && (s.VisitedDate <= DateTime.Now.AddHours(-1))).ToList();
+               
             if (TacticList.Count > 0)
             {
                 foreach (var item in TacticList)

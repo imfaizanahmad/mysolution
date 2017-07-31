@@ -202,6 +202,7 @@ namespace MRM.Controllers
             {
                 List<MasterCampaign> masterChild =
                     _masterCampaignServices.GetMasterCampaignById(model.MasterCampaignId);
+             
                 foreach (var item in masterChild)
                 {
                     if (model.CampaignTypes == 0)
@@ -220,6 +221,10 @@ namespace MRM.Controllers
                     {
                         if (model.Segments_Id[0] != 0 && model.Segments_Id[0] != -1)
                             model.IndustryViewModels = item.Industries.ToList();
+
+                        //List<Industry> lst = _industryService.GetIndustryBySegmentId(model.Segments_Id);
+                        //model.IndustryViewModels = lst;
+
                     }
                     else
                     {
@@ -229,6 +234,9 @@ namespace MRM.Controllers
                     {
                         if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
                             model.BusinessLineViewModels = item.BusinessLines.ToList();
+
+                        //List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
+                        //model.BusinessLineViewModels = businesslist;
                     }
                     else
                     {
@@ -335,8 +343,6 @@ namespace MRM.Controllers
                     
                     model.ThemeViewModels = item.Themes.ToList();
                     model.GeographyViewModels = item.Geographys.ToList();
-                    //model.StartDate = item.StartDate;
-                    //model.EndDate = item.EndDate;
                     model.MCStartDate = item.StartDate;
                     model.MCEndDate = item.EndDate;
                 }

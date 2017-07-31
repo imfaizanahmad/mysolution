@@ -108,7 +108,7 @@
             event.preventDefault();
         }
 
-        if ($(this).val().indexOf('.') !== -1 && event.keyCode == 190)
+        if ($("#" + event.target.id).val().indexOf('.') !== -1 && event.keyCode == 190)
             event.preventDefault();
     };
 
