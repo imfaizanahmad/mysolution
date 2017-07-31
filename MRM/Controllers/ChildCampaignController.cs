@@ -9,6 +9,7 @@ using MRM.Database.GenericRepository;
 using MRM.ViewModel;
 using System.Collections;
 using DataTables.Mvc;
+using System.Globalization;
 
 namespace MRM.Controllers
 {
@@ -387,6 +388,10 @@ namespace MRM.Controllers
                 }
                 model.ThemeViewModels = item.Themes.ToList();
                 model.GeographyViewModels = item.Geographys.ToList();
+
+
+                model.MCStartDate = item.StartDate;
+                model.MCEndDate = item.EndDate;
             }
             
 

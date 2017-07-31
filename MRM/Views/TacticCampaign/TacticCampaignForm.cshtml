@@ -5,8 +5,8 @@
 <form id="frmTacticCampaign">
     @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
     @Html.HiddenFor(m => m.Status, new { @Value = Model.Status })
-    @Html.HiddenFor(m => m.MCStartDate, new { @Value = Model.MCStartDate })
-    @Html.HiddenFor(m => m.MCEndDate, new { @Value = Model.MCEndDate })
+    @Html.HiddenFor(m => m.MCStartDate, new { @Value = Model.MCStartDate == null ? DateTime.MinValue.ToString("dd MMM yyyy") : Model.MCStartDate.Value.ToString("dd MMM yyyy") })
+    @Html.HiddenFor(m => m.MCEndDate, new { @Value = Model.MCEndDate == null ? DateTime.MaxValue.ToString("dd MMM yyyy") : Model.MCEndDate.Value.ToString("dd MMM yyyy") })
     @Html.HiddenFor(m => m.BgSelectUnselect, new { @Value = Model.BgSelectUnselect })
     @Html.HiddenFor(m => m.BlSelectUnselect, new { @Value = Model.BlSelectUnselect })
     @Html.HiddenFor(m => m.ThemeSelectUnselect, new { @Value = Model.ThemeSelectUnselect })

@@ -36,6 +36,8 @@ namespace MRM.ViewModel
 
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+
+
         public DateTime? MCStartDate { get; set; }
         public DateTime? MCEndDate { get; set; }
 
