@@ -677,6 +677,5 @@ namespace MRM.Controllers
             _tacticCampaignServices.Update(tacticCampaign);
             return Json(JsonRequestBehavior.AllowGet);
         }
-        
     }
 }
