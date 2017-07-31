@@ -647,12 +647,11 @@ namespace MRM.Controllers
 
             var tacticList = _tacticCampaignServices.GetOrderedTacticCampaign().Where(x => x.IsActive == true);
 
-            var filteredData = tacticList.Where(_item => _item.Name.ToUpper().StartsWith(requestmodel.Search.Value.ToUpper()));
+            //var filteredData =  tacticList.Where(_item => _item.Name.ToLower().StartsWith(requestmodel.Search.Value.ToLower()));
 
-            var result = tacticList.Skip(requestmodel.Start).Take(requestmodel.Length);
+            //var result = tacticList.Skip(requestmodel.Start).Take(requestmodel.Length);
 
-            var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData : result;
-
+            var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? tacticList.Where(_item => _item.Name.ToLower().StartsWith(requestmodel.Search.Value.ToLower())) : tacticList.Skip(requestmodel.Start).Take(requestmodel.Length);
             List<TacticCampaignViewModelList> tactiCampaignList = (from campaign in data.ToList()
                                                                    where campaign.IsActive == true
                                                                    select
@@ -668,7 +667,7 @@ namespace MRM.Controllers
                                                                    }
                                                                 ).ToList();
 
-            return Json(new DataTablesResponse(requestmodel.Draw, tactiCampaignList, !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : tacticList.Count(), !String.IsNullOrEmpty(requestmodel.Search.Value) ? filteredData.Count() : tacticList.Count()), JsonRequestBehavior.AllowGet);
+            return Json(new DataTablesResponse(requestmodel.Draw, tactiCampaignList, !String.IsNullOrEmpty(requestmodel.Search.Value) ? data.Count() : tacticList.Count(), !String.IsNullOrEmpty(requestmodel.Search.Value) ? data.Count() : tacticList.Count()), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DeleteTacticCampaign(int id)
