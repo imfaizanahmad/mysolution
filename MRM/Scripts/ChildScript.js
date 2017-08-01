@@ -583,7 +583,7 @@ function ValidateChildForm() {
 
    
     if ($('#Budget').val().trim() == "") {
-        $('.validmsgBudget').text("Please enter Budget").css("color", "#b94a48");
+        $('.validmsgBudget').text("Please enter Total Budget").css("color", "#b94a48");
         $('.validmsgBudget').show();
         if (validationFocusFlag == 0) { validationFocusId = "#Bud"; validationFocusFlag = 1; }
         flag = false;
