@@ -27,7 +27,10 @@ namespace MRM.Database.Model
 
         public DbSet<MetricReach> MetricReachs { get; set; }
         public DbSet<MetricResponse> MetricResponses { get; set; }
-        public DbSet<JourneyStage> JourneyStages { get; set; } 
+        public DbSet<JourneyStage> JourneyStages { get; set; }
+
+        public DbSet<DigitalTouchPoint> DigitalTouchPoints { get; set; }
+        
     }
 
 }

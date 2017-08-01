@@ -13,5 +13,7 @@ namespace MRM.Database.Model
         public  string ShortName { get; set; }
 
         public virtual ICollection<TacticCampaign> TacticCampaigns { get; set; }
+
+        public virtual ICollection<DigitalTouchPoint> DigitalTouchPoint { get; set; }
     }
 }

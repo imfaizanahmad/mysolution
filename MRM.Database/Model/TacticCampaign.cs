@@ -33,6 +33,8 @@ namespace MRM.Database.Model
         public virtual ICollection<Geography> Geographys { get; set; }
        // public virtual ICollection<Vendor> Vendors { get; set; }
         public virtual ICollection<TacticType> TacticTypes { get; set; }
+
+        public virtual ICollection<DigitalTouchPoint> DigitalTouchPoint { get; set; }
         public virtual ChildCampaign ChildCampaigns { get; set; }
 
         public virtual ICollection<TacticCampaignReachResponse> TacticCampaignReachResponses { get; set; }
