@@ -79,6 +79,7 @@
     <Compile Include="Model\BusinessLine.cs" />
     <Compile Include="Model\ChildCampaign.cs" />
     <Compile Include="Model\CommonEntity.cs" />
+    <Compile Include="Model\DigitalTouchPoint.cs" />
     <Compile Include="Model\Geography.cs" />
     <Compile Include="Model\Industry.cs" />
     <Compile Include="Model\JourneyStage.cs" />
