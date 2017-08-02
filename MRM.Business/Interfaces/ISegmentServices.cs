@@ -12,5 +12,6 @@ namespace MRM.Business.Interfaces
 
         IList<Segment> GetSegment();
         bool CreateMCSegment(MasterCampaign MC);
+        IQueryable<Segment> SegmentTable();
     }
 }

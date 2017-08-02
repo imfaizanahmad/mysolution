@@ -43,5 +43,10 @@ namespace MRM.Business.Services
             }
             return lstIndustry;
         }
+
+        public IQueryable<Industry> IndustryTable()
+        {
+            return guow.GenericRepository<Industry>().Table;
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace MRM.Business.Interfaces
         IList<Industry> GetIndustry();
         List<Industry> GetIndustryBySegmentId(int [] SegmentId);
         bool CreateMCIndustry(MasterCampaign MC);
+        IQueryable<Industry> IndustryTable();
     }
 }

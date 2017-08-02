@@ -40,5 +40,10 @@ namespace MRM.Business.Services
             }
             return lstBline;
         }
+
+        public IQueryable<BusinessLine> BusinessLineTable()
+        {
+            return guow.GenericRepository<BusinessLine>().Table;
+        }
     }
 }

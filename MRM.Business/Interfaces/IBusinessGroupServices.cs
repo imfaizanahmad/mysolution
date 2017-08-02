@@ -11,5 +11,6 @@ namespace MRM.Business.Interfaces
     {
         IList<BusinessGroup> GetBG();
         bool CreateMCBusinessGroup(BusinessGroup MCBG);
+        IQueryable<BusinessGroup> BusinessGroupTable();
     }
 }
