@@ -29,6 +29,7 @@ namespace MRM.Controllers
 
         TacticCampaignViewModel Tacticvm = new TacticCampaignViewModel();
 
+        private DigitalTouchpoint _digitalTouchpoint;
 
         public TacticCampaignController()
         {
@@ -45,6 +46,7 @@ namespace MRM.Controllers
             _metricReachServices = new MetricReachServices();
             _metricResponseServices = new MetricResponseServices();
             _journeyStageServices = new JourneyStageServices();
+            _digitalTouchpoint = new DigitalTouchpoint();
         }
 
         public ActionResult TacticCampaign(int Id = 0)
@@ -676,6 +678,40 @@ namespace MRM.Controllers
             tacticCampaign.IsActive = false;
             _tacticCampaignServices.Update(tacticCampaign);
             return Json(JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public JsonResult GetDigitalTouchpoint(int tacticId)
+        {
+            CommanResponse commanResponse = new CommanResponse();
+            try
+            {
+                commanResponse.Result = _digitalTouchpoint.GetbyId(tacticId);
+                commanResponse.Status = true;
+            }
+            catch (Exception ex)
+            {
+                commanResponse.Status = false;
+                commanResponse.Message = ex.Message;
+            }
+            return Json(commanResponse, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AddDigitalTouchPoint(List<DigitalTouchPointViewModel> model)
+        {
+            CommanResponse commanResponse = new CommanResponse();
+            try
+            {
+                commanResponse.Status = true;
+
+            }
+            catch (Exception ex)
+            {
+                commanResponse.Status = false;
+                commanResponse.Message = ex.Message;
+            }
+            return Json(commanResponse, JsonRequestBehavior.AllowGet);
         }
     }
 }

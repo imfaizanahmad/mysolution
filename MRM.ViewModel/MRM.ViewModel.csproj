@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CampaignType.cs" />
     <Compile Include="ChildCampaignViewModel.cs" />
+    <Compile Include="CommanResponse.cs" />
     <Compile Include="DigitalTouchPointViewModel.cs" />
     <Compile Include="MasterCampaignViewModel.cs" />
     <Compile Include="MasterCampaignViewModelListing.cs" />

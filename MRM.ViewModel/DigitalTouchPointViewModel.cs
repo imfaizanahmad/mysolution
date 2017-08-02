@@ -16,8 +16,15 @@ namespace MRM.ViewModel
         public string Term { get; set; }
         public int TacticType_Id { get; set; }
         public string TacticCampaign_Id { get; set; }
-        // public virtual ICollection<Vendor> Vendors { get; set; }
-        public virtual IList<TacticType> TacticType { get; set; }
-        public virtual IList<TacticCampaign> TacticCampaign { get; set; }
+    }
+
+    public class DigitalViewModel
+    {
+        public string TacticCampaign_Id { get; set; }
+        public string TacticName {get;set;}
+        public int? TacticType_Id { get; set; }
+        public string TacticTypeName { get; set; }
+        public ICollection<DigitalTouchPointViewModel> DigitalTouchPoint { get; set; }
+
     }
 }
