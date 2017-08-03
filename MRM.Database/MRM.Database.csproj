@@ -70,6 +70,10 @@
     <Compile Include="GenericRepository\GenericRepository.cs" />
     <Compile Include="GenericRepository\IGenericRepository.cs" />
     <Compile Include="GenericUnitOfWork\GenericUnitOfWork .cs" />
+    <Compile Include="Migrations\201708021126525_DEEPAK.cs" />
+    <Compile Include="Migrations\201708021126525_DEEPAK.Designer.cs">
+      <DependentUpon>201708021126525_DEEPAK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BusinessGroup.cs" />
     <Compile Include="Model\BusinessLine.cs" />
@@ -84,6 +88,7 @@
     <Compile Include="Model\MetricResponse.cs" />
     <Compile Include="Model\MRMContext.cs" />
     <Compile Include="Model\Segment.cs" />
+    <Compile Include="Model\SubCampaignBudgetingDetails.cs" />
     <Compile Include="Model\TacticCampaign.cs" />
     <Compile Include="Model\TacticCampaignReachResponse.cs" />
     <Compile Include="Model\TacticType.cs" />
@@ -96,6 +101,11 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201708021126525_DEEPAK.resx">
+      <DependentUpon>201708021126525_DEEPAK.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

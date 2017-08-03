@@ -1,31 +1,32 @@
 ﻿@model MRM.ViewModel.ChildCampaignViewModel
 @using MRM.ViewModel;
 <div>
-    
-<form id="frmChildCampaign">
-@Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
-@Html.HiddenFor(m => m.Status, new { @Value = Model.Status })
-@Html.HiddenFor(m => m.MCStartDate, new { @Value = Model.MCStartDate == null ? DateTime.MinValue.ToString("dd MMM yyyy") : Model.MCStartDate.Value.ToString("dd MMM yyyy") })
-@Html.HiddenFor(m => m.MCEndDate, new { @Value = Model.MCEndDate == null ? DateTime.MaxValue.ToString("dd MMM yyyy") :  Model.MCEndDate.Value.ToString("dd MMM yyyy") })
-@Html.HiddenFor(m => m.BgSelectUnselect, new { @Value = Model.BgSelectUnselect })
-@Html.HiddenFor(m => m.BlSelectUnselect, new { @Value = Model.BlSelectUnselect })
-@Html.HiddenFor(m => m.ThemeSelectUnselect, new { @Value = Model.ThemeSelectUnselect })
-@Html.HiddenFor(m => m.SegSelectUnselect, new { @Value = Model.SegSelectUnselect })
-@Html.HiddenFor(m => m.GeoSelectUnselect, new { @Value = Model.GeoSelectUnselect })
-@Html.HiddenFor(m => m.IndustrySelectUnselect, new { @Value = Model.IndustrySelectUnselect })
+
+    <form id="frmChildCampaign">
+        @Html.HiddenFor(m => m.Id, new { @Value = Model.Id })
+        @Html.HiddenFor(m => m.Status, new { @Value = Model.Status })
+        @Html.HiddenFor(m => m.MCStartDate, new { @Value = Model.MCStartDate == null ? DateTime.MinValue.ToString("dd MMM yyyy") : Model.MCStartDate.Value.ToString("dd MMM yyyy") })
+        @Html.HiddenFor(m => m.MCEndDate, new { @Value = Model.MCEndDate == null ? DateTime.MaxValue.ToString("dd MMM yyyy") : Model.MCEndDate.Value.ToString("dd MMM yyyy") })
+        @Html.HiddenFor(m => m.BgSelectUnselect, new { @Value = Model.BgSelectUnselect })
+        @Html.HiddenFor(m => m.BlSelectUnselect, new { @Value = Model.BlSelectUnselect })
+        @Html.HiddenFor(m => m.ThemeSelectUnselect, new { @Value = Model.ThemeSelectUnselect })
+        @Html.HiddenFor(m => m.SegSelectUnselect, new { @Value = Model.SegSelectUnselect })
+        @Html.HiddenFor(m => m.GeoSelectUnselect, new { @Value = Model.GeoSelectUnselect })
+        @Html.HiddenFor(m => m.IndustrySelectUnselect, new { @Value = Model.IndustrySelectUnselect })
         <section class="content-header"></section>
         <section class="content">
             <!-- SELECT2 EXAMPLE -->
             <div class="box box-default">
-                <div class="box-header with-border">                    
+                <div class="box-header with-border">
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <fieldset>
-                    <legend class="header-color">Sub Campaign
-                        @*<span class="text-danger" style="float:right;font-size:x-small">Note: Mandatory fields is marked with red aestric (*)</span>*@
-                    </legend>
-                    <div class="legend2 text-danger">Note: Mandatory fields is marked with red aestric (*)</div>
+                        <legend class="header-color">
+                            Sub Campaign
+                            @*<span class="text-danger" style="float:right;font-size:x-small">Note: Mandatory fields is marked with red aestric (*)</span>*@
+                        </legend>
+                        <div class="legend2 text-danger">Note: Mandatory fields is marked with red aestric (*)</div>
                         <div class="row">
                             <div class="col-md-6" id="MC">
                                 <div class="form-group">
@@ -34,10 +35,10 @@
                                    Model.MasterCampaignId), "None selected.",
                                   Model.Id != 0 && Model.Status == "Complete" ?
                                             (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
-                                            (object)new { @class = "chosen-single form-control" } )
+                                            (object)new { @class = "chosen-single form-control" })
                                     <div class="validmsgMastercampaign"></div>
-                                </div>                               
-                            </div>                    
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6" id="SCN">
@@ -77,71 +78,71 @@
                                     <label>Used Case</label>  <br />
                                     @Html.ListBoxFor(m => m.Themes_Id, new MultiSelectList(Model.ThemeViewModels, "Id", "Name", Model.Themes_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                        (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) 
+                                        (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
                                     @*<a data-next-stage="select" data-target-id="Themes_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
-                                    <a data-next-stage="@(Model.ThemeSelectUnselect==false?"select":"unselect")"  data-target-id="Themes_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.ThemeSelectUnselect==false? "Select All" : "Select None")</a> 
-                                 </div>
+                                    <a data-next-stage="@(Model.ThemeSelectUnselect==false?"select":"unselect")" data-target-id="Themes_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.ThemeSelectUnselect == false ? "Select All" : "Select None")</a>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group" id="Mrk">
                                     <label>Markets</label><span class="text-danger"></span><br />
                                     @Html.ListBoxFor(m => m.Geographys_Id, new MultiSelectList(Model.GeographyViewModels, "Id", "Name", Model.Geographys_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                        (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) 
+                                        (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
                                     @*<a data-next-stage="select" data-target-id="Geographys_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
-                                    <a data-next-stage="@(Model.GeoSelectUnselect==false?"select":"unselect")" data-target-id="Geographys_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.GeoSelectUnselect == false ? "Select All" : "Select None")</a> 
-                                     <div class="validmsgbusinesGeography"></div>
+                                    <a data-next-stage="@(Model.GeoSelectUnselect==false?"select":"unselect")" data-target-id="Geographys_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.GeoSelectUnselect == false ? "Select All" : "Select None")</a>
+                                    <div class="validmsgbusinesGeography"></div>
                                 </div>
                             </div>
                         </div>
 
-                    <div class="row">
-                        <div class="col-md-6" id="SD">
-                            <label>Start Date</label><span class="text-danger lb-sm">*</span>
-                            <div class="form-group">
-                                <div id="dvStartDate" class="col-md-6 date datealign">
-                                    <div class="input-group input-append date">
-                                        @Html.TextBoxFor(m => m.StartDate,
+                        <div class="row">
+                            <div class="col-md-6" id="SD">
+                                <label>Start Date</label><span class="text-danger lb-sm">*</span>
+                                <div class="form-group">
+                                    <div id="dvStartDate" class="col-md-6 date datealign">
+                                        <div class="input-group input-append date">
+                                            @Html.TextBoxFor(m => m.StartDate,
                                             //(Model.Id != 0 && Model.Status == "Complete") ?
                                             //     (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd MMM yyyy") : ""), disabled = "disabled", @class = "form-control start-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" } :
                                             (object)new { Value = (Model.StartDate != null ? Model.StartDate.Value.ToString("dd MMM yyyy") : ""), @class = "form-control start-date-cal DateReadOnly ChkCampselection", @maxlength = "10", @placeholder = "DD Month YYYY", @readonly = "readonly" })
-                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on startcal ChkCampselection"></span></span>
+                                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on startcal ChkCampselection"></span></span>
+                                        </div>
+                                        <div class="validmsgSdate HideOnsave"></div>
                                     </div>
-                                    <div class="validmsgSdate HideOnsave"></div>
+
+
                                 </div>
-                               
-                      
                             </div>
-                        </div>
-                        <div class="col-md-6" id="ED">
-                            <label>End Date</label><span class="text-danger lb-sm">*</span>
-                            <div class="form-group">
-                                <div id="dvEndDate" class="col-md-6 form-group date datealign">
-                                    <div class="input-group input-append date">
-                                        @Html.TextBoxFor(m => m.EndDate,
+                            <div class="col-md-6" id="ED">
+                                <label>End Date</label><span class="text-danger lb-sm">*</span>
+                                <div class="form-group">
+                                    <div id="dvEndDate" class="col-md-6 form-group date datealign">
+                                        <div class="input-group input-append date">
+                                            @Html.TextBoxFor(m => m.EndDate,
                                             //(Model.Id != 0 && Model.Status == "Complete") ?
                                             //     (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd MMM yyyy") : ""), disabled = "disabled", @class = "form-control end-date-cal", @maxlength = "10", @placeholder = "DD Month YYYY" } :
                                             (object)new { Value = (Model.EndDate != null ? Model.EndDate.Value.ToString("dd MMM yyyy") : ""), @class = "form-control end-date-cal DateReadOnly ChkCampselection", @maxlength = "10", @placeholder = "DD Month YYYY", @readonly = "readonly" })
-                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on endcal ChkCampselection"></span></span>
+                                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar add-on endcal ChkCampselection"></span></span>
+                                        </div>
+                                        <div class="validmsgEdate HideOnsave"></div><div class="validmsgDatecompare"></div>
                                     </div>
-                                    <div class="validmsgEdate HideOnsave"></div><div class="validmsgDatecompare"></div>
+
                                 </div>
-                              
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6"></div>
-                        <div class="col-md-6"><div class="validmsgDateMCcompare"></div></div>
-                    </div>
-                          
+                        <div class="row">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6"><div class="validmsgDateMCcompare"></div></div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6" id="CL">
                                 <div class="form-group">
                                     <label>Campaign Type<span class="text-danger">*</span></label><br />
-                                    @Html.EnumDropDownListFor(m=>m.CampaignTypes,(Model.Id != 0 && Model.Status == "Complete") ?
+                                    @Html.EnumDropDownListFor(m => m.CampaignTypes, (Model.Id != 0 && Model.Status == "Complete") ?
                                         (object)new { disabled = "disabled", @class = "chosen-single form-control" } :
-                                        (object)new { @class = "chosen-single form-control"} )
+                                        (object)new { @class = "chosen-single form-control" })
                                     <div class="validmsgsubcampaigntype"></div>
                                 </div>
                             </div>
@@ -149,90 +150,146 @@
 
                             </div>
                         </div>
-                                <div class="row">
-                                    <div class="col-md-6" id="BG">
-                                        <div class="form-group">
-                                            <label>Business Group</label><span class="text-danger">*</span><br />
-                                            @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                            (object)new { @class = "chosen-select form-control"})
-                                            <a data-next-stage="@(Model.BgSelectUnselect==false?"bgselect":"bgunselect")"  data-target-id="BusinessGroups_Id" data-select-all="BGselectunselect" href="javascript:void(0);"> @(Model.BgSelectUnselect==false? "Select All" : "Select None")</a> 
-                                             <div class="validmsgbusinesGp HideOnsave"></div>
-                                            <div class="validmsgSingleBGselect"></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-6" id="Seg">
-                                        <div class="form-group">
-                                            <label>Segment</label><span class="text-danger">*</span><br />
-                                            @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), (Model.Id != 0 && Model.Status == "Complete") ?
+                        <div class="row">
+                            <div class="col-md-6" id="BG">
+                                <div class="form-group">
+                                    <label>Business Group</label><span class="text-danger">*</span><br />
+                                    @Html.ListBoxFor(m => m.BusinessGroups_Id, new MultiSelectList(Model.BusinessGroupViewModels, "Id", "Name", Model.BusinessGroups_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
                                             (object)new { @class = "chosen-select form-control" })
-                                            <a data-next-stage="@(Model.SegSelectUnselect==false?"Segselect":"Segunselect")"  data-target-id="Segments_Id" data-select-all="Segselectunselect" href="javascript:void(0);"> @(Model.SegSelectUnselect==false? "Select All" : "Select None")</a> 
-                                             <div class="validmsgbusinesSegment HideOnsave"></div>
-                                            <div class="validmsgSingleSegment"></div>
-                                        </div>
-                                    </div>
+                                    <a data-next-stage="@(Model.BgSelectUnselect==false?"bgselect":"bgunselect")" data-target-id="BusinessGroups_Id" data-select-all="BGselectunselect" href="javascript:void(0);"> @(Model.BgSelectUnselect == false ? "Select All" : "Select None")</a>
+                                    <div class="validmsgbusinesGp HideOnsave"></div>
+                                    <div class="validmsgSingleBGselect"></div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6" id="BL">
-                                        <div class="form-group">
-                                            <label>Business Line</label><span class="text-danger">*</span><br />
-                                            @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id), (Model.Id != 0 && Model.Status == "Complete") ?
+                            </div>
+                            <div class="col-md-6" id="Seg">
+                                <div class="form-group">
+                                    <label>Segment</label><span class="text-danger">*</span><br />
+                                    @Html.ListBoxFor(m => m.Segments_Id, new MultiSelectList(Model.SegmentViewModels, "Id", "Name", Model.Segments_Id), (Model.Id != 0 && Model.Status == "Complete") ?
                                             (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                                (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) 
-                                            @*<a data-next-stage="select" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
-                                            <a data-next-stage="@(Model.BlSelectUnselect==false?"select":"unselect")" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.BlSelectUnselect == false ? "Select All" : "Select None")</a> 
-                                            <div class="validmsgbusinesLine HideOnsave"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" id="Ind">
-                                        <div class="form-group">
-                                            <label>Industry</label><span class="text-danger manage-mandate">*</span><br />
-                                            @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), (Model.Id != 0 && Model.Status == "Complete") ?
-                                            (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
-                                                (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" }) 
-                                            @*<a data-next-stage="select" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
-                                            <a data-next-stage="@(Model.IndustrySelectUnselect==false?"select":"unselect")" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.IndustrySelectUnselect == false ? "Select All" : "Select None")</a> 
-                                            <div class="validmsgbusinesIndustry HideOnsave"></div>
-                                        </div>
-
-                                    </div>
+                                            (object)new { @class = "chosen-select form-control" })
+                                    <a data-next-stage="@(Model.SegSelectUnselect==false?"Segselect":"Segunselect")" data-target-id="Segments_Id" data-select-all="Segselectunselect" href="javascript:void(0);"> @(Model.SegSelectUnselect == false ? "Select All" : "Select None")</a>
+                                    <div class="validmsgbusinesSegment HideOnsave"></div>
+                                    <div class="validmsgSingleSegment"></div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6" id="Bud">
-                                        <div class="form-group">
-                                            <label>Total Budget<span class="text-danger">*</span></label>
-                                            <span class="input-group-addon" style="width: 0px;height: 31.5px !important;">€</span>
-                                                 @Html.TextBoxFor(m => m.Budget,
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6" id="BL">
+                                <div class="form-group">
+                                    <label>Business Line</label><span class="text-danger">*</span><br />
+                                    @Html.ListBoxFor(m => m.BusinessLines_Id, new MultiSelectList(Model.BusinessLineViewModels, "Id", "Name", Model.BusinessLines_Id), (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
+                                                (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
+                                    @*<a data-next-stage="select" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
+                                    <a data-next-stage="@(Model.BlSelectUnselect==false?"select":"unselect")" data-target-id="BusinessLines_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.BlSelectUnselect == false ? "Select All" : "Select None")</a>
+                                    <div class="validmsgbusinesLine HideOnsave"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="Ind">
+                                <div class="form-group">
+                                    <label>Industry</label><span class="text-danger manage-mandate">*</span><br />
+                                    @Html.ListBoxFor(m => m.Industries_Id, new MultiSelectList(Model.IndustryViewModels, "Id", "Name", Model.Industries_Id), (Model.Id != 0 && Model.Status == "Complete") ?
+                                            (object)new { disabled = "disabled", @class = "chosen-select form-control" } :
+                                                (object)new { @class = "chosen-select form-control", onchange = "DDLSelectUnselect(this)" })
+                                    @*<a data-next-stage="select" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);">Select All</a>*@
+                                    <a data-next-stage="@(Model.IndustrySelectUnselect==false?"select":"unselect")" data-target-id="Industries_Id" data-select-all="selectunselect" href="javascript:void(0);"> @(Model.IndustrySelectUnselect == false ? "Select All" : "Select None")</a>
+                                    <div class="validmsgbusinesIndustry HideOnsave"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" id="Bud">
+                                <div class="form-group">
+                                    <label>Total Budget<span class="text-danger">*</span></label>
+                                    <span class="input-group-addon" style="width: 0px;height: 31.5px !important;">€</span>
+                                    @Html.TextBoxFor(m => m.Budget,
                                                 //(Model.Id != 0 && Model.Status == "Complete") ?
                                                 //(object)new { disabled = "disabled", @class = "form-control " } :
                                                 (object)new { @class = "form-control currency numeric ChkCampselection", @maxlength = "10", onkeypress = "ConfigurationModel.decimalvalidate(event)" })
-                                                <div class="validmsgBudget HideOnsave"></div>
-                                              
-</div>
-                                    </div>
-                                    <div class="col-md-6" id="SP">
-                                        <div class="form-group">
-                                            <label>Total Spend</label><br />
-                                            <span class="input-group-addon" style="width: 0px;height: 31.5px !important;">€</span>
-                                            @Html.TextBoxFor(m => m.Spend,
+                                    <div class="validmsgBudget HideOnsave"></div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="SP">
+                                <div class="form-group">
+                                    <label>Total Spend</label><br />
+                                    <span class="input-group-addon" style="width: 0px;height: 31.5px !important;">€</span>
+                                    @Html.TextBoxFor(m => m.Spend,
                                                 //(Model.Id != 0 && Model.Status == "Complete") ?
                                                 //     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "10" } :
                                                 (object)new { @class = "form-control currency numeric ChkCampselection", @maxlength = "10", onkeypress = "ConfigurationModel.decimalvalidate(event)" })
-                                            <div class="validmsgSpend"></div>
-                                        </div>
-                                    </div>
+                                    <div class="validmsgSpend"></div>
                                 </div>
-                    <div class="row">
-                        <div class="col-md-7">
-                            <label class="pull-right">Benchmark</label>  
+                            </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pull-right">Benchmark</label>
+                            </div>
+                            <div class="col-md-5">
 
+                            </div>
                         </div>
-                    </div>
+
+                        <div>
+                            <input type="button" Id="btnShowBGBreakdown" name="Show BG Breakdown" value="+ for multi BG Budget Breakdown" class="btn btn-primary" title="Show BG Breakdown" disabled="@(Model.Status =="Complete" ? true : false)" />
+                        </div>
+
+                        <div class="row" id="divMultiBG" style="display:none">
+                            <div class="col-md-9" style="margin-left: 130px;margin-right: 150px" id="Met">
+                                <table class="table table-condensed" id="tblMultiBG">
+                                    <thead>
+                                        <tr>
+                                            <td><label></label></td>
+                                            <td><label>BG</label></td>
+                                            <td><label>Budget</label></td>
+                                            <td><label>Spend</label></td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+    @for (int i = 0; i < Model.SubCampaignBudgetingDetailViewModels.Count(); i++)
+    {
+        <tr>
+            @Html.HiddenFor(m => m.SubCampaignBudgetingDetailViewModels.ToList()[i].Id, new { @Value = Model.SubCampaignBudgetingDetailViewModels.ToList()[i].Id, @class = "hdnMetric" })
+            <td></td>
+            <td>
+                @Html.DropDownListFor(m => m.SubCampaignBudgetingDetailViewModels.ToList()[i].BusinessGroupId, new SelectList(Model.BusinessGroupViewModels, "Id", "Name",
+            Model.SubCampaignBudgetingDetailViewModels.ToList()[i].BusinessGroupId),
+            Model.Id != 0 && Model.Status == "Complete" ?
+            (object)new { disabled = "disabled", @class = "chosen-single form-control ddlBusinessGroup" } :
+            (object)new { @class = "chosen-single form-control ddlBusinessGroup" })
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.SubCampaignBudgetingDetailViewModels.ToList()[i].Budget, (Model.Id != 0 && Model.Status == "Complete") ?
+            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+            (object)new { @class = "form-control budget mrminttostring", @maxlength = "10", onkeypress = "numericvalidate(event)" })
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.SubCampaignBudgetingDetailViewModels.ToList()[i].Spend, (Model.Id != 0 && Model.Status == "Complete") ?
+            (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+            (object)new { @class = "form-control spend mrminttostring", @maxlength = "10", onkeypress = "numericvalidate(event)" })
+            </td>
+            <td>
+                @if (i == Model.SubCampaignBudgetingDetailViewModels.Count() - 1)
+                {
+                    <input type="button" Id="btnAddBGRow" name="Add Row" value="+" class="btn btn-primary" title="Add Row" disabled="@(Model.Status =="Complete" ? true : false)" />
+                }
+
+                <span class="validmsgBGBudget"></span>
+            </td>
+
+        </tr>
+    }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-9" style="margin-left: 130px;margin-right: 150px" id="Met">
                                 <table class="table table-condensed">
@@ -248,159 +305,173 @@
                                     <tbody>
                                         <tr>
                                             <td><label>MIL</label></td>
-                                            
+
                                             <td>
-                                            @Html.TextBoxFor(m => m.MILGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                @Html.TextBoxFor(m => m.MILGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control ChkCampselection onlynumeric", @maxlength = "50", onkeypress = "ConfigurationModel.numericvalidate(event)", @placeholder = "Number of leads" })</td>
-                                            <td>@Html.TextBoxFor(m => m.MILLow, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control ChkCampselection onlynumeric", @maxlength = "50", onkeypress = "ConfigurationModel.numericvalidate(event)", onchange = "LowHighOnChange()" })</td>
-                                            <td>@Html.TextBoxFor(m => m.MILHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { @class = "form-control ChkCampselection onlynumeric", @maxlength = "50", onkeypress = "ConfigurationModel.numericvalidate(event)", @placeholder = "Number of leads" })
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(m => m.MILLow, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
                                                     (object)new { @class = "form-control ChkCampselection onlynumeric", @maxlength = "50", onkeypress = "ConfigurationModel.numericvalidate(event)", onchange = "LowHighOnChange()" })
-                                                <div class="validmsgMIL"></div>
-                                            </td>
-                                                   
-                                             <td>
-                                                @Html.TextBoxFor(m => m.MILSource, (Model.Id != 0 && Model.Status == "Complete") ?
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.MILHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                                    (object)new { @class = "form-control ChkCampselection onlynumeric", @maxlength = "50", onkeypress = "ConfigurationModel.numericvalidate(event)", onchange = "LowHighOnChange()" })
+                                        <div class="validmsgMIL"></div>
+                                    </td>
+
+                                    <td>
+                                        @Html.TextBoxFor(m => m.MILSource, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "30" } :
                                                     (object)new { @class = "form-control ChkCampselection", @maxlength = "30",onkeypress = "return alpha(event,MILSource)" })
-                                           </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label>MGL</label></td>
-                                            <td>
-                                            @Html.TextBoxFor(m => m.MGLGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label>MGL</label></td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.MGLGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control ChkCampselection onlynumeric", @maxlength = "50", onkeypress = "ConfigurationModel.numericvalidate(event)", @placeholder = "Number of leads" })</td>
-                                            <td>@Html.TextBoxFor(m => m.MGLLow, (Model.Id != 0 && Model.Status == "Complete") ?
-                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
-                                                    (object)new { @class = "form-control ChkCampselection onlynumeric", @maxlength = "50", onkeypress = "ConfigurationModel.numericvalidate(event)", onchange = "LowHighOnChange()" }) </td>
-                                            <td>@Html.TextBoxFor(m => m.MGLHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { @class = "form-control ChkCampselection onlynumeric", @maxlength = "50", onkeypress = "ConfigurationModel.numericvalidate(event)", @placeholder = "Number of leads" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.MGLLow, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
                                                     (object)new { @class = "form-control ChkCampselection onlynumeric", @maxlength = "50", onkeypress = "ConfigurationModel.numericvalidate(event)", onchange = "LowHighOnChange()" })
-                                                <div class="validmsgMGL"></div>
-                                            </td>
-                                            <td>
-                                                @Html.TextBoxFor(m => m.MGLSource, (Model.Id != 0 && Model.Status == "Complete") ?
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.MGLHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                                                    (object)new { disabled = "disabled", @class = "form-control", @maxlength = "50" } :
+                                                    (object)new { @class = "form-control ChkCampselection onlynumeric", @maxlength = "50", onkeypress = "ConfigurationModel.numericvalidate(event)", onchange = "LowHighOnChange()" })
+                                <div class="validmsgMGL"></div>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.MGLSource, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "30" } :
                                                     (object)new { @class = "form-control ChkCampselection", @maxlength = "30", onkeypress = "return alpha(event,MGLSource)" })
-                                            </td>
-                                          </tr>
-                                        <tr>
-                                            <td><label>MIO</label></td>
-                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                                @Html.TextBoxFor(m => m.MIOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>MIO</label></td>
+                            <td>
+                                <span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                @Html.TextBoxFor(m => m.MIOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                          (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
                                                          (object) new {@class = "form-control numeric benchmarkcurrency ChkCampselection", @maxlength = "50", onkeypress = "ConfigurationModel.decimalvalidate(event)" })
-                                            </td>
-                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                                @Html.TextBoxFor(m => m.MIOLow, (Model.Id != 0 && Model.Status == "Complete") ?
+                            </td>
+                            <td>
+                                <span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                @Html.TextBoxFor(m => m.MIOLow, (Model.Id != 0 && Model.Status == "Complete") ?
                                                          (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
                                                          (object) new {@class = "form-control numeric benchmarkcurrency ChkCampselection", @maxlength = "50", onkeypress = "ConfigurationModel.decimalvalidate(event)", onchange = "LowHighOnChange()" })
-                                            </td>
-                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                                @Html.TextBoxFor(m => m.MIOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                            </td>
+                            <td>
+                                <span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                @Html.TextBoxFor(m => m.MIOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
                                                     (object) new {@class = "form-control numeric benchmarkcurrency ChkCampselection", @maxlength = "50", onkeypress = "ConfigurationModel.decimalvalidate(event)", onchange = "LowHighOnChange()" })
-                                                <div class="validmsgMIO"></div>
-                                            </td>
-                                            <td>
-                                                @Html.TextBoxFor(m => m.MIOSource, (Model.Id != 0 && Model.Status == "Complete") ?
+                                <div class="validmsgMIO"></div>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.MIOSource, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "30" } :
                                                     (object)new { @class = "form-control ChkCampselection", @maxlength = "30", onkeypress = "return alpha(event,MIOSource)" })
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label>MGO</label></td>
-                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                                @Html.TextBoxFor(m => m.MGOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>MGO</label></td>
+                            <td>
+                                <span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                @Html.TextBoxFor(m => m.MGOGoal, (Model.Id != 0 && Model.Status == "Complete") ?
                                                          (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
                                                          (object) new {@class = "form-control numeric benchmarkcurrency ChkCampselection", @maxlength = "50", onkeypress = "ConfigurationModel.decimalvalidate(event)" })
-                                            </td>
-                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                                @Html.TextBoxFor(m => m.MGOLow, (Model.Id != 0 && Model.Status == "Complete") ?
+                            </td>
+                            <td>
+                                <span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                @Html.TextBoxFor(m => m.MGOLow, (Model.Id != 0 && Model.Status == "Complete") ?
                                                          (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
                                                          (object) new {@class = "form-control numeric benchmarkcurrency ChkCampselection", @maxlength = "50", onkeypress = "ConfigurationModel.decimalvalidate(event)", onchange= "LowHighOnChange()" })
-                                            </td>
-                                            <td><span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
-                                                @Html.TextBoxFor(m => m.MGOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
+                            </td>
+                            <td>
+                                <span class="input-group-addon" style="width: 0px;height: 33px !important;">€</span>
+                                @Html.TextBoxFor(m => m.MGOHigh, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object) new {disabled = "disabled", @class = "form-control benchmarkcurrency", @maxlength = "50"} :
                                                     (object) new {@class = "form-control numeric benchmarkcurrency ChkCampselection", @maxlength = "50", onkeypress = "ConfigurationModel.decimalvalidate(event)", onchange = "LowHighOnChange()" })
-                                               
-                                             </td>
-                                            <td>
-                                                @Html.TextBoxFor(m => m.MGOSource, (Model.Id != 0 && Model.Status == "Complete") ?
+
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.MGOSource, (Model.Id != 0 && Model.Status == "Complete") ?
                                                     (object)new { disabled = "disabled", @class = "form-control", @maxlength = "30" } :
                                                     (object)new { @class = "form-control ChkCampselection", @maxlength = "30", onkeypress = "return alpha(event,MGOSource)" })
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5" align="center">
-                                                <div class="validmsgHighLowCompare"></div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                             
-                        </div>
-                        <div class="col-md-6" style="text-align: right">
-                            @Model.StatusInheritaceStamp
-                        </div>
-                    </div>
-                        
-                    </fieldset>
-
-                <fieldset>                   
-                    <div class="form-group">
-                        <div class="row " style="padding-top: 10px">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-8"> 
-                                
-                                @if (Model.Id == 0)
-                                {
-                                    <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'"/></div>
-                                }
-                                else
-                                {
-                                    <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("ChildCampaignList", "ChildCampaign")'"/></div>
-                                } 
-                                @if (Model.Id != 0 && Model.Status == Status.Draft.ToString())
-                                {
-                                    <div class="col-md-3">
-                                        <input type="button" Id="btnDeleteChild" name="button" value="Delete Draft" class="btn btn-primary col-sm-12" />
-                                    </div>
-                                }  
-                                @if (Model.Status != Status.Complete.ToString())
-                                {
-                                    <div class="col-md-3">
-                                        <input type="button" Id="btnSaveDraftChild" name="button" value="Save Draft" class="btn btn-primary col-sm-12"/>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="button" Id="btnSubmitChild" name="button" value="Submit" class="btn btn-primary col-sm-12"/>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="col-md-3">
-                                        <input type="button" Id="btnSubmitChild" name="button" value="Update" class="btn btn-primary col-sm-12"/>
-                                    </div>
-                                }                                                   
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-                    <!-- /.row -->
-                </div>
-                <!-- /.box-body -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" align="center">
+                                <div class="validmsgHighLowCompare"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
 
-        </section>
-    </form>
+            </div>
+            <div class="col-md-6" style="text-align: right">
+                @Model.StatusInheritaceStamp
+            </div>
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+        <div class="form-group">
+            <div class="row " style="padding-top: 10px">
+                <div class="col-md-4"></div>
+                <div class="col-md-8">
+
+                    @if (Model.Id == 0)
+                    {
+                        <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'" /></div>
+                    }
+                    else
+                    {
+                        <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("ChildCampaignList", "ChildCampaign")'" /></div>
+                    }
+                    @if (Model.Id != 0 && Model.Status == Status.Draft.ToString())
+                    {
+                        <div class="col-md-3">
+                            <input type="button" Id="btnDeleteChild" name="button" value="Delete Draft" class="btn btn-primary col-sm-12" />
+                        </div>
+                    }
+                    @if (Model.Status != Status.Complete.ToString())
+                    {
+                        <div class="col-md-3">
+                            <input type="button" Id="btnSaveDraftChild" name="button" value="Save Draft" class="btn btn-primary col-sm-12" />
+                        </div>
+                                    <div class="col-md-3">
+                                        <input type="button" Id="btnSubmitChild" name="button" value="Submit" class="btn btn-primary col-sm-12" />
+                                    </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-3">
+                            <input type="button" Id="btnSubmitChild" name="button" value="Update" class="btn btn-primary col-sm-12" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <!-- /.row -->
+</div>
+<!-- /.box-body -->
+</div>
+
+</section>
+</form>
 </div>
 

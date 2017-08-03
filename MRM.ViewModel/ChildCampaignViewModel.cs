@@ -78,6 +78,7 @@ namespace MRM.ViewModel
         public IList<BusinessGroup> BusinessGroupViewModels { get; set; }
         public IList<BusinessLine> BusinessLineViewModels { get; set; }
         public IList<MasterCampaign> MasterViewModels { get; set; }
+        public IList<SubCampaignBudgetingDetail> SubCampaignBudgetingDetailViewModels { get; set; }
         public CampaignType CampaignTypes { get; set; }
         public int[] BusinessGroups_Id { get; set; }
         public int[] BusinessLines_Id { get; set; }

@@ -65,6 +65,36 @@
     });
     });
 
+    $(document).on('click', '#btnShowBGBreakdown', function () {
+        $("#divMultiBG").attr("display", "block");
+        var $options = $('#BusinessGroups_id').html();
+        var bgTblRow = $('<tr><td><label>Lead</label></td>\
+                           <td><select id="BusinessGroup_Id" class="form-control ddlBusinessGroup chosen-single">' + $options + '</select></td>\
+                           <td><input type="text" class="form-control budget" maxlength="50" name="BGBudget" onkeypress="numericvalidate(event)" value="" /></td>\
+                           <td><input type="text" class="form-control spend" maxlength="50" name="BGSpend" onkeypress="numericvalidate(event)" value="" /></td>\
+                           <td><input type="button" Id="btnAddBGRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" />\
+                           <span class="validmsgBGBudget"></span></td>\
+                       </tr>');
+
+        $('#tblMultiBG tbody').append(bgTblRow);
+        bgTblRow.find('select').chosen().trigger('chosen:updated');
+    });
+
+    $(document).on('click', '#btnAddReachRow', function () {
+        $('#btnAddBGRow').remove();
+        var $options = $('#BusinessGroups_id').html();
+        var bgTblRow = $('<tr><td><label>Lead</label></td>\
+                           <td><select id="BusinessGroup_Id" class="form-control ddlBusinessGroup chosen-single">' + $options + '</select></td>\
+                           <td><input type="text" class="form-control budget" maxlength="50" name="BGBudget" onkeypress="numericvalidate(event)" value="" /></td>\
+                           <td><input type="text" class="form-control spend" maxlength="50" name="BGSpend" onkeypress="numericvalidate(event)" value="" /></td>\
+                           <td><input type="button" Id="btnAddBGRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" />\
+                           <span class="validmsgBGBudget"></span></td>\
+                       </tr>');
+
+        $('#tblMultiBG tbody').append(bgTblRow);
+        bgTblRow.find('select').chosen().trigger('chosen:updated');
+    });
+
 $(document).on('click', 'a[data-select-all="selectunselect"]', function () {
     var selectallElement = $(this).attr('data-target-id');
     var nextStage = $(this).attr('data-next-stage');

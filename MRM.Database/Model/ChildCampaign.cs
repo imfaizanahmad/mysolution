@@ -46,8 +46,8 @@ namespace MRM.Database.Model
         public virtual ICollection<Geography> Geographys { get; set; }
         public virtual MasterCampaign MasterCampaigns { get; set; }
         public virtual ICollection<TacticCampaign> TacticCampaigns { get; set; }
+        public virtual ICollection<SubCampaignBudgetingDetail> SubCampaignBudgetingDetails { get; set; }
 
-       
         [NotMapped]
         public virtual int PageCount { get; set; }
         [NotMapped]

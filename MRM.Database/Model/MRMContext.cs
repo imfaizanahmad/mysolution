@@ -30,7 +30,7 @@ namespace MRM.Database.Model
         public DbSet<JourneyStage> JourneyStages { get; set; }
 
         public DbSet<DigitalTouchPoint> DigitalTouchPoints { get; set; }
-        
+        public DbSet<SubCampaignBudgetingDetail> SubCampaignBudgetingDetails { get; set; }
     }
 
 }
