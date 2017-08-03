@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRM.Business", "MRM.Busines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRM.ViewModel", "MRM.ViewModel\MRM.ViewModel.csproj", "{AB8395EF-CDA7-462D-BC95-916DFDDA8B8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRM.Common", "MRM.Common\MRM.Common.csproj", "{DBF5809C-CA2A-44C1-8106-7B5DF7DF62A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{AB8395EF-CDA7-462D-BC95-916DFDDA8B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB8395EF-CDA7-462D-BC95-916DFDDA8B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB8395EF-CDA7-462D-BC95-916DFDDA8B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBF5809C-CA2A-44C1-8106-7B5DF7DF62A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF5809C-CA2A-44C1-8106-7B5DF7DF62A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF5809C-CA2A-44C1-8106-7B5DF7DF62A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF5809C-CA2A-44C1-8106-7B5DF7DF62A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

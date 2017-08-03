@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Source</label>
+                                    <label>Source</label><span class="text-danger Industrymanage-mandate">*</span>
 
                                     <div class="form-group">
                                         <input type="text" id="txtSource" value="" class="form-control" placeholder="Source" />
@@ -54,7 +54,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Content</label>
+                                    <label>Content</label><span class="text-danger Industrymanage-mandate">*</span>
                                     <div class="form-group">
                                         <input type="text" id="txtContent" value="" class="form-control" placeholder="Content" />
                                         <div id="dvContent"></div>
@@ -67,7 +67,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Medium</label>
+                                    <label>Medium</label><span class="text-danger Industrymanage-mandate">*</span>
                                     <div class="form-group">
                                         <input type="text" id="txtMedium" value="" class="form-control" placeholder="Medium" />
                                         <div id="dvMedium"></div>
@@ -76,7 +76,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Terms</label>
+                                    <label>Terms</label><span class="text-danger Industrymanage-mandate">*</span>
                                     <div class="form-group">
                                         <input type="text" id="txtTerms" value="" class="form-control" placeholder="Terms" />
                                         <div id="dvTerms"></div>
@@ -128,8 +128,8 @@
         </div>
         <div class="modal-footer">
             <div>
-                <input type="button" class="btn btn-danger" value="Delete" />
-                <input type="button" class="btn btn-primary" value="Save Draft" />
+                <input type="button" onclick="return fDeleteDigitalpoint();" class="btn btn-danger" value="Delete" />
+                @*<input type="button" class="btn btn-primary" value="Save Draft" />*@
                 <input type="button" onclick="return savedigitalpoint();" class="btn btn-info" value="Submit & Export" />
                 <button id="btnclose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>

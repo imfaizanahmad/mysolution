@@ -21,8 +21,6 @@ namespace MRM.Business.Services
 
         public DigitalViewModel GetbyId(int id)
         {
-
-
             DigitalViewModel digitalViewModel = _unitOfWork.GenericRepository<TacticCampaign>().Table
                 .Where(x => x.Id == id).Select(x => new DigitalViewModel
                 {
@@ -31,13 +29,15 @@ namespace MRM.Business.Services
                     TacticType_Id = x.TacticType,
                 }).FirstOrDefault();
             List<DigitalTouchPointViewModel> model = _unitOfWork.GenericRepository<DigitalTouchPoint>().Table
-                .Where(x => x.TacticCampaign.Id == id).Select(x => new DigitalTouchPointViewModel
+                .Where(x => x.TacticCampaign.Id == id && x.IsDelete == false).Select(x => new DigitalTouchPointViewModel()
                 {
                     Id = x.Id,
                     Content = x.Content,
                     Medium = x.Medium,
                     Source = x.Source,
                     Term = x.Term,
+                    UTM = x.UTM
+
                 }).ToList();
 
             digitalViewModel.TacticTypeName = _unitOfWork.GenericRepository<TacticType>().GetByID(digitalViewModel.TacticType_Id).Name;
@@ -53,6 +53,50 @@ namespace MRM.Business.Services
         public IList<ICollection<DigitalTouchPoint>> GetList(int tacticId)
         {
             return _unitOfWork.GenericRepository<TacticCampaign>().Table.Where(x => x.Id == tacticId).Select(x => x.DigitalTouchPoint).ToList();
+        }
+
+        public DigitalViewModel Insert(List<DigitalTouchPointViewModel> digitalTouchPointViewModel)
+        {
+            DigitalTouchPoint digitalTouchPoint;
+            if (digitalTouchPointViewModel!=null)
+            {
+                foreach (var item in digitalTouchPointViewModel)
+                {
+                    digitalTouchPoint = new DigitalTouchPoint();
+                    ModelToEntity(item, digitalTouchPoint);
+                    _unitOfWork.GenericRepository<DigitalTouchPoint>().Insert(digitalTouchPoint);
+                    item.Id = digitalTouchPoint.Id;
+                    digitalTouchPoint.UTM = "utm_source=" + item.Source + "&utm_medium=" + item.Medium + "&utm_campaign=" + item.DisplayDigitalId + "&utm_term=" + item.Term + "&utm_content=" + item.Content;
+                    _unitOfWork.GenericRepository<DigitalTouchPoint>().Update(digitalTouchPoint);
+                }
+
+                return GetbyId(digitalTouchPointViewModel[0].TacticCampaignId);
+            }
+            return null;
+        }
+
+        public void Delete(int tacticCampaignId)
+        {
+
+            List<DigitalTouchPoint> digitalTouchPoint=_unitOfWork.GenericRepository<DigitalTouchPoint>().Table.Where(x => x.TacticCampaign.Id == tacticCampaignId).ToList();
+            foreach (var item in digitalTouchPoint)
+            {
+                item.IsDelete = true;
+                _unitOfWork.GenericRepository<DigitalTouchPoint>().Update(item);
+            }
+            
+        }
+        private void ModelToEntity(DigitalTouchPointViewModel model, DigitalTouchPoint digitalTouchPoint)
+        {
+            digitalTouchPoint.Content = model.Content;
+            digitalTouchPoint.CreatedBy = "user";
+            digitalTouchPoint.Medium = model.Medium;
+            digitalTouchPoint.Source = model.Source;
+            digitalTouchPoint.Term = model.Term;
+            digitalTouchPoint.UTM = "utm_source=" + model.Source + "&utm_medium=" + model.Medium + "&utm_campaign=" + model.DisplayDigitalId + "&utm_term=" + model.Term + "&utm_content=" + model.Content;
+            digitalTouchPoint.TacticCampaign = _unitOfWork.GenericRepository<TacticCampaign>().GetByID(model.TacticCampaignId);
+            digitalTouchPoint.TacticType = _unitOfWork.GenericRepository<TacticType>().GetByID(model.TacticType_Id);
+
         }
     }
 }

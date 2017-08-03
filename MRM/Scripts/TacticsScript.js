@@ -388,6 +388,17 @@ function ValidateTacticSaveasDraft() {
         $('.validmsgSubcampaign').hide();
     }
 
+    if ($('#TacticType_Id').val() == null || $('#TacticType_Id').val() == "-1") {
+
+        $('.validmsgTactictype').text("Please select Tactic Type").css("color", "#b94a48");
+        $('.validmsgTactictype').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#TT"; validationFocusFlag = 1; }
+        flag = false;
+
+    } else {
+        $('.validmsgTactictype').hide();
+    }
+
     if ($("#StartDate").val() != "") { $('.validmsgSdate').hide(); }
     if ($("#EndDate").val() != "") { $('.validmsgEdate').hide(); }
 
@@ -989,21 +1000,29 @@ function ftacticData() {
 function savedigitalpoint() {    
     var DigitalTouchPointViewModel = [];
     //var index = 0
-    $('#gridReport tbody').each(function (index) {
+    $('#gridReport tbody tr').each(function (index) {
         var id  = $('#digitalid' + index + '').html();
         if (id==="0") {
             var model = {
-                "Id": 0,
-                "Source": $('#digitalid' + index + '').html(),
-                "Content": $('#digitalid' + index + '').html(),
-                "Medium": $('#digitalid' + index + '').html(),
-                "Term": $('#digitalid' + index + '').html(),
+                "Id": id,
+                "Source": $('#source' + index + '').html(),
+                "Content": $('#content' + index + '').html(),
+                "Medium": $('#medium' + index + '').html(),
+                "Term": $('#term' + index + '').html(),
                 "TacticType_Id": $('#TacticType_Id option:selected').val(),
-                "TacticCampaign_Id": $('#txtTacticID').val()
+                "TacticCampaignId": $('#txtTacticID').val()
             };
-        DigitalTouchPointViewModel.push(model);
+            DigitalTouchPointViewModel.push(model);
         }
     });
+    if (DigitalTouchPointViewModel!= null) {
+        $.post("/TacticCampaign/AddDigitalTouchPoint", { model: DigitalTouchPointViewModel }, function (response) {
+            ConfigurationModel.AlertDialog("Message", response.Message);
+            if (response.Status) {
+                DigitalGrid(response.Result);
+            }
+        });
+    }
 }
 function fDigitalValidation() {
     $('#dvsource').hide();
@@ -1037,6 +1056,9 @@ function AddRow() {
     if (fDigitalValidation()) {
         return false;
     }
+    if ($('#hdnIndex').val()=="") {
+        $('#hdnIndex').val("-1");
+    }
     var index = Number($('#hdnIndex').val()) + 1;
     var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">0</td>\
                            <td id="source' + index + '">' + $("#txtSource").val() + '</td>\
@@ -1059,8 +1081,9 @@ function removerow(id) {
     return false;
 }
 function DigitalGrid(dataset) {
+    $('#gridReport tbody').find('tr').remove();    
     $.each(dataset.DigitalTouchPoint, function (index,item) {
-        var responseTblRow = $('<tr id="tr_'+index+'">\<td id="digitalid' + index + '">' + item.Id + '</td>\
+        var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">' + item.DisplayDigitalId + '</td>\
                            <td id="source' + index + '">' + item.Source + '</td>\
                            <td id="medium' + index + '">' + item.Content + '</td>\
                            <td id="content' + index + '">' + item.Medium + '</td>\
@@ -1072,6 +1095,15 @@ function DigitalGrid(dataset) {
     });
 }
 
+function fDeleteDigitalpoint() {
+    var Id = $('#frmTacticCampaign').find('input[name="Id"]').val();
+    $.get("/TacticCampaign/DeleteDigitalPoint?tacticId=" + Id + "", function (response) {
+        ConfigurationModel.AlertDialog("Response", response.Message);
+        if (response.Status) {
+            DigitalGrid(response.Result);
+        }
+    });
+}
 //function SaveDigitalTouchpoint() {
 //    data = [];
 //    $('#tblBenchmark tbody tr').each(function () {

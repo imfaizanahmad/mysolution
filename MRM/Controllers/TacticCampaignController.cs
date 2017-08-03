@@ -704,6 +704,8 @@ namespace MRM.Controllers
             try
             {
                 commanResponse.Status = true;
+                commanResponse.Result = _digitalTouchpoint.Insert(model);
+                commanResponse.Message = "Added Successfully";
 
             }
             catch (Exception ex)
@@ -712,6 +714,26 @@ namespace MRM.Controllers
                 commanResponse.Message = ex.Message;
             }
             return Json(commanResponse, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteDigitalPoint(int tacticId)
+        {
+            CommanResponse commanResponse = new CommanResponse();
+            try
+            {
+                commanResponse.Status = true;
+                _digitalTouchpoint.Delete(tacticId);
+                commanResponse.Result = _digitalTouchpoint.GetbyId(tacticId);
+                commanResponse.Message = "Deleted Successfully";
+
+            }
+            catch (Exception ex)
+            {
+                commanResponse.Status = false;
+                commanResponse.Message = ex.Message;
+            }
+            return Json(commanResponse, JsonRequestBehavior.AllowGet);
+
         }
     }
 }
