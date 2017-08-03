@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IBusinessLineServices.cs" />
     <Compile Include="Interfaces\IChildCampaignServices.cs" />
+    <Compile Include="Interfaces\IDigitalTouchpoint.cs" />
     <Compile Include="Interfaces\IGeographyServices.cs" />
     <Compile Include="Interfaces\IJourneyStageServices.cs" />
     <Compile Include="Interfaces\IMasterCampaignServices.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Services\BusinessGroupServices.cs" />
     <Compile Include="Services\BusinessLineServices.cs" />
     <Compile Include="Services\ChildCampaignServices.cs" />
+    <Compile Include="Services\DigitalTouchpoint.cs" />
     <Compile Include="Services\JourneyStageServices.cs" />
     <Compile Include="Services\MasterCampaignServices.cs" />
     <Compile Include="Services\MetricReachServices.cs" />
