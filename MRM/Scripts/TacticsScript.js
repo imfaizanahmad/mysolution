@@ -1000,19 +1000,22 @@ function EnableButton()
 {
     $("#btnSave").removeAttr("disabled");
     $("#btnsubmit").removeAttr("disabled");
+    $("#btnclose").removeAttr("disabled");
+    
 }
 function DisableButton() {
     $("#btnSave").attr("disabled", "disabled");
     $("#btnsubmit").attr("disabled", "disabled");
+    $("#btnclose").attr("disabled", "disabled");
 }
 function savedigitalpoint(status) {    
     var DigitalTouchPointViewModel = [];
     var tacticid = $('#frmTacticCampaign').find('input[name="Id"]').val();
     //var index = 0
     $('#gridReport tbody tr').each(function (index) {
-        var obj = ($(this).context.id).split('_')[1];
-        var id = obj;
-        if (id != undefined) {
+        var obj = ($(this).context.id).split('_')[1];        
+        if (obj != undefined) {
+            var id = $("#hid" + obj).val();
             var gridstatus = $('#status' + obj + '').html();
        
             if (id == "0" || gridstatus === 'Draft') {
