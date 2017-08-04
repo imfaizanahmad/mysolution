@@ -999,6 +999,7 @@ function ftacticData() {
 
 function savedigitalpoint(status) {    
     var DigitalTouchPointViewModel = [];
+    var tacticid = $('#frmTacticCampaign').find('input[name="Id"]').val();
     //var index = 0
     $('#gridReport tbody tr').each(function (index) {
         var id = $('#hid' + index + '').val();
@@ -1011,19 +1012,22 @@ function savedigitalpoint(status) {
                 "Medium": $('#medium' + index + '').html(),
                 "Term": $('#term' + index + '').html(),
                 "TacticType_Id": $('#TacticType_Id option:selected').val(),
-                "TacticCampaignId": $('#txtTacticID').val(),
+                "TacticCampaignId": tacticid,
                 "InheritStatus":status
             };
             DigitalTouchPointViewModel.push(model);
         }
     });
-    if (DigitalTouchPointViewModel!= null) {
+    if (DigitalTouchPointViewModel != null && DigitalTouchPointViewModel.length!=0) {
         $.post("/TacticCampaign/AddDigitalTouchPoint", { model: DigitalTouchPointViewModel }, function (response) {
             ConfigurationModel.AlertDialog("Message", response.Message);
             if (response.Status) {
                 DigitalGrid(response.Result);
             }
         });
+    }
+    else {
+        ConfigurationModel.AlertDialog("Message", "Please add digital touch point first.");
     }
 }
 function fDigitalValidation() {

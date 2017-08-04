@@ -10,8 +10,8 @@ namespace MRM.Models
         public string MCName { get; set; }
         public string MCampaignDescription { get; set; }
         public string MCampaignManager { get; set; }
-        public string MCStartDate { get; set; }
-        public string MCEndDate { get; set; }
+        public DateTime? MCStartDate { get; set; }
+        public DateTime? MCEndDate { get; set; }
         public IList<ApiBusinessGroup> apiBusinessGroups { get; set; }
         public IList<ApiBusinessLine> apiBusinessLines { get; set; }
         public IList<ApiSegment> apiSegments { get; set; }
@@ -29,8 +29,8 @@ namespace MRM.Models
         public string CampaignDescription { get; set; }
         public string CampaignManager { get; set; }
         public int CampaignType { get; set; }
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public IList<ApiTacticCampaign> apiTacticCampaigns { get; set; }
         public IList<ApiBusinessGroup> apiBusinessGroups { get; set; }
         public IList<ApiBusinessLine> apiBusinessLines { get; set; }
@@ -45,8 +45,8 @@ namespace MRM.Models
         public string CampaignDescription { get; set; }
         public string CampaignManager { get; set; }
         public int? TacticType { get; set; }
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public IList<ApiBusinessGroup> apiBusinessGroups { get; set; }
         public IList<ApiBusinessLine> apiBusinessLines { get; set; }
         public IList<ApiSegment> apiSegments { get; set; }

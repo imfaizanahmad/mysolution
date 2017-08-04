@@ -47,7 +47,7 @@ function ChildCampaignBindGrid(panel) {
             "datatype": "json"
         },
         columns: [
-            { title: "Campaign Id", data: "Id" },
+            { title: "Campaign Id", data: "DigitalID" },
             { title: "Name", data: "Name" },
             { title: "Sub Campaign Description & Goals", data: "CampaignDescription" },
             { title: "Campaign Manager", data: "CampaignManager" },

@@ -25,8 +25,8 @@ namespace MRM.Business.Services
             Util util = new Util();
             DigitalViewModel digitalViewModel = _unitOfWork.GenericRepository<TacticCampaign>().Table
                 .Where(x => x.Id == id).Select(x => new DigitalViewModel
-                {
-                    TacticCampaign_Id =util.DigitalId(x.Id), //string.Format("T{0}", id.ToString("0000000")),
+                {                    
+                    TacticCampaign_Id =x.Id.ToString(), //string.Format("T{0}", id.ToString("0000000")),
                     TacticName = x.Name,
                     TacticType_Id = x.TacticType,
                 }).FirstOrDefault();
@@ -42,7 +42,7 @@ namespace MRM.Business.Services
                     InheritStatus=x.InheritStatus
 
                 }).ToList();
-
+            digitalViewModel.TacticCampaign_Id = util.DigitalId(Convert.ToInt32(digitalViewModel.TacticCampaign_Id));
             digitalViewModel.TacticTypeName = _unitOfWork.GenericRepository<TacticType>().GetByID(digitalViewModel.TacticType_Id).Name;
             digitalViewModel.DigitalTouchPoint = model;
             return digitalViewModel;

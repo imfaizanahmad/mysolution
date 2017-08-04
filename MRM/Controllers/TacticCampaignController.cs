@@ -7,6 +7,7 @@ using MRM.Business.Services;
 using MRM.Database.Model;
 using System.Web.Script.Serialization;
 using DataTables.Mvc;
+using MRM.Common;
 
 namespace MRM.Controllers
 {
@@ -652,13 +653,14 @@ namespace MRM.Controllers
             //var filteredData =  tacticList.Where(_item => _item.Name.ToLower().StartsWith(requestmodel.Search.Value.ToLower()));
 
             //var result = tacticList.Skip(requestmodel.Start).Take(requestmodel.Length);
-
+            Util util = new Util();
             var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? tacticList.Where(_item => _item.Name.ToLower().StartsWith(requestmodel.Search.Value.ToLower())) : tacticList.Skip(requestmodel.Start).Take(requestmodel.Length);
             List<TacticCampaignViewModelList> tactiCampaignList = (from campaign in data.ToList()
                                                                    where campaign.IsActive == true
                                                                    select
                                                                    new TacticCampaignViewModelList
                                                                    {
+                                                                       DigitalID = string.Format("T{0}", util.DigitalId(campaign.Id)),
                                                                        Id = string.Format("T{0}", campaign.Id.ToString("0000000")),
                                                                        Name = campaign.Name,                                                                       
                                                                        InheritStatus = campaign.InheritStatus,

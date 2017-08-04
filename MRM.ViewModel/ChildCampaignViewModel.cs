@@ -89,6 +89,7 @@ namespace MRM.ViewModel
 
     public class ChildCampaignViewModelList
     {
+        public string DigitalID { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
         public string CampaignDescription { get; set; }
