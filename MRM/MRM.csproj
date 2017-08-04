@@ -246,6 +246,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CampaignBulk.cs" />
     <Compile Include="Models\SegmentHierarchy.cs" />
     <Compile Include="Models\BGHierarchy.cs" />
     <Compile Include="Models\DropDownResponse.cs" />
