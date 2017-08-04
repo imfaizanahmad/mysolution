@@ -706,7 +706,6 @@ namespace MRM.Controllers
                 commanResponse.Status = true;
                 commanResponse.Result = _digitalTouchpoint.Insert(model);
                 commanResponse.Message = "Added Successfully";
-
             }
             catch (Exception ex)
             {
@@ -723,6 +722,26 @@ namespace MRM.Controllers
             {
                 commanResponse.Status = true;
                 _digitalTouchpoint.Delete(tacticId);
+                commanResponse.Result = _digitalTouchpoint.GetbyId(tacticId);
+                commanResponse.Message = "Deleted Successfully";
+
+            }
+            catch (Exception ex)
+            {
+                commanResponse.Status = false;
+                commanResponse.Message = ex.Message;
+            }
+            return Json(commanResponse, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult DeleteSingleDigitalPoint(int digitalId, int tacticId)
+        {
+            CommanResponse commanResponse = new CommanResponse();
+            try
+            {
+                commanResponse.Status = true;
+                _digitalTouchpoint.DeleteSingleDigitalPoint(digitalId);
                 commanResponse.Result = _digitalTouchpoint.GetbyId(tacticId);
                 commanResponse.Message = "Deleted Successfully";
 

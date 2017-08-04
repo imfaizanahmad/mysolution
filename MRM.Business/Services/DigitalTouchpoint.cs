@@ -36,7 +36,8 @@ namespace MRM.Business.Services
                     Medium = x.Medium,
                     Source = x.Source,
                     Term = x.Term,
-                    UTM = x.UTM
+                    UTM = x.UTM,
+                    InheritStatus=x.InheritStatus
 
                 }).ToList();
 
@@ -64,10 +65,20 @@ namespace MRM.Business.Services
                 {
                     digitalTouchPoint = new DigitalTouchPoint();
                     ModelToEntity(item, digitalTouchPoint);
-                    _unitOfWork.GenericRepository<DigitalTouchPoint>().Insert(digitalTouchPoint);
-                    item.Id = digitalTouchPoint.Id;
-                    digitalTouchPoint.UTM = "utm_source=" + item.Source + "&utm_medium=" + item.Medium + "&utm_campaign=" + item.DisplayDigitalId + "&utm_term=" + item.Term + "&utm_content=" + item.Content;
-                    _unitOfWork.GenericRepository<DigitalTouchPoint>().Update(digitalTouchPoint);
+                    if (digitalTouchPoint.Id==0)
+                    {
+                        _unitOfWork.GenericRepository<DigitalTouchPoint>().Insert(digitalTouchPoint);
+                        item.Id = digitalTouchPoint.Id;
+                        digitalTouchPoint.UTM = "utm_source=" + item.Source + "&utm_medium=" + item.Medium + "&utm_campaign=" + item.DisplayDigitalId + "&utm_term=" + item.Term + "&utm_content=" + item.Content;
+                        _unitOfWork.GenericRepository<DigitalTouchPoint>().Update(digitalTouchPoint);
+                    }
+                    else
+                    {
+                        digitalTouchPoint.UTM = "utm_source=" + item.Source + "&utm_medium=" + item.Medium + "&utm_campaign=" + item.DisplayDigitalId + "&utm_term=" + item.Term + "&utm_content=" + item.Content;
+                        _unitOfWork.GenericRepository<DigitalTouchPoint>().Update(digitalTouchPoint);
+                    }
+                    
+                   
                 }
 
                 return GetbyId(digitalTouchPointViewModel[0].TacticCampaignId);
@@ -86,13 +97,21 @@ namespace MRM.Business.Services
             }
             
         }
+        public void DeleteSingleDigitalPoint(int digitalId)
+        {
+            DigitalTouchPoint digitalTouchPoint = _unitOfWork.GenericRepository<DigitalTouchPoint>().GetByID(digitalId);
+            digitalTouchPoint.IsDelete = true;
+            _unitOfWork.GenericRepository<DigitalTouchPoint>().Update(digitalTouchPoint);            
+        }
         private void ModelToEntity(DigitalTouchPointViewModel model, DigitalTouchPoint digitalTouchPoint)
         {
+            digitalTouchPoint.Id = model.Id;
             digitalTouchPoint.Content = model.Content;
             digitalTouchPoint.CreatedBy = "user";
             digitalTouchPoint.Medium = model.Medium;
             digitalTouchPoint.Source = model.Source;
             digitalTouchPoint.Term = model.Term;
+            digitalTouchPoint.InheritStatus = model.InheritStatus;
             digitalTouchPoint.UTM = "utm_source=" + model.Source + "&utm_medium=" + model.Medium + "&utm_campaign=" + model.DisplayDigitalId + "&utm_term=" + model.Term + "&utm_content=" + model.Content;
             digitalTouchPoint.TacticCampaign = _unitOfWork.GenericRepository<TacticCampaign>().GetByID(model.TacticCampaignId);
             digitalTouchPoint.TacticType = _unitOfWork.GenericRepository<TacticType>().GetByID(model.TacticType_Id);

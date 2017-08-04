@@ -997,12 +997,13 @@ function ftacticData() {
     });
 }
 
-function savedigitalpoint() {    
+function savedigitalpoint(status) {    
     var DigitalTouchPointViewModel = [];
     //var index = 0
     $('#gridReport tbody tr').each(function (index) {
-        var id  = $('#digitalid' + index + '').html();
-        if (id==="0") {
+        var id = $('#hid' + index + '').val();
+        var gridstatus = $('#status' + index + '').html();
+        if (id == "0" || gridstatus === 'Draft') {
             var model = {
                 "Id": id,
                 "Source": $('#source' + index + '').html(),
@@ -1010,7 +1011,8 @@ function savedigitalpoint() {
                 "Medium": $('#medium' + index + '').html(),
                 "Term": $('#term' + index + '').html(),
                 "TacticType_Id": $('#TacticType_Id option:selected').val(),
-                "TacticCampaignId": $('#txtTacticID').val()
+                "TacticCampaignId": $('#txtTacticID').val(),
+                "InheritStatus":status
             };
             DigitalTouchPointViewModel.push(model);
         }
@@ -1060,11 +1062,12 @@ function AddRow() {
         $('#hdnIndex').val("-1");
     }
     var index = Number($('#hdnIndex').val()) + 1;
-    var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">0</td>\
+    var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">0<input type="hidden" id="hid' + index + '" value="0"/></td>\
                            <td id="source' + index + '">' + $("#txtSource").val() + '</td>\
                            <td id="medium' + index + '">' + $("#txtMedium").val() + '</td>\
                            <td id="content' + index + '">' + $("#txtContent").val() + '</td>\
                            <td id="term' + index + '">' + $("#txtTerms").val() + '</td>\
+                           <td id="status' + index + '">Draft</td>\
                            <td><button type="button" onclick="removerow(' + index + ')" title="Delete" class="btn btn-danger btn-xs btn-mc-action" value="Delete"><span class="glyphicon glyphicon-trash"></span></button></td>\
                        </tr>');
     $('#gridReport tbody').append(responseTblRow);
@@ -1083,18 +1086,28 @@ function removerow(id) {
 function DigitalGrid(dataset) {
     $('#gridReport tbody').find('tr').remove();    
     $.each(dataset.DigitalTouchPoint, function (index,item) {
-        var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">' + item.DisplayDigitalId + '</td>\
+        var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">' + item.DisplayDigitalId + ' <input type="hidden" id="hid' + index + '" value="' + item.Id + '"/> </td>\
                            <td id="source' + index + '">' + item.Source + '</td>\
                            <td id="medium' + index + '">' + item.Content + '</td>\
                            <td id="content' + index + '">' + item.Medium + '</td>\
                            <td id="term' + index + '">' + item.Term + '</td>\
-                           <td><button disabled="disabled" type="button" title="Delete" class="btn btn-danger btn-xs btn-mc-action" value="Delete"><span class="glyphicon glyphicon-trash"></span></button></td>\
+                           <td id="status' + index + '">' + item.InheritStatus + '</td>\
+                           <td><button ' + (item.InheritStatus == 'Complete' ? "disabled='disabled'" : "onclick='return DeleteSingleDigitalpoint(" + item.Id + ")'") + '  type="button" title="Delete" class="btn btn-danger btn-xs btn-mc-action" value="Delete"><span class="glyphicon glyphicon-trash"></span></button></td>\
                        </tr>');  
         $('#gridReport tbody').append(responseTblRow);        
         $('#hdnIndex').val(index);
     });
 }
 
+function DeleteSingleDigitalpoint(Id) {    
+    var tacticid = $('#frmTacticCampaign').find('input[name="Id"]').val();
+    $.get("/TacticCampaign/DeleteSingleDigitalPoint?digitalId=" + Id + "&tacticId=" + tacticid + "", function (response) {
+        ConfigurationModel.AlertDialog("Response", response.Message);
+        if (response.Status) {
+            DigitalGrid(response.Result);
+        }
+    });
+}
 function fDeleteDigitalpoint() {
     var Id = $('#frmTacticCampaign').find('input[name="Id"]').val();
     $.get("/TacticCampaign/DeleteDigitalPoint?tacticId=" + Id + "", function (response) {

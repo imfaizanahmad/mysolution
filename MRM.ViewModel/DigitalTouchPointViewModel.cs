@@ -27,6 +27,7 @@ namespace MRM.ViewModel
         public string Term { get; set; }
         public bool IsDelete { get; set; }
         public string UTM { get; set; }
+        public string InheritStatus { get; set; }
         public int TacticType_Id { get; set; }
         public string TacticCampaign_Id { get; set; }
 
