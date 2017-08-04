@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MRM.Database.Model;
 using MRM.Database.GenericUnitOfWork;
 using MRM.ViewModel;
+using MRM.Common;
 
 namespace MRM.Business.Services
 {
@@ -21,10 +22,11 @@ namespace MRM.Business.Services
 
         public DigitalViewModel GetbyId(int id)
         {
+            Util util = new Util();
             DigitalViewModel digitalViewModel = _unitOfWork.GenericRepository<TacticCampaign>().Table
                 .Where(x => x.Id == id).Select(x => new DigitalViewModel
                 {
-                    TacticCampaign_Id = x.Id.ToString(), //string.Format("T{0}", id.ToString("0000000")),
+                    TacticCampaign_Id =util.DigitalId(x.Id), //string.Format("T{0}", id.ToString("0000000")),
                     TacticName = x.Name,
                     TacticType_Id = x.TacticType,
                 }).FirstOrDefault();
