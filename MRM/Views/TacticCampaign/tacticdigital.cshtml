@@ -93,7 +93,9 @@
                                 <input type="hidden" id="hdnIndex"/>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <br />
+                        </div>
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <div class="table-responsive">
@@ -129,10 +131,10 @@
         </div>
         <div class="modal-footer">
             <div>
-                <input type="button" onclick="return fDeleteDigitalpoint();" class="btn btn-danger" value="Delete" />
-                <input type="button" onclick="return savedigitalpoint('@InheritStatus.Draft.ToString()');" class="btn btn-primary" value="Save Draft" />
-                <input type="button" onclick="return savedigitalpoint('@InheritStatus.Complete.ToString()');" class="btn btn-info" value="Submit & Export" />
-                <button id="btnclose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                @*<input type="button" onclick="return fDeleteDigitalpoint();" class="btn btn-danger delete" value="Delete" />*@
+                <input id="btnSave" disabled="disabled" type="button" onclick="return savedigitalpoint('@InheritStatus.Draft.ToString()');" class="btn btn-primary" value="Save Draft" />
+                <input id="btnsubmit" disabled="disabled"  type="button" onclick="return savedigitalpoint('@InheritStatus.Complete.ToString()');" class="btn btn-info" value="Submit & Export" />
+                <button id="btnclose" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

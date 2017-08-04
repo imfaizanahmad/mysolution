@@ -996,38 +996,53 @@ function ftacticData() {
         }
     });
 }
-
+function EnableButton()
+{
+    $("#btnSave").removeAttr("disabled");
+    $("#btnsubmit").removeAttr("disabled");
+}
+function DisableButton() {
+    $("#btnSave").attr("disabled", "disabled");
+    $("#btnsubmit").attr("disabled", "disabled");
+}
 function savedigitalpoint(status) {    
     var DigitalTouchPointViewModel = [];
     var tacticid = $('#frmTacticCampaign').find('input[name="Id"]').val();
     //var index = 0
     $('#gridReport tbody tr').each(function (index) {
-        var id = $('#hid' + index + '').val();
-        var gridstatus = $('#status' + index + '').html();
-        if (id == "0" || gridstatus === 'Draft') {
-            var model = {
-                "Id": id,
-                "Source": $('#source' + index + '').html(),
-                "Content": $('#content' + index + '').html(),
-                "Medium": $('#medium' + index + '').html(),
-                "Term": $('#term' + index + '').html(),
-                "TacticType_Id": $('#TacticType_Id option:selected').val(),
-                "TacticCampaignId": tacticid,
-                "InheritStatus":status
-            };
-            DigitalTouchPointViewModel.push(model);
+        var obj = ($(this).context.id).split('_')[1];
+        var id = obj;
+        if (id != undefined) {
+            var gridstatus = $('#status' + obj + '').html();
+       
+            if (id == "0" || gridstatus === 'Draft') {
+                var model = {
+                    "Id": id,
+                    "Source": $('#source' + obj + '').html(),
+                    "Content": $('#content' + obj + '').html(),
+                    "Medium": $('#medium' + obj + '').html(),
+                    "Term": $('#term' + obj + '').html(),
+                    "TacticType_Id": $('#TacticType_Id option:selected').val(),
+                    "TacticCampaignId": tacticid,
+                    "InheritStatus": status
+                };
+                DigitalTouchPointViewModel.push(model);
+            }
         }
+        
     });
-    if (DigitalTouchPointViewModel != null && DigitalTouchPointViewModel.length!=0) {
-        $.post("/TacticCampaign/AddDigitalTouchPoint", { model: DigitalTouchPointViewModel }, function (response) {
+    if (DigitalTouchPointViewModel != null && DigitalTouchPointViewModel.length != 0) {
+        DisableButton();
+        $.post("/TacticCampaign/AddDigitalTouchPoint", { model: DigitalTouchPointViewModel }, function (response) {           
             ConfigurationModel.AlertDialog("Message", response.Message);
+            EnableButton();
             if (response.Status) {
                 DigitalGrid(response.Result);
             }
         });
     }
     else {
-        ConfigurationModel.AlertDialog("Message", "Please add digital touch point first.");
+        ConfigurationModel.AlertDialog("Message", "Please add atleast one digital row to save.");
     }
 }
 function fDigitalValidation() {
@@ -1080,6 +1095,8 @@ function AddRow() {
     $("#txtMedium").val("");
     $("#txtContent").val("");
     $("#txtTerms").val("");
+    $('#hdnIndex').val(index);
+    EnableButton();
     return false;
 }
 function removerow(id) {    
@@ -1105,7 +1122,9 @@ function DigitalGrid(dataset) {
 
 function DeleteSingleDigitalpoint(Id) {    
     var tacticid = $('#frmTacticCampaign').find('input[name="Id"]').val();
+    DisableButton();
     $.get("/TacticCampaign/DeleteSingleDigitalPoint?digitalId=" + Id + "&tacticId=" + tacticid + "", function (response) {
+        EnableButton();
         ConfigurationModel.AlertDialog("Response", response.Message);
         if (response.Status) {
             DigitalGrid(response.Result);
@@ -1116,6 +1135,7 @@ function fDeleteDigitalpoint() {
     var Id = $('#frmTacticCampaign').find('input[name="Id"]').val();
     $.get("/TacticCampaign/DeleteDigitalPoint?tacticId=" + Id + "", function (response) {
         ConfigurationModel.AlertDialog("Response", response.Message);
+        EnableButton();
         if (response.Status) {
             DigitalGrid(response.Result);
         }
