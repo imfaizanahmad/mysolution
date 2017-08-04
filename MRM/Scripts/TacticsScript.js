@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     RemoveZeroFromMetric();
-    
+
     //if ($("#SubCampaignType").val == 1) {
     //    $('.Industrymanage-mandate').show();
     //} else {
@@ -12,7 +12,7 @@
 
     //To make tactic type list single selection
     $('#TacticType_Id').removeAttr('multiple');
-    
+
 
     //if ($('#Status').val() == "Complete") {
     //    $('a[data-select-all="selectunselect"]').hide();
@@ -51,7 +51,7 @@
                 //data: $("#frmTacticCampaign").serialize(), //$("#frmTacticCampaign").serialize(), // serializes the form's elements.
                 url: '/TacticCampaign/save',
                 data: { "jsonModel": JSON.stringify(sdata), "button": "Save Draft" },
-                success: function(data) {
+                success: function (data) {
                     if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
                 }
             });
@@ -60,7 +60,7 @@
 
             var pos = $(validationFocusId).offset().top;
             // animated top scrolling
-            $('body, html').animate({ scrollTop: pos -70});
+            $('body, html').animate({ scrollTop: pos - 70 });
         }
     });
 
@@ -118,8 +118,8 @@
             success: function (data) {
                 $("#dvFormTacticCampaign").html(data);
                 $('#TacticType_Id').removeAttr('multiple');
-               // PreventSpecialChar();
-               // RemoveZeroFromMetric();
+                // PreventSpecialChar();
+                // RemoveZeroFromMetric();
             }
         });
     });
@@ -140,7 +140,7 @@
 
     $(document).on("change", "#ChildCampaign_Id", function () {
 
-        if ($("#MasterCampaign_Id").val() == "" || $("#MasterCampaign_Id").val()=="0") {
+        if ($("#MasterCampaign_Id").val() == "" || $("#MasterCampaign_Id").val() == "0") {
             $('.validmsgSubcampaign').text("Please select Master Campaign first").css("color", "#b94a48");
             $('.validmsgSubcampaign').show();
             return false;
@@ -308,40 +308,40 @@ function DisableOptionBasedOnSelection(ddlType) {
 
 //Load BusinessLine 
 function funcLoadBusinessLine() {
-  //  if ($("#BusinessGroups_Id").val() != null) {
-        $.ajax({
-            type: "POST",
-            url: '/TacticCampaign/LoadBusinessLine',
-            data: $("#frmTacticCampaign").serialize(),
-            success: function (data) {
-                $("#dvFormTacticCampaign").html(data);
-                PreventSpecialChar();
-                RemoveZeroFromMetric();
-            }
-        });
-   // }
+    //  if ($("#BusinessGroups_Id").val() != null) {
+    $.ajax({
+        type: "POST",
+        url: '/TacticCampaign/LoadBusinessLine',
+        data: $("#frmTacticCampaign").serialize(),
+        success: function (data) {
+            $("#dvFormTacticCampaign").html(data);
+            PreventSpecialChar();
+            RemoveZeroFromMetric();
+        }
+    });
+    // }
 }
 //Load Industry
 function funcLoadIndustry() {
-   // if ($("#Segments_Id").val() != null) {
-        $.ajax({
-            type: "POST",
-            url: '/TacticCampaign/LoadIndustry',
-            data: $("#frmTacticCampaign").serialize(),
-            success: function (data) {
-                $("#dvFormTacticCampaign").html(data);
-                PreventSpecialChar();
-                RemoveZeroFromMetric();
-            }
-        });
-   // }
+    // if ($("#Segments_Id").val() != null) {
+    $.ajax({
+        type: "POST",
+        url: '/TacticCampaign/LoadIndustry',
+        data: $("#frmTacticCampaign").serialize(),
+        success: function (data) {
+            $("#dvFormTacticCampaign").html(data);
+            PreventSpecialChar();
+            RemoveZeroFromMetric();
+        }
+    });
+    // }
 }
 
 //Special character not allowed
 function blockSpecialChar(e) {
     var k;
     document.all ? k = e.keyCode : k = e.which;
-    return ((k != 44) && (k != 59) && (k != 47) && (k != 34) && (k != 38) && !(k>= 48 && k <= 57))
+    return ((k != 44) && (k != 59) && (k != 47) && (k != 34) && (k != 38) && !(k >= 48 && k <= 57))
 }
 
 //Numeric validation
@@ -369,7 +369,7 @@ function ValidateTacticSaveasDraft() {
             validationFocusId = "#MC";
             validationFocusFlag = 1;
         }
-        
+
         flag = false;
 
     }
@@ -381,11 +381,22 @@ function ValidateTacticSaveasDraft() {
 
         $('.validmsgSubcampaign').text("Please select Sub Campaign").css("color", "#b94a48");
         $('.validmsgSubcampaign').show();
-        if (validationFocusFlag == 0) {validationFocusId = "#SC";validationFocusFlag = 1;}
+        if (validationFocusFlag == 0) { validationFocusId = "#SC"; validationFocusFlag = 1; }
         flag = false;
 
     } else {
         $('.validmsgSubcampaign').hide();
+    }
+
+    if ($('#TacticType_Id').val() == null || $('#TacticType_Id').val() == "-1") {
+
+        $('.validmsgTactictype').text("Please select Tactic Type").css("color", "#b94a48");
+        $('.validmsgTactictype').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#TT"; validationFocusFlag = 1; }
+        flag = false;
+
+    } else {
+        $('.validmsgTactictype').hide();
     }
 
     if ($("#StartDate").val() != "") { $('.validmsgSdate').hide(); }
@@ -476,7 +487,7 @@ function ValidateSubmitTacticForm() {
         if (validationFocusFlag == 0) { validationFocusId = "#MC"; validationFocusFlag = 1; }
         flag = false;
 
-     
+
     }
     else {
         $('.validmsgMastercampaign').hide();
@@ -503,7 +514,7 @@ function ValidateSubmitTacticForm() {
     //    $('.validmsgvendor').hide();
     //}
 
-    if ($('#TacticType_Id').val() == null  || $('#TacticType_Id').val() == "-1") {
+    if ($('#TacticType_Id').val() == null || $('#TacticType_Id').val() == "-1") {
 
         $('.validmsgTactictype').text("Please select Tactic Type").css("color", "#b94a48");
         $('.validmsgTactictype').show();
@@ -643,7 +654,7 @@ function ValidateSubmitTacticForm() {
         $('.validmsgbusinesSegment').show();
         if (validationFocusFlag == 0) { validationFocusId = "#SG"; validationFocusFlag = 1; }
         flag = false;
-        
+
 
     } else {
         $('.validmsgbusinesSegment').hide();
@@ -681,7 +692,7 @@ function ValidateSubmitTacticForm() {
     //} else {
     //    $('.validmsggeography').hide();
     //}
- 
+
 
     if ($('#Year').val() == "") {
         $('.validmsgyear').text("Please enter Year").css("color", "#b94a48");
@@ -842,10 +853,10 @@ function CollectTacticFormData() {
         data.Geographys_Id.push($('#frmTacticCampaign').find('#Geographys_Id option').eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
     });
 
-    
+
     data.StartDate = $.datepicker.formatDate('mm/dd/yy', $("#StartDate").datepicker("getDate"));
     data.EndDate = $.datepicker.formatDate('mm/dd/yy', $("#EndDate").datepicker("getDate"));
-  
+
 
     data.BusinessGroups_Id = [];
     if ($('#SubCampaignType').val() == 0) {
@@ -859,7 +870,7 @@ function CollectTacticFormData() {
     data.Segments_Id = [];
     if ($('#SubCampaignType').val() == 0) {
         $('#frmTacticCampaign').find('#Segments_Id').closest('.form-group').find('ul li.search-choice').each(
-            function() {
+            function () {
                 data.Segments_Id.push($('#frmTacticCampaign').find('#Segments_Id option')
                     .eq(parseInt($(this).find('a').attr('data-option-array-index'))).val());
             });
@@ -964,3 +975,158 @@ function DateAsNokiaFormat(date) {
     var y = date.getFullYear();
     return '' + (d <= 9 ? '0' + d : d) + ' ' + m + ' ' + y;
 }
+
+
+//Digital Touchpoint
+function ftacticData() {
+    var Id = $('#frmTacticCampaign').find('input[name="Id"]').val();
+    $.get("/TacticCampaign/GetDigitalTouchpoint?tacticId=" + Id + "", function (response) {
+        if (response.Status) {
+            $("#txtTacticID").val(response.Result.TacticCampaign_Id);
+            $("#txtTacticName").val(response.Result.TacticName);
+            $("#txtType").val(response.Result.TacticTypeName);
+            DigitalGrid(response.Result);
+            //$("#txtSource").val(response.TacticCampaign_Id);
+            //$("#txtTacticName").val(response.TacticName);
+            //$("#txtType").val(response.TacticTypeName);
+            //$("#txtType").val(response.TacticTypeName);
+        }
+        else {
+            ConfigurationModel.AlertDialog("Response", response.Message);
+        }
+    });
+}
+
+function savedigitalpoint(status) {    
+    var DigitalTouchPointViewModel = [];
+    //var index = 0
+    $('#gridReport tbody tr').each(function (index) {
+        var id = $('#hid' + index + '').val();
+        var gridstatus = $('#status' + index + '').html();
+        if (id == "0" || gridstatus === 'Draft') {
+            var model = {
+                "Id": id,
+                "Source": $('#source' + index + '').html(),
+                "Content": $('#content' + index + '').html(),
+                "Medium": $('#medium' + index + '').html(),
+                "Term": $('#term' + index + '').html(),
+                "TacticType_Id": $('#TacticType_Id option:selected').val(),
+                "TacticCampaignId": $('#txtTacticID').val(),
+                "InheritStatus":status
+            };
+            DigitalTouchPointViewModel.push(model);
+        }
+    });
+    if (DigitalTouchPointViewModel!= null) {
+        $.post("/TacticCampaign/AddDigitalTouchPoint", { model: DigitalTouchPointViewModel }, function (response) {
+            ConfigurationModel.AlertDialog("Message", response.Message);
+            if (response.Status) {
+                DigitalGrid(response.Result);
+            }
+        });
+    }
+}
+function fDigitalValidation() {
+    $('#dvsource').hide();
+    $('#dvMedium').hide();
+    $('#dvContent').hide();
+    $('#dvTerms').hide();
+    var valid = false;
+    if ($("#txtSource").val().trim() == "") {
+        $("#dvsource").text("Please enter Source").css("color", "#b94a48");
+        $('#dvsource').show();
+        valid = true;
+    }
+    if ($("#txtMedium").val().trim() == "") {
+        $("#dvMedium").text("Please enter Medium").css("color", "#b94a48");
+        $('#dvMedium').show();
+        valid = true;
+    }
+    if ($("#txtContent").val().trim() == "") {
+        $("#dvContent").text("Please enter Content").css("color", "#b94a48");
+        $('#dvContent').show();
+        valid = true;
+    }
+    if ($("#txtTerms").val().trim() == "") {
+        $("#dvTerms").text("Please enter Terms").css("color", "#b94a48");
+        $('#dvTerms').show();
+        valid = true;
+    }
+    return valid;
+}
+function AddRow() {
+    if (fDigitalValidation()) {
+        return false;
+    }
+    if ($('#hdnIndex').val()=="") {
+        $('#hdnIndex').val("-1");
+    }
+    var index = Number($('#hdnIndex').val()) + 1;
+    var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">0<input type="hidden" id="hid' + index + '" value="0"/></td>\
+                           <td id="source' + index + '">' + $("#txtSource").val() + '</td>\
+                           <td id="medium' + index + '">' + $("#txtMedium").val() + '</td>\
+                           <td id="content' + index + '">' + $("#txtContent").val() + '</td>\
+                           <td id="term' + index + '">' + $("#txtTerms").val() + '</td>\
+                           <td id="status' + index + '">Draft</td>\
+                           <td><button type="button" onclick="removerow(' + index + ')" title="Delete" class="btn btn-danger btn-xs btn-mc-action" value="Delete"><span class="glyphicon glyphicon-trash"></span></button></td>\
+                       </tr>');
+    $('#gridReport tbody').append(responseTblRow);
+    $('#hdnIndex').val(index);
+    $("#txtSource").val("");
+    $("#txtMedium").val("");
+    $("#txtContent").val("");
+    $("#txtTerms").val("");
+    return false;
+}
+function removerow(id) {    
+    var tr = $("#tr_" + id);    
+    $('#gridReport tbody').find(tr).remove();
+    return false;
+}
+function DigitalGrid(dataset) {
+    $('#gridReport tbody').find('tr').remove();    
+    $.each(dataset.DigitalTouchPoint, function (index,item) {
+        var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">' + item.DisplayDigitalId + ' <input type="hidden" id="hid' + index + '" value="' + item.Id + '"/> </td>\
+                           <td id="source' + index + '">' + item.Source + '</td>\
+                           <td id="medium' + index + '">' + item.Content + '</td>\
+                           <td id="content' + index + '">' + item.Medium + '</td>\
+                           <td id="term' + index + '">' + item.Term + '</td>\
+                           <td id="status' + index + '">' + item.InheritStatus + '</td>\
+                           <td><button ' + (item.InheritStatus == 'Complete' ? "disabled='disabled'" : "onclick='return DeleteSingleDigitalpoint(" + item.Id + ")'") + '  type="button" title="Delete" class="btn btn-danger btn-xs btn-mc-action" value="Delete"><span class="glyphicon glyphicon-trash"></span></button></td>\
+                       </tr>');  
+        $('#gridReport tbody').append(responseTblRow);        
+        $('#hdnIndex').val(index);
+    });
+}
+
+function DeleteSingleDigitalpoint(Id) {    
+    var tacticid = $('#frmTacticCampaign').find('input[name="Id"]').val();
+    $.get("/TacticCampaign/DeleteSingleDigitalPoint?digitalId=" + Id + "&tacticId=" + tacticid + "", function (response) {
+        ConfigurationModel.AlertDialog("Response", response.Message);
+        if (response.Status) {
+            DigitalGrid(response.Result);
+        }
+    });
+}
+function fDeleteDigitalpoint() {
+    var Id = $('#frmTacticCampaign').find('input[name="Id"]').val();
+    $.get("/TacticCampaign/DeleteDigitalPoint?tacticId=" + Id + "", function (response) {
+        ConfigurationModel.AlertDialog("Response", response.Message);
+        if (response.Status) {
+            DigitalGrid(response.Result);
+        }
+    });
+}
+//function SaveDigitalTouchpoint() {
+//    data = [];
+//    $('#tblBenchmark tbody tr').each(function () {
+//        data.push({
+//            Id: $(this).find('input[class="hdnMetric"]').val(),
+//            MetricType: $(this).find('input[type="hidden"]').val(),
+//            MetricId: $(this).find('.form-control option:selected').val(),
+//            Goal: $(this).find('.goal').val() == "" ? 0 : $(this).find('.goal').val(),
+//            Low: $(this).find('.low').val() == "" ? 0 : $(this).find('.low').val(),
+//            High: $(this).find('.high').val() == "" ? 0 : $(this).find('.high').val()
+//        })
+//    });
+//}

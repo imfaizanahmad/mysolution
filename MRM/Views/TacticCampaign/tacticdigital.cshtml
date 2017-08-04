@@ -1,4 +1,4 @@
-﻿
+﻿@using MRM.ViewModel
 
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -18,7 +18,7 @@
                                 <div class="form-group">
                                     <label>Tactic Type</label>
                                     <div class="form-group">
-                                        <input type="text" value="" class="form-control" placeholder="Tactic Type"/>
+                                        <input id="txtType" type="text" value="" class="form-control" placeholder="Tactic Type" disabled="disabled" />
                                     </div>
                                 </div>
                             </div>
@@ -26,7 +26,7 @@
                                 <div class="form-group">
                                     <label>Tactic Name</label>
                                     <div class="form-group">
-                                        <input type="text" value="" class="form-control"  placeholder="Tactic Name"/>
+                                        <input id="txtTacticName" type="text" value="" class="form-control" placeholder="Tactic Name" disabled="disabled" />                                        
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label>Tactic ID</label>
                                     <div class="form-group">
-                                        <input type="text" value="" class="form-control" placeholder="Tactic ID" />
+                                        <input id="txtTacticID" type="text" value="" class="form-control" placeholder="Tactic ID" disabled="disabled" />
                                     </div>
                                 </div>
                             </div>
@@ -44,38 +44,42 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Source</label>
+                                    <label>Source</label><span class="text-danger">*</span>
 
                                     <div class="form-group">
-                                        <input type="text" value="" class="form-control" placeholder="Source" />
+                                        <input type="text" id="txtSource" value="" class="form-control" placeholder="Source" />
+                                        <div id="dvsource"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Content</label>
+                                    <label>Content</label><span class="text-danger">*</span>
                                     <div class="form-group">
-                                        <input type="text" value="" class="form-control" placeholder="Content" />
+                                        <input type="text" id="txtContent" value="" class="form-control" placeholder="Content" />
+                                        <div id="dvContent"></div>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <!-- /.col -->
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Medium</label>
+                                    <label>Medium</label><span class="text-danger">*</span>
                                     <div class="form-group">
-                                        <input type="text" value="" class="form-control" placeholder="Medium" />
+                                        <input type="text" id="txtMedium" value="" class="form-control" placeholder="Medium" />
+                                        <div id="dvMedium"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Terms</label>
+                                    <label>Terms</label><span class="text-danger">*</span>
                                     <div class="form-group">
-                                        <input type="text" value="" class="form-control" placeholder="Terms" />
+                                        <input type="text" id="txtTerms" value="" class="form-control" placeholder="Terms" />
+                                        <div id="dvTerms"></div>
                                     </div>
                                 </div>
                             </div>
@@ -85,41 +89,33 @@
                         <div class="row">
                             <div class="col-md-10"></div>
                             <div class="col-md-2">
-                                <input type="button" class="btn btn-primary" disabled="disabled" value="Add" />
+                                <input type="button" class="btn btn-primary" value="Add" onclick="AddRow();" />
+                                <input type="hidden" id="hdnIndex"/>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <td>Digital ID</td>
-                                                <td>Source</td>
-                                                <td>Medium</td>
-                                                <td>Content</td>
-                                                <td>Term</td>
-                                                <td>Tactic</td>
-                                                <td>Tactic Name</td>
-                                                <td>Tactic ID</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Geor</td>
-                                                <td>Medium</td>
-                                                <td>Content</td>
-                                                <td>Term</td>
-                                                <td>Tactic</td>
-                                                <td>Tactic Name</td>
-                                                <td>2</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    @*<table id="gridReport" class="display compact table table-striped table-bordered table-hover dataTable no-footer" width="100%"></table>*@
+                                    <table id="gridReport" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>     
+                                                    <td>Digital ID</td>                                               
+                                                    <td>Source</td>
+                                                    <td>Medium</td>
+                                                    <td>Content</td>
+                                                    <td>Term</td>
+                                                    <td>Status</td>
+                                                    <td>Action</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>  
+                                                                                            
+                                            </tbody>
+                                        </table>
                                 </div>
-                            </div>                           
+                            </div>
                             <!-- /.col -->
                         </div>
                         <!-- /.row -->
@@ -133,9 +129,9 @@
         </div>
         <div class="modal-footer">
             <div>
-                <input type="button" disabled="disabled" class="btn btn-danger" value="Delete" />
-                <input type="button" disabled="disabled" class="btn btn-primary" value="Save Draft" />
-                <input type="submit" disabled="disabled" class="btn btn-info" value="Submit & Export" />
+                <input type="button" onclick="return fDeleteDigitalpoint();" class="btn btn-danger" value="Delete" />
+                <input type="button" onclick="return savedigitalpoint('@InheritStatus.Draft.ToString()');" class="btn btn-primary" value="Save Draft" />
+                <input type="button" onclick="return savedigitalpoint('@InheritStatus.Complete.ToString()');" class="btn btn-info" value="Submit & Export" />
                 <button id="btnclose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>

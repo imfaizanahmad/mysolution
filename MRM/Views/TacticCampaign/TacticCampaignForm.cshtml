@@ -234,8 +234,14 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label></label><br />
-                                <button id="btnDigital" data-target="#myModal" data-toggle="modal" type="button" class="btn btn-sm btn-info">Digital Touchpoint</button>
+                                @if (Model.TacticType != null)
+                                {
+                                    if (Model.Id > 0 &&  Model.TacticType.Value > 0)
+                                    {
+                                        <label></label><br />
+                                        <button id="btnDigital" onclick="return ftacticData();" data-target="#myModal" data-toggle="modal" type="button" class="btn btn-sm btn-info">Digital Touchpoint</button>
+                                    }
+                                }
 
                             </div>
                         </div>
