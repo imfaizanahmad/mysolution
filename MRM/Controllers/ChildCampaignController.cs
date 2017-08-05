@@ -11,6 +11,7 @@ using System.Collections;
 using DataTables.Mvc;
 using MRM.Models;
 using System.Web.Script.Serialization;
+using MRM.Common;
 
 namespace MRM.Controllers
 {
@@ -579,13 +580,14 @@ namespace MRM.Controllers
             //var filteredData =  chilList.Where(_item => _item.Name.ToLower().StartsWith(requestmodel.Search.Value.ToLower()));
 
             //var result = chilList.Skip(requestmodel.Start).Take(requestmodel.Length);
-
+            Util util = new Util();
             var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? chilList.Where(_item => _item.Name.ToLower().StartsWith(requestmodel.Search.Value.ToLower())) : chilList.Skip(requestmodel.Start).Take(requestmodel.Length);
             List<ChildCampaignViewModelList> childCampaignList = (from campaign in data.ToList()
                                                                    where campaign.IsActive == true
                                                                    select
                                                                       new ChildCampaignViewModelList
                                                                       {
+                                                                          DigitalID = string.Format("C{0}", util.DigitalId(campaign.Id)),
                                                                           Id = string.Format("C{0}", campaign.Id.ToString("0000000")),
                                                                           InheritStatus = campaign.InheritStatus,                                                                          
                                                                           Name = campaign.Name,

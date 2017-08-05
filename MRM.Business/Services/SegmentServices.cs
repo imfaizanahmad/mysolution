@@ -32,5 +32,10 @@ namespace MRM.Business.Services
             else
                 return false;
         }
+
+        public IQueryable<Segment> SegmentTable()
+        {
+            return guow.GenericRepository<Segment>().Table;
+        }
     }
 }

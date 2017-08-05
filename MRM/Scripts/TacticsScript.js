@@ -31,7 +31,7 @@
                 url: '/TacticCampaign/save',//?button=' + "Submit",
                 data: { "jsonModel": JSON.stringify(sdata), "button": "Submit" },//$("#frmTacticCampaign").serialize(), // serializes the form's elements.
                 success: function (data) {
-                    if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
+                    if (data.Status === true) window.location = "/TacticCampaign/TacticCampaignList";
                 }
             });
         }
@@ -52,7 +52,9 @@
                 url: '/TacticCampaign/save',
                 data: { "jsonModel": JSON.stringify(sdata), "button": "Save Draft" },
                 success: function (data) {
-                    if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
+                    if (data.Status === true) {
+                        window.location = "/TacticCampaign/TacticCampaign?id=" + data.Result;
+                    } //window.location = "/TacticCampaign/TacticCampaignList";
                 }
             });
         }
@@ -386,6 +388,17 @@ function ValidateTacticSaveasDraft() {
 
     } else {
         $('.validmsgSubcampaign').hide();
+    }
+
+    if ($('#TacticType_Id').val() == null || $('#TacticType_Id').val() == "-1") {
+
+        $('.validmsgTactictype').text("Please select Tactic Type").css("color", "#b94a48");
+        $('.validmsgTactictype').show();
+        if (validationFocusFlag == 0) { validationFocusId = "#TT"; validationFocusFlag = 1; }
+        flag = false;
+
+    } else {
+        $('.validmsgTactictype').hide();
     }
 
     if ($("#StartDate").val() != "") { $('.validmsgSdate').hide(); }
@@ -985,25 +998,57 @@ function ftacticData() {
         }
     });
 }
-
-function savedigitalpoint() {    
+function EnableButton()
+{
+    $("#btnSave").removeAttr("disabled");
+    $("#btnsubmit").removeAttr("disabled");
+    $("#btnclose").removeAttr("disabled");
+    
+}
+function DisableButton() {
+    $("#btnSave").attr("disabled", "disabled");
+    $("#btnsubmit").attr("disabled", "disabled");
+    $("#btnclose").attr("disabled", "disabled");
+}
+function savedigitalpoint(status) {    
     var DigitalTouchPointViewModel = [];
+    var tacticid = $('#frmTacticCampaign').find('input[name="Id"]').val();
     //var index = 0
-    $('#gridReport tbody').each(function (index) {
-        var id  = $('#digitalid' + index + '').html();
-        if (id==="0") {
-            var model = {
-                "Id": 0,
-                "Source": $('#digitalid' + index + '').html(),
-                "Content": $('#digitalid' + index + '').html(),
-                "Medium": $('#digitalid' + index + '').html(),
-                "Term": $('#digitalid' + index + '').html(),
-                "TacticType_Id": $('#TacticType_Id option:selected').val(),
-                "TacticCampaign_Id": $('#txtTacticID').val()
-            };
-        DigitalTouchPointViewModel.push(model);
+    $('#gridReport tbody tr').each(function (index) {
+        var obj = ($(this).context.id).split('_')[1];        
+        if (obj != undefined) {
+            var id = $("#hid" + obj).val();
+            var gridstatus = $('#status' + obj + '').html();
+       
+            if (id == "0" || gridstatus === 'Draft') {
+                var model = {
+                    "Id": id,
+                    "Source_Id": $('#hidsource' + obj + '').val(),
+                    "Content": $('#content' + obj + '').html(),
+                    "Medium_Id": $('#hidmedium' + obj + '').val(),
+                    "Term": $('#term' + obj + '').html(),
+                    "TacticType_Id": $('#TacticType_Id option:selected').val(),
+                    "TacticCampaignId": tacticid,
+                    "InheritStatus": status
+                };
+                DigitalTouchPointViewModel.push(model);
+            }
         }
+        
     });
+    if (DigitalTouchPointViewModel != null && DigitalTouchPointViewModel.length != 0) {
+        DisableButton();
+        $.post("/TacticCampaign/AddDigitalTouchPoint", { model: DigitalTouchPointViewModel }, function (response) {           
+            ConfigurationModel.AlertDialog("Message", response.Message);
+            EnableButton();
+            if (response.Status) {
+                DigitalGrid(response.Result);
+            }
+        });
+    }
+    else {
+        ConfigurationModel.AlertDialog("Message", "Please add atleast one digital row to save.");
+    }
 }
 function fDigitalValidation() {
     $('#dvsource').hide();
@@ -1012,12 +1057,12 @@ function fDigitalValidation() {
     $('#dvTerms').hide();
     var valid = false;
     if ($("#txtSource").val().trim() == "") {
-        $("#dvsource").text("Please enter Source").css("color", "#b94a48");
+        $("#dvsource").text("Please select Source").css("color", "#b94a48");
         $('#dvsource').show();
         valid = true;
     }
     if ($("#txtMedium").val().trim() == "") {
-        $("#dvMedium").text("Please enter Medium").css("color", "#b94a48");
+        $("#dvMedium").text("Please select Medium").css("color", "#b94a48");
         $('#dvMedium').show();
         valid = true;
     }
@@ -1037,12 +1082,16 @@ function AddRow() {
     if (fDigitalValidation()) {
         return false;
     }
+    if ($('#hdnIndex').val()=="") {
+        $('#hdnIndex').val("-1");
+    }
     var index = Number($('#hdnIndex').val()) + 1;
-    var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">0</td>\
-                           <td id="source' + index + '">' + $("#txtSource").val() + '</td>\
-                           <td id="medium' + index + '">' + $("#txtMedium").val() + '</td>\
+    var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">0<input type="hidden" id="hid' + index + '" value="0"/></td>\
+                           <td id="source' + index + '">' + $("#txtSource option:selected").text() + '<input type="hidden" id="hidsource' + index + '" value="' + $("#txtMedium").val() + '"/></td>\
+                           <td id="medium' + index + '">' + $("#txtMedium option:selected").text() + '<input type="hidden" id="hidmedium' + index + '" value="' + $("#txtMedium").val() + '"/></td>\
                            <td id="content' + index + '">' + $("#txtContent").val() + '</td>\
                            <td id="term' + index + '">' + $("#txtTerms").val() + '</td>\
+                           <td id="status' + index + '">Draft</td>\
                            <td><button type="button" onclick="removerow(' + index + ')" title="Delete" class="btn btn-danger btn-xs btn-mc-action" value="Delete"><span class="glyphicon glyphicon-trash"></span></button></td>\
                        </tr>');
     $('#gridReport tbody').append(responseTblRow);
@@ -1051,6 +1100,8 @@ function AddRow() {
     $("#txtMedium").val("");
     $("#txtContent").val("");
     $("#txtTerms").val("");
+    $('#hdnIndex').val(index);
+    EnableButton();
     return false;
 }
 function removerow(id) {    
@@ -1059,19 +1110,42 @@ function removerow(id) {
     return false;
 }
 function DigitalGrid(dataset) {
+    $('#gridReport tbody').find('tr').remove();    
     $.each(dataset.DigitalTouchPoint, function (index,item) {
-        var responseTblRow = $('<tr id="tr_'+index+'">\<td id="digitalid' + index + '">' + item.Id + '</td>\
-                           <td id="source' + index + '">' + item.Source + '</td>\
-                           <td id="medium' + index + '">' + item.Content + '</td>\
-                           <td id="content' + index + '">' + item.Medium + '</td>\
+        var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">' + item.DisplayDigitalId + ' <input type="hidden" id="hid' + index + '" value="' + item.Id + '"/> </td>\
+                           <td id="source' + index + '">' + item.Sources + '<input type="hidden" id="hidsource' + index + '" value="' + item.Source_Id + '"/></td>\
+                           <td id="medium' + index + '">' + item.Medium + '<input type="hidden" id="hidmedium' + index + '" value="' + item.Medium_Id + '"/></td>\
+                           <td id="content' + index + '">' + item.Content + '</td>\
                            <td id="term' + index + '">' + item.Term + '</td>\
-                           <td><button disabled="disabled" type="button" title="Delete" class="btn btn-danger btn-xs btn-mc-action" value="Delete"><span class="glyphicon glyphicon-trash"></span></button></td>\
+                           <td id="status' + index + '">' + item.InheritStatus + '</td>\
+                           <td><button ' + (item.InheritStatus == 'Complete' ? "disabled='disabled'" : "onclick='return DeleteSingleDigitalpoint(" + item.Id + ")'") + '  type="button" title="Delete" class="btn btn-danger btn-xs btn-mc-action" value="Delete"><span class="glyphicon glyphicon-trash"></span></button></td>\
                        </tr>');  
         $('#gridReport tbody').append(responseTblRow);        
         $('#hdnIndex').val(index);
     });
 }
 
+function DeleteSingleDigitalpoint(Id) {    
+    var tacticid = $('#frmTacticCampaign').find('input[name="Id"]').val();
+    DisableButton();
+    $.get("/TacticCampaign/DeleteSingleDigitalPoint?digitalId=" + Id + "&tacticId=" + tacticid + "", function (response) {
+        EnableButton();
+        ConfigurationModel.AlertDialog("Response", response.Message);
+        if (response.Status) {
+            DigitalGrid(response.Result);
+        }
+    });
+}
+function fDeleteDigitalpoint() {
+    var Id = $('#frmTacticCampaign').find('input[name="Id"]').val();
+    $.get("/TacticCampaign/DeleteDigitalPoint?tacticId=" + Id + "", function (response) {
+        ConfigurationModel.AlertDialog("Response", response.Message);
+        EnableButton();
+        if (response.Status) {
+            DigitalGrid(response.Result);
+        }
+    });
+}
 //function SaveDigitalTouchpoint() {
 //    data = [];
 //    $('#tblBenchmark tbody tr').each(function () {

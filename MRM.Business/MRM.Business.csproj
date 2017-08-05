@@ -86,6 +86,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MRM.Common\MRM.Common.csproj">
+      <Project>{DBF5809C-CA2A-44C1-8106-7B5DF7DF62A3}</Project>
+      <Name>MRM.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MRM.Database\MRM.Database.csproj">
       <Project>{54664c69-9343-4c44-85f6-dbc2a27d4c63}</Project>
       <Name>MRM.Database</Name>

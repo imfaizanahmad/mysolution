@@ -17,5 +17,8 @@ namespace MRM.Business.Interfaces
         void Submit(MasterCampaignViewModel model);
         bool DeleteMasterCampaign(int Id);
         List<ChildCampaign> GetChildCampaignByMasterId(int id);
+
+
+        List<MasterCampaign> GetMasterCampaignForApi();
     }
 }

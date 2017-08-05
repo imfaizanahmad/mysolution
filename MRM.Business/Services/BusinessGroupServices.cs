@@ -33,5 +33,10 @@ namespace MRM.Business.Services
             else
                 return false;
         }
+
+        public IQueryable<BusinessGroup> BusinessGroupTable()
+        {
+            return guow.GenericRepository<BusinessGroup>().Table;
+        }
     }
 }

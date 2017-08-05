@@ -22,6 +22,32 @@ namespace MRM.Business.Services
         {
             return guow.GenericRepository<MasterCampaign>().Table;
         }
+        /// <summary>
+        /// For Ramp Api
+        /// </summary>
+        /// <returns></returns>
+        public List<MasterCampaign> GetMasterCampaignForApi()
+        {
+            List<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAllIncluding((m => m.BusinessGroups), (m => m.Segments)).ToList();
+            return masterCampaign;
+        }
+
+
+        /// <summary>
+        /// For Ramp Api
+        /// </summary>
+        /// <returns></returns>
+        //public List<MasterCampaign> GetMasterandChildCampaignForApi()
+        //{
+        //    List<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAllIncluding((m => m.ChildCampaigns)).ToList();
+        //    return masterCampaign;
+        //}
+
+        public IQueryable<MasterCampaign> GetMasterandChildCampaignForApiTable()
+        {
+            IQueryable<MasterCampaign> masterCampaign = guow.GenericRepository<MasterCampaign>().GetAllIncluding((m => m.ChildCampaigns));
+            return masterCampaign;
+        }
 
         public IQueryable<MasterCampaign> GetOrderedMasterCampaign()
         {

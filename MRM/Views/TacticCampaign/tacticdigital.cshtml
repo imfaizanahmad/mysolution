@@ -1,4 +1,4 @@
-﻿
+﻿@using MRM.ViewModel
 
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -26,7 +26,7 @@
                                 <div class="form-group">
                                     <label>Tactic Name</label>
                                     <div class="form-group">
-                                        <input id="txtTacticName" type="text" value="" class="form-control" placeholder="Tactic Name" disabled="disabled" />
+                                        <input id="txtTacticName" type="text" value="" class="form-control" placeholder="Tactic Name" disabled="disabled" />                                        
                                     </div>
                                 </div>
                             </div>
@@ -42,19 +42,19 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <div class="form-group">
-                                    <label>Source</label>
-
+                                    <label>Source</label><span class="text-danger">*</span>                                    
                                     <div class="form-group">
-                                        <input type="text" id="txtSource" value="" class="form-control" placeholder="Source" />
+                                        @*<input type="text" id="txtSource" value="" class="form-control" placeholder="Source" />*@
+                                        @Html.DropDownList("txtSource", new SelectList(Model.Source, "Id", "Name"), "None selected", new { @class = "form-control" })
                                         <div id="dvsource"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Content</label>
+                                    <label>Content</label><span class="text-danger">*</span>
                                     <div class="form-group">
                                         <input type="text" id="txtContent" value="" class="form-control" placeholder="Content" />
                                         <div id="dvContent"></div>
@@ -65,18 +65,19 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <div class="form-group">
-                                    <label>Medium</label>
+                                    <label>Medium</label><span class="text-danger">*</span>
                                     <div class="form-group">
-                                        <input type="text" id="txtMedium" value="" class="form-control" placeholder="Medium" />
+                                        @*<input type="text" id="txtMedium" value="" class="form-control" placeholder="Medium" />*@
+                                        @Html.DropDownList("txtMedium", new SelectList(Model.Medium, "Id", "Name"), "None selected", new { @class = "form-control" })
                                         <div id="dvMedium"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Terms</label>
+                                    <label>Terms</label><span class="text-danger">*</span>
                                     <div class="form-group">
                                         <input type="text" id="txtTerms" value="" class="form-control" placeholder="Terms" />
                                         <div id="dvTerms"></div>
@@ -93,7 +94,9 @@
                                 <input type="hidden" id="hdnIndex"/>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <br />
+                        </div>
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <div class="table-responsive">
@@ -106,6 +109,7 @@
                                                     <td>Medium</td>
                                                     <td>Content</td>
                                                     <td>Term</td>
+                                                    <td>Status</td>
                                                     <td>Action</td>
                                                 </tr>
                                             </thead>
@@ -128,10 +132,10 @@
         </div>
         <div class="modal-footer">
             <div>
-                <input type="button" class="btn btn-danger" value="Delete" />
-                <input type="button" class="btn btn-primary" value="Save Draft" />
-                <input type="button" onclick="return savedigitalpoint();" class="btn btn-info" value="Submit & Export" />
-                <button id="btnclose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                @*<input type="button" onclick="return fDeleteDigitalpoint();" class="btn btn-danger delete" value="Delete" />*@
+                <input id="btnSave" disabled="disabled" type="button" onclick="return savedigitalpoint('@InheritStatus.Draft.ToString()');" class="btn btn-primary" value="Save Draft" />
+                <input id="btnsubmit" disabled="disabled"  type="button" onclick="return savedigitalpoint('@InheritStatus.Complete.ToString()');" class="btn btn-info" value="Submit & Export" />
+                <button id="btnclose" disabled="disabled" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

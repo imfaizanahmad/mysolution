@@ -6,6 +6,7 @@ using MRM.Business.Services;
 using MRM.Database.Model;
 using MRM.ViewModel;
 using DataTables.Mvc;
+using MRM.Common;
 
 namespace MRM.Controllers
 {
@@ -311,12 +312,12 @@ namespace MRM.Controllers
         [HttpGet]
         public JsonResult GetMasterCampaignList()
         {
-
+      
             List<MasterCampaignViewModelListing> masterCampaignList = (from campaign in _masterCampaignServices.GetMasterCampaign()
                                                                        where campaign.IsActive == true
                                                                        select
                                                                        new MasterCampaignViewModelListing
-                                                                       {
+                                                                       {         
                                                                            Id = string.Format("M{0}", campaign.Id.ToString("0000000")),
                                                                            Name = campaign.Name,
                                                                            CampaignManager = campaign.CampaignManager,
@@ -340,13 +341,14 @@ namespace MRM.Controllers
             //var filteredData =  masterList.Where(_item => _item.Name.ToLower().StartsWith(requestmodel.Search.Value.ToLower()));
 
             //var result = masterList.Skip(requestmodel.Start).Take(requestmodel.Length);
-
+            Util util = new Util();
             var data = !String.IsNullOrEmpty(requestmodel.Search.Value) ? masterList.Where(_item => _item.Name.ToLower().StartsWith(requestmodel.Search.Value.ToLower())) : masterList.Skip(requestmodel.Start).Take(requestmodel.Length);
             List <MasterCampaignViewModelListing> masterCampaignList = (from campaign in data.ToList()
                                                                         where campaign.IsActive == true
                                                                         select
                                                                        new MasterCampaignViewModelListing
                                                                        {
+                                                                           DigitalID = string.Format("M{0}", util.DigitalId(campaign.Id)),
                                                                            Id = string.Format("M{0}", campaign.Id.ToString("0000000")),
                                                                            Name = campaign.Name,
                                                                            CampaignManager = campaign.CampaignManager,

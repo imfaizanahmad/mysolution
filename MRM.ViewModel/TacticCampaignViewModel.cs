@@ -83,10 +83,13 @@ namespace MRM.ViewModel
         public IList<MetricReach> MetricReachViewModels { get; set; }     
         public IList<MetricResponse> MetricResponseViewModels { get; set; }
         public IList<TacticCampaignReachResponse> TacticCampaignReachResponseViewModels { get; set; }
+        public IList<DigitalMedium> Medium { get; set; }
+        public IList<Source> Source { get; set; }
     }
 
     public class TacticCampaignViewModelList
     {
+        public string DigitalID { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
         public string TacticDescription { get; set; }

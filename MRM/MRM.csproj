@@ -246,6 +246,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CampaignBulk.cs" />
+    <Compile Include="Models\SegmentHierarchy.cs" />
+    <Compile Include="Models\BGHierarchy.cs" />
     <Compile Include="Models\DropDownResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -394,6 +397,10 @@
     <ProjectReference Include="..\MRM.Business\MRM.Business.csproj">
       <Project>{98c8fa5a-5fbc-4c45-b274-70823a6a3404}</Project>
       <Name>MRM.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MRM.Common\MRM.Common.csproj">
+      <Project>{DBF5809C-CA2A-44C1-8106-7B5DF7DF62A3}</Project>
+      <Name>MRM.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\MRM.Database\MRM.Database.csproj">
       <Project>{54664c69-9343-4c44-85f6-dbc2a27d4c63}</Project>

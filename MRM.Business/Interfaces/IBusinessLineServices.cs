@@ -13,5 +13,6 @@ namespace MRM.Business.Interfaces
         IList<BusinessLine> GetBusinessLine();
         List<BusinessLine> GetBusinessLineByBGId(int [] BGId);
         bool CreateMCBusinessLine(MasterCampaign MC);
+        IQueryable<BusinessLine> BusinessLineTable();
     }
 }

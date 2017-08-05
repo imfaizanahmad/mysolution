@@ -47,7 +47,7 @@ function TacticCampaignBindGrid(panel) {
             "datatype": "json"
         },
         columns: [
-            { title: "Campaign Id", data: "Id" },
+            { title: "Campaign Id", data: "DigitalID" },
             { title: "Name", data: "Name" },
             { title: "Tactic Description & Goals", data: "TacticDescription" },
             { title: "Status", data: "InheritStatus" },

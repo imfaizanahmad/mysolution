@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace MRM.ViewModel
 {
     public class MasterCampaignViewModelListing
-    {       
+    {   
+        public string DigitalID { get; set; }    
         public string Id { get; set; }
         public string Name { get; set; }
         public string CampaignDescription { get; set; }
