@@ -80,9 +80,9 @@
         dialog.find("#lblTitle").html(title);
         dialog.find("#lblMsg").html(message);
 
-        dialog.find("#btnConfirmNo").on('click', function () {
-            dialog.find(".modal-footer").find(".btn-default").click();
-        });
+        //dialog.find("#btnConfirmNo").on('click', function () {
+        //    dialog.find(".modal-footer").find(".btn-default").click();
+        //});
         AddUpdateDetailsPopUp(dialog);
     };   
 
