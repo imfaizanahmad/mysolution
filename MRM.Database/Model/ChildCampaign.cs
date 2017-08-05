@@ -20,6 +20,7 @@ namespace MRM.Database.Model
         public DateTime? EndDate { get; set; }
         public DateTime? VisitedDate { get; set; }
         public int CampaignType { get; set; }
+        public int BusinessLineId { get; set; }
         public int? MILGoal { get; set; }
         public int? MILLow { get; set; }
         public int? MILHigh { get; set; }

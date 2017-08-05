@@ -5,22 +5,55 @@
         $('a[data-target-id="Segments_Id"]').hide();
     }
 
+    $("#divMultiBG").hide();
+    $("#divSecondaryBLs").hide();
     if ($('#CampaignTypes').val() == 0)
     $('a[data-target-id="BusinessGroups_Id"]').hide();
 
-
-
+    if ($('#tblMultiBG tbody').find('tr').length > 0) {
+        $("#btnShowBGBreakdown").attr("disabled", "disabled");
+        $("#divMultiBG").show();
+        $("#divSecondaryBLs").show();
+    }
     PreventSpecialChar();
 
     //child camapaign post
     $(document).on('click', '#btnSubmitChild', function () {
-
-        if (ValidateChildForm() === true) {
+        var flag = false;
+        $(this).closest('tr').find('.validmsgBGBudget').text("");
+        $('#frmChildCampaign').find('#tblMultiBG tbody tr select.ddlBusinessGroup').each(function () {
+            if ($('#tblMultiBG tbody tr select.ddlBusinessGroup').find('option[value="' + $(this).val() + '"]:selected').length > 1) {
+                $(this).closest('tr').find('.validmsgBGBudget').text("Multi Business Group selection should be different.").css("color", "#b94a48");
+                flag = true;
+            }
+        });
+        if (flag) {
+            return false;
+        }
+        if (ValidateChildForm() === true) {            
             fFormatCurrency();
+            var totalBudget = 0;
+            var totalSpend = 0;
+            var subCampaignBudgetingDetailViewModels = [];
+            $('#frmChildCampaign').find('#tblMultiBG tbody tr').each(function () {
+                var SubCampaignBudgetingDetailViewModels = {
+                    "Id": $(this).find('input[class="hdnBudget"]').val(),
+                    "BusinessGroupId": $(this).find('.form-control option:selected').val(),
+                    "Budget": $(this).find('.budget').val() == "" ? 0 : $(this).find('.budget').val(),
+                    "Spend": $(this).find('.spend').val() == "" ? 0 : $(this).find('.spend').val(),
+                };
+                subCampaignBudgetingDetailViewModels.push(SubCampaignBudgetingDetailViewModels);
+                totalBudget = totalBudget + parseFloat(SubCampaignBudgetingDetailViewModels.Budget);
+                totalSpend = totalSpend + parseFloat(SubCampaignBudgetingDetailViewModels.Spend);
+            });
+            if (totalBudget > parseFloat($('#Budget').val()) || totalSpend > parseFloat($('#Spend').val())) {
+                ConfigurationModel.AlertDialog("Budget & Spend", "Total Budget & Spend should be equal or greater than Multi BG respectively.");
+                return false;
+            }
             $.ajax({
                 type: "POST",
                 url: '/ChildCampaign/save?button=' + "Submit",
-                data: $("#frmChildCampaign").serialize(), // serializes the form's elements.
+                data: $("#frmChildCampaign").serialize() + "&budgetModel=" + JSON.stringify(subCampaignBudgetingDetailViewModels),  // serializes the form's elements.
                 success: function (data) {
                     if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
                 }
@@ -33,13 +66,44 @@
         }
     });
 
-    $(document).on('click', '#btnSaveDraftChild', function() {
+    $(document).on('click', '#btnSaveDraftChild', function () {
+        var flag = false;
+        $(this).closest('tr').find('.validmsgBGBudget').text("");
+        $('#frmChildCampaign').find('#tblMultiBG tbody tr select.ddlBusinessGroup').each(function () {
+            if ($('#tblMultiBG tbody tr select.ddlBusinessGroup').find('option[value="' + $(this).val() + '"]:selected').length > 1) {
+                $(this).closest('tr').find('.validmsgBGBudget').text("Multi Business Group selection should be different.").css("color", "#b94a48");
+                flag = true;
+            }
+        });        
+        if (flag) {
+            return false;
+        }
         if (ValidateChildSaveasDraft() === true) {
+            
             fFormatCurrency();
+            var totalBudget = 0;
+            var totalSpend = 0;
+            var subCampaignBudgetingDetailViewModels = [];
+            $('#frmChildCampaign').find('#tblMultiBG tbody tr').each(function () {
+                var SubCampaignBudgetingDetailViewModels = {
+                    "Id": $(this).find('input[class="hdnBudget"]').val(),
+                    "BusinessGroupId": $(this).find('.form-control option:selected').val(),
+                    "Budget": $(this).find('.budget').val() == "" ? 0 : $(this).find('.budget').val(),
+                    "Spend": $(this).find('.spend').val() == "" ? 0 : $(this).find('.spend').val(),
+                };
+                subCampaignBudgetingDetailViewModels.push(SubCampaignBudgetingDetailViewModels);
+                totalBudget = totalBudget + parseFloat(SubCampaignBudgetingDetailViewModels.Budget);
+                totalSpend = totalSpend + parseFloat(SubCampaignBudgetingDetailViewModels.Spend);
+            });
+            if (totalBudget > parseFloat($('#Budget').val()) || totalSpend > parseFloat($('#Spend').val())) {
+                ConfigurationModel.AlertDialog("Budget & Spend","Total Budget & Spend should be equal or greater than Multi BG respectively.");
+                return false;
+            }
+            
             $.ajax({
                 type: "POST",
                 url: '/ChildCampaign/save?button=' + "Save Draft",
-                data: $("#frmChildCampaign").serialize(), // serializes the form's elements.
+                data: $("#frmChildCampaign").serialize() + "&budgetModel=" + JSON.stringify(subCampaignBudgetingDetailViewModels),  // serializes the form's elements.
                 success: function(data) {
                     if (data === "True") window.location = "/ChildCampaign/ChildCampaignList";
                 }
@@ -66,28 +130,46 @@
     });
 
     $(document).on('click', '#btnShowBGBreakdown', function () {
-        $("#divMultiBG").attr("display", "block");
-        var $options = $('#BusinessGroups_id').html();
-        var bgTblRow = $('<tr><td><label>Lead</label></td>\
-                           <td><select id="BusinessGroup_Id" class="form-control ddlBusinessGroup chosen-single">' + $options + '</select></td>\
-                           <td><input type="text" class="form-control budget" maxlength="50" name="BGBudget" onkeypress="numericvalidate(event)" value="" /></td>\
-                           <td><input type="text" class="form-control spend" maxlength="50" name="BGSpend" onkeypress="numericvalidate(event)" value="" /></td>\
-                           <td><input type="button" Id="btnAddBGRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" />\
+        $("#btnShowBGBreakdown").attr("disabled", "disabled");
+        $("#divMultiBG").show();
+        $("#divSecondaryBLs").show();
+        if ($('#tblMultiBG tbody').find('tr').length == 0) {
+            var $options = $('#BusinessGroups_Id').html();
+            var bgLabel = "Lead";
+            var bgTblRow = null;
+            if ($("#CampaignTypes").val() == 0) {
+                bgTblRow = $('<tr><td><label>' + bgLabel + '</label></td>\
+                           <td><select id="SubCampaignBudgetingDetail_BusinessGroupId" disabled="disabled" class="form-control ddlBusinessGroup chosen-single">' + $options + '</select></td>\
+                           <td><input type="text" class="form-control budget currency numeric ChkCampselection" maxlength="10" name="BGBudget" onkeypress="ConfigurationModel.decimalvalidate(event)" value="" /></td>\
+                           <td><input type="text" class="form-control spend currency numeric ChkCampselection" maxlength="10" name="BGSpend" onkeypress="ConfigurationModel.decimalvalidate(event)" value="" /></td>\
+                           <td><input type="button" Id="btnAddBGRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="+" />\
                            <span class="validmsgBGBudget"></span></td>\
                        </tr>');
+            }
+            else {
+                bgTblRow = $('<tr><td><label>' + bgLabel + '</label></td>\
+                           <td><select id="SubCampaignBudgetingDetail_BusinessGroupId" disabled="disabled" class="form-control ddlBusinessGroup chosen-single"></select></td>\
+                           <td><input disabled="disabled" type="text" class="form-control budget currency numeric ChkCampselection" maxlength="10" name="BGBudget" onkeypress="ConfigurationModel.decimalvalidate(event)" value="" /></td>\
+                           <td><input disabled="disabled" type="text" class="form-control spend currency numeric ChkCampselection" maxlength="10" name="BGSpend" onkeypress="ConfigurationModel.decimalvalidate(event)" value="" /></td>\
+                           <td><input type="button" Id="btnAddBGRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="+" />\
+                           <span class="validmsgBGBudget"></span></td>\
+                       </tr>');
+            }
+            
 
-        $('#tblMultiBG tbody').append(bgTblRow);
-        bgTblRow.find('select').chosen().trigger('chosen:updated');
+            $('#tblMultiBG tbody').append(bgTblRow);
+            bgTblRow.find('select').chosen().trigger('chosen:updated');
+        }
     });
 
-    $(document).on('click', '#btnAddReachRow', function () {
+    $(document).on('click', '#btnAddBGRow', function () {
         $('#btnAddBGRow').remove();
-        var $options = $('#BusinessGroups_id').html();
-        var bgTblRow = $('<tr><td><label>Lead</label></td>\
-                           <td><select id="BusinessGroup_Id" class="form-control ddlBusinessGroup chosen-single">' + $options + '</select></td>\
-                           <td><input type="text" class="form-control budget" maxlength="50" name="BGBudget" onkeypress="numericvalidate(event)" value="" /></td>\
-                           <td><input type="text" class="form-control spend" maxlength="50" name="BGSpend" onkeypress="numericvalidate(event)" value="" /></td>\
-                           <td><input type="button" Id="btnAddBGRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="-" />\
+        var $options = $('#BusinessGroups_Id').html();
+        var bgTblRow = $('<tr><td><label>Secondary</label></td>\
+                           <td><select id="SubCampaignBudgetingDetail_BusinessGroupId" class="form-control ddlBusinessGroup chosen-single">' + $options + '</select></td>\
+                           <td><input type="text" class="form-control budget currency numeric ChkCampselection" maxlength="10" name="BGBudget" onkeypress="ConfigurationModel.decimalvalidate(event)" value="" /></td>\
+                           <td><input type="text" class="form-control spend currency numeric ChkCampselection" maxlength="10" name="BGSpend" onkeypress="ConfigurationModel.decimalvalidate(event)" value="" /></td>\
+                           <td><input type="button" Id="btnAddBGRow" class="btn btn-primary btn-white removeRow" title="Remove Row" value="+" />\
                            <span class="validmsgBGBudget"></span></td>\
                        </tr>');
 
@@ -121,7 +203,36 @@ $(document).on('click', 'a[data-select-all="selectunselect"]', function () {
             data: $("#frmChildCampaign").serialize(),
                 success: function (data) {
                 $("#dvFormChildCampaign").html(data);
-                PreventSpecialChar();
+                PreventSpecialChar();                
+                $("#divMultiBG").hide();
+                //$("#divSecondaryBLs").hide();                
+            }
+        });
+    });
+
+    $(document).on("change", "#SubCampaignBudgetingDetail_BusinessGroupId", function () {
+        var ids = [];
+        $(this).closest('tr').find('.validmsgBGBudget').text("");
+        $('#frmChildCampaign').find('#tblMultiBG tbody tr select.ddlBusinessGroup').each(function () {
+            if ($('#tblMultiBG tbody tr select.ddlBusinessGroup').find('option[value="' + $(this).val() + '"]:selected').length > 1) {
+                $(this).closest('tr').find('.validmsgBGBudget').text("Multi Business Group selection should be different.").css("color", "#b94a48");
+                return false;
+            }
+        });
+        $(".ddlBusinessGroup").each(function (index, item) {           
+            ids.push($(this).val());
+        })
+        $.ajax({
+            type: "POST",
+            url: "/ChildCampaign/LoadMultBlForMultiBG",
+            //dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({ businessGroupIDs: ids }),
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $("#BusinessLines_Id").append('<option value=' + item.Id + '>' + item.Value + '</option>');
+                });
+                $("#BusinessLines_Id").trigger("chosen:updated");
             }
         });
     });
@@ -146,7 +257,8 @@ $(document).on("change", "#MasterCampaignId", function () {
                 success: function (data) {
                 $("#dvFormChildCampaign").html(data);
                 PreventSpecialChar();
-
+                $("#divMultiBG").hide();
+                $("#divSecondaryBLs").hide();
             }
         });
 });
@@ -154,7 +266,7 @@ $(document).on("change", "#MasterCampaignId", function () {
 
 
 $(document).on("change", "#CampaignTypes", function () {
-   
+    var selVal = $(this).val();
         $.ajax({
             type: "POST",
             url: "/ChildCampaign/OnChangeCampaignTypes",
@@ -162,14 +274,20 @@ $(document).on("change", "#CampaignTypes", function () {
             success: function (data) {
                 $("#dvFormChildCampaign").html(data);
                 PreventSpecialChar();
-               
-                    $('#BusinessGroups_Id').find('option').removeAttr('selected');
+                    //$('#BusinessGroups_Id').find('option').removeAttr('selected');
                     $('#Segments_Id').find('option').removeAttr('selected');
                     $('#Industries_Id').find('option').removeAttr('selected');
-                    $('#BusinessGroups_Id').trigger('chosen:updated');
+                    //$('#BusinessGroups_Id').trigger('chosen:updated');
                     $('#Segments_Id').trigger('chosen:updated');
                     $('#Industries_Id').trigger('chosen:updated');
-
+                    if (selVal == 0) {
+                        $('#BusinessGroups_Id').removeAttr("disabled");
+                        $('#BusinessLineId').removeAttr("disabled");
+                    }
+                    else {
+                        $('#BusinessGroups_Id').attr("disabled", "disabled");
+                        $('#BusinessLineId').attr("disabled", "disabled");
+                    }
             }
         });
     });

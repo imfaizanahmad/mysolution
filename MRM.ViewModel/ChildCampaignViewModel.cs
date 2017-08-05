@@ -15,7 +15,8 @@ namespace MRM.ViewModel
         {
             BusinessGroupViewModels = new[] { new BusinessGroup {Id = -1, Name = "None selected."} };
             SegmentViewModels = (new[] { new Segment { Id = -1, Name = "None selected." } });
-            BusinessLineViewModels = (new[] { new BusinessLine() });
+            BusinessLineViewModels = (new[] { new BusinessLine { Id = -1, Name = "None selected." } });
+            //BusinessLineViewModels = (new[] { new BusinessLine() });
             ThemeViewModels = (new[] { new Theme() });
             GeographyViewModels = (new[] { new Geography() });
             IndustryViewModels = (new[] { new Industry() });
@@ -80,6 +81,7 @@ namespace MRM.ViewModel
         public IList<MasterCampaign> MasterViewModels { get; set; }
         public IList<SubCampaignBudgetingDetail> SubCampaignBudgetingDetailViewModels { get; set; }
         public CampaignType CampaignTypes { get; set; }
+        public int BusinessLineId { get; set; }
         public int[] BusinessGroups_Id { get; set; }
         public int[] BusinessLines_Id { get; set; }
         public int[] Geographys_Id { get; set; }

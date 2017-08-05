@@ -55,6 +55,12 @@ namespace MRM.Business.Services
             return childCampaign;
         }
 
+        public IList<SubCampaignBudgetingDetail> GetSubCampaignBudgetingDetails(int childCampaignId)
+        {
+            IList<SubCampaignBudgetingDetail> budgetingList = guow.GenericRepository<SubCampaignBudgetingDetail>().GetAll().Where(m => m.ChildCampaign != null && m.ChildCampaign.Id == childCampaignId).ToList();
+            return budgetingList;
+        }
+
         private void ModelToEntity(ChildCampaignViewModel model, ChildCampaign childCampaignEntity)
         {
             childCampaignEntity.InheritStatus = model.Status == Status.Draft.ToString() ? InheritStatus.Draft.ToString() : InheritStatus.Active.ToString();
@@ -192,13 +198,19 @@ namespace MRM.Business.Services
                 childCamp = FlushChildRecords(childCamp);
             }
             ModelToEntity(model, childCamp);
+            childCamp.SubCampaignBudgetingDetails = model.SubCampaignBudgetingDetailViewModels;
+            foreach (var item in childCamp.SubCampaignBudgetingDetails)
+            {
+                item.ChildCampaign = childCamp;
+            }
             guow.GenericRepository<ChildCampaign>().Update(childCamp);
         }
 
         public bool InsertChildCampaign(ChildCampaignViewModel model)
         {
             var childCampaignEntity = new ChildCampaign();
-            ModelToEntity(model, childCampaignEntity);            
+            ModelToEntity(model, childCampaignEntity);
+            childCampaignEntity.SubCampaignBudgetingDetails = model.SubCampaignBudgetingDetailViewModels;
             guow.GenericRepository<ChildCampaign>().Insert(childCampaignEntity);
             UpdateMasterStatus(model.MasterCampaignId);
             return childCampaignEntity.Id != 0;

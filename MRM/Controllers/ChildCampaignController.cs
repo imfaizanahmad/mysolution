@@ -9,7 +9,8 @@ using MRM.Database.GenericRepository;
 using MRM.ViewModel;
 using System.Collections;
 using DataTables.Mvc;
-
+using MRM.Models;
+using System.Web.Script.Serialization;
 
 namespace MRM.Controllers
 {
@@ -48,6 +49,8 @@ namespace MRM.Controllers
             if (Id != 0)
             {
                 ChildCampaign childCampaign = _childCampaignServices.GetChildCampaignById(new ChildCampaignViewModel { Id = Id }).First();
+
+                Childvm.SubCampaignBudgetingDetailViewModels = _childCampaignServices.GetSubCampaignBudgetingDetails(Id).ToList();
 
                 //List<TacticCampaign> tacticList = _tacticCampaignServices.GetTacticCampaignByChildId(Id).ToList();
                 //var Inheritanceflag=0;
@@ -158,7 +161,7 @@ namespace MRM.Controllers
                 Childvm.MGOSource = childCampaign.MGOSource;
 
                 Childvm.CampaignTypes = (childCampaign.CampaignType == 0 ? CampaignType.BG_Led : CampaignType.GEPS);
-
+                Childvm.BusinessLineId = childCampaign.BusinessLineId;
 
                 var MasterCampaignName=string.Empty;
                 foreach (var val in Childvm.MasterViewModels)
@@ -234,7 +237,8 @@ namespace MRM.Controllers
                     if (model.BusinessGroups_Id != null)
                     {
                         if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
-                            model.BusinessLineViewModels = item.BusinessLines.ToList();
+                            model.BusinessLineViewModels = model.BusinessLineViewModels.Concat(item.BusinessLines).ToList();
+                      //  model.BusinessLineViewModels = item.BusinessLines.ToList();
 
                         //List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(model.BusinessGroups_Id);
                         //model.BusinessLineViewModels = businesslist;
@@ -253,6 +257,15 @@ namespace MRM.Controllers
        
             return PartialView("ChildCampaignForm", model);
         }
+
+        [HttpPost]
+        public ActionResult LoadMultBlForMultiBG(int[] businessGroupIDs)
+        {
+            List<BusinessLine> businesslist = _businesslineService.GetBusinessLineByBGId(businessGroupIDs);
+            List<DropDownValues> dropDownValues = businesslist.Select(x => new DropDownValues { Id = x.Id, Value = x.Name }).ToList();
+            return Json(dropDownValues, JsonRequestBehavior.AllowGet);
+        }
+        
         public ActionResult LoadIndustry(ChildCampaignViewModel model)
         {
             if (model.MasterCampaignId != 0)
@@ -286,7 +299,8 @@ namespace MRM.Controllers
                     if (model.BusinessGroups_Id != null)
                     {
                         if (model.BusinessGroups_Id[0] != 0 && model.BusinessGroups_Id[0] != -1)
-                            model.BusinessLineViewModels = item.BusinessLines.ToList();
+                            model.BusinessLineViewModels = model.BusinessLineViewModels.Concat(item.BusinessLines).ToList();
+                        //  model.BusinessLineViewModels = item.BusinessLines.ToList();
                     }
                     else
                     {
@@ -383,6 +397,8 @@ namespace MRM.Controllers
                 }
                 else
                 {
+                    model.BusinessGroups_Id = null;
+                    model.BusinessLines_Id = null;
                     model.BusinessGroupViewModels = item.BusinessGroups.ToList();
                     model.SegmentViewModels = model.SegmentViewModels.Concat(item.Segments).ToList();
                 }
@@ -420,11 +436,13 @@ namespace MRM.Controllers
         }
 
         [HttpPost]
-        public bool Save(ChildCampaignViewModel model, string button)
+        public bool Save(ChildCampaignViewModel model, string button,string budgetModel)
         {
 
             model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString()).ToList();
-
+            // Deserializing json model to object 
+            List<SubCampaignBudgetingDetail> viewModel = new JavaScriptSerializer().Deserialize<List<SubCampaignBudgetingDetail>>(budgetModel);
+            model.SubCampaignBudgetingDetailViewModels = viewModel;
             try
             {
                 //todo:

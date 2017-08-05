@@ -10,7 +10,9 @@ namespace MRM.Database.Model
     {
         public int Id { get; set; }
         public string BusinessGroupId { get; set; }
-        public int Budget { get; set; }
-        public int Spend { get; set; }
+        public decimal? Budget { get; set; }
+        public decimal? Spend { get; set; }
+
+        public virtual ChildCampaign ChildCampaign { get; set; }
     }
 }
