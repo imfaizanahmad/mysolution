@@ -458,11 +458,11 @@ namespace MRM.Controllers
                                           }).ToList();
                     if (!string.IsNullOrEmpty(MCampaignDescription))
                     {
-                        allMasterAndChilds = allMasterAndChilds.Where(x => x.MCampaignDescription.Contains(MCampaignDescription)).ToList();
+                        allMasterAndChilds = allMasterAndChilds.Where(x => x.MCampaignDescription.ToLower().Contains(MCampaignDescription.ToLower())).ToList();
                     }
                     if (!string.IsNullOrEmpty(MCampaignManager))
                     {
-                        allMasterAndChilds = allMasterAndChilds.Where(x => x.MCampaignManager.Contains(MCampaignManager)).ToList();
+                        allMasterAndChilds = allMasterAndChilds.Where(x => x.MCampaignManager.ToLower().Contains(MCampaignManager.ToLower())).ToList();
                     }
 
                     List<int> childIds = new List<int>();
