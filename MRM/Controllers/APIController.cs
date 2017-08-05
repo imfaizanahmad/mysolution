@@ -186,31 +186,36 @@ namespace MRM.Controllers
         /// <Written By>
         /// Faizan Ahmad
         /// </Written>
-        public JsonResult GetMCampaign(int? BusinessGroupId,int?MasterCampaignId,int?SegmentId)
+        public JsonResult GetMCampaign(string BusinessGroupId,string MasterCampaignId,string SegmentId)
         {
           
             DropDownResponse dropDownResponse = new DropDownResponse();
             try
             {
-                if (BusinessGroupId==null && MasterCampaignId == null && SegmentId==null)
+                if (string.IsNullOrEmpty(BusinessGroupId) && BusinessGroupId != "" && string.IsNullOrEmpty(MasterCampaignId) && MasterCampaignId != "" && string.IsNullOrEmpty(SegmentId) && SegmentId != "")
                 {
                     dropDownResponse.List = _masterCampaignServices.MasterCampaignTable().Where(x => !string.IsNullOrEmpty(x.Name)).Select(x => new DropDownValues { Id = x.Id, Value = x.Name }).ToList();
                 }
                 else
                 {
+                    if (BusinessGroupId == null || BusinessGroupId == "" || (IsNumeric(BusinessGroupId) == false)) { BusinessGroupId = null; }
+                    if (MasterCampaignId == null || MasterCampaignId == "" || (IsNumeric(MasterCampaignId) == false)) { MasterCampaignId = null; }
+                    if (SegmentId == null || SegmentId == "" || (IsNumeric(SegmentId) == false)) { SegmentId = null; }
+
+
                     dropDownResponse.List = _masterCampaignServices.GetMasterCampaignForApi().
                                               Where(x =>
-                                               ((BusinessGroupId != null && x.BusinessGroups.Any(y => y.Id == BusinessGroupId.Value))
+                                               ((BusinessGroupId != null && x.BusinessGroups.Any(y => y.Id == Convert.ToInt32(BusinessGroupId)))
                                                && 
                                                ((MasterCampaignId != null && x.Id.Equals(MasterCampaignId))
                                                ||
-                                               (SegmentId!=null && x.Segments.Any(s => s.Id==SegmentId.Value))))
+                                               (SegmentId!=null && x.Segments.Any(s => s.Id==Convert.ToInt32(SegmentId)))))
                                                || 
-                                               ((BusinessGroupId != null && x.BusinessGroups.Any(y => y.Id == BusinessGroupId.Value))
+                                               ((BusinessGroupId != null && x.BusinessGroups.Any(y => y.Id == Convert.ToInt32(BusinessGroupId)))
                                                ||
                                                (MasterCampaignId != null && x.Id.Equals(MasterCampaignId))
                                                ||
-                                               (SegmentId != null && x.Segments.Any(s => s.Id == SegmentId.Value)))
+                                               (SegmentId != null && x.Segments.Any(s => s.Id == Convert.ToInt32(SegmentId))))
                                               )
                                               .Select(x => new DropDownValues { Id = x.Id, Value = x.Name }).ToList();
                 }
@@ -234,19 +239,21 @@ namespace MRM.Controllers
         /// <Written By>
         /// Faizan Ahmad
         /// </Written>
-        public JsonResult GetCCampaign(int? MasterCampaignId, int? ChildCampaignId)
+        public JsonResult GetCCampaign(string MasterCampaignId, string ChildCampaignId)
         {
 
             DropDownResponse dropDownResponse = new DropDownResponse();
             try
             {
-                if (MasterCampaignId == null && ChildCampaignId == null)
+                if (string.IsNullOrEmpty(MasterCampaignId) && MasterCampaignId != "" && string.IsNullOrEmpty(ChildCampaignId) && ChildCampaignId != "")
                 {
                     dropDownResponse.List = _childCampaignServices.ChildCampaignTable().Where(x => !string.IsNullOrEmpty(x.Name)).Select(x => new DropDownValues { Id = x.Id, Value = x.Name }).ToList();
                 }
                 else
                 {
-                    dropDownResponse.List = _childCampaignServices.ChildCampaignTable().Where(x => (x.MasterCampaigns.Id == MasterCampaignId && !string.IsNullOrEmpty(x.Name)) || (x.Id == ChildCampaignId && !string.IsNullOrEmpty(x.Name))).Select(x => new DropDownValues { Id = x.Id, Value = x.Name }).ToList();
+                    if (MasterCampaignId == null || MasterCampaignId == "" || (IsNumeric(MasterCampaignId) == false)) { MasterCampaignId = null; }
+                    if (ChildCampaignId == null || ChildCampaignId == "" || (IsNumeric(ChildCampaignId) == false)) { ChildCampaignId = null; }
+                    dropDownResponse.List = _childCampaignServices.ChildCampaignTable().Where(x => (MasterCampaignId != null && (x.MasterCampaigns.Id ==Convert.ToInt32(MasterCampaignId) && !string.IsNullOrEmpty(x.Name))) || (ChildCampaignId!=null && (x.Id == Convert.ToInt32(ChildCampaignId) && !string.IsNullOrEmpty(x.Name)))).Select(x => new DropDownValues { Id = x.Id, Value = x.Name }).ToList();
                 }
                 dropDownResponse.IsSuccess = true;
             }
@@ -269,19 +276,21 @@ namespace MRM.Controllers
         /// <Written By>
         /// Faizan Ahmad
         /// </Written>
-        public JsonResult GetTCampaign(int? ChildCampaignId, int? TacticId)
+        public JsonResult GetTCampaign(string ChildCampaignId, string TacticId)
         {
 
             DropDownResponse dropDownResponse = new DropDownResponse();
             try
             {
-                if (ChildCampaignId == null && TacticId == null)
+                if (string.IsNullOrEmpty(ChildCampaignId) && ChildCampaignId != ""  && string.IsNullOrEmpty(TacticId) && TacticId != "")
                 {
                     dropDownResponse.List = _tacticCampaignServices.TacticCampaignTable().Where(x => !string.IsNullOrEmpty(x.Name)).Select(x => new DropDownValues { Id = x.Id, Value = x.Name }).ToList();
                 }
                 else
                 {
-                    dropDownResponse.List = _tacticCampaignServices.TacticCampaignTable().Where(x => (x.ChildCampaigns.Id == ChildCampaignId && !string.IsNullOrEmpty(x.Name)) || (x.Id == TacticId && !string.IsNullOrEmpty(x.Name))).Select(x => new DropDownValues { Id = x.Id, Value = x.Name }).ToList();
+                    if (ChildCampaignId == null || ChildCampaignId == "" || (IsNumeric(ChildCampaignId) == false)) { ChildCampaignId = null; }
+                    if (TacticId == null || TacticId == "" || (IsNumeric(TacticId) == false)) { TacticId = null; }
+                    dropDownResponse.List = _tacticCampaignServices.TacticCampaignTable().Where(x => (ChildCampaignId!=null && (x.ChildCampaigns.Id == Convert.ToInt32(ChildCampaignId) && !string.IsNullOrEmpty(x.Name))) || (TacticId!=null && (x.Id == Convert.ToInt32(TacticId) && !string.IsNullOrEmpty(x.Name)))).Select(x => new DropDownValues { Id = x.Id, Value = x.Name }).ToList();
                 }
                 dropDownResponse.IsSuccess = true;
             }
@@ -313,8 +322,6 @@ namespace MRM.Controllers
         /// <Written By>
         /// Faizan Ahmad
         /// </Written>
-
-
         public JsonResult GetCampaignBulk(string MCampaignId, string CCampaignId, string TCampaignId, string MCampaignDescription, string MCampaignBGId, string MCampaignBLId, string MCampaignSegmentId, string MCampaignIndustryId, string MCampaignManager)
         {
             var IsSuccess = false;
@@ -330,16 +337,16 @@ namespace MRM.Controllers
                                   {
                                       MCId = mc_ch.Id,
                                       MCampaignDescription = mc_ch.CampaignDescription,
-                                      apiBusinessGroups = mc_ch.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
-                                      apiBusinessLines = mc_ch.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
-                                      apiSegments = mc_ch.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
-                                      apiIndustries = mc_ch.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
+                                      BusinessGroupList = mc_ch.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
+                                      BusinessLineList = mc_ch.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
+                                      SegmentList = mc_ch.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
+                                      IndustryList = mc_ch.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
                                     //MCStartDate = String.Format("{0:dd MMM yyyy}", mc_ch.StartDate),
                                     //MCEndDate = String.Format("{0:dd MMM yyyy}", mc_ch.EndDate),
-                                    MCStartDate = mc_ch.StartDate,
+                                     MCStartDate = mc_ch.StartDate,
                                       MCEndDate = mc_ch.EndDate,
                                       MCampaignManager = mc_ch.CampaignManager,
-                                      apiChildCampaigns = mc_ch.ChildCampaigns.Select(X => new ApiChildCampaign
+                                      ChildCampaignList = mc_ch.ChildCampaigns.Select(X => new ApiChildCampaign
                                       {
                                           Id = X.Id,
                                           Name = X.Name,
@@ -348,12 +355,12 @@ namespace MRM.Controllers
                                           CampaignType = X.CampaignType,
                                         //StartDate = String.Format("{0:dd MMM yyyy}", X.StartDate),
                                         //EndDate = String.Format("{0:dd MMM yyyy}", X.EndDate),
-                                        StartDate = X.StartDate,
+                                          StartDate = X.StartDate,
                                           EndDate = X.EndDate,
-                                          apiBusinessGroups = X.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
-                                          apiBusinessLines = X.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
-                                          apiSegments = X.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
-                                          apiIndustries = X.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
+                                          BusinessGroupList = X.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
+                                          BusinessLineList = X.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
+                                          SegmentList = X.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
+                                          IndustryList = X.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
                                       }).ToList(),
 
                                   }).ToList();
@@ -361,7 +368,7 @@ namespace MRM.Controllers
                     List<int> childIds = new List<int>();
                     foreach (var master in allMasterAndChilds)
                     {
-                        childIds.AddRange(master.apiChildCampaigns.Select(t => t.Id));
+                        childIds.AddRange(master.ChildCampaignList.Select(t => t.Id));
                     }
 
                     var allTactics = _tacticCampaignServices.TacticCampaignTable().Where(t => childIds.Contains(t.Id)).Select(X => new ApiTacticCampaign
@@ -375,17 +382,17 @@ namespace MRM.Controllers
                         //EndDate = String.Format("{0:dd MMM yyyy}", X.EndDate),
                         StartDate = X.StartDate,
                         EndDate = X.EndDate,
-                        apiBusinessGroups = X.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
-                        apiBusinessLines = X.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
-                        apiSegments = X.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
-                        apiIndustries = X.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
+                        BusinessGroupList = X.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
+                        BusinessLineList = X.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
+                        SegmentList = X.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
+                        IndustryList = X.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
                     }).ToList();
 
                     foreach (var master in allMasterAndChilds)
                     {
-                        foreach (var child in master.apiChildCampaigns)
+                        foreach (var child in master.ChildCampaignList)
                         {
-                            child.apiTacticCampaigns = allTactics.Where(t => t.ParentChildId == child.Id).ToList();
+                            child.TacticList = allTactics.Where(t => t.ParentChildId == child.Id).ToList();
                         }
                     }
                     IsSuccess = true;
@@ -396,20 +403,17 @@ namespace MRM.Controllers
                 }
                 else
                 {
-                    if (MCampaignId==null || MCampaignId=="" || (Charcheck(MCampaignId) == false)){ MCampaignId = null;}
-                    if (MCampaignBGId==null || MCampaignBGId=="" || (Charcheck(MCampaignBGId) == false)){ MCampaignBGId = null; }
-                    if (MCampaignBLId==null || MCampaignBLId=="" || (Charcheck(MCampaignBLId) == false)){ MCampaignBLId = null; }
-                    if (MCampaignSegmentId==null || MCampaignSegmentId=="" || (Charcheck(MCampaignSegmentId) == false)){ MCampaignSegmentId = null; }
-                    if (MCampaignIndustryId==null || MCampaignIndustryId=="" || (Charcheck(MCampaignIndustryId) == false)){ MCampaignIndustryId = null; }
-                    if (CCampaignId==null || CCampaignId=="" || (Charcheck(CCampaignId) == false)){ CCampaignId = null; }
+                    if (MCampaignId==null || MCampaignId=="" || (IsNumeric(MCampaignId) == false)){ MCampaignId = null;}
+                    if (MCampaignBGId==null || MCampaignBGId=="" || (IsNumeric(MCampaignBGId) == false)){ MCampaignBGId = null; }
+                    if (MCampaignBLId==null || MCampaignBLId=="" || (IsNumeric(MCampaignBLId) == false)){ MCampaignBLId = null; }
+                    if (MCampaignSegmentId==null || MCampaignSegmentId=="" || (IsNumeric(MCampaignSegmentId) == false)){ MCampaignSegmentId = null; }
+                    if (MCampaignIndustryId==null || MCampaignIndustryId=="" || (IsNumeric(MCampaignIndustryId) == false)){ MCampaignIndustryId = null; }
+                    if (CCampaignId==null || CCampaignId=="" || (IsNumeric(CCampaignId) == false)){ CCampaignId = null; }
+                    if (TCampaignId == null || TCampaignId == "" || (IsNumeric(TCampaignId) == false)) { TCampaignId = null; }
 
                     allMasterAndChilds = (from mc_ch in _masterCampaignServices.GetMasterandChildCampaignForApiTable().ToList().
                                           Where(x =>
                                 (MCampaignId!=null && x.Id.Equals(Convert.ToInt32(MCampaignId)))
-                                ||
-                                (!string.IsNullOrEmpty(MCampaignDescription) && x.CampaignDescription.Contains(MCampaignDescription))
-                                ||
-                                (!string.IsNullOrEmpty(MCampaignManager) && x.CampaignManager.Contains(MCampaignManager))
                                 ||
                                 (MCampaignBGId!=null && x.BusinessGroups.Any(b => b.Id == Convert.ToInt32(MCampaignBGId)))
                                 ||
@@ -426,37 +430,45 @@ namespace MRM.Controllers
                                           {
                                               MCId = mc_ch.Id,
                                               MCampaignDescription = mc_ch.CampaignDescription,
-                                              apiBusinessGroups = mc_ch.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
-                                              apiBusinessLines = mc_ch.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
-                                              apiSegments = mc_ch.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
-                                              apiIndustries = mc_ch.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
-                                    //MCStartDate = String.Format("{0:dd MMM yyyy}", mc_ch.StartDate),
-                                    //MCEndDate = String.Format("{0:dd MMM yyyy}", mc_ch.EndDate),
-                                    MCStartDate = mc_ch.StartDate,
-                                              MCEndDate = mc_ch.EndDate,
                                               MCampaignManager = mc_ch.CampaignManager,
-                                              apiChildCampaigns = mc_ch.ChildCampaigns.Select(X => new ApiChildCampaign
+                                              BusinessGroupList = mc_ch.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
+                                              BusinessLineList = mc_ch.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
+                                              SegmentList = mc_ch.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
+                                              IndustryList = mc_ch.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
+                                             //MCStartDate = String.Format("{0:dd MMM yyyy}", mc_ch.StartDate),
+                                             //MCEndDate = String.Format("{0:dd MMM yyyy}", mc_ch.EndDate),
+                                              MCStartDate = mc_ch.StartDate,
+                                              MCEndDate = mc_ch.EndDate,
+                                              ChildCampaignList = mc_ch.ChildCampaigns.Select(X => new ApiChildCampaign
                                               {
                                                   Id = X.Id,
                                                   Name = X.Name,
                                                   CampaignDescription = X.CampaignDescription,
                                                   CampaignManager = X.CampaignManager,
                                                   CampaignType = X.CampaignType,
-                                        //StartDate = String.Format("{0:dd MMM yyyy}", X.StartDate),
-                                        //EndDate = String.Format("{0:dd MMM yyyy}", X.EndDate),
-                                        StartDate = X.StartDate,
+                                                 //StartDate = String.Format("{0:dd MMM yyyy}", X.StartDate),
+                                                 //EndDate = String.Format("{0:dd MMM yyyy}", X.EndDate),
+                                                  StartDate = X.StartDate,
                                                   EndDate = X.EndDate,
-                                                  apiBusinessGroups = X.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
-                                                  apiBusinessLines = X.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
-                                                  apiSegments = X.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
-                                                  apiIndustries = X.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
+                                                  BusinessGroupList = X.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
+                                                  BusinessLineList = X.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
+                                                  SegmentList = X.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
+                                                  IndustryList = X.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
                                               }).ToList(),
                                           }).ToList();
+                    if (!string.IsNullOrEmpty(MCampaignDescription))
+                    {
+                        allMasterAndChilds = allMasterAndChilds.Where(x => x.MCampaignDescription.Contains(MCampaignDescription)).ToList();
+                    }
+                    if (!string.IsNullOrEmpty(MCampaignManager))
+                    {
+                        allMasterAndChilds = allMasterAndChilds.Where(x => x.MCampaignManager.Contains(MCampaignManager)).ToList();
+                    }
 
                     List<int> childIds = new List<int>();
                     foreach (var master in allMasterAndChilds)
                     {
-                        childIds.AddRange(master.apiChildCampaigns.Select(t => t.Id));
+                        childIds.AddRange(master.ChildCampaignList.Select(t => t.Id));
                     }
 
                     var allTactics = _tacticCampaignServices.TacticCampaignTable().Where(t => childIds.Contains(t.Id)).Select(X => new ApiTacticCampaign
@@ -470,19 +482,19 @@ namespace MRM.Controllers
                         StartDate = X.StartDate,
                         EndDate = X.EndDate,
                         TacticType = X.TacticType,
-                        apiBusinessGroups = X.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
-                        apiBusinessLines = X.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
-                        apiSegments = X.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
-                        apiIndustries = X.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
+                        BusinessGroupList = X.BusinessGroups.Select(x => new ApiBusinessGroup { Id = x.Id, Name = x.Name }).ToList(),
+                        BusinessLineList = X.BusinessLines.Select(x => new ApiBusinessLine { Id = x.Id, Name = x.Name }).ToList(),
+                        SegmentList = X.Segments.Select(x => new ApiSegment { Id = x.Id, Name = x.Name }).ToList(),
+                        IndustryList = X.Industries.Select(x => new ApiIndustry { Id = x.Id, Name = x.Name }).ToList(),
                     }).ToList();
 
                     if (TCampaignId == null)
                     {
                         foreach (var master in allMasterAndChilds)
                         {
-                            foreach (var child in master.apiChildCampaigns)
+                            foreach (var child in master.ChildCampaignList)
                             {
-                                child.apiTacticCampaigns = allTactics.Where(t => t.ParentChildId == child.Id).ToList();
+                                child.TacticList = allTactics.Where(t => t.ParentChildId == child.Id).ToList();
                             }
                         }
                     }
@@ -490,10 +502,10 @@ namespace MRM.Controllers
                     {
                         foreach (var master in allMasterAndChilds)
                         {
-                            foreach (var child in master.apiChildCampaigns)
+                            foreach (var child in master.ChildCampaignList)
                             {
-                                child.apiTacticCampaigns = allTactics.Where(t => t.ParentChildId == child.Id).ToList().
-                                    Where(x => (x.Id.Equals(TCampaignId))).ToList();
+                                child.TacticList = allTactics.Where(t => t.ParentChildId == child.Id).ToList().
+                                    Where(x => (TCampaignId != null && x.Id.Equals(Convert.ToInt32(TCampaignId)))).ToList();
                             }
                         }
 
@@ -667,7 +679,7 @@ namespace MRM.Controllers
         }
 
 
-        public bool Charcheck(string parm)
+        public bool IsNumeric(string parm)
         {
            var isNumeric = true;
             foreach (char c in parm)
