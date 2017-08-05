@@ -31,6 +31,8 @@ namespace MRM.Database.Model
 
         public DbSet<DigitalTouchPoint> DigitalTouchPoints { get; set; }
         
+        public DbSet<Source> Source { get; set; }
+        public DbSet<DigitalMedium> Medium { get; set; }
     }
 
 }

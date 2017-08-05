@@ -200,13 +200,13 @@ namespace MRM.Business.Services
               
         }
 
-        public bool InsertTacticCampaign(TacticCampaignViewModel model)
+        public TacticCampaign InsertTacticCampaign(TacticCampaignViewModel model)
         {
             var tacticCampaignEntity = new TacticCampaign();
             ModelToEntity(model, tacticCampaignEntity);            
             guow.GenericRepository<TacticCampaign>().Insert(tacticCampaignEntity);
             UpdateInheritStatus(model.MasterCampaign_Id, model.ChildCampaign_Id);
-            return tacticCampaignEntity.Id != 0;
+            return tacticCampaignEntity;
         }
         public void UpdateInheritStatus(int masterId,int childId)
         {
@@ -238,13 +238,14 @@ namespace MRM.Business.Services
             guow.GenericRepository<MasterCampaign>().Update(mcvm);
         }
 
-        public void Update(TacticCampaignViewModel model)
+        public TacticCampaign Update(TacticCampaignViewModel model)
         {
             var tacticCamp = LoadTacticEntity(model.Id);
             tacticCamp = FlushChildRecords(tacticCamp);
             ModelToEntity(model, tacticCamp);
             guow.GenericRepository<TacticCampaign>().Update(tacticCamp);
             UpdateInheritStatus(model.MasterCampaign_Id, model.ChildCampaign_Id);
+            return tacticCamp;
         }
 
         public void Update(TacticCampaign entity)

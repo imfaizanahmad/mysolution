@@ -57,7 +57,8 @@ namespace MRM.Controllers
             var ttList = _tacticCampaignServices.GetTacticType().ToList();
             tacticvm.TacticTypeViewModels = tacticvm.TacticTypeViewModels.Concat(ttList).ToList();
             tacticvm.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString() && t.ChildCampaigns.Where(r => r.Status != Status.Draft.ToString()).ToList().Count != 0).ToList();
-
+            tacticvm.Medium = _digitalTouchpoint.GetMedium();
+            tacticvm.Source = _digitalTouchpoint.GetSource();
             if (Id == 0)
             {
                 tacticvm.BusinessGroupViewModels = (new[] { new BusinessGroup()  });
@@ -232,6 +233,8 @@ namespace MRM.Controllers
             model.ThemeViewModels = _themeService.GetTheme().ToList();
             model.JourneyStageViewModels = _journeyStageServices.GetJourneyStage().ToList();
             model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString() && t.ChildCampaigns.Where(r => r.Status != Status.Draft.ToString()).ToList().Count != 0).ToList();
+            model.Medium = _digitalTouchpoint.GetMedium();
+            model.Source = _digitalTouchpoint.GetSource();
 
             if (model.ChildCampaign_Id != 0)
             {
@@ -301,7 +304,10 @@ namespace MRM.Controllers
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse().ToList();
             TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = model.Id }).FirstOrDefault();
             if (tacticCampaign != null)
+            {
                 model.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
+                model.TacticType = tacticCampaign.TacticType;
+            }
 
             return PartialView("TacticCampaignForm", model);
         }
@@ -318,6 +324,8 @@ namespace MRM.Controllers
 
             model.JourneyStageViewModels = _journeyStageServices.GetJourneyStage().ToList();
             model.MasterViewModels = _masterCampaignServices.GetOrderedMasterCampaign().Where(t => t.Status == Status.Complete.ToString() && t.ChildCampaigns.Where(r => r.Status != Status.Draft.ToString()).ToList().Count != 0).ToList();
+            model.Medium = _digitalTouchpoint.GetMedium();
+            model.Source = _digitalTouchpoint.GetSource();
 
             if (model.ChildCampaign_Id != 0)
             {
@@ -390,7 +398,10 @@ namespace MRM.Controllers
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse().ToList();
             TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = model.Id }).FirstOrDefault();
             if (tacticCampaign != null)
+            {
                 model.TacticCampaignReachResponseViewModels = tacticCampaign.TacticCampaignReachResponses.ToList();
+                model.TacticType = tacticCampaign.TacticType;
+            }
 
             return PartialView("TacticCampaignForm", model);
         }
@@ -401,7 +412,8 @@ namespace MRM.Controllers
             model.JourneyStageViewModels = _journeyStageServices.GetJourneyStage().ToList();
             model.BusinessGroupViewModels = (new[] { new BusinessGroup() });
             model.SegmentViewModels = (new[] { new Segment() });
-
+            model.Medium = _digitalTouchpoint.GetMedium();
+            model.Source = _digitalTouchpoint.GetSource();
             //If sub campaign is defined for corressponding master campaign
             if (model.MasterCampaign_Id != 0)
             {
@@ -430,15 +442,20 @@ namespace MRM.Controllers
             model.TacticTypeViewModels = model.TacticTypeViewModels.Concat(ttList).ToList();
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach().ToList();
             model.MetricResponseViewModels = _metricResponseServices.GetAllMetricResponse().ToList();
-
+            TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = model.Id }).FirstOrDefault();
+            if (tacticCampaign != null)
+            {                
+                model.TacticType = tacticCampaign.TacticType;
+            }
             return PartialView("TacticCampaignForm", model);
         }
 
         public ActionResult LoadChildCampaign(TacticCampaignViewModel model)
         {
-
+            model.Medium = _digitalTouchpoint.GetMedium();
+            model.Source = _digitalTouchpoint.GetSource();
             if (model.ChildCampaign_Id != 0)
-            {
+            {                
                 model.Segments_Id = null;
                 model.BusinessGroups_Id = null;
                 model.Industries_Id = null;
@@ -506,7 +523,11 @@ namespace MRM.Controllers
           
             var ttList = _tacticCampaignServices.GetTacticType();
             model.TacticTypeViewModels = model.TacticTypeViewModels.Concat(ttList).ToList();
-
+            TacticCampaign tacticCampaign = _tacticCampaignServices.GetTacticCampaignById(new TacticCampaignViewModel { Id = model.Id }).FirstOrDefault();
+            if (tacticCampaign != null)
+            {                
+                model.TacticType = tacticCampaign.TacticType;
+            }
             ManageSelectUnselect(model);
 
             model.MetricReachViewModels = _metricReachServices.GetAllMetricReach().ToList();
@@ -534,41 +555,54 @@ namespace MRM.Controllers
 
             return model;
         }
-        public bool Save(string jsonModel, string button)
+        public JsonResult Save(string jsonModel, string button)
         {
-            // Deserializing json model to object 
-            TacticCampaignViewModel model = new JavaScriptSerializer().Deserialize<TacticCampaignViewModel>(jsonModel);
-
-            if (button == "Save Draft")
+            CommanResponse commanResponse = new CommanResponse();
+            try
             {
-                if (model.Id == 0) // insert new record as draft
+                // Deserializing json model to object 
+                TacticCampaignViewModel model = new JavaScriptSerializer().Deserialize<TacticCampaignViewModel>(jsonModel);
+                TacticCampaign tacticCampaign = new TacticCampaign();
+                if (button == "Save Draft")
                 {
-                    model.Status = Status.Draft.ToString();
-                    _tacticCampaignServices.InsertTacticCampaign(model);
-                    return true;
-                }
-                model.Status = Status.Draft.ToString();
-                _tacticCampaignServices.Update(model);
-                //Update Inheritance
-                return true;
-            }
+                    if (model.Id == 0) // insert new record as draft
+                    {
+                        model.Status = Status.Draft.ToString();
+                        tacticCampaign =_tacticCampaignServices.InsertTacticCampaign(model);                        
+                    }
+                    else
+                    {
+                        model.Status = Status.Draft.ToString();
+                        tacticCampaign= _tacticCampaignServices.Update(model);
+                    }
+                    commanResponse.Status = true;
 
-            if (isValid(model))
-            {
-                if (model.Id == 0)
-                {
-                    model.Status = Status.Complete.ToString();
-                    _tacticCampaignServices.InsertTacticCampaign(model);
-                    return true;
                 }
                 else
                 {
-                    model.Status = Status.Complete.ToString();
-                    _tacticCampaignServices.Update(model);
-                    return true;
+                    if (isValid(model))
+                    {
+                        if (model.Id == 0)
+                        {
+                            model.Status = Status.Complete.ToString();
+                            tacticCampaign = _tacticCampaignServices.InsertTacticCampaign(model);                            
+                        }
+                        else
+                        {
+                            model.Status = Status.Complete.ToString();
+                            tacticCampaign =_tacticCampaignServices.Update(model);                            
+                        }
+                        commanResponse.Status = true;
+                    }
                 }
+                commanResponse.Result = tacticCampaign.Id;
             }
-            return false;
+            catch (Exception ex)
+            {
+                commanResponse.Status = false;
+                commanResponse.Message = ex.Message;
+            }
+            return Json(commanResponse, JsonRequestBehavior.AllowGet);
         }
 
         private bool isValid(TacticCampaignViewModel model)

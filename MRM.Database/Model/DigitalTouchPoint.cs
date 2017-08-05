@@ -13,9 +13,9 @@ namespace MRM.Database.Model
             IsDelete = false;
         }
         public int Id { get; set; }
-        public string Source { get; set; }
+        //public string Source { get; set; }
         public string Content { get; set; }        
-        public string Medium { get; set; }        
+        //public string Medium { get; set; }        
         public string Term { get; set; }
 
         public bool IsDelete { get; set; }
@@ -23,6 +23,9 @@ namespace MRM.Database.Model
         public string UTM { get; set; }
         public virtual TacticType TacticType { get; set; }
         public virtual TacticCampaign TacticCampaign { get; set; }
+
+        public virtual DigitalMedium Medium { get; set; }
+        public virtual Source Source { get; set; }
 
     }
 }

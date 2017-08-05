@@ -33,18 +33,23 @@ namespace MRM.Business.Services
             List<DigitalTouchPointViewModel> model = _unitOfWork.GenericRepository<DigitalTouchPoint>().Table
                 .Where(x => x.TacticCampaign.Id == id && x.IsDelete == false).Select(x => new DigitalTouchPointViewModel()
                 {
-                    Id = x.Id,
+                    Id =x.Id,
                     Content = x.Content,
-                    Medium = x.Medium,
-                    Source = x.Source,
+                    Medium_Id = x.Medium.Id,
+                    Source_Id = x.Source.Id,
                     Term = x.Term,
                     UTM = x.UTM,
-                    InheritStatus=x.InheritStatus
+                    InheritStatus = x.InheritStatus,
+                    Medium = x.Medium.Name,
+                    Sources = x.Source.Name
 
                 }).ToList();
+
             digitalViewModel.TacticCampaign_Id = util.DigitalId(Convert.ToInt32(digitalViewModel.TacticCampaign_Id));
             digitalViewModel.TacticTypeName = _unitOfWork.GenericRepository<TacticType>().GetByID(digitalViewModel.TacticType_Id).Name;
             digitalViewModel.DigitalTouchPoint = model;
+            digitalViewModel.Medium = _unitOfWork.GenericRepository<DigitalMedium>().Table.Select(x => new DropDownValue { Id = x.Id, Name = x.Name}).ToList();
+            digitalViewModel.Source = _unitOfWork.GenericRepository<Source>().Table.Select(x => new DropDownValue { Id = x.Id, Name = x.Name }).ToList();
             return digitalViewModel;
         }
 
@@ -71,12 +76,12 @@ namespace MRM.Business.Services
                     {
                         _unitOfWork.GenericRepository<DigitalTouchPoint>().Insert(digitalTouchPoint);
                         item.Id = digitalTouchPoint.Id;
-                        digitalTouchPoint.UTM = "utm_source=" + item.Source + "&utm_medium=" + item.Medium + "&utm_campaign=" + item.DisplayDigitalId + "&utm_term=" + item.Term + "&utm_content=" + item.Content;
+                        digitalTouchPoint.UTM = "utm_source=" + digitalTouchPoint.Source.Name + "&utm_medium=" + digitalTouchPoint.Medium.Name + "&utm_campaign=" + item.DisplayDigitalId + "&utm_term=" + item.Term + "&utm_content=" + item.Content;
                         _unitOfWork.GenericRepository<DigitalTouchPoint>().Update(digitalTouchPoint);
                     }
                     else
                     {
-                        digitalTouchPoint.UTM = "utm_source=" + item.Source + "&utm_medium=" + item.Medium + "&utm_campaign=" + item.DisplayDigitalId + "&utm_term=" + item.Term + "&utm_content=" + item.Content;
+                        digitalTouchPoint.UTM = "utm_source=" + digitalTouchPoint.Source.Name + "&utm_medium=" + digitalTouchPoint.Medium.Name + "&utm_campaign=" + item.DisplayDigitalId + "&utm_term=" + item.Term + "&utm_content=" + item.Content;
                         _unitOfWork.GenericRepository<DigitalTouchPoint>().Update(digitalTouchPoint);
                     }
                     
@@ -110,14 +115,25 @@ namespace MRM.Business.Services
             digitalTouchPoint.Id = model.Id;
             digitalTouchPoint.Content = model.Content;
             digitalTouchPoint.CreatedBy = "user";
-            digitalTouchPoint.Medium = model.Medium;
-            digitalTouchPoint.Source = model.Source;
+            digitalTouchPoint.Medium = _unitOfWork.GenericRepository<DigitalMedium>().GetByID(model.Medium_Id);
+            digitalTouchPoint.Source = _unitOfWork.GenericRepository<Source>().GetByID(model.Source_Id);
             digitalTouchPoint.Term = model.Term;
             digitalTouchPoint.InheritStatus = model.InheritStatus;
-            digitalTouchPoint.UTM = "utm_source=" + model.Source + "&utm_medium=" + model.Medium + "&utm_campaign=" + model.DisplayDigitalId + "&utm_term=" + model.Term + "&utm_content=" + model.Content;
+            digitalTouchPoint.UTM = "utm_source=" + digitalTouchPoint.Source.Name + "&utm_medium=" + digitalTouchPoint.Medium.Name + "&utm_campaign=" + model.DisplayDigitalId + "&utm_term=" + model.Term + "&utm_content=" + model.Content;
             digitalTouchPoint.TacticCampaign = _unitOfWork.GenericRepository<TacticCampaign>().GetByID(model.TacticCampaignId);
             digitalTouchPoint.TacticType = _unitOfWork.GenericRepository<TacticType>().GetByID(model.TacticType_Id);
 
+        }
+
+        public IList<DigitalMedium> GetMedium()
+        {
+            IList<DigitalMedium> medium = _unitOfWork.GenericRepository<DigitalMedium>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name) && t.IsActive).ToList();
+            return medium;
+        }
+        public IList<Source> GetSource()
+        {
+            IList<Source> source = _unitOfWork.GenericRepository<Source>().GetAll().Where(t => !string.IsNullOrEmpty(t.Name) && t.IsActive).ToList();
+            return source;
         }
     }
 }
