@@ -234,15 +234,20 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                @if (Model.TacticType != null)
+                                @if (Model.TacticType == null)
                                 {
-                                    if (Model.Id > 0 &&  Model.TacticType.Value > 0)
+                                    <label></label><br />
+                                    <button id="btnDigital" type="button" class="btn btn-sm btn-info" disabled="disabled">Digital Touchpoint</button>
+                                }
+                                else
+                                {
+                                    if (Model.Id > 0 && Model.TacticType.Value > 0)
                                     {
                                         <label></label><br />
                                         <button id="btnDigital" onclick="return ftacticData();" data-target="#myModal" data-toggle="modal" type="button" class="btn btn-sm btn-info">Digital Touchpoint</button>
                                     }
                                 }
-
+                                <span class="text-danger" style="font-size:smaller">(Please save as draft first to enable digital ID creation)</span>
                             </div>
                         </div>
 
@@ -392,11 +397,11 @@
 
                                     @if (Model.Id == 0)
                                     {
-                                        <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'" /></div>
+                                        <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Close" onclick="location.href = '@Url.Action("Index", "MasterCampaign")'" /></div>
                                     }
                                     else
                                     {
-                                        <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Back" onclick="location.href = '@Url.Action("TacticCampaignList", "TacticCampaign")'" /></div>
+                                        <div class="col-md-3"><input type="button" class="btn btn-primary col-sm-12" value="Close" onclick="location.href = '@Url.Action("TacticCampaignList", "TacticCampaign")'" /></div>
                                     }
                                     @if (Model.Id != 0 && Model.Status == Status.Draft.ToString())
                                     {
@@ -410,13 +415,13 @@
                                             <input type="button" Id="btnSaveDrafttactic" name="button" value="Save Draft" class="btn btn-primary col-sm-12"/>
                                         </div>
                                         <div class="col-md-3">
-                                            <input type="button" Id="btnSubmitTactic" name="button" value="Submit" class="btn btn-primary col-sm-12"/>
+                                            <input type="button" Id="btnSubmitTactic" name="button" value="Submit & Close" class="btn btn-primary col-sm-12"/>
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="col-md-3">
-                                            <input type="button" Id="btnSubmitTactic" name="button" value="Update" class="btn btn-primary col-sm-12" />
+                                            <input type="button" Id="btnSubmitTactic" name="button" value="Update & Close" class="btn btn-primary col-sm-12" />
                                         </div>
                                     }
                                    

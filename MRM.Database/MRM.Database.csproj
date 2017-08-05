@@ -80,10 +80,12 @@
     <Compile Include="Model\Industry.cs" />
     <Compile Include="Model\JourneyStage.cs" />
     <Compile Include="Model\MasterCampaign.cs" />
+    <Compile Include="Model\Medium.cs" />
     <Compile Include="Model\MetricReach.cs" />
     <Compile Include="Model\MetricResponse.cs" />
     <Compile Include="Model\MRMContext.cs" />
     <Compile Include="Model\Segment.cs" />
+    <Compile Include="Model\Source.cs" />
     <Compile Include="Model\TacticCampaign.cs" />
     <Compile Include="Model\TacticCampaignReachResponse.cs" />
     <Compile Include="Model\TacticType.cs" />

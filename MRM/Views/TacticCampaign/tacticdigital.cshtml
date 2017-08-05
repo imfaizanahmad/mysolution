@@ -42,12 +42,12 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <div class="form-group">
-                                    <label>Source</label><span class="text-danger">*</span>
-
+                                    <label>Source</label><span class="text-danger">*</span>                                    
                                     <div class="form-group">
-                                        <input type="text" id="txtSource" value="" class="form-control" placeholder="Source" />
+                                        @*<input type="text" id="txtSource" value="" class="form-control" placeholder="Source" />*@
+                                        @Html.DropDownList("txtSource", new SelectList(Model.Source, "Id", "Name"), "None selected", new { @class = "form-control" })
                                         <div id="dvsource"></div>
                                     </div>
                                 </div>
@@ -65,11 +65,12 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <label>Medium</label><span class="text-danger">*</span>
                                     <div class="form-group">
-                                        <input type="text" id="txtMedium" value="" class="form-control" placeholder="Medium" />
+                                        @*<input type="text" id="txtMedium" value="" class="form-control" placeholder="Medium" />*@
+                                        @Html.DropDownList("txtMedium", new SelectList(Model.Medium, "Id", "Name"), "None selected", new { @class = "form-control" })
                                         <div id="dvMedium"></div>
                                     </div>
                                 </div>

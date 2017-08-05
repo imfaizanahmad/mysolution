@@ -31,7 +31,7 @@
                 url: '/TacticCampaign/save',//?button=' + "Submit",
                 data: { "jsonModel": JSON.stringify(sdata), "button": "Submit" },//$("#frmTacticCampaign").serialize(), // serializes the form's elements.
                 success: function (data) {
-                    if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
+                    if (data.Status === true) window.location = "/TacticCampaign/TacticCampaignList";
                 }
             });
         }
@@ -52,7 +52,9 @@
                 url: '/TacticCampaign/save',
                 data: { "jsonModel": JSON.stringify(sdata), "button": "Save Draft" },
                 success: function (data) {
-                    if (data === "True") window.location = "/TacticCampaign/TacticCampaignList";
+                    if (data.Status === true) {
+                        window.location = "/TacticCampaign/TacticCampaign?id=" + data.Result;
+                    } //window.location = "/TacticCampaign/TacticCampaignList";
                 }
             });
         }
@@ -1021,9 +1023,9 @@ function savedigitalpoint(status) {
             if (id == "0" || gridstatus === 'Draft') {
                 var model = {
                     "Id": id,
-                    "Source": $('#source' + obj + '').html(),
+                    "Source_Id": $('#hidsource' + obj + '').val(),
                     "Content": $('#content' + obj + '').html(),
-                    "Medium": $('#medium' + obj + '').html(),
+                    "Medium_Id": $('#hidmedium' + obj + '').val(),
                     "Term": $('#term' + obj + '').html(),
                     "TacticType_Id": $('#TacticType_Id option:selected').val(),
                     "TacticCampaignId": tacticid,
@@ -1055,12 +1057,12 @@ function fDigitalValidation() {
     $('#dvTerms').hide();
     var valid = false;
     if ($("#txtSource").val().trim() == "") {
-        $("#dvsource").text("Please enter Source").css("color", "#b94a48");
+        $("#dvsource").text("Please select Source").css("color", "#b94a48");
         $('#dvsource').show();
         valid = true;
     }
     if ($("#txtMedium").val().trim() == "") {
-        $("#dvMedium").text("Please enter Medium").css("color", "#b94a48");
+        $("#dvMedium").text("Please select Medium").css("color", "#b94a48");
         $('#dvMedium').show();
         valid = true;
     }
@@ -1085,8 +1087,8 @@ function AddRow() {
     }
     var index = Number($('#hdnIndex').val()) + 1;
     var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">0<input type="hidden" id="hid' + index + '" value="0"/></td>\
-                           <td id="source' + index + '">' + $("#txtSource").val() + '</td>\
-                           <td id="medium' + index + '">' + $("#txtMedium").val() + '</td>\
+                           <td id="source' + index + '">' + $("#txtSource option:selected").text() + '<input type="hidden" id="hidsource' + index + '" value="' + $("#txtMedium").val() + '"/></td>\
+                           <td id="medium' + index + '">' + $("#txtMedium option:selected").text() + '<input type="hidden" id="hidmedium' + index + '" value="' + $("#txtMedium").val() + '"/></td>\
                            <td id="content' + index + '">' + $("#txtContent").val() + '</td>\
                            <td id="term' + index + '">' + $("#txtTerms").val() + '</td>\
                            <td id="status' + index + '">Draft</td>\
@@ -1111,9 +1113,9 @@ function DigitalGrid(dataset) {
     $('#gridReport tbody').find('tr').remove();    
     $.each(dataset.DigitalTouchPoint, function (index,item) {
         var responseTblRow = $('<tr id="tr_' + index + '">\<td id="digitalid' + index + '">' + item.DisplayDigitalId + ' <input type="hidden" id="hid' + index + '" value="' + item.Id + '"/> </td>\
-                           <td id="source' + index + '">' + item.Source + '</td>\
-                           <td id="medium' + index + '">' + item.Content + '</td>\
-                           <td id="content' + index + '">' + item.Medium + '</td>\
+                           <td id="source' + index + '">' + item.Sources + '<input type="hidden" id="hidsource' + index + '" value="' + item.Source_Id + '"/></td>\
+                           <td id="medium' + index + '">' + item.Medium + '<input type="hidden" id="hidmedium' + index + '" value="' + item.Medium_Id + '"/></td>\
+                           <td id="content' + index + '">' + item.Content + '</td>\
                            <td id="term' + index + '">' + item.Term + '</td>\
                            <td id="status' + index + '">' + item.InheritStatus + '</td>\
                            <td><button ' + (item.InheritStatus == 'Complete' ? "disabled='disabled'" : "onclick='return DeleteSingleDigitalpoint(" + item.Id + ")'") + '  type="button" title="Delete" class="btn btn-danger btn-xs btn-mc-action" value="Delete"><span class="glyphicon glyphicon-trash"></span></button></td>\
