@@ -33,7 +33,7 @@ namespace MRM.Business.Services
             List<DigitalTouchPointViewModel> model = _unitOfWork.GenericRepository<DigitalTouchPoint>().Table
                 .Where(x => x.TacticCampaign.Id == id && x.IsDelete == false).Select(x => new DigitalTouchPointViewModel()
                 {
-                    Id =x.Id,
+                    Id = x.Id,
                     Content = x.Content,
                     Medium_Id = x.Medium.Id,
                     Source_Id = x.Source.Id,
@@ -41,11 +41,12 @@ namespace MRM.Business.Services
                     UTM = x.UTM,
                     InheritStatus = x.InheritStatus,
                     Medium = x.Medium.Name,
-                    Sources = x.Source.Name
+                    Sources = x.Source.Name,                    
+                    DigitalTouchId = string.Format("D{0}", util.DigitalId(x.Id).PadLeft(5, '0'))
 
                 }).ToList();
 
-            digitalViewModel.TacticCampaign_Id = util.DigitalId(Convert.ToInt32(digitalViewModel.TacticCampaign_Id));
+            digitalViewModel.TacticCampaign_Id = string.Format("T{0}", util.DigitalId(Convert.ToInt32(digitalViewModel.TacticCampaign_Id)).PadLeft(5,'0'));
             digitalViewModel.TacticTypeName = _unitOfWork.GenericRepository<TacticType>().GetByID(digitalViewModel.TacticType_Id).Name;
             digitalViewModel.DigitalTouchPoint = model;
             digitalViewModel.Medium = _unitOfWork.GenericRepository<DigitalMedium>().Table.Select(x => new DropDownValue { Id = x.Id, Name = x.Name}).ToList();

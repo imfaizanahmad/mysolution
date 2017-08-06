@@ -17,9 +17,10 @@ namespace MRM.ViewModel
         }
         public string DisplayDigitalId {
             get {
-                return util.DigitalId(Id);
+                return util.DigitalId(Id).PadLeft(5, '0');
             }
         }
+        public string DigitalTouchId { get; set; }
         public int Id { get; set; }        
         public string Content { get; set; }        
         public string Term { get; set; }

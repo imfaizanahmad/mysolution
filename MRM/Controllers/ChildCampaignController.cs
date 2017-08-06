@@ -587,7 +587,7 @@ namespace MRM.Controllers
                                                                    select
                                                                       new ChildCampaignViewModelList
                                                                       {
-                                                                          DigitalID = string.Format("C{0}", util.DigitalId(campaign.Id)),
+                                                                          DigitalID = string.Format("C{0}", util.DigitalId(campaign.Id).PadLeft(5, '0')),
                                                                           Id = string.Format("C{0}", campaign.Id.ToString("0000000")),
                                                                           InheritStatus = campaign.InheritStatus,                                                                          
                                                                           Name = campaign.Name,

@@ -348,7 +348,7 @@ namespace MRM.Controllers
                                                                         select
                                                                        new MasterCampaignViewModelListing
                                                                        {
-                                                                           DigitalID = string.Format("M{0}", util.DigitalId(campaign.Id)),
+                                                                           DigitalID = string.Format("M{0}", util.DigitalId(campaign.Id).PadLeft(5, '0')),
                                                                            Id = string.Format("M{0}", campaign.Id.ToString("0000000")),
                                                                            Name = campaign.Name,
                                                                            CampaignManager = campaign.CampaignManager,
